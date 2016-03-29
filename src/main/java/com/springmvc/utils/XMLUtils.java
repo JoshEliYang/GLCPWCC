@@ -14,7 +14,7 @@ public class XMLUtils {
 	
 	static Logger log = Logger.getLogger(XMLUtils.class);
 
-	public static <T> T test(Class<T> cls, String doc) throws Exception {
+	public static <T> T xml2Object(Class<T> cls, String doc) throws Exception {
 		if (doc == null ||
 				doc.equals("")) {
 			return null;
