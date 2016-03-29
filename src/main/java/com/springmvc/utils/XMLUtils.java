@@ -20,10 +20,22 @@ public class XMLUtils {
 			return null;
 		}
 
-		Document  document = DocumentHelper.parseText(doc);;
-		Element root = document.getRootElement();
+		Document  document = null;
+		Element root = null;
 		T obj = null;
 		try {
+			// xml String to document object
+			document = DocumentHelper.parseText(doc);
+			if (document == null) {
+				return null;
+			}
+			
+			// get root element
+			root = document.getRootElement();
+			if (root == null) {
+				return null;
+			}
+			
 			// new an instance for the class
 			obj = (T) cls.newInstance();
 			Method[] methods = cls.getMethods();
@@ -32,12 +44,14 @@ public class XMLUtils {
 				if (mName.startsWith("set")) {
 					String field = mName.substring(3);
 					@SuppressWarnings("rawtypes")
+					// get filed type
 					Class[] paramTypes = m.getParameterTypes();
 	                String parm = paramTypes[0].getName();
 
 					@SuppressWarnings("unchecked")
 					List<Element> elements = root.elements();
-					if (elements.isEmpty()) {
+					if (elements == null||
+							elements.isEmpty()) {
 						return null;
 					}
 					
