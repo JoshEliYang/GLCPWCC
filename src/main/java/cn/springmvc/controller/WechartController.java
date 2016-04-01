@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.ShaUtil;
 import com.springmvc.utils.XMLUtils;
 
+import cn.springmvc.Consts;
 import cn.springmvc.model.WechartModel;
+import cn.springmvc.service.MessageService;
+import cn.springmvc.service.UserService;
 
 /**
  * 
@@ -27,7 +33,10 @@ import cn.springmvc.model.WechartModel;
 @Controller
 @RequestMapping("/wechart")
 public class WechartController {
-	static String token="hKKl48yK4Jolq4dbX5R9RYE8YzYkNndb";
+	@Autowired
+	public MessageService messageService;
+	@Autowired
+	public UserService userService;
 	
 	Logger logger=Logger.getLogger(WechartController.class);
 	
@@ -53,7 +62,7 @@ public class WechartController {
 		logger.error("echostr->>"+echostr);
 		
 		String[] str=new String[3];
-		str[0]=token;
+		str[0]=Consts.TOKEN;
 		str[1]=timestamp;
 		str[2]=nonce;
 		Arrays.sort(str);
@@ -108,11 +117,17 @@ public class WechartController {
 					// 未关注用户事件
 					logger.error("subscribe OK");
 					
+					
 					if(model.getEventKey()!=""){
 						// 为关注用户 扫码事件
+						String eventKey=model.getEventKey();
+						if(eventKey.startsWith("qrscene_")){
+							String scene=eventKey.substring(8);
+							logger.error("sence id <<< "+scene);
+							userService.moveToGroup(openId, scene);
+						}
 						logger.error("SCAN 2 OK");
 					}
-					
 				}else if("SCAN".equals(model.getEvent())){
 					// 已关注用户扫码事件
 					logger.error("SCAN OK");
