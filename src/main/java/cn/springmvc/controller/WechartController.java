@@ -1,13 +1,13 @@
 package cn.springmvc.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -96,7 +96,7 @@ public class WechartController {
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	public String doRequest(HttpServletRequest request, 
+	public void doRequest(HttpServletRequest request, 
 			HttpServletResponse response,@RequestBody String inXml) {
 		
 		logger.error("xml >>> \n"+inXml);
@@ -108,7 +108,9 @@ public class WechartController {
 			model=XMLUtils.xml2Object(WechartModel.class, inXml);
 			if(model==null){
 				logger.error("xml2Object error with null result");
-				return "success";
+//				return "success";
+				response.getOutputStream().write("success".getBytes("UTF-8"));
+				return ;
 			}
 			
 			openId = model.getFromUserName();
@@ -128,6 +130,9 @@ public class WechartController {
 						}
 						logger.error("SCAN 2 OK");
 					}
+					
+					response.getOutputStream().write(messageService.sendText(Consts.REPLY_SUBSCRIBE, openId).getBytes("UTF-8"));
+					return ;
 				}else if("SCAN".equals(model.getEvent())){
 					// 已关注用户扫码事件
 					logger.error("SCAN OK");
@@ -139,6 +144,13 @@ public class WechartController {
 			logger.error("xml2Object error >>> \n" +e.getLocalizedMessage());
 		}
 		
-		return "success";
+//		return "success";
+		try {
+			response.getOutputStream().write("success".getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

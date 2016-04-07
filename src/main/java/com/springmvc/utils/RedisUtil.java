@@ -57,7 +57,7 @@ public class RedisUtil {
 	public void setdat(String key, String value) {
 		try {
 			jedis.set(key, value);
-			jedis.expire(key, 7200);
+			jedis.expire(key, 3600);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
