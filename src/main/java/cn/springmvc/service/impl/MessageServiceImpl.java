@@ -1,5 +1,9 @@
 package cn.springmvc.service.impl;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +26,29 @@ public class MessageServiceImpl implements MessageService {
 //		System.out.println(xml);
 		logger.error("generate xml >>> "+xml);
 		return new String(xml.getBytes(),"UTF-8");
+	}
+	
+	/**
+	 * 处理文本消息
+	 * return msg(from wechart.porperties)
+	 */
+	public String textProcess(String msg, String msgId) throws Exception{
+		logger.error(" message text >>> \n"+"msgId:"+msgId+"\n"+msg);
+		
+		/**
+		 * 获得关键字列表
+		 */
+		Iterator iter=Consts.KEY_WORDS.entrySet().iterator();
+		while(iter.hasNext()){
+			Map.Entry<String, String> entry=(Entry<String, String>) iter.next();
+			String key = entry.getKey();
+			
+			if(msg.indexOf(key)>=0){
+				return Consts.KEY_WORDS.get(key);
+			}
+		}
+		
+		return null;
 	}
 	
 	public static void main(String args[]) throws Exception{

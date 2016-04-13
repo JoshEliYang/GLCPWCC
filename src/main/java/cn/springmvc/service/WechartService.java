@@ -6,5 +6,5 @@ package cn.springmvc.service;
  *
  */
 public interface WechartService {
-	public String getAccessToken()throws Exception;
+	public String getAccessToken();
 }

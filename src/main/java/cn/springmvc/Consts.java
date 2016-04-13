@@ -2,9 +2,11 @@ package cn.springmvc;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 /**
  * 全局常量
@@ -39,33 +41,76 @@ public final class Consts {
 	// public static String APP_SERCRET = "b83f38ad4f7401ca24a1f16fabb0dd98";
 
 	static {
-		
+
 		InputStreamReader reader = null;
 		try {
 			reader = new InputStreamReader(Consts.class.getResourceAsStream("../../conf/wechart.properties"), "utf-8");
 			Properties props = new Properties();
 			props.load(reader);
-			
-			TOKEN=props.getProperty("TOKEN");
-			APP_ID=props.getProperty("APP_ID");
-			APP_SERCRET=props.getProperty("APP_SERCRET");
-			WECHART_ACCOUNT=props.getProperty("WECHART_ACCOUNT");
-			REPLY_SUBSCRIBE=props.getProperty("REPLY_SUBSCRIBE");
-			
+
+			TOKEN = props.getProperty("TOKEN");
+			APP_ID = props.getProperty("APP_ID");
+			APP_SERCRET = props.getProperty("APP_SERCRET");
+			WECHART_ACCOUNT = props.getProperty("WECHART_ACCOUNT");
+			REPLY_SUBSCRIBE = props.getProperty("REPLY_SUBSCRIBE");
+
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 
+	public static Map<String,String> KEY_WORDS = null;
+
+	static {
+		InputStreamReader reader = null;
+
+		try {
+			KEY_WORDS=new HashMap();
+			
+			reader = new InputStreamReader(Consts.class.getResourceAsStream("../../conf/keyWord.properties"), "utf-8");
+			Properties props = new Properties();
+			props.load(reader);
+
+			Iterator<String> it = props.stringPropertyNames().iterator();
+			while (it.hasNext()) {
+				String key = it.next();
+				System.out.println(key + ":" + props.getProperty(key));
+				KEY_WORDS.put(key, props.getProperty(key));
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * just for test
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String args[]) throws IOException {
 		System.out.println(TOKEN);
 		System.out.println(REPLY_SUBSCRIBE);
+		
+		System.out.println("KEY_WORKDS:");
+		Iterator iter = KEY_WORDS.entrySet().iterator();
+		while(iter.hasNext()){
+			Map.Entry<String, String> entry=(Entry<String, String>) iter.next();
+			String key = entry.getKey();
+			System.out.println(key + ":" + KEY_WORDS.get(key));
+		}
 	}
 }
