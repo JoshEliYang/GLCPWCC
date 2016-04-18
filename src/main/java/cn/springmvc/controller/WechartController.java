@@ -20,6 +20,7 @@ import com.springmvc.utils.ShaUtil;
 import com.springmvc.utils.XMLUtils;
 
 import cn.springmvc.Consts;
+import cn.springmvc.KeyWords;
 import cn.springmvc.model.WechartModel;
 import cn.springmvc.service.MessageService;
 import cn.springmvc.service.UserService;
@@ -119,8 +120,17 @@ public class WechartController {
 				// 处理文本消息
 				String mesgResult = messageService.textProcess(model.getContent(), model.getMsgId());
 				if (mesgResult != null) {
-					response.getOutputStream().write(messageService.sendText(mesgResult, openId).getBytes("UTF-8"));
-					return;
+					if (mesgResult.startsWith("media_id_")) {
+						mesgResult = mesgResult.substring(9);
+						response.getOutputStream()
+								.write(messageService.sendPictureText(mesgResult, openId).getBytes("UTF-8"));
+						return;
+					}
+					if (mesgResult.startsWith("text_")) {
+						mesgResult = mesgResult.substring(5);
+						response.getOutputStream().write(messageService.sendText(mesgResult, openId).getBytes("UTF-8"));
+						return;
+					}
 				}
 			}
 
@@ -140,8 +150,14 @@ public class WechartController {
 						logger.error("SCAN 2 OK");
 					}
 
-					response.getOutputStream()
-							.write(messageService.sendText(Consts.REPLY_SUBSCRIBE, openId).getBytes("UTF-8"));
+					String subscribeReply=KeyWords.getInstance().REPLY_SUBSCRIBE;
+					if(subscribeReply.startsWith("text_"))
+						subscribeReply=subscribeReply.substring(5);
+					if(subscribeReply.startsWith("media_id_"))
+						subscribeReply=subscribeReply.substring(9);
+					
+					response.getOutputStream().write(
+							messageService.sendText(subscribeReply, openId).getBytes("UTF-8"));
 					return;
 				} else if ("SCAN".equals(model.getEvent())) {
 					// 已关注用户扫码事件

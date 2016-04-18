@@ -37,6 +37,8 @@ public class WechartServiceImpl implements WechartService {
 
 			if (tokenRes != null) {
 				logger.error("access_token from memcache: " + tokenRes);
+
+				memcache.destory();
 				return tokenRes;
 			}
 		} catch (Exception e) {

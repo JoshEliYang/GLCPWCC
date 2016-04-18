@@ -2,10 +2,6 @@ package cn.springmvc;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 
 /**
@@ -34,7 +30,7 @@ public final class Consts {
 	public static String WECHART_ACCOUNT = null;
 
 	// 关注成功回复内容
-	public static String REPLY_SUBSCRIBE = null;
+//	public static String REPLY_SUBSCRIBE = null;
 
 	// johsnon账号
 	// public static String APP_ID = "wx54ab9837e1967990";
@@ -52,7 +48,7 @@ public final class Consts {
 			APP_ID = props.getProperty("APP_ID");
 			APP_SERCRET = props.getProperty("APP_SERCRET");
 			WECHART_ACCOUNT = props.getProperty("WECHART_ACCOUNT");
-			REPLY_SUBSCRIBE = props.getProperty("REPLY_SUBSCRIBE");
+//			REPLY_SUBSCRIBE = props.getProperty("REPLY_SUBSCRIBE");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,35 +62,35 @@ public final class Consts {
 		}
 	}
 
-	public static Map<String,String> KEY_WORDS = null;
-
-	static {
-		InputStreamReader reader = null;
-
-		try {
-			KEY_WORDS=new HashMap();
-			
-			reader = new InputStreamReader(Consts.class.getResourceAsStream("../../conf/keyWord.properties"), "utf-8");
-			Properties props = new Properties();
-			props.load(reader);
-
-			Iterator<String> it = props.stringPropertyNames().iterator();
-			while (it.hasNext()) {
-				String key = it.next();
-				System.out.println(key + ":" + props.getProperty(key));
-				KEY_WORDS.put(key, props.getProperty(key));
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+//	public static Map<String,String> KEY_WORDS = null;
+//
+//	static {
+//		InputStreamReader reader = null;
+//
+//		try {
+//			KEY_WORDS=new HashMap();
+//			
+//			reader = new InputStreamReader(Consts.class.getResourceAsStream("../../conf/keyWord.properties"), "utf-8");
+//			Properties props = new Properties();
+//			props.load(reader);
+//
+//			Iterator<String> it = props.stringPropertyNames().iterator();
+//			while (it.hasNext()) {
+//				String key = it.next();
+//				System.out.println(key + ":" + props.getProperty(key));
+//				KEY_WORDS.put(key, props.getProperty(key));
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				reader.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 
 	/**
 	 * just for test
@@ -103,14 +99,14 @@ public final class Consts {
 	 */
 	public static void main(String args[]) throws IOException {
 		System.out.println(TOKEN);
-		System.out.println(REPLY_SUBSCRIBE);
+//		System.out.println(REPLY_SUBSCRIBE);
 		
-		System.out.println("KEY_WORKDS:");
-		Iterator iter = KEY_WORDS.entrySet().iterator();
-		while(iter.hasNext()){
-			Map.Entry<String, String> entry=(Entry<String, String>) iter.next();
-			String key = entry.getKey();
-			System.out.println(key + ":" + KEY_WORDS.get(key));
-		}
+//		System.out.println("KEY_WORKDS:");
+//		Iterator iter = KEY_WORDS.entrySet().iterator();
+//		while(iter.hasNext()){
+//			Map.Entry<String, String> entry=(Entry<String, String>) iter.next();
+//			String key = entry.getKey();
+//			System.out.println(key + ":" + KEY_WORDS.get(key));
+//		}
 	}
 }

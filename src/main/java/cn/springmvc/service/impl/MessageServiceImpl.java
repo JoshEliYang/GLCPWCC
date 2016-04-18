@@ -1,18 +1,24 @@
 package cn.springmvc.service.impl;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.springmvc.Consts;
+import cn.springmvc.KeyWords;
+import cn.springmvc.service.MediaService;
 import cn.springmvc.service.MessageService;
 
 @Service
 public class MessageServiceImpl implements MessageService {
-
+	@Autowired
+	public MediaService mediaService;
+	
 	Logger logger=Logger.getLogger(MessageServiceImpl.class);
 	// 回复文本消息
 	public String sendText(String msg, String toUser) throws Exception {
@@ -28,6 +34,38 @@ public class MessageServiceImpl implements MessageService {
 		return new String(xml.getBytes(),"UTF-8");
 	}
 	
+	// 回复图文消息
+	public String sendPictureText(String mediaId,String toUser)throws Exception{
+		Map<String,List<Map<String,String>>> mapx=mediaService.getNews(mediaId);
+		List<Map<String,String>> list=mapx.get("news_item");
+		
+		String xml="<xml>"
+				+ "<ToUserName><![CDATA["+toUser+"]]></ToUserName>"
+				+ "<FromUserName><![CDATA["+Consts.WECHART_ACCOUNT+"]]></FromUserName>"
+				+ "<CreateTime>"+( System.currentTimeMillis() / 1000)+"</CreateTime>"
+				+ "<MsgType><![CDATA[news]]></MsgType>"
+				+ "<ArticleCount>"+list.size()+"</ArticleCount>"
+				+ "<Articles>";
+		
+		
+		for(int i=0;i<list.size();i++){
+			Map<String,String> newsItem=list.get(i);
+			
+			xml+= "<item>"
+				+ "<Title><![CDATA["+newsItem.get("title")+"]]></Title> "
+				+ "<Description><![CDATA["+newsItem.get("digest")+"]]></Description>"
+				+ "<PicUrl><![CDATA["+newsItem.get("thumb_url")+"]]></PicUrl>"
+				+ "<Url><![CDATA["+newsItem.get("url")+"]]></Url>"
+				+ "</item>";
+		}
+		
+		xml+= "</Articles>"
+				+ "</xml>";
+		
+		logger.error("generate xml >>> "+xml);
+		return new String(xml.getBytes(),"UTF-8");
+	}
+	
 	/**
 	 * 处理文本消息
 	 * return msg(from wechart.porperties)
@@ -38,21 +76,24 @@ public class MessageServiceImpl implements MessageService {
 		/**
 		 * 获得关键字列表
 		 */
-		Iterator iter=Consts.KEY_WORDS.entrySet().iterator();
+		Iterator iter=KeyWords.getInstance().WORDS.entrySet().iterator();
 		while(iter.hasNext()){
 			Map.Entry<String, String> entry=(Entry<String, String>) iter.next();
 			String key = entry.getKey();
+			String value=entry.getValue();
 			
 			if(msg.indexOf(key)>=0){
-				return Consts.KEY_WORDS.get(key);
+				return value;
 			}
 		}
 		
 		return null;
 	}
 	
+	// just for test
 	public static void main(String args[]) throws Exception{
 		MessageServiceImpl test=new MessageServiceImpl();
 		System.out.println(test.sendText("test OK", "123456789"));
+		System.out.println(test.textProcess("test",""));
 	}
 }
