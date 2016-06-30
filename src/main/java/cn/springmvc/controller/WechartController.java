@@ -132,6 +132,52 @@ public class WechartController {
 						return;
 					}
 				}
+				
+				// 转发给客服
+				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				return;
+			}
+			
+			if("image".equalsIgnoreCase(model.getMsgType())){
+				// 图片消息
+				// 直接转发给客服
+				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				return;
+			}
+			
+			if("voice".equalsIgnoreCase(model.getMsgType())){
+				// 语言消息
+				// 直接转发给客服
+				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				return;
+			}
+			
+			if("video".equalsIgnoreCase(model.getMsgType())){
+				// 视频消息
+				// 直接转发给客服
+				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				return;
+			}
+			
+			if("shortvideo".equalsIgnoreCase(model.getMsgType())){
+				// 小视频消息
+				// 直接转发给客服
+				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				return;
+			}
+			
+			if("location".equalsIgnoreCase(model.getMsgType())){
+				// 地理位置消息
+				// 直接转发给客服
+				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				return;
+			}
+			
+			if("link".equalsIgnoreCase(model.getMsgType())){
+				// 连接消息
+				// 直接转发给客服
+				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				return;
 			}
 
 			if ("event".equalsIgnoreCase(model.getMsgType())) {
@@ -150,14 +196,13 @@ public class WechartController {
 						logger.error("SCAN 2 OK");
 					}
 
-					String subscribeReply=KeyWords.getInstance().REPLY_SUBSCRIBE;
-					if(subscribeReply.startsWith("text_"))
-						subscribeReply=subscribeReply.substring(5);
-					if(subscribeReply.startsWith("media_id_"))
-						subscribeReply=subscribeReply.substring(9);
-					
-					response.getOutputStream().write(
-							messageService.sendText(subscribeReply, openId).getBytes("UTF-8"));
+					String subscribeReply = KeyWords.getInstance().REPLY_SUBSCRIBE;
+					if (subscribeReply.startsWith("text_"))
+						subscribeReply = subscribeReply.substring(5);
+					if (subscribeReply.startsWith("media_id_"))
+						subscribeReply = subscribeReply.substring(9);
+
+					response.getOutputStream().write(messageService.sendText(subscribeReply, openId).getBytes("UTF-8"));
 					return;
 				} else if ("SCAN".equals(model.getEvent())) {
 					// 已关注用户扫码事件

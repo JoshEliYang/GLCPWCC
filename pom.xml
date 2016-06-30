@@ -197,6 +197,13 @@
 			<version>4.5.2</version>
 		</dependency>
 
+		<!-- quartz 用来做定时任务 -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>GLCPWCC</finalName>

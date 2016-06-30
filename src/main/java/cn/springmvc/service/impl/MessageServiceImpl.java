@@ -66,6 +66,19 @@ public class MessageServiceImpl implements MessageService {
 		return new String(xml.getBytes(),"UTF-8");
 	}
 	
+	// 转发消息到客服
+	public String transferToCustomerService(String toUser)throws Exception{
+		String xml="<xml>"
+				+ "<ToUserName><![CDATA["+toUser+"]]></ToUserName>"
+				+ "<FromUserName><![CDATA["+Consts.WECHART_ACCOUNT+"]]></FromUserName>"
+				+ "<CreateTime>"+( System.currentTimeMillis() / 1000)+"</CreateTime>"
+				+ "<MsgType><![CDATA[transfer_customer_service]]></MsgType>"
+				+ "</xml>";
+		
+		logger.error("generate transfer xml >>> "+xml);
+		return new String(xml.getBytes(),"UTF-8");
+	}
+	
 	/**
 	 * 处理文本消息
 	 * return msg(from wechart.porperties)
@@ -76,7 +89,7 @@ public class MessageServiceImpl implements MessageService {
 		/**
 		 * 获得关键字列表
 		 */
-		Iterator iter=KeyWords.getInstance().WORDS.entrySet().iterator();
+		Iterator<Entry<String,String>> iter=KeyWords.getInstance().WORDS.entrySet().iterator();
 		while(iter.hasNext()){
 			Map.Entry<String, String> entry=(Entry<String, String>) iter.next();
 			String key = entry.getKey();
