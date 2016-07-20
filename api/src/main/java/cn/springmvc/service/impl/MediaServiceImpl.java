@@ -26,25 +26,21 @@ public class MediaServiceImpl implements MediaService {
 	Logger logger = Logger.getLogger(MediaServiceImpl.class);
 
 	// 获得图文信息
-	public Map<String,List<Map<String,String>>> getNews(String mediaId) {
+	public Map<String, List<Map<String, String>>> getNews(String mediaId) throws Exception {
 		String access_token = wechartService.getAccessToken();
 		String url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=" + access_token;
 		String media = "{\"media_id\":\"" + mediaId + "\"}";
 
 		String response = null;
-		try {
-			response = RequestUtil.doPost(url, media);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("request news error >>> " + e.getMessage());
-		}
-//		@SuppressWarnings("unchecked")
-//		Map<String,String> newsItem=(Map<String, String>) JSON.parse(response);
-//		@SuppressWarnings("unchecked")
-//		List<News> list = (List<News>) JSON.parse(newsItem.get("news_item"));
-		
-		Map<String,List<Map<String,String>>> mapx=(Map<String, List<Map<String, String>>>) JSON.parse(response);
-		
+		response = RequestUtil.doPost(url, media);
+		// @SuppressWarnings("unchecked")
+		// Map<String,String> newsItem=(Map<String, String>)
+		// JSON.parse(response);
+		// @SuppressWarnings("unchecked")
+		// List<News> list = (List<News>) JSON.parse(newsItem.get("news_item"));
+		@SuppressWarnings("unchecked")
+		Map<String, List<Map<String, String>>> mapx = (Map<String, List<Map<String, String>>>) JSON.parse(response);
+
 		return mapx;
 	}
 

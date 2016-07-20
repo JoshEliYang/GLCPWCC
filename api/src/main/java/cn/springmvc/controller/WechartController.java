@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.ShaUtil;
 import com.springmvc.utils.XMLUtils;
 
-import cn.springmvc.Consts;
 import cn.springmvc.KeyWords;
+import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.WechartModel;
+import cn.springmvc.service.BasicService;
 import cn.springmvc.service.MessageService;
 import cn.springmvc.service.UserService;
 
@@ -32,12 +33,14 @@ import cn.springmvc.service.UserService;
  */
 @Scope("prototype")
 @Controller
-@RequestMapping("/wechart")
+@RequestMapping("/wechat")
 public class WechartController {
 	@Autowired
 	public MessageService messageService;
 	@Autowired
 	public UserService userService;
+	@Autowired
+	public BasicService basicService;
 
 	Logger logger = Logger.getLogger(WechartController.class);
 
@@ -51,6 +54,13 @@ public class WechartController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
 	public String checkSignature(HttpServletRequest request, HttpServletResponse response) {
+		BasicModel basicModel = null;
+		try {
+			basicModel = basicService.getInusing();
+			logger.error("get basicService success ->>" + basicModel);
+		} catch (Exception e) {
+			logger.error("get basicService failed");
+		}
 
 		String signature = request.getParameter("signature");
 		String timestamp = request.getParameter("timestamp");
@@ -63,7 +73,7 @@ public class WechartController {
 		logger.error("echostr->>" + echostr);
 
 		String[] str = new String[3];
-		str[0] = Consts.TOKEN;
+		str[0] = basicModel.getToken();
 		str[1] = timestamp;
 		str[2] = nonce;
 		Arrays.sort(str);
@@ -132,48 +142,48 @@ public class WechartController {
 						return;
 					}
 				}
-				
+
 				// 转发给客服
 				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
 				return;
 			}
-			
-			if("image".equalsIgnoreCase(model.getMsgType())){
+
+			if ("image".equalsIgnoreCase(model.getMsgType())) {
 				// 图片消息
 				// 直接转发给客服
 				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
 				return;
 			}
-			
-			if("voice".equalsIgnoreCase(model.getMsgType())){
+
+			if ("voice".equalsIgnoreCase(model.getMsgType())) {
 				// 语言消息
 				// 直接转发给客服
 				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
 				return;
 			}
-			
-			if("video".equalsIgnoreCase(model.getMsgType())){
+
+			if ("video".equalsIgnoreCase(model.getMsgType())) {
 				// 视频消息
 				// 直接转发给客服
 				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
 				return;
 			}
-			
-			if("shortvideo".equalsIgnoreCase(model.getMsgType())){
+
+			if ("shortvideo".equalsIgnoreCase(model.getMsgType())) {
 				// 小视频消息
 				// 直接转发给客服
 				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
 				return;
 			}
-			
-			if("location".equalsIgnoreCase(model.getMsgType())){
+
+			if ("location".equalsIgnoreCase(model.getMsgType())) {
 				// 地理位置消息
 				// 直接转发给客服
 				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
 				return;
 			}
-			
-			if("link".equalsIgnoreCase(model.getMsgType())){
+
+			if ("link".equalsIgnoreCase(model.getMsgType())) {
 				// 连接消息
 				// 直接转发给客服
 				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
@@ -186,7 +196,7 @@ public class WechartController {
 					logger.error("subscribe OK");
 
 					if (model.getEventKey() != "") {
-						// 为关注用户 扫码事件
+						// 未关注用户 扫码事件
 						String eventKey = model.getEventKey();
 						if (eventKey.startsWith("qrscene_")) {
 							String scene = eventKey.substring(8);

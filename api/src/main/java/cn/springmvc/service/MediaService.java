@@ -11,5 +11,5 @@ import java.util.Map;
 public interface MediaService {
 
 	// 获得图文信息
-	public Map<String,List<Map<String,String>>> getNews(String mediaId);
+	public Map<String, List<Map<String, String>>> getNews(String mediaId) throws Exception;
 }
