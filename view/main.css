@@ -1,0 +1,32 @@
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.headBlock {
+    background-color: #66CC66;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.headBlock div h1 {
+    color: white;
+}
+
+.buttonPanel {
+    margin-top: 20px;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+    background-color: #99CCFF;
+}
+
+.nav-pills > li > a {
+    background-color: #DDDDDD;
+    color:#777;
+}
+
+.nav-pills > li > a:hover{
+    background-color: #99CCFF;
+    color: #fff;
+}
