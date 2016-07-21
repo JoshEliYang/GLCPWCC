@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias alias="BasicModel" type="cn.springmvc.model.BasicModel" />
 		<typeAlias alias="Keywords" type="cn.springmvc.model.Keywords" />
+		<typeAlias alias="MsgType" type="cn.springmvc.model.MsgType" />
 	</typeAliases>
 
 	<!-- 映射map -->

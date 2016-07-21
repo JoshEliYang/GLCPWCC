@@ -6,7 +6,7 @@ package cn.springmvc.model;
  * @author johnson
  *
  */
-public class msgType {
+public class MsgType {
 	int id;
 	String msgType;
 	String remark;

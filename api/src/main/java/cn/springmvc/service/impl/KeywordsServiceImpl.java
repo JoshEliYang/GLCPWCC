@@ -2,10 +2,23 @@ package cn.springmvc.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import cn.springmvc.dao.KeywordsDao;
 import cn.springmvc.model.Keywords;
 import cn.springmvc.service.KeywordsService;
 
+/**
+ * 
+ * @author johnson
+ *
+ */
+@Service
 public class KeywordsServiceImpl implements KeywordsService {
+	@Autowired
+	private KeywordsDao dao;
+
 	/**
 	 * get all keywords and reply message
 	 * 
@@ -13,8 +26,7 @@ public class KeywordsServiceImpl implements KeywordsService {
 	 * @throws Exception
 	 */
 	public List<Keywords> getAll() throws Exception {
-		
-		return null;
+		return dao.getAll();
 	}
 
 	/**
@@ -24,8 +36,7 @@ public class KeywordsServiceImpl implements KeywordsService {
 	 * @throws Exception
 	 */
 	public Keywords getSubscribeReply() throws Exception {
-		
-		return null;
+		return dao.getSubscribeReply();
 	}
 
 }
