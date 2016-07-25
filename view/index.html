@@ -15,7 +15,7 @@
 
     <link href="main.css" rel="stylesheet">
 </head>
-<body>
+<body ng-app="wechatApp" ng-controller="wechatCtrl">
 
 <nav class="navbar navbar-default">
     <div class="container">
@@ -52,7 +52,9 @@
         <div class="col-md-2 col-sm-3 col-xs-4 buttonPanel">
             <!-- button panel -->
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="#">按钮1</a></li>
+                <li role="presentation" class="active" ng-repeat="item in parentButtonList">
+                    <a ng-bind="item.buttonName"></a>
+                </li>
                 <li role="presentation"><a href="#">按钮2</a></li>
                 <li role="presentation"><a href="#">按钮3</a></li>
             </ul>
@@ -69,6 +71,7 @@
 <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
+<script src="http://cdn.bootcss.com/angular-sanitize/1.5.7/angular-sanitize.min.js"></script>
 
 <script src="main.js" type="text/javascript"></script>
 </body>

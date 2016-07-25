@@ -35,7 +35,17 @@ public class BasicServiceImpl implements BasicService {
 	 * @return BasicModel
 	 * @throws Exception
 	 */
-	public BasicModel getInusing() throws Exception {
+	public List<BasicModel> getInusing() throws Exception {
 		return dao.getInusing();
+	}
+
+	/**
+	 * get basic configuration by id
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public BasicModel getById(int id) throws Exception {
+		return dao.getById(id);
 	}
 }

@@ -28,7 +28,7 @@ public class WechartServiceImpl implements WechartService {
 
 	// get access_token
 	public String getAccessToken() throws Exception {
-		BasicModel basicModel = basicDao.getInusing();
+		BasicModel basicModel = basicDao.getInusing().get(0);
 
 		// request access_token from wechart
 		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="

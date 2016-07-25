@@ -22,7 +22,7 @@
 
 ### 说明:
 所有API请求要带上 ```?wechatAccount=[basicId]```
-```wechatAccount``` 即微信账号id（appid、appSecret...具体在数据库中配置），项目中要使用微信相关账号直接调用 ```Consts``` 中的 ```BASIC_DATA``` 
+即微信账号id（appid、appSecret...具体在数据库中配置），项目中要使用微信相关账号直接调用```Consts```中的```BASIC_DATA```
 
 ## 详细API
 ***

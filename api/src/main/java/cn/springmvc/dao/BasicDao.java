@@ -19,5 +19,13 @@ public interface BasicDao {
 	 * @return BasicModel
 	 * @throws Exception
 	 */
-	public BasicModel getInusing() throws Exception;
+	public List<BasicModel> getInusing() throws Exception;
+
+	/**
+	 * get basic configuration by id
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public BasicModel getById(int id) throws Exception;
 }

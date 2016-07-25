@@ -13,4 +13,10 @@
 		isUsing=True;
 	</select>
 
+	<select id="getById" parameterType="Integer" resultType="BasicModel">
+		SELECT *
+		FROM basic WHERE
+		id=#{1};
+	</select>
+
 </mapper>

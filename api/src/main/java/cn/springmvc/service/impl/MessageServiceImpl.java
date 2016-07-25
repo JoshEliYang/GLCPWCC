@@ -24,7 +24,8 @@ public class MessageServiceImpl implements MessageService {
 	public String sendText(String msg, String toUser) throws Exception {
 		String xml="<xml>"
 				+ "<ToUserName><![CDATA["+toUser+"]]></ToUserName>"
-				+ "<FromUserName><![CDATA["+Consts.WECHART_ACCOUNT+"]]></FromUserName>"
+//				+ "<FromUserName><![CDATA["+Consts.WECHART_ACCOUNT+"]]></FromUserName>"
+				+ "<FromUserName><![CDATA["+Consts.getBASIC_DATA().getWechatAccount()+"]]></FromUserName>"
 				+ "<CreateTime>"+( System.currentTimeMillis() / 1000)+"</CreateTime>"
 				+ "<MsgType><![CDATA[text]]></MsgType>"
 				+ "<Content><![CDATA["+msg+"]]></Content>"
@@ -41,7 +42,8 @@ public class MessageServiceImpl implements MessageService {
 		
 		String xml="<xml>"
 				+ "<ToUserName><![CDATA["+toUser+"]]></ToUserName>"
-				+ "<FromUserName><![CDATA["+Consts.WECHART_ACCOUNT+"]]></FromUserName>"
+//				+ "<FromUserName><![CDATA["+Consts.WECHART_ACCOUNT+"]]></FromUserName>"
+				+ "<FromUserName><![CDATA["+Consts.getBASIC_DATA().getWechatAccount()+"]]></FromUserName>"
 				+ "<CreateTime>"+( System.currentTimeMillis() / 1000)+"</CreateTime>"
 				+ "<MsgType><![CDATA[news]]></MsgType>"
 				+ "<ArticleCount>"+list.size()+"</ArticleCount>"
@@ -70,7 +72,8 @@ public class MessageServiceImpl implements MessageService {
 	public String transferToCustomerService(String toUser)throws Exception{
 		String xml="<xml>"
 				+ "<ToUserName><![CDATA["+toUser+"]]></ToUserName>"
-				+ "<FromUserName><![CDATA["+Consts.WECHART_ACCOUNT+"]]></FromUserName>"
+//				+ "<FromUserName><![CDATA["+Consts.WECHART_ACCOUNT+"]]></FromUserName>"
+				+ "<FromUserName><![CDATA["+Consts.getBASIC_DATA().getWechatAccount()+"]]></FromUserName>"
 				+ "<CreateTime>"+( System.currentTimeMillis() / 1000)+"</CreateTime>"
 				+ "<MsgType><![CDATA[transfer_customer_service]]></MsgType>"
 				+ "</xml>";

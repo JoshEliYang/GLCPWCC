@@ -14,6 +14,7 @@ public class BasicModel {
 	String wechatAccount;
 	boolean isUsing;
 	String remark;
+	String url;
 	String bak1;
 	String bak2;
 
@@ -71,6 +72,14 @@ public class BasicModel {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getBak1() {

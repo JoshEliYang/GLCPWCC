@@ -56,7 +56,7 @@ public class WechartController {
 	public String checkSignature(HttpServletRequest request, HttpServletResponse response) {
 		BasicModel basicModel = null;
 		try {
-			basicModel = basicService.getInusing();
+			basicModel = basicService.getInusing().get(0);
 			logger.error("get basicService success ->>" + basicModel);
 		} catch (Exception e) {
 			logger.error("get basicService failed");
