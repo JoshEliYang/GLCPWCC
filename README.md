@@ -21,7 +21,7 @@
 
 
 ### 说明:
-所有API请求要带上 ```?wechatAccount=[basicId]```
+所有API请求要带上 ```?wechatAccount=[basicId]``` 
 ```wechatAccount``` 即微信账号id（appid、appSecret...具体在数据库中配置），项目中要使用微信相关账号直接调用 ```Consts``` 中的 ```BASIC_DATA``` 
 
 ## 详细API
@@ -54,6 +54,24 @@
 10. 通知模块（新增）
     * activeMQ
 11. 权限控制（新增）
+    1. 请求验证码
+        GET方式
+        http://localhost:8080/GLCPWCC/login/getVerification
+        验证码有效时间:1小时
+        系统同时记录客户端的IP，只有这个IP能验证
+
+    2. 登录请求
+        POST方式
+        http://localhost:8080/GLCPWCC/login/login
+        请求参数：
+```javascript
+{
+	"username":"johnson",
+    "passwd":"123",
+    "verification":"5CY6"
+}
+```
+        
 12. 消息推送模块（新增）
     * 模板消息推送
 13. 多微信账号管理（新增）

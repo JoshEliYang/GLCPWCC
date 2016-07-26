@@ -28,4 +28,13 @@ public interface BasicDao {
 	 * @throws Exception
 	 */
 	public BasicModel getById(int id) throws Exception;
+	
+	/**
+	 * get basic configuration by url
+	 * 
+	 * @param url
+	 * @return
+	 * @throws Exception
+	 */
+	public BasicModel getByUrl(String url)throws Exception;
 }

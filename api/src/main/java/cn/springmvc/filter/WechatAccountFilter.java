@@ -15,7 +15,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import cn.springmvc.Consts;
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.service.BasicService;
 
@@ -47,19 +46,13 @@ public class WechatAccountFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		int basicId = Integer.parseInt(request.getParameter("wechatAccount"));
 
-		if (Consts.getBASIC_DATA() != null) {
-			if (Consts.getBASIC_DATA().getId() == basicId) {
-				logger.error("get basicModel in Consts ==== Needn't to find in DB");
-				chain.doFilter(request, response);
-				return;
-			}
-		}
+		int basicId = Integer.parseInt(request.getParameter("wechatAccount"));
 
 		try {
 			BasicModel basicModel = basicService.getById(basicId);
-			Consts.setBASIC_DATA(basicModel);
+			request.setAttribute("BasicModel", basicModel);
+
 			logger.error("get baiscModel success! >>> " + basicModel);
 		} catch (Exception e) {
 			logger.error("get baiscModel error! >>> " + e.getMessage());

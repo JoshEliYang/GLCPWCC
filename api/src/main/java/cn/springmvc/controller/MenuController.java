@@ -2,6 +2,8 @@ package cn.springmvc.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.HttpUtils;
 
+import cn.springmvc.model.BasicModel;
 import cn.springmvc.service.MenuService;
 
 /**
@@ -26,22 +29,24 @@ import cn.springmvc.service.MenuService;
 public class MenuController {
 	@Autowired
 	public MenuService menuService;
-	
-	Logger logger=Logger.getLogger(MenuController.class);
-	
+
+	Logger logger = Logger.getLogger(MenuController.class);
+
 	/**
-	 * 创建菜单
-	 * 参数和微信一样，直接转发到微信
+	 * 创建菜单 参数和微信一样，直接转发到微信
+	 * 
 	 * @param jsonStr
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	public Map<String,Object> menu(@RequestBody String jsonStr) {
-		Boolean result=false;
+	public Map<String, Object> menu(@RequestBody String jsonStr, HttpServletRequest request) {
+		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
+
+		Boolean result = false;
 		try {
-			result=menuService.setMenu(jsonStr);
-			if(result==true){
+			result = menuService.setMenu(jsonStr, basicModel);
+			if (result == true) {
 				logger.error("set menu success");
 				return HttpUtils.generateResponse("0", "请求成功", result);
 			}

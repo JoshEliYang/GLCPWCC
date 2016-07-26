@@ -19,4 +19,10 @@
 		id=#{1};
 	</select>
 
+	<select id="getByUrl" parameterType="String" resultType="BasicModel">
+		SELECT *
+		FROM basic 
+		WHERE url=#{1}
+	</select>
+	
 </mapper>

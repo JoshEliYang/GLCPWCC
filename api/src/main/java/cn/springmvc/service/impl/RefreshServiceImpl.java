@@ -1,15 +1,7 @@
 package cn.springmvc.service.impl;
 
-import java.io.IOException;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 
-import com.alibaba.fastjson.JSON;
-import com.springmvc.utils.MemcacheUtil;
-import com.springmvc.utils.RequestUtil;
-
-import cn.springmvc.Consts;
 import cn.springmvc.service.RefreshService;
 
 /**
@@ -22,6 +14,7 @@ public class RefreshServiceImpl implements RefreshService {
 	Logger logger = Logger.getLogger(RefreshServiceImpl.class);
 
 	public void cacheRefresh() {
+/*		
 		// System.out.println("test OK");
 
 		String key = "access_token";
@@ -53,5 +46,6 @@ public class RefreshServiceImpl implements RefreshService {
 				logger.error("memcache close error >>> " + e.getStackTrace());
 			}
 		}
+*/
 	}
 }

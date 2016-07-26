@@ -45,8 +45,8 @@ public class AdminController {
 			logger.error("get all admin users success >>> \n" + results);
 			return HttpUtils.generateResponse("0", "管理员查询成功", results);
 		} catch (Exception e) {
-			logger.error("get all admin users      failed\n");
-			return HttpUtils.generateResponse("0", "管理员查询失败", null);
+			logger.error("get all admin users failed\n");
+			return HttpUtils.generateResponse("1", "管理员查询失败", null);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class AdminController {
 			return HttpUtils.generateResponse("0", "管理员级别查询成功", results);
 		} catch (Exception e) {
 			logger.error("get all admin levels failed\n");
-			return HttpUtils.generateResponse("0", "管理员级别查询失败", null);
+			return HttpUtils.generateResponse("1", "管理员级别查询失败", null);
 		}
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.springmvc.dao.KeywordsDao;
+import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.Keywords;
 import cn.springmvc.service.KeywordsService;
 
@@ -25,8 +26,8 @@ public class KeywordsServiceImpl implements KeywordsService {
 	 * @return List<Keywords>
 	 * @throws Exception
 	 */
-	public List<Keywords> getAll() throws Exception {
-		return dao.getAll();
+	public List<Keywords> getAll(BasicModel basicModel) throws Exception {
+		return dao.getAll(basicModel.getId());
 	}
 
 	/**
@@ -35,8 +36,8 @@ public class KeywordsServiceImpl implements KeywordsService {
 	 * @return Keywords
 	 * @throws Exception
 	 */
-	public Keywords getSubscribeReply() throws Exception {
-		return dao.getSubscribeReply();
+	public Keywords getSubscribeReply(BasicModel basicModel) throws Exception {
+		return dao.getSubscribeReply(basicModel.getId());
 	}
 
 }

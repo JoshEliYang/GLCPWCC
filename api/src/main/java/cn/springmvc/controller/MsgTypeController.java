@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,7 +47,22 @@ public class MsgTypeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("get all msgType failed\n");
-			return HttpUtils.generateResponse("0", "消息类型查询失败", null);
+			return HttpUtils.generateResponse("1", "消息类型查询失败", null);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+	public Map<String, Object> getById(@PathVariable int id) {
+		MsgType result=null;
+		try{
+			result=service.getById(id);
+			logger.error("get msgType by id success >>> \n" + result);
+			return HttpUtils.generateResponse("0", "消息类型通过ID查询成功", result);
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error("get msgType by id failed >>> \n" + result);
+			return HttpUtils.generateResponse("1", "消息类型通过ID查询 失败", result);
 		}
 	}
 }

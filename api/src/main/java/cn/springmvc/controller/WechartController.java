@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,9 +22,12 @@ import com.springmvc.utils.XMLUtils;
 
 import cn.springmvc.KeyWords;
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.Keywords;
+import cn.springmvc.model.MsgType;
 import cn.springmvc.model.WechartModel;
 import cn.springmvc.service.BasicService;
 import cn.springmvc.service.MessageService;
+import cn.springmvc.service.MsgTypeService;
 import cn.springmvc.service.UserService;
 
 /**
@@ -41,6 +45,8 @@ public class WechartController {
 	public UserService userService;
 	@Autowired
 	public BasicService basicService;
+	@Autowired
+	private MsgTypeService msgTypeService;
 
 	Logger logger = Logger.getLogger(WechartController.class);
 
@@ -52,11 +58,12 @@ public class WechartController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET)
-	public String checkSignature(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/{account}", method = RequestMethod.GET)
+	public String checkSignature(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable String account) {
 		BasicModel basicModel = null;
 		try {
-			basicModel = basicService.getInusing().get(0);
+			basicModel = basicService.getByUrl(account);
 			logger.error("get basicService success ->>" + basicModel);
 		} catch (Exception e) {
 			logger.error("get basicService failed");
@@ -106,8 +113,16 @@ public class WechartController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.POST)
-	public void doRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody String inXml) {
+	@RequestMapping(value = "/{account}", method = RequestMethod.POST)
+	public void doRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody String inXml,
+			@PathVariable String account) {
+		BasicModel basicModel = null;
+		try {
+			basicModel = basicService.getByUrl(account);
+			logger.error("get basicService success ->>" + basicModel);
+		} catch (Exception e) {
+			logger.error("get basicService failed");
+		}
 
 		logger.error("xml >>> \n" + inXml);
 
@@ -128,65 +143,90 @@ public class WechartController {
 
 			if ("text".equalsIgnoreCase(model.getMsgType())) {
 				// 处理文本消息
-				String mesgResult = messageService.textProcess(model.getContent(), model.getMsgId());
+				// String mesgResult =
+				// messageService.textProcess(model.getContent(),
+				// model.getMsgId());
+				Keywords mesgResult = messageService.textProcess(model.getContent(), model.getMsgId(), basicModel);
+
 				if (mesgResult != null) {
-					if (mesgResult.startsWith("media_id_")) {
-						mesgResult = mesgResult.substring(9);
-						response.getOutputStream()
-								.write(messageService.sendPictureText(mesgResult, openId).getBytes("UTF-8"));
+					MsgType msgType = msgTypeService.getById(mesgResult.getId());
+
+					if ("text".equals(msgType.getMsgType())) {
+						response.getOutputStream().write(messageService
+								.sendText(mesgResult.getReplyText(), openId, basicModel).getBytes("UTF-8"));
+						return;
+					} else if ("news".equals(msgType.getMsgType())) {
+						response.getOutputStream().write(messageService
+								.sendPictureText(mesgResult.getMediaId(), openId, basicModel).getBytes("UTF-8"));
 						return;
 					}
-					if (mesgResult.startsWith("text_")) {
-						mesgResult = mesgResult.substring(5);
-						response.getOutputStream().write(messageService.sendText(mesgResult, openId).getBytes("UTF-8"));
-						return;
-					}
+
+					// if (mesgResult.startsWith("media_id_")) {
+					// mesgResult = mesgResult.substring(9);
+					// response.getOutputStream()
+					// .write(messageService.sendPictureText(mesgResult,
+					// openId).getBytes("UTF-8"));
+					// return;
+					// }
+					// if (mesgResult.startsWith("text_")) {
+					// mesgResult = mesgResult.substring(5);
+					// response.getOutputStream().write(messageService.sendText(mesgResult,
+					// openId).getBytes("UTF-8"));
+					// return;
+					// }
 				}
 
 				// 转发给客服
-				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				response.getOutputStream()
+						.write(messageService.transferToCustomerService(openId, basicModel).getBytes("UTF-8"));
 				return;
 			}
 
 			if ("image".equalsIgnoreCase(model.getMsgType())) {
 				// 图片消息
 				// 直接转发给客服
-				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				response.getOutputStream()
+						.write(messageService.transferToCustomerService(openId, basicModel).getBytes("UTF-8"));
 				return;
 			}
 
 			if ("voice".equalsIgnoreCase(model.getMsgType())) {
 				// 语言消息
 				// 直接转发给客服
-				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				response.getOutputStream()
+						.write(messageService.transferToCustomerService(openId, basicModel).getBytes("UTF-8"));
 				return;
 			}
 
 			if ("video".equalsIgnoreCase(model.getMsgType())) {
 				// 视频消息
 				// 直接转发给客服
-				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				response.getOutputStream()
+						.write(messageService.transferToCustomerService(openId, basicModel).getBytes("UTF-8"));
 				return;
 			}
 
 			if ("shortvideo".equalsIgnoreCase(model.getMsgType())) {
 				// 小视频消息
 				// 直接转发给客服
-				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				response.getOutputStream()
+						.write(messageService.transferToCustomerService(openId, basicModel).getBytes("UTF-8"));
 				return;
 			}
 
 			if ("location".equalsIgnoreCase(model.getMsgType())) {
 				// 地理位置消息
 				// 直接转发给客服
-				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				response.getOutputStream()
+						.write(messageService.transferToCustomerService(openId, basicModel).getBytes("UTF-8"));
 				return;
 			}
 
 			if ("link".equalsIgnoreCase(model.getMsgType())) {
 				// 连接消息
 				// 直接转发给客服
-				response.getOutputStream().write(messageService.transferToCustomerService(openId).getBytes("UTF-8"));
+				response.getOutputStream()
+						.write(messageService.transferToCustomerService(openId, basicModel).getBytes("UTF-8"));
 				return;
 			}
 
@@ -201,7 +241,7 @@ public class WechartController {
 						if (eventKey.startsWith("qrscene_")) {
 							String scene = eventKey.substring(8);
 							logger.error("sence id <<< " + scene);
-							userService.moveToGroup(openId, scene);
+							userService.moveToGroup(openId, scene, basicModel);
 						}
 						logger.error("SCAN 2 OK");
 					}
@@ -212,7 +252,8 @@ public class WechartController {
 					if (subscribeReply.startsWith("media_id_"))
 						subscribeReply = subscribeReply.substring(9);
 
-					response.getOutputStream().write(messageService.sendText(subscribeReply, openId).getBytes("UTF-8"));
+					response.getOutputStream()
+							.write(messageService.sendText(subscribeReply, openId, basicModel).getBytes("UTF-8"));
 					return;
 				} else if ("SCAN".equals(model.getEvent())) {
 					// 已关注用户扫码事件

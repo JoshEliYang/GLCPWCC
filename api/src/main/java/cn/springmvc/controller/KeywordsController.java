@@ -3,6 +3,8 @@ package cn.springmvc.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.HttpUtils;
 
+import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.Keywords;
 import cn.springmvc.service.KeywordsService;
 
@@ -37,10 +40,12 @@ public class KeywordsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public Map<String, Object> getAll() {
+	public Map<String, Object> getAll(HttpServletRequest request) {
+		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
+
 		List<Keywords> result = null;
 		try {
-			result = service.getAll();
+			result = service.getAll(basicModel);
 			logger.error("get all keywords success >>> \n" + result);
 			return HttpUtils.generateResponse("0", "关键字查询成功", result);
 		} catch (Exception e) {
@@ -57,10 +62,12 @@ public class KeywordsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/subscribe", method = RequestMethod.GET)
-	public Map<String, Object> getSubscribeReply() {
+	public Map<String, Object> getSubscribeReply(HttpServletRequest request) {
+		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
+
 		Keywords result = null;
 		try {
-			result = service.getSubscribeReply();
+			result = service.getSubscribeReply(basicModel);
 			logger.error("get subscribe reply message success" + result);
 			return HttpUtils.generateResponse("0", "关注回复查询成功", result);
 		} catch (Exception e) {

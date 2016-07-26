@@ -1,5 +1,7 @@
 package cn.springmvc.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.RequestUtil;
 
+import cn.springmvc.model.BasicModel;
 import cn.springmvc.service.WechartService;
 
 /**
@@ -23,22 +26,25 @@ import cn.springmvc.service.WechartService;
 public class TestController {
 	@Autowired
 	public WechartService service;
-	
-	Logger logger=Logger.getLogger(TestController.class);
-	
+
+	Logger logger = Logger.getLogger(TestController.class);
+
 	/**
 	 * token test
+	 * 
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/token", method = RequestMethod.GET)
-	public String test() {
-		String token =null;
-		try{
-			token=service.getAccessToken();
-		}catch(Exception e){
+	public String test(HttpServletRequest request) {
+		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
+
+		String token = null;
+		try {
+			token = service.getAccessToken(basicModel);
+		} catch (Exception e) {
 			e.printStackTrace();
-//			logger.error(e.toString());
+			// logger.error(e.toString());
 		}
 		return token;
 	}
@@ -61,17 +67,17 @@ public class TestController {
 		logger.error("request url success, response >>> " + response);
 		return response;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
 	public String test3() {
 		String url = "http://120.26.54.131:8080/pricetag/pricetags/query";
-		String entity="{\"shopId\":\"KJG001\"}";
+		String entity = "{\"shopId\":\"KJG001\"}";
 		String response = null;
-		
-		try{
-			response=RequestUtil.doPost(url, entity);
-		}catch(Exception e){
+
+		try {
+			response = RequestUtil.doPost(url, entity);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}

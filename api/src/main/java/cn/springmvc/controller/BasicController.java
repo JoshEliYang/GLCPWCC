@@ -92,4 +92,25 @@ public class BasicController {
 			return HttpUtils.generateResponse("0", "通过ID基础配置查询成功", null);
 		}
 	}
+	
+	/**
+	 * get basic configuration by url
+	 * 
+	 * @param url
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/url/{url}", method = RequestMethod.GET)
+	public Map<String, Object> getById(@PathVariable String url) {
+		BasicModel result=null;
+		try{
+			result=service.getByUrl(url);
+			logger.error("get basic configuration by url success >>> \n" + result);
+			return HttpUtils.generateResponse("0", "通过url基础配置查询成功", result);
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error("get basic configuration by url failed >>> \n");
+			return HttpUtils.generateResponse("0", "通过url基础配置查询失敗", null);
+		}
+	}
 }

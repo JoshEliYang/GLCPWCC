@@ -17,4 +17,13 @@ public interface MsgTypeDao {
 	 * @throws Exception
 	 */
 	public List<MsgType> getAll() throws Exception;
+
+	/**
+	 * get msgType by id
+	 * 
+	 * @param msgTypeId
+	 * @return
+	 * @throws Exception
+	 */
+	public MsgType getById(int msgTypeId) throws Exception;
 }

@@ -8,4 +8,9 @@
 		SELECT * FROM msgType;
 	</select>
 
+	<select id="getById" parameterType="Integer" resultType="MsgType">
+		SELECT *
+		FROM msgType
+		WHERE id=#{1};
+	</select>
 </mapper>

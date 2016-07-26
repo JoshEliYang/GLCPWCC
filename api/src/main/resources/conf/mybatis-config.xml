@@ -6,12 +6,20 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 命名空间 -->
 	<typeAliases>
 		<typeAlias alias="BasicModel" type="cn.springmvc.model.BasicModel" />
+
 		<typeAlias alias="Keywords" type="cn.springmvc.model.Keywords" />
 		<typeAlias alias="MsgType" type="cn.springmvc.model.MsgType" />
+
 		<typeAlias alias="Button" type="cn.springmvc.model.Button" />
+		<typeAlias alias="ButtonGroup" type="cn.springmvc.model.ButtonGroup" />
+
 		<typeAlias alias="User" type="cn.springmvc.model.User" />
 		<typeAlias alias="UserLevel" type="cn.springmvc.model.UserLevel" />
 		<typeAlias alias="UserRight" type="cn.springmvc.model.UserRight" />
+		<typeAlias alias="UserAccess" type="cn.springmvc.model.UserAccess" />
+
+		<typeAlias alias="VerifyCode" type="cn.springmvc.model.VerifyCode" />
+		<typeAlias alias="LoginData" type="cn.springmvc.model.LoginData" />
 	</typeAliases>
 
 	<!-- 映射map -->

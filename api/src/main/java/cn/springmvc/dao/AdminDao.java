@@ -35,4 +35,14 @@ public interface AdminDao {
 	 * @throws Exception
 	 */
 	public int getLevelId(int userId) throws Exception;
+
+	/**
+	 * check user name and password
+	 * 
+	 * @param username
+	 * @param passwd
+	 * @return
+	 * @throws Exception
+	 */
+	public User checkUser(String username, String passwd) throws Exception;
 }

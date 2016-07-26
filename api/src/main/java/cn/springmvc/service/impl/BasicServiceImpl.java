@@ -48,4 +48,15 @@ public class BasicServiceImpl implements BasicService {
 	public BasicModel getById(int id) throws Exception {
 		return dao.getById(id);
 	}
+	
+	/**
+	 * get basic configuration by url
+	 * 
+	 * @param url
+	 * @return
+	 * @throws Exception
+	 */
+	public BasicModel getByUrl(String url)throws Exception{
+		return dao.getByUrl(url);
+	}
 }

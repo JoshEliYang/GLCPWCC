@@ -2,37 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d179ff1b-a8fd-4396-828b-86ddcfd5c0b0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/Consts.class" afterPath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/Consts.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/controller/WechartController.class" afterPath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/controller/WechartController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/service/impl/MessageServiceImpl.class" afterPath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/service/impl/MessageServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/service/impl/RefreshServiceImpl.class" afterPath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/service/impl/RefreshServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/service/impl/WechartServiceImpl.class" afterPath="$PROJECT_DIR$/../api/target/classes/cn/springmvc/service/impl/WechartServiceImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/Consts.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/Consts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/BasicController.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/BasicController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/WechartController.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/WechartController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/dao/BasicDao.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/dao/BasicDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/filter/CosDomainFilter.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/filter/CosDomainFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/BasicModel.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/BasicModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/BasicService.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/BasicService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/BasicServiceImpl.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/BasicServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/WechartServiceImpl.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/WechartServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/resources/conf/LTAKeyWord.properties" afterPath="$PROJECT_DIR$/../api/src/main/resources/conf/LTAKeyWord.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/resources/conf/mybatis-config.xml" afterPath="$PROJECT_DIR$/../api/src/main/resources/conf/mybatis-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/resources/conf/spring-mvc.xml" afterPath="$PROJECT_DIR$/../api/src/main/resources/conf/spring-mvc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/resources/conf/spring.xml" afterPath="$PROJECT_DIR$/../api/src/main/resources/conf/spring.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/resources/mapper/BasicMapper.xml" afterPath="$PROJECT_DIR$/../api/src/main/resources/mapper/BasicMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/../api/src/main/webapp/WEB-INF/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/conf/LTAKeyWord.properties" afterPath="$PROJECT_DIR$/../api/target/classes/conf/LTAKeyWord.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/conf/mybatis-config.xml" afterPath="$PROJECT_DIR$/../api/target/classes/conf/mybatis-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/conf/spring-mvc.xml" afterPath="$PROJECT_DIR$/../api/target/classes/conf/spring-mvc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/conf/spring.xml" afterPath="$PROJECT_DIR$/../api/target/classes/conf/spring.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/../api/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/m2e-wtp/web-resources/META-INF/maven/com.johnson/GLCPWCC/pom.properties" afterPath="$PROJECT_DIR$/../api/target/m2e-wtp/web-resources/META-INF/maven/com.johnson/GLCPWCC/pom.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.css" afterPath="$PROJECT_DIR$/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md.bak" afterPath="$PROJECT_DIR$/../README.md.bak" />
     </list>
     <ignored path="view.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -286,7 +257,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1448" y="-8" width="1456" height="916" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17916666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />

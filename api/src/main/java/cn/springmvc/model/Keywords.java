@@ -8,6 +8,7 @@ package cn.springmvc.model;
  */
 public class Keywords {
 	int id;
+	int basicId;
 	String value;
 	int msgType;
 	String replyText;
@@ -23,6 +24,14 @@ public class Keywords {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getBasicId() {
+		return basicId;
+	}
+
+	public void setBasicId(int basicId) {
+		this.basicId = basicId;
 	}
 
 	public String getValue() {
