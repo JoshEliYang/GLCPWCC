@@ -1,0 +1,57 @@
+.bg {
+    background: url(../image/bg.jpg) no-repeat;
+    background-size: 100%;
+}
+
+.headBlock {
+    margin-top: 100px;
+
+    background-color: #66CC66;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    -webkit-box-shadow: inset 0 0 30px #006600;
+    -moz-box-shadow: inset 0 0 30px #006600;
+    box-shadow: inset 0 0 30px #006600;
+
+    opacity: 0.9;
+}
+
+.headBlock div h1 {
+    color: white;
+}
+
+.loginBlock {
+    width: 300px;
+    position: absolute;
+    top: 300px;
+    right: 50px;
+}
+
+.panel-heading {
+    text-align: center;
+    font-weight: 900;
+}
+
+.verifyBlock {
+    position: relative;
+}
+
+.verifyBlock input {
+    width: 50%;
+}
+
+.verifyBlock img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45%;
+}
+
+.buttonBlock {
+    text-align: center;
+}
+
+.buttonBlock button {
+    width: 130px;
+}

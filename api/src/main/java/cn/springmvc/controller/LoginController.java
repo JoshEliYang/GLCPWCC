@@ -61,6 +61,7 @@ public class LoginController {
 		VerifyCode verifyCode = null;
 		try {
 			verifyCode = verifyCodeService.checkVerify(loginData);
+			verifyCodeService.deleteVerifyCode(verifyCode.getId());
 		} catch (Exception e) {
 			logger.error("Exception occured when checking verify code! >>> " + e.getMessage());
 		}

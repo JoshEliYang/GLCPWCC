@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Author" content="Johnson,starjohnson@sina.com">
+    <title>绿地微信后台</title>
+
+    <link rel="shortcut icon" href="image/G.ico">
+    <link rel="Bookmark" href="image/G.ico">
+
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/jquery-confirm.min.css" rel="stylesheet">
+
+    <link href="css/login.css" rel="stylesheet">
+</head>
+<body class="bg">
+
+<div class="headBlock">
+    <div class="container">
+        <h1>绿地微信管理后台</h1>
+    </div>
+</div>
+
+<div class="panel panel-success loginBlock">
+    <div class="panel-heading">登陆</div>
+    <div class="panel-body">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" placeholder="用户名" autofocus
+                       onkeypress="usernameOnEnter();">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="passwd" placeholder="密码" onkeypress="passwdOnEnter();">
+            </div>
+            <div class="form-group verifyBlock">
+                <input type="text" class="form-control" id="verifyCode" placeholder="验证码" onkeypress="verifyOnEnter();">
+                <img src="http://localhost:8080/GLCPWCC/login/getVerification">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="keepLogin"><b> 记住我30天</b>
+                </label>
+            </div>
+            <div class="buttonBlock">
+                <button type="button" class="btn btn-primary" onclick="doLogin();">登陆</button>
+                <button type="reset" class="btn btn-default" id="resetBtn">重置</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script src="js/jquery-confirm.min.js"></script>
+
+<script src="js/conf.js" type="text/javascript"></script>
+<script src="js/util.js" type="text/javascript"></script>
+<script src="js/login.js" type="text/javascript"></script>
+</body>
+</html>

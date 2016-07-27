@@ -10,6 +10,15 @@ import cn.springmvc.model.UserAccess;
 public interface LoginDao {
 
 	/**
+	 * check access token
+	 * 
+	 * @param token
+	 * @return
+	 * @throws Exception
+	 */
+	public UserAccess tokenCheck(String token) throws Exception;
+
+	/**
 	 * insert user access into DB
 	 * 
 	 * @throws Exception

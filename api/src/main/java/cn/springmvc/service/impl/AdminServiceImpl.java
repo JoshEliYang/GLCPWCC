@@ -62,4 +62,15 @@ public class AdminServiceImpl implements AdminService {
 	public User checkUser(String username, String passwd) throws Exception {
 		return dao.checkUser(username, passwd);
 	}
+
+	/**
+	 * get user by userId
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	public User getUserById(int userId) throws Exception {
+		return dao.getUserById(userId);
+	}
 }

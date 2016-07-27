@@ -146,6 +146,10 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>AccessFilter</filter-name>
-		<url-pattern>/AccessFilter</url-pattern>
+		<url-pattern>/basic/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/keywords/*</url-pattern>
 	</filter-mapping>
 </web-app>

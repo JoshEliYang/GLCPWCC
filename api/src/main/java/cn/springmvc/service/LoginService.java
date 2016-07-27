@@ -12,6 +12,15 @@ import cn.springmvc.model.UserAccess;
 public interface LoginService {
 
 	/**
+	 * check access token
+	 * 
+	 * @param token
+	 * @return
+	 * @throws Exception
+	 */
+	public UserAccess tokenCheck(String token) throws Exception;
+
+	/**
 	 * do login (save token)
 	 * 
 	 * @param loginData

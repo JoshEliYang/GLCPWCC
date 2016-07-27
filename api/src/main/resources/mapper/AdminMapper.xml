@@ -27,4 +27,11 @@
 		FROM `user`
 		WHERE username=#{0} AND passwd=#{1}
 	</select>
+
+	<select id="getUserById" parameterType="Integer" resultType="User">
+		SELECT
+		*
+		FROM `user`
+		WHERE id=#{1}
+	</select>
 </mapper>

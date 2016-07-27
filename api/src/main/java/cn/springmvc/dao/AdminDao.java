@@ -45,4 +45,13 @@ public interface AdminDao {
 	 * @throws Exception
 	 */
 	public User checkUser(String username, String passwd) throws Exception;
+
+	/**
+	 * get user by userId
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	public User getUserById(int userId) throws Exception;
 }

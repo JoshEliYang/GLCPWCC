@@ -23,6 +23,17 @@ public class LoginServiceImpl implements LoginService {
 	private LoginDao loginDao;
 
 	/**
+	 * check access token
+	 * 
+	 * @param token
+	 * @return
+	 * @throws Exception
+	 */
+	public UserAccess tokenCheck(String token) throws Exception {
+		return loginDao.tokenCheck(token);
+	}
+
+	/**
 	 * do login (save token)
 	 * 
 	 * @param loginData
