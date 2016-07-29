@@ -3,6 +3,8 @@ package cn.springmvc.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -67,6 +69,19 @@ public class AdminController {
 			logger.error("get all admin levels failed\n");
 			return HttpUtils.generateResponse("1", "管理员级别查询失败", null);
 		}
+	}
+
+	/**
+	 * get user
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/info", method = RequestMethod.GET)
+	public Map<String, Object> getById(HttpServletRequest request) {
+		User admin = (User) request.getAttribute("admin");
+		return HttpUtils.generateResponse("0", "管理员信息查询成功", admin);
 	}
 
 }

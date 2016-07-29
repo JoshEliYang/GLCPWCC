@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -92,7 +93,7 @@ public class BasicController {
 			return HttpUtils.generateResponse("0", "通过ID基础配置查询成功", null);
 		}
 	}
-	
+
 	/**
 	 * get basic configuration by url
 	 * 
@@ -102,15 +103,27 @@ public class BasicController {
 	@ResponseBody
 	@RequestMapping(value = "/url/{url}", method = RequestMethod.GET)
 	public Map<String, Object> getById(@PathVariable String url) {
-		BasicModel result=null;
-		try{
-			result=service.getByUrl(url);
+		BasicModel result = null;
+		try {
+			result = service.getByUrl(url);
 			logger.error("get basic configuration by url success >>> \n" + result);
 			return HttpUtils.generateResponse("0", "通过url基础配置查询成功", result);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("get basic configuration by url failed >>> \n");
 			return HttpUtils.generateResponse("0", "通过url基础配置查询失敗", null);
 		}
+	}
+
+	/**
+	 * insert basic configuration
+	 * 
+	 * @param basicModel
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/insert}", method = RequestMethod.GET)
+	public Map<String, Object> insert(@RequestBody BasicModel basicModel) {
+		return null;
 	}
 }

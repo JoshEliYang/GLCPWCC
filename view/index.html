@@ -12,6 +12,7 @@
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="css/jquery-confirm.min.css" rel="stylesheet">
 
     <link href="css/main.css" rel="stylesheet">
 </head>
@@ -32,11 +33,11 @@
             </a>
         </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a>系统通知</a></li>
-                <li><a href="#" ng-bind="username"></a></li>
-                <li><a href="#">退出</a></li>
+                <li><a>通知</a></li>
+                <li><a href="#" ng-bind="realname"></a></li>
+                <li><a href="#" ng-click="logout();">退出</a></li>
             </ul>
         </div>
     </div>
@@ -49,23 +50,39 @@
 </div>
 
 <div class="container">
+    <ul class="nav nav-tabs relativeCss">
+        <li role="presentation" ng-class="item.class" ng-repeat="item in buttonGroupList">
+            <a ng-bind="item.groupName" ng-click="changeTag(item.id)"></a>
+        </li>
+        <li role="presentation" class="dropdown absoluteRightCss">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                微信号：{{basicTitle}}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li role="presentation" ng-repeat="item in basicList">
+                    <a ng-bind="item.remark" ng-click="basicSelect(item.id)"></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
     <div class="row">
         <div class="col-md-2 col-sm-3 col-xs-4 buttonPanel">
             <!-- button panel -->
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active" ng-repeat="item in parentButtonList">
-                    <a ng-bind="item.buttonName"></a>
+                <li role="presentation" ng-class="item.class" ng-repeat="item in buttonsList">
+                    <a ng-bind="item.buttonName" ng-click="changeBtn(item.id)"></a>
                 </li>
-                <li role="presentation"><a href="#">按钮2</a></li>
-                <li role="presentation"><a href="#">按钮3</a></li>
             </ul>
         </div>
         <div class="col-md-10 col-sm-9 col-xs-8">
-            <!-- main container -->
+            <iframe name="mainFrame" ng-cloak src="{{mainFramePage}}" frameborder="0" height="{{mainFrameHeight}}"
+                    width="100%" scrolling="no"></iframe>
         </div>
     </div>
 </div>
-
 
 <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -73,7 +90,10 @@
 <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
 <script src="http://cdn.bootcss.com/angular-sanitize/1.5.7/angular-sanitize.min.js"></script>
 
+<script src="js/jquery-confirm.min.js"></script>
+
 <script src="js/util.js" type="text/javascript"></script>
+<script src="js/conf.js" type="text/javascript"></script>
 <script src="js/main.js" type="text/javascript"></script>
 </body>
 </html>

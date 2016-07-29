@@ -12,6 +12,7 @@ public class Button {
 	int index;
 	String uri;
 	boolean isDefault;
+	int frameHeight;
 	String bak1;
 	String bak2;
 
@@ -61,6 +62,14 @@ public class Button {
 
 	public void setDefault(boolean isDefault) {
 		this.isDefault = isDefault;
+	}
+
+	public int getFrameHeight() {
+		return frameHeight;
+	}
+
+	public void setFrameHeight(int frameHeight) {
+		this.frameHeight = frameHeight;
 	}
 
 	public String getBak1() {

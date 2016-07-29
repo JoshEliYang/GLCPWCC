@@ -55,3 +55,16 @@
 .buttonBlock button {
     width: 130px;
 }
+
+.forgetPass {
+    position: relative;
+    padding: 10px;
+}
+
+.forgetPass a {
+    color: #CC3366;
+    position: absolute;
+    right: 0;
+    font-style: italic;
+    font-weight: bold;
+}

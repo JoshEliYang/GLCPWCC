@@ -3,8 +3,13 @@
  */
 
 var username = getCookie("username");
-if (username != null) {
+var token = getCookie("token");
+
+if (username != null && username != "") {
     document.getElementById("username").value = username;
+    if (token != null && token != "") {
+        location.href = "index.html";
+    }
 }
 
 function usernameOnEnter() {
@@ -30,7 +35,7 @@ function verifyOnEnter() {
 function doLogin() {
     var param = {
         "username": document.getElementById("username").value,
-        "passwd": document.getElementById("passwd").value,
+        "passwd": md5(document.getElementById("passwd").value),
         "verification": document.getElementById("verifyCode").value,
         "longTermFlag": document.getElementById("keepLogin").checked
     };

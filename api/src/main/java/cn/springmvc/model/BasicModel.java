@@ -13,6 +13,7 @@ public class BasicModel {
 	String appSecret;
 	String wechatAccount;
 	boolean isUsing;
+	boolean isDefault;
 	String remark;
 	String url;
 	String bak1;
@@ -64,6 +65,14 @@ public class BasicModel {
 
 	public void setUsing(boolean isUsing) {
 		this.isUsing = isUsing;
+	}
+
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
 	}
 
 	public String getRemark() {

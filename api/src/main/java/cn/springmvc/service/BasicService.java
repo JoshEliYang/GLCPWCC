@@ -33,8 +33,7 @@ public interface BasicService {
 	 * @throws Exception
 	 */
 	public BasicModel getById(int id) throws Exception;
-	
-	
+
 	/**
 	 * get basic configuration by url
 	 * 
@@ -42,5 +41,10 @@ public interface BasicService {
 	 * @return
 	 * @throws Exception
 	 */
-	public BasicModel getByUrl(String url)throws Exception;
+	public BasicModel getByUrl(String url) throws Exception;
+
+	/**
+	 * insert basic configuration
+	 */
+	public void insert(BasicModel basicModel) throws Exception;
 }

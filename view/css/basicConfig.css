@@ -1,0 +1,39 @@
+
+table {
+    table-layout: fixed;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.outerContainer {
+    margin-top: 10px;
+    position: relative;
+}
+
+.AddBtnPanel {
+    margin-bottom: 10px;
+    float: right;
+}
+
+.btn-success {
+    background-color: #339999;
+}
+
+.btn-success:hover {
+    background-color: #336666;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #CCFFCC;
+}
+
+.table-striped > tbody > tr:hover {
+    background-color: #CCFFFF;
+}
