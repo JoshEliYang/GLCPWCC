@@ -11,10 +11,102 @@ var app = angular.module('wechatApp', ['ngSanitize']);
 app.controller('wechatCtrl', function ($scope, $http, BasicService) {
     BasicService.getAll($scope, $http);
 
+    $scope.usingChecked = function (id, isUsing) {
+        for (var i = 0; i < $scope.basicList.length; i++) {
+            if (id == $scope.basicList[i].id) {
+                var param = $scope.basicList[i];
+                param.using = isUsing;
+                delete param.checked;
+                BasicService.setUsing($scope, $http, param);
+                break;
+            }
+        }
+    };
+
+    $scope.defaultChecked = function (id) {
+        for (var i = 0; i < $scope.basicList.length; i++) {
+            if (id == $scope.basicList[i].id) {
+                var param = $scope.basicList[i];
+                delete param.checked;
+                BasicService.setDefault($scope, $http, param);
+                break;
+            }
+        }
+    };
+
+    $scope.doSelect = function (index) {
+        $scope.basicList[index].checked = !$scope.basicList[index].checked;
+    };
+
+    $scope.openAddDialog = function () {
+        $scope.basicModelData = {
+            "title": "添加",
+            "remark": "",
+            "wechatAccount": "",
+            "appId": "",
+            "appSecret": "",
+            "token": "",
+            "url": "",
+            "using": false,
+            "default": false
+        };
+        $('#basicConfigModal').modal('show');
+        var modelRemark = document.getElementById('modelRemark');
+        modelRemark.focus();
+    };
+
+    $scope.basicModelConfim = function (flag) {
+        if (flag == "添加") {
+            var param = $scope.basicModelData;
+            delete param.title;
+            BasicService.insert($scope, $http, param);
+        } else if (flag == "修改") {
+            var paramEdit = $scope.basicModelData;
+            delete paramEdit.title;
+            delete paramEdit.checked;
+            BasicService.edit($scope, $http, paramEdit)
+        }
+        $('#basicConfigModal').modal('hide');
+    };
+
+    $scope.basicModelUsing = function () {
+        $scope.basicModelData.using = !$scope.basicModelData.using;
+    };
+
+    $scope.basicModelDefault = function () {
+        $scope.basicModelData.default = !$scope.basicModelData.default
+    };
+
+    $scope.openEditDialog = function () {
+        var target, count = 0;
+        for (var i = 0; i < $scope.basicList.length; i++) {
+            if ($scope.basicList[i].checked == true) {
+                target = i;
+                count++;
+            }
+        }
+        if (count == 0) {
+            $.alert("<b>请先选择</b>");
+            return;
+        }
+        if (count > 1) {
+            $.alert("<b>请去除多余选择</b>");
+            return;
+        }
+        var param = $scope.basicList[target];
+        param.title = "修改";
+        $scope.basicModelData = param;
+        $('#basicConfigModal').modal('show');
+        var modelRemark = document.getElementById('modelRemark');
+        modelRemark.focus();
+    };
 });
 
 app.service('BasicService', function () {
     this.getAll = function ($scope, $http) {
+        getAll($scope, $http);
+    };
+    var getAll = function ($scope, $http) {
         $http({
             method: "GET",
             url: basicUrlAll + '?token=' + getCookie("token"),
@@ -34,5 +126,81 @@ app.service('BasicService', function () {
         }).error(function () {
             $.alert('<b>请求失败<br>请检查您的网络！</br>');
         });
-    }
+    };
+
+    this.setUsing = function ($scope, $http, param) {
+        $http({
+            method: "PUT",
+            url: basicSetUsingUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: param
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert('<b>' + data.msg + '</b>');
+                return;
+            }
+
+            getAll($scope, $http);
+        }).error(function () {
+            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+        });
+    };
+
+    this.setDefault = function ($scope, $http, param) {
+        setDefault($scope, $http, param);
+    };
+    var setDefault = function ($scope, $http, param) {
+        $http({
+            method: "PUT",
+            url: basicSetDefaultUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: param
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert('<b>' + data.msg + '</b>');
+                return;
+            }
+
+            getAll($scope, $http);
+        }).error(function () {
+            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+        });
+    };
+
+
+    this.insert = function ($scope, $http, param) {
+        $http({
+            method: "POST",
+            url: basicInsertUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: param
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert('<b>' + data.msg + '</b>');
+                return;
+            }
+
+            getAll($scope, $http);
+        }).error(function () {
+            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+        });
+    };
+
+    this.edit = function ($scope, $http, param) {
+        $http({
+            method: "PUT",
+            url: basicEditUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: param
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert('<b>' + data.msg + '</b>');
+                return;
+            }
+
+            getAll($scope, $http);
+        }).error(function () {
+            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+        });
+    };
 });

@@ -37,3 +37,16 @@ td {
 .table-striped > tbody > tr:hover {
     background-color: #CCFFFF;
 }
+
+.checkbox label {
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.modal-header {
+    background-color: #339999;
+    color: white;
+    -moz-border-radius: 5px 5px 0 0; /* Gecko browsers */
+    -webkit-border-radius: 5px 5px 0 0; /* Webkit browsers */
+    border-radius: 5px 5px 0 0;
+}

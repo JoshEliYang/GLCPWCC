@@ -64,6 +64,36 @@ public class BasicServiceImpl implements BasicService {
 	 * insert basic configuration
 	 */
 	public void insert(BasicModel basicModel) throws Exception {
+		dao.insert(basicModel);
+	}
 
+	/**
+	 * set specific basic configuration in using
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void setUsing(int id, boolean isUsing) throws Exception {
+		dao.setUsing(id, isUsing);
+	}
+
+	/**
+	 * set specific basic configuration as default
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void setDefault(int id) throws Exception {
+		dao.setDefault(id);
+	}
+
+	/**
+	 * edit specific basic configuration
+	 * 
+	 * @param basicModel
+	 * @throws Exception
+	 */
+	public void edit(BasicModel basicModel) throws Exception {
+		dao.edit(basicModel);
 	}
 }

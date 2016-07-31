@@ -21,8 +21,63 @@
 
 	<select id="getByUrl" parameterType="String" resultType="BasicModel">
 		SELECT *
-		FROM basic 
+		FROM basic
 		WHERE url=#{1}
 	</select>
-	
+
+	<insert id="insert" parameterType="BasicModel">
+		INSERT INTO basic(
+		`token`,
+		`appId`,
+		`appSecret`,
+		`wechatAccount`,
+		`isUsing`,
+		`isDefault`,
+		`remark`,
+		`url`,
+		`bak1`,
+		`bak2`
+		)
+		VALUES(
+		#{token},
+		#{appId},
+		#{appSecret},
+		#{wechatAccount},
+		#{isUsing},
+		#{isDefault},
+		#{remark},
+		#{url},
+		#{bak1},
+		#{bak2}
+		)
+	</insert>
+
+	<update id="setUsing">
+		UPDATE basic
+		SET isUsing = #{1}
+		WHERE
+		id = #{0}
+	</update>
+
+	<update id="setDefault" parameterType="Integer">
+		CALL setBasicDefault(#{1})
+	</update>
+
+
+	<update id="edit" parameterType="BasicModel">
+		UPDATE basic
+		SET
+		`token`=#{token},
+		`appId`=#{appId},
+		`appSecret`=#{appSecret},
+		`wechatAccount`=#{wechatAccount},
+		`isUsing`=#{isUsing},
+		`isDefault`=#{isDefault},
+		`remark`=#{remark},
+		`url`=#{url},
+		`bak1`=#{bak1},
+		`bak2`=#{bak2}
+		WHERE
+		`id`=#{id}
+	</update>
 </mapper>

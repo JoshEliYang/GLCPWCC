@@ -122,8 +122,77 @@ public class BasicController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/insert}", method = RequestMethod.GET)
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public Map<String, Object> insert(@RequestBody BasicModel basicModel) {
-		return null;
+		try {
+			service.insert(basicModel);
+			logger.error("basic model insert success");
+			return HttpUtils.generateResponse("0", "基础信息插入成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("basic model insert failed");
+			return HttpUtils.generateResponse("0", "基础信息插入失败", null);
+		}
 	}
+
+	/**
+	 * set specific basic configuration in using
+	 * 
+	 * @param basicModel
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/setUsing", method = RequestMethod.PUT)
+	public Map<String, Object> setUsing(@RequestBody BasicModel basicModel) {
+		try {
+			service.setUsing(basicModel.getId(), basicModel.isUsing());
+			logger.error("set basicModel inUsing success");
+			return HttpUtils.generateResponse("0", "设置成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("set basicModel inUsing failed" + e.getMessage());
+			return HttpUtils.generateResponse("１", "设置失败", null);
+		}
+	}
+
+	/**
+	 * set specific basic configuration as default
+	 * 
+	 * @param basicModel
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/setDefault", method = RequestMethod.PUT)
+	public Map<String, Object> setDefault(@RequestBody BasicModel basicModel) {
+		try {
+			service.setDefault(basicModel.getId());
+			logger.error("set basicModel default success");
+			return HttpUtils.generateResponse("0", "设置成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("set basicModel default failed" + e.getMessage());
+			return HttpUtils.generateResponse("１", "设置失败", null);
+		}
+	}
+
+	/**
+	 * edit specific basic configuration
+	 * 
+	 * @param basicModel
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
+	public Map<String, Object> edit(@RequestBody BasicModel basicModel) {
+		try {
+			service.edit(basicModel);
+			logger.error("edit basicModel success");
+			return HttpUtils.generateResponse("0", "修改成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("edit basicModel failed" + e.getMessage());
+			return HttpUtils.generateResponse("１", "修改失败", null);
+		}
+	}
+	
 }
