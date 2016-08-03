@@ -4,10 +4,20 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.springmvc.dao.ButtonDao">
-	<select id="getButtonGroup" resultType="ButtonGroup">
-		SELECT *
+	<select id="getButtonGroup" parameterType="Integer" resultType="ButtonGroup">
+		SELECT
+		*
 		FROM
-		`buttonGroup`
+		buttonGroup
+		WHERE
+		id IN (
+		SELECT
+		groupId
+		FROM
+		userRight
+		WHERE
+		levelId = #{1}
+		)
 	</select>
 
 	<select id="getButtons" parameterType="Integer" resultType="Button">
@@ -16,16 +26,7 @@
 		FROM
 		button
 		WHERE
-		id IN (
-		SELECT
-		buttonId
-		FROM
-		userRight
-		WHERE
-		levelId =
-		#{1}
-		)
-		AND parentId = #{0}
+		parentId = #{1}
 	</select>
 
 </mapper>

@@ -10,6 +10,7 @@ var basicSetUsingUrl = "http://localhost:8080/GLCPWCC/basic/setUsing";
 var basicSetDefaultUrl = "http://localhost:8080/GLCPWCC/basic/setDefault";
 var basicInsertUrl = "http://localhost:8080/GLCPWCC/basic/insert";
 var basicEditUrl = "http://localhost:8080/GLCPWCC/basic/edit";
+var basicDeleteUrl="http://localhost:8080/GLCPWCC/basic/delete/";
 
 var userInfoUrl = "http://localhost:8080/GLCPWCC/admin/info";
 

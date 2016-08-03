@@ -17,7 +17,7 @@ public interface ButtonDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ButtonGroup> getButtonGroup() throws Exception;
+	public List<ButtonGroup> getButtonGroup(int levelId) throws Exception;
 
 	/**
 	 * get all buttons by button group id and user level id
@@ -27,5 +27,5 @@ public interface ButtonDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Button> getButtons(int groupId, int levelId) throws Exception;
+	public List<Button> getButtons(int groupId) throws Exception;
 }

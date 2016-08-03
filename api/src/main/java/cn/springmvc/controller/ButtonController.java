@@ -42,10 +42,12 @@ public class ButtonController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/group", method = RequestMethod.GET)
-	public Map<String, Object> getParents() {
+	public Map<String, Object> getParents(HttpServletRequest request) {
+		User admin = (User) request.getAttribute("admin");
+
 		List<ButtonGroup> result = null;
 		try {
-			result = buttonService.getButtonGroup();
+			result = buttonService.getButtonGroup(admin.getUserLevel());
 			logger.error("get all button groups success >>> \n" + result);
 			return HttpUtils.generateResponse("0", "按钮组查询成功", result);
 		} catch (Exception e) {
@@ -63,11 +65,10 @@ public class ButtonController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/button/{groupId}", method = RequestMethod.GET)
-	public Map<String, Object> getChilds(@PathVariable int groupId, HttpServletRequest request) {
-		User admin = (User) request.getAttribute("admin");
+	public Map<String, Object> getChilds(@PathVariable int groupId) {
 		List<Button> result = null;
 		try {
-			result = buttonService.getButtons(groupId, admin.getUserLevel());
+			result = buttonService.getButtons(groupId);
 			logger.error("get all buttons success >>> \n" + result);
 			return HttpUtils.generateResponse("0", "按钮查询成功", result);
 		} catch (Exception e) {

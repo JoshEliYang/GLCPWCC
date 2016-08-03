@@ -96,4 +96,14 @@ public class BasicServiceImpl implements BasicService {
 	public void edit(BasicModel basicModel) throws Exception {
 		dao.edit(basicModel);
 	}
+
+	/**
+	 * delete basic model by id
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void delete(int id) throws Exception {
+		dao.delete(id);
+	}
 }

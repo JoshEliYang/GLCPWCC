@@ -7,7 +7,7 @@ package cn.springmvc.model;
  */
 public class UserRight {
 	int id;
-	int buttonId;
+	int groupId;
 	int levelId;
 	String bak1;
 	String bak2;
@@ -20,12 +20,12 @@ public class UserRight {
 		this.id = id;
 	}
 
-	public int getButtonId() {
-		return buttonId;
+	public int getGroupId() {
+		return groupId;
 	}
 
-	public void setButtonId(int buttonId) {
-		this.buttonId = buttonId;
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
 
 	public int getLevelId() {

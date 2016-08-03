@@ -80,4 +80,9 @@
 		WHERE
 		`id`=#{id}
 	</update>
+
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM basic
+		WHERE id=#{1}
+	</delete>
 </mapper>

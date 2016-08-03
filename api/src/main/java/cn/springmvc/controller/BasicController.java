@@ -194,5 +194,25 @@ public class BasicController {
 			return HttpUtils.generateResponse("１", "修改失败", null);
 		}
 	}
-	
+
+	/**
+	 * delete baisc model by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public Map<String, Object> delete(@PathVariable int id) {
+		try {
+			service.delete(id);
+			logger.error("delete basicModel success");
+			return HttpUtils.generateResponse("0", "删除成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("delete basicModel failed" + e.getMessage());
+			return HttpUtils.generateResponse("１", "删除失败", null);
+		}
+	}
+
 }

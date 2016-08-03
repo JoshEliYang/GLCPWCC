@@ -26,8 +26,8 @@ public class ButtonServiceImpl implements ButtonService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ButtonGroup> getButtonGroup() throws Exception {
-		return buttonDao.getButtonGroup();
+	public List<ButtonGroup> getButtonGroup(int levelId) throws Exception {
+		return buttonDao.getButtonGroup(levelId);
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class ButtonServiceImpl implements ButtonService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Button> getButtons(int groupId, int levelId) throws Exception {
-		return buttonDao.getButtons(groupId, levelId);
+	public List<Button> getButtons(int groupId) throws Exception {
+		return buttonDao.getButtons(groupId);
 	}
 }

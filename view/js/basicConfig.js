@@ -100,8 +100,32 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService) {
         var modelRemark = document.getElementById('modelRemark');
         modelRemark.focus();
     };
+
+    $scope.doDelete = function () {
+        var count = 0;
+        for (var i = 0; i < $scope.basicList.length; i++) {
+            if ($scope.basicList[i].checked == true) {
+                count++;
+            }
+        }
+        $.confirm({
+            title: '删除确认',
+            content: '选中' + count + '项，确认删除？',
+            confirm: function () {
+                for (var i = 0; i < $scope.basicList.length; i++) {
+                    if ($scope.basicList[i].checked == true) {
+                        BasicService.delete($scope, $http, $scope.basicList[i].id);
+                    }
+                }
+            },
+            cancel: function () {
+            }
+        });
+    };
 });
 
+
+////////////////////////////////////////////////// Service //////////////////////////////////////////////////////
 app.service('BasicService', function () {
     this.getAll = function ($scope, $http) {
         getAll($scope, $http);
@@ -203,4 +227,23 @@ app.service('BasicService', function () {
             $.alert('<b>请求失败<br>请检查您的网络！</br>');
         });
     };
+
+    this.delete = function ($scope, $http, id) {
+        $http({
+            method: "DELETE",
+            url: basicDeleteUrl + id + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json'
+            // data: param
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert('<b>' + data.msg + '</b>');
+                return;
+            }
+
+            getAll($scope, $http);
+        }).error(function () {
+            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+        });
+    }
+
 });
