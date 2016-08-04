@@ -20,6 +20,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 		<typeAlias alias="VerifyCode" type="cn.springmvc.model.VerifyCode" />
 		<typeAlias alias="LoginData" type="cn.springmvc.model.LoginData" />
+		
+		<typeAlias alias="QrcodeModel" type="cn.springmvc.model.QrcodeModel"/>
 	</typeAliases>
 
 	<!-- 映射map -->
