@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springmvc.utils.MD5Util;
+
 import cn.springmvc.dao.AdminDao;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
@@ -72,5 +74,51 @@ public class AdminServiceImpl implements AdminService {
 	 */
 	public User getUserById(int userId) throws Exception {
 		return dao.getUserById(userId);
+	}
+
+	/**
+	 * insert admin data
+	 * 
+	 * @param admin
+	 * @throws Exception
+	 */
+	public void insert(User admin) throws Exception {
+		String passwd = admin.getPasswd();
+		passwd = MD5Util.string2MD5(passwd);
+		admin.setPasswd(passwd);
+		dao.insert(admin);
+	}
+
+	/**
+	 * edit admin info (except password)
+	 * 
+	 * @param admin
+	 * @throws Exception
+	 */
+	public void edit(User admin) throws Exception {
+		dao.edit(admin);
+	}
+
+	/**
+	 * delete admin by id
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void delete(int id) throws Exception {
+		dao.delete(id);
+	}
+
+	/**
+	 * reset password
+	 * 
+	 * @param admin
+	 * @throws Exception
+	 */
+	public void resetPassword(User admin) throws Exception {
+		String password = admin.getPasswd();
+		password = MD5Util.string2MD5(password);
+		admin.setPasswd(password);
+		dao.resetPassword(admin);
 	}
 }

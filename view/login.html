@@ -37,7 +37,9 @@
             </div>
             <div class="form-group verifyBlock">
                 <input type="text" class="form-control" id="verifyCode" placeholder="验证码" onkeypress="verifyOnEnter();">
-                <img src="http://localhost:8080/GLCPWCC/login/getVerification">
+                <a onclick="refreshCode()">
+                    <img id="verifyPic" src="http://localhost:8080/GLCPWCC/login/getVerification">
+                </a>
             </div>
             <div class="checkbox">
                 <label>

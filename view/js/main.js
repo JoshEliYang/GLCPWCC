@@ -78,13 +78,13 @@ app.service('InitService', function () {
             for (i = 0; i < basicList.length; i++) {
                 if (basicList[i].default) {
                     $scope.basicTitle = basicList[i].remark;
+                    sessionStorage.setItem("basic", JSON.stringify(basicList[i]));
                     break;
                 }
             }
             if (i == basicList.length) {
                 $scope.basicTitle = "未选择";
             }
-            sessionStorage.setItem("basic", JSON.stringify(basicList));
             $scope.basicList = basicList;
         }).error(function () {
             $.alert('<b>请求失败<br>请检查您的网络！</br>');
@@ -122,6 +122,7 @@ app.service('ViewService', function () {
             if (basicId == $scope.basicList[i].id) {
                 $scope.basicTitle = $scope.basicList[i].remark;
                 $scope.basicList[i].default = true;
+                sessionStorage.setItem("basic", JSON.stringify($scope.basicList[i]));
             } else {
                 $scope.basicList[i].default = false;
             }

@@ -41,7 +41,7 @@
     width: 50%;
 }
 
-.verifyBlock img {
+.verifyBlock a img {
     position: absolute;
     top: 0;
     right: 0;

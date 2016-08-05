@@ -32,6 +32,11 @@ function verifyOnEnter() {
     }
 }
 
+function refreshCode() {
+    var img = document.getElementById('verifyPic');
+    img.src = "http://localhost:8080/GLCPWCC/login/getVerification?rnd=" + Math.random();
+}
+
 function doLogin() {
     var param = {
         "username": document.getElementById("username").value,

@@ -10,6 +10,7 @@ th {
 td {
     word-break: break-all;
     word-wrap: break-word;
+    text-align: center;
 }
 
 .outerContainer {
@@ -44,15 +45,15 @@ td {
     background: linear-gradient(#CCFFFF, #99FFCC); /* 标准的语法 */
 }
 
-.checkbox label {
-    font-weight: bold;
-    margin-right: 20px;
-}
-
 .modal-header {
     background-color: #339999;
     color: white;
     -moz-border-radius: 5px 5px 0 0; /* Gecko browsers */
     -webkit-border-radius: 5px 5px 0 0; /* Webkit browsers */
     border-radius: 5px 5px 0 0;
+}
+
+.errorBlock {
+    color: #FF6666;
+    font-style: italic;
 }

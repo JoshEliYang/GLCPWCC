@@ -16,12 +16,6 @@
 
 <div class="outerContainer">
 
-    <!--<div class="alert alert-info" role="alert">-->
-        <!--<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>-->
-        <!--<b>说明：</b>-->
-        <!--具体内容-->
-    <!--</div>-->
-
     <div class="AddBtnPanel">
         <button type="button" class="btn btn-success" ng-click="openAddDialog()">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -58,7 +52,7 @@
                     <input type="checkbox" ng-checked="item.checked">
                 </label>
             </td>
-            <td ng-bind="$index"></td>
+            <td ng-bind="$index+1"></td>
             <td ng-bind="item.remark"></td>
             <td ng-bind="item.wechatAccount"></td>
             <td ng-bind="item.appId"></td>
@@ -111,17 +105,17 @@
                            ng-model="basicModelData.appId">
                 </div>
                 <div class="form-group">
-                    <label for="modelSecret">app_secret</label>
+                    <label for="modelSecret">app_secret:</label>
                     <input type="text" class="form-control" id="modelSecret" placeholder="app_secret"
                            ng-model="basicModelData.appSecret">
                 </div>
                 <div class="form-group">
-                    <label for="modelToken">token</label>
+                    <label for="modelToken">token:</label>
                     <input type="text" class="form-control" id="modelToken" placeholder="token"
                            ng-model="basicModelData.token">
                 </div>
                 <div class="form-group">
-                    <label for="modelUrl">地址</label>
+                    <label for="modelUrl">URL:</label>
                     <input type="text" class="form-control" id="modelUrl" placeholder="地址"
                            ng-model="basicModelData.url">
                 </div>
@@ -134,17 +128,18 @@
             </div>
         </div>
     </div>
+</div>
 
-    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
-    <script src="http://cdn.bootcss.com/angular-sanitize/1.5.7/angular-sanitize.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
+<script src="http://cdn.bootcss.com/angular-sanitize/1.5.7/angular-sanitize.min.js"></script>
 
-    <script src="js/jquery-confirm.min.js"></script>
+<script src="js/jquery-confirm.min.js"></script>
 
-    <script src="js/util.js" type="text/javascript"></script>
-    <script src="js/conf.js" type="text/javascript"></script>
-    <script src="js/basicConfig.js" type="text/javascript"></script>
+<script src="js/util.js" type="text/javascript"></script>
+<script src="js/conf.js" type="text/javascript"></script>
+<script src="js/basicConfig.js" type="text/javascript"></script>
 </body>
 </html>

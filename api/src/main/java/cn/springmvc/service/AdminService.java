@@ -55,4 +55,36 @@ public interface AdminService {
 	 */
 	public User getUserById(int userId) throws Exception;
 
+	/**
+	 * insert admin data
+	 * 
+	 * @param admin
+	 * @throws Exception
+	 */
+	public void insert(User admin) throws Exception;
+
+	/**
+	 * edit admin info (except password)
+	 * 
+	 * @param admin
+	 * @throws Exception
+	 */
+	public void edit(User admin) throws Exception;
+
+	/**
+	 * delete admin by id
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void delete(int id) throws Exception;
+
+	/**
+	 * reset password
+	 * 
+	 * @param admin
+	 * @throws Exception
+	 */
+	public void resetPassword(User admin) throws Exception;
+
 }

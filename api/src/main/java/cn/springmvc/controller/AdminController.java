@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -82,6 +84,86 @@ public class AdminController {
 	public Map<String, Object> getById(HttpServletRequest request) {
 		User admin = (User) request.getAttribute("admin");
 		return HttpUtils.generateResponse("0", "管理员信息查询成功", admin);
+	}
+
+	/**
+	 * insert admin data
+	 * 
+	 * @param admin
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public Map<String, Object> insert(@RequestBody User admin) {
+		try {
+			service.insert(admin);
+			logger.error("admin insert success >>> \n");
+			return HttpUtils.generateResponse("0", "管理员插入成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("admin insert failed >>> \n");
+			return HttpUtils.generateResponse("1", "管理员插入失败", null);
+		}
+	}
+
+	/**
+	 * edit admin info (except password)
+	 * 
+	 * @param admin
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
+	public Map<String, Object> edit(@RequestBody User admin) {
+		try {
+			service.edit(admin);
+			logger.error("admin edit success >>> \n");
+			return HttpUtils.generateResponse("0", "管理员修改成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("admin edit failed >>> \n");
+			return HttpUtils.generateResponse("1", "管理员修改失败", null);
+		}
+	}
+
+	/**
+	 * delete admin by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public Map<String, Object> delete(@PathVariable int id) {
+		try {
+			service.delete(id);
+			logger.error("admin delete success >>> \n");
+			return HttpUtils.generateResponse("0", "管理员删除成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("admin delete failed >>> \n");
+			return HttpUtils.generateResponse("1", "管理员删除失败", null);
+		}
+	}
+
+	/**
+	 * reset password
+	 * 
+	 * @param admin
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/resetPasswd", method = RequestMethod.PATCH)
+	public Map<String, Object> resetPassword(@RequestBody User admin) {
+		try {
+			service.resetPassword(admin);
+			logger.error("admin reset password success >>> \n");
+			return HttpUtils.generateResponse("0", "管理员重置密码成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("admin reset password failed >>> \n");
+			return HttpUtils.generateResponse("1", "管理重置密码失败", null);
+		}
 	}
 
 }
