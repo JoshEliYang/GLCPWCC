@@ -86,11 +86,23 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService) {
             }
         }
         if (count == 0) {
-            $.alert("<b>请先选择</b>");
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请先选择</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
             return;
         }
         if (count > 1) {
-            $.alert("<b>请去除多余选择</b>");
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请去除多余选择</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
             return;
         }
         var param = $scope.basicList[target];
@@ -111,6 +123,9 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService) {
         $.confirm({
             title: '删除确认',
             content: '选中' + count + '项，确认删除？',
+            theme: "material",
+            confirmButtonClass: 'btn-info',
+            cancelButtonClass: 'btn-danger',
             confirm: function () {
                 for (var i = 0; i < $scope.basicList.length; i++) {
                     if ($scope.basicList[i].checked == true) {
@@ -138,7 +153,13 @@ app.service('BasicService', function () {
             //data: params
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
@@ -148,7 +169,13 @@ app.service('BasicService', function () {
             }
             $scope.basicList = basicList;
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -160,13 +187,25 @@ app.service('BasicService', function () {
             data: param
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             getAll($scope, $http);
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -181,13 +220,25 @@ app.service('BasicService', function () {
             data: param
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             getAll($scope, $http);
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -200,13 +251,25 @@ app.service('BasicService', function () {
             data: param
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             getAll($scope, $http);
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -218,13 +281,25 @@ app.service('BasicService', function () {
             data: param
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             getAll($scope, $http);
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -236,13 +311,25 @@ app.service('BasicService', function () {
             // data: param
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             getAll($scope, $http);
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</br>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     }
 

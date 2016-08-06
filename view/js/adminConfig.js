@@ -1,7 +1,7 @@
 /**
  * Created by johnson on 2016/8/3.
  *
- * When I written it, only God and I known what it mean.
+ * When I written it, only God and I known what it means.
  * Now, only God know.
  */
 
@@ -58,11 +58,23 @@ app.controller('wechatCtrl', function ($scope, $http, UserService) {
             }
         }
         if (count == 0) {
-            $.alert("<b>请先选择</b>");
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请先选择</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
             return;
         }
         if (count > 1) {
-            $.alert("<b>请去除多余选择</b>");
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请去除多余选择</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
             return;
         }
 
@@ -166,6 +178,9 @@ app.controller('wechatCtrl', function ($scope, $http, UserService) {
         $.confirm({
             title: '删除确认',
             content: '选中' + count + '项，确认删除？',
+            theme: "material",
+            confirmButtonClass: 'btn-info',
+            cancelButtonClass: 'btn-danger',
             confirm: function () {
                 for (var i = 0; i < $scope.adminList.length; i++) {
                     if ($scope.adminList[i].checked)
@@ -177,16 +192,54 @@ app.controller('wechatCtrl', function ($scope, $http, UserService) {
         });
     };
 
-    $scope.resetPasswd=function(){
-        var count=0;
-        for(var i=0;i<$scope.adminList.length;i++){
+    $scope.resetPasswd = function (errorFlag) {
+        var count = 0;
+        for (var i = 0; i < $scope.adminList.length; i++) {
             if ($scope.adminList[i].checked)
                 count++;
         }
-        if(count<1){
-            $.alert("<b>请先选择</b>");
+        if (count < 1) {
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "请先选择",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
             return;
         }
+        var confirmContent = '<div class="form-group"><input type="password" class="form-control" placeholder="密码" id="newPasswd"></div>' +
+            '<div class="form-group"><input type="password" class="form-control" placeholder="确认密码" id="newPasswdConfirm"></div>';
+        if (errorFlag) {
+            confirmContent = '<p class="errorBlock">密码不一致</p>' + confirmContent;
+        }
+        $.confirm({
+            title: '请输入新密码',
+            content: confirmContent,
+            theme: "material",
+            confirmButtonClass: 'btn-info',
+            cancelButtonClass: 'btn-danger',
+            confirm: function () {
+                var newPasswd = $('#newPasswd').val();
+                var newPasswdConfirm = $('#newPasswdConfirm').val();
+                if (newPasswd != newPasswdConfirm) {
+                    $scope.resetPasswd(true);
+                    return;
+                }
+
+                for (var i = 0; i < $scope.adminList.length; i++) {
+                    if ($scope.adminList[i].checked) {
+                        var params = {
+                            "id": $scope.adminList[i].id,
+                            "passwd": newPasswd
+                        };
+                        UserService.doResetPasswd($scope, $http, params);
+                    }
+                }
+            },
+            cancel: function () {
+            }
+        });
 
     };
 
@@ -205,7 +258,13 @@ app.service('UserService', function () {
             //data: params
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
@@ -215,7 +274,13 @@ app.service('UserService', function () {
             }
             $scope.adminList = adminList;
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</b>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: '<b>请求失败<br>请检查您的网络！</b>',
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -227,13 +292,25 @@ app.service('UserService', function () {
             //data: params
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             $scope.UserLevelList = data.data;
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</b>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: '<b>请求失败<br>请检查您的网络！</b>',
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -245,13 +322,25 @@ app.service('UserService', function () {
             data: params
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             getAllUser($scope, $http);
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</b>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: '<b>请求失败<br>请检查您的网络！</b>',
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -263,13 +352,25 @@ app.service('UserService', function () {
             data: params
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             getAllUser($scope, $http);
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</b>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: '<b>请求失败<br>请检查您的网络！</b>',
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 
@@ -281,13 +382,55 @@ app.service('UserService', function () {
             // data: params
         }).success(function (data) {
             if (data.code != 0) {
-                $.alert('<b>' + data.msg + '</b>');
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
                 return;
             }
 
             getAllUser($scope, $http);
         }).error(function () {
-            $.alert('<b>请求失败<br>请检查您的网络！</b>');
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: '<b>请求失败<br>请检查您的网络！</b>',
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
+        });
+    };
+
+    this.doResetPasswd = function ($scope, $http, params) {
+        $http({
+            method: "PATCH",
+            url: resetPasswdUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
+                return;
+            }
+
+            getAllUser($scope, $http);
+        }).error(function () {
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: '<b>请求失败<br>请检查您的网络！</b>',
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
         });
     };
 });
