@@ -3,6 +3,8 @@ package cn.springmvc.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.HttpUtils;
 
+import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.QrcodeModel;
 import cn.springmvc.service.QrcodeService;
 
@@ -25,7 +28,7 @@ public class QrcodeController {
 	private QrcodeService service;
 	
 	/**
-	 * 获得所有标签
+	 * 查询已生成二维码
 	 * @return
 	 */
 	
@@ -42,17 +45,46 @@ public class QrcodeController {
 		}
 	}
 	
+	/*
+	 * 创建二维码
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public Map<String, Object>createTag(@RequestBody String name){
-		Map<String, String> result = null;
+	public Map<String, Object>createQrcode(@RequestBody long ID, HttpServletRequest request){
+		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
+		List<QrcodeModel> result = null;
 		try{
-			result = service.createQrcode(name);
-			return null;
+			result = service.createQrcode(ID, model);
+			return HttpUtils.generateResponse("0", "success", result);
 		}catch(Exception e){
-			return null;
+			return HttpUtils.generateResponse("1", "failed", null);
 		}
 	}
+	
+	/*
+	 * 判断scene_id是否合法
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/valid", method = RequestMethod.POST)
+	public Map<String, Object>isSceneIDLegal(@RequestBody String ID){
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
