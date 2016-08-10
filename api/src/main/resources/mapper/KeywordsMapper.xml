@@ -5,10 +5,38 @@
 
 <mapper namespace="cn.springmvc.dao.KeywordsDao">
 	<select id="getAll" parameterType="Integer" resultType="Keywords">
-		SELECT *
-		FROM keywords
-		WHERE basicId=#{1};
+		SELECT
+		a.*, b.remark AS msgTypeName
+		FROM
+		keywords a
+		LEFT JOIN msgType b ON
+		(a.msgType = b.id)
+		WHERE
+		a.basicId = #{1}
+		AND a.isSubscribe = FALSE;
 	</select>
+
+	<insert id="insert" parameterType="Keywords">
+	INSERT INTO keywords(
+	`basicId`,
+	`value`,
+	`msgType`,
+	`reply`,
+	`remark`,
+	`isSubscribe`,
+	`bak1`,
+	`bak2`
+	) VALUES(
+	#{basicId},
+	#{value},
+	#{msgType},
+	#{reply},
+	#{remark},
+	FALSE,
+	#{bak1},
+	#{bak2}
+	)
+	</insert>
 
 	<select id="getSubscribeReply" parameterType="Integer"
 		resultType="Keywords">

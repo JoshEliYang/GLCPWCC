@@ -12,6 +12,7 @@ public class User {
 	String passwd;
 	String email;
 	int userLevel;
+	String levelName;
 	String bak1;
 	String bak2;
 
@@ -61,6 +62,14 @@ public class User {
 
 	public void setUserLevel(int userLevel) {
 		this.userLevel = userLevel;
+	}
+
+	public String getLevelName() {
+		return levelName;
+	}
+
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
 	}
 
 	public String getBak1() {

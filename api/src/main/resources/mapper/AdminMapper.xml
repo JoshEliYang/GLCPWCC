@@ -5,8 +5,19 @@
 
 <mapper namespace="cn.springmvc.dao.AdminDao">
 	<select id="getAllUsers" resultType="User">
-		SELECT *
-		FROM `user`
+		SELECT
+		a.id,
+		a.username,
+		a.realname,
+		a.passwd,
+		a.email,
+		a.userLevel,
+		a.bak1,
+		a.bak2,
+		b.levelName
+		FROM
+		`user` a
+		LEFT JOIN userLevel b ON (a.userLevel = b.id)
 	</select>
 
 	<select id="getAllUserLevels" resultType="UserLevel">
@@ -34,4 +45,45 @@
 		FROM `user`
 		WHERE id=#{1}
 	</select>
+
+	<insert id="insert" parameterType="User">
+		INSERT INTO `user`(
+		`username`,
+		`realname`,
+		`passwd`,
+		`email`,
+		`userLevel`
+		)
+		VALUES(
+		#{username},
+		#{realname},
+		#{passwd},
+		#{email},
+		#{userLevel}
+		)
+	</insert>
+
+	<update id="edit" parameterType="User">
+		UPDATE `user`
+		SET
+		`username`=#{username},
+		`realname`=#{realname},
+		`email`=#{email},
+		`userLevel`=#{userLevel}
+		WHERE id=#{id}
+	</update>
+
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM `user`
+		WHERE
+		id=#{1}
+	</delete>
+
+	<update id="resetPassword" parameterType="User">
+		UPDATE `user`
+		SET
+		`passwd`=#{passwd}
+		WHERE id=#{id}
+	</update>
+
 </mapper>

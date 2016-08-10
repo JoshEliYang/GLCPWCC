@@ -19,6 +19,14 @@ public interface KeywordsDao {
 	public List<Keywords> getAll(int basicId) throws Exception;
 
 	/**
+	 * insert keyword
+	 * 
+	 * @param keyword
+	 * @throws Exception
+	 */
+	public void insert(Keywords keyword) throws Exception;
+
+	/**
 	 * get subscribe reply message
 	 * 
 	 * @return Keywords

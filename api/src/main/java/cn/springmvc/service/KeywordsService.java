@@ -15,6 +15,14 @@ public interface KeywordsService {
 	public List<Keywords> getAll(BasicModel basicModel) throws Exception;
 
 	/**
+	 * insert keyword
+	 * 
+	 * @param keyword
+	 * @throws Exception
+	 */
+	public void insert(Keywords keyword) throws Exception;
+
+	/**
 	 * get subscribe reply message
 	 * 
 	 * @return Keywords

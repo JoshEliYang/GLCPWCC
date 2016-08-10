@@ -1,0 +1,18 @@
+td {
+    text-align: center;
+}
+
+textarea {
+    height: 200px !important;
+}
+
+.replyBlock {
+    margin-top: 20px;
+    position: relative;
+}
+
+.replyBlock button {
+    position: absolute;
+    top: -10px;
+    right: 0;
+}
