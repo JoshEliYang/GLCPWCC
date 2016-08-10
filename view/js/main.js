@@ -141,6 +141,7 @@ app.service('ViewService', function () {
                 $scope.basicTitle = $scope.basicList[i].remark;
                 $scope.basicList[i].default = true;
                 sessionStorage.setItem("basic", JSON.stringify($scope.basicList[i]));
+                window.parent.frames["mainFrame"].location.reload();
             } else {
                 $scope.basicList[i].default = false;
             }

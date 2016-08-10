@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,6 +54,26 @@ public class KeywordsController {
 			e.printStackTrace();
 			logger.error("get all keywords failed\n" + null);
 			return HttpUtils.generateResponse("1", "关键字查询失败", result);
+		}
+	}
+
+	/**
+	 * 
+	 * @param request
+	 * @param keyword
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public Map<String, Object> insert(HttpServletRequest request, @RequestBody Keywords keyword) {
+		try {
+			service.insert(keyword);
+			logger.error("insert keywords success >>> \n");
+			return HttpUtils.generateResponse("0", "关键字插入成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("insert keywords error >>> \n");
+			return HttpUtils.generateResponse("1", "关键字插入失败", null);
 		}
 	}
 

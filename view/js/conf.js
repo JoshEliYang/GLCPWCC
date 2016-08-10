@@ -22,3 +22,7 @@ var resetPasswdUrl = "http://localhost:8080/GLCPWCC/admin/resetPasswd";
 
 var buttonGroupUrl = "http://localhost:8080/GLCPWCC/button/group";
 var buttonsUrl = "http://localhost:8080/GLCPWCC/button/button/";
+
+var msgTypeUrl = "http://localhost:8080/GLCPWCC/msgtype/all";
+var keyWordsUrl = "http://localhost:8080/GLCPWCC/keywords/all";
+var keyWordsInsertUrl = "http://localhost:8080/GLCPWCC/keywords/insert";

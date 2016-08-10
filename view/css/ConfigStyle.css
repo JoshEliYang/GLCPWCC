@@ -1,0 +1,58 @@
+
+table {
+    table-layout: fixed;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.outerContainer {
+    margin-top: 10px;
+    position: relative;
+}
+
+.AddBtnPanel {
+    margin-bottom: 10px;
+    float: right;
+}
+
+.btn-success {
+    background-color: #339999;
+}
+
+.btn-success:hover {
+    background-color: #336666;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background: -webkit-linear-gradient(#CCFFCC, #CCFF99); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#CCFFCC, #CCFF99); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#CCFFCC, #CCFF99); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#CCFFCC, #CCFF99); /* 标准的语法 */
+}
+
+.table-striped > tbody > tr:hover {
+    background: -webkit-linear-gradient(#CCFFFF, #99FFCC); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#CCFFFF, #99FFCC); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#CCFFFF, #99FFCC); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#CCFFFF, #99FFCC); /* 标准的语法 */
+}
+
+.modal-header {
+    background-color: #339999;
+    color: white;
+    -moz-border-radius: 5px 5px 0 0; /* Gecko browsers */
+    -webkit-border-radius: 5px 5px 0 0; /* Webkit browsers */
+    border-radius: 5px 5px 0 0;
+}
+
+.errorBlock {
+    color: #FF6666;
+    font-style: italic;
+}

@@ -18,6 +18,7 @@
 		WHERE
 		levelId = #{1}
 		)
+		ORDER BY `index`
 	</select>
 
 	<select id="getButtons" parameterType="Integer" resultType="Button">
@@ -27,6 +28,7 @@
 		button
 		WHERE
 		parentId = #{1}
+		ORDER BY `index`
 	</select>
 
 </mapper>

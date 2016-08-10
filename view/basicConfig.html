@@ -10,6 +10,8 @@
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/jquery-confirm.min.css" rel="stylesheet">
+
+    <link href="css/ConfigStyle.css" rel="stylesheet">
     <link href="css/basicConfig.css" rel="stylesheet">
 </head>
 <body ng-app="wechatApp" ng-controller="wechatCtrl">
@@ -46,6 +48,7 @@
             <th width="50">默认</th>
         </tr>
         </thead>
+        <tbody>
         <tr ng-repeat="item in basicList">
             <td class="form-group" align="center" ng-click="doSelect($index);">
                 <label>
@@ -70,7 +73,6 @@
                 </label>
             </td>
         </tr>
-        <tbody>
         </tbody>
     </table>
 

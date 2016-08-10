@@ -31,6 +31,16 @@ public class KeywordsServiceImpl implements KeywordsService {
 	}
 
 	/**
+	 * insert keyword
+	 * 
+	 * @param keyword
+	 * @throws Exception
+	 */
+	public void insert(Keywords keyword) throws Exception {
+		dao.insert(keyword);
+	}
+
+	/**
 	 * get subscribe reply message
 	 * 
 	 * @return Keywords

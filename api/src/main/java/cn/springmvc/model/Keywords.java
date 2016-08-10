@@ -11,12 +11,12 @@ public class Keywords {
 	int basicId;
 	String value;
 	int msgType;
-	String replyText;
-	String mediaId;
+	String reply;
 	String remark;
 	boolean isSubscribe;
 	String bak1;
 	String bak2;
+	String msgTypeName;
 
 	public int getId() {
 		return id;
@@ -50,20 +50,12 @@ public class Keywords {
 		this.msgType = msgType;
 	}
 
-	public String getReplyText() {
-		return replyText;
+	public String getReply() {
+		return reply;
 	}
 
-	public void setReplyText(String replyText) {
-		this.replyText = replyText;
-	}
-
-	public String getMediaId() {
-		return mediaId;
-	}
-
-	public void setMediaId(String mediaId) {
-		this.mediaId = mediaId;
+	public void setReply(String reply) {
+		this.reply = reply;
 	}
 
 	public String getRemark() {
@@ -96,6 +88,14 @@ public class Keywords {
 
 	public void setBak2(String bak2) {
 		this.bak2 = bak2;
+	}
+
+	public String getMsgTypeName() {
+		return msgTypeName;
+	}
+
+	public void setMsgTypeName(String msgTypeName) {
+		this.msgTypeName = msgTypeName;
 	}
 
 }

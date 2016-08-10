@@ -152,12 +152,12 @@ public class WechartController {
 					MsgType msgType = msgTypeService.getById(mesgResult.getId());
 
 					if ("text".equals(msgType.getMsgType())) {
-						response.getOutputStream().write(messageService
-								.sendText(mesgResult.getReplyText(), openId, basicModel).getBytes("UTF-8"));
+						response.getOutputStream().write(
+								messageService.sendText(mesgResult.getReply(), openId, basicModel).getBytes("UTF-8"));
 						return;
 					} else if ("news".equals(msgType.getMsgType())) {
 						response.getOutputStream().write(messageService
-								.sendPictureText(mesgResult.getMediaId(), openId, basicModel).getBytes("UTF-8"));
+								.sendPictureText(mesgResult.getReply(), openId, basicModel).getBytes("UTF-8"));
 						return;
 					}
 
