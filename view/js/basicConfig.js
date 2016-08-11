@@ -48,7 +48,9 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService) {
             "token": "",
             "url": "",
             "using": false,
-            "default": false
+            "default": false,
+            "tokenServer": "",
+            "usingTokenServer": false
         };
         $('#basicConfigModal').modal('show');
         var modelRemark = document.getElementById('modelRemark');
@@ -136,6 +138,10 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService) {
             cancel: function () {
             }
         });
+    };
+
+    $scope.doModalChecked = function () {
+        $scope.basicModelData.usingTokenServer = !$scope.basicModelData.usingTokenServer;
     };
 });
 

@@ -41,11 +41,12 @@
             <th>备注名称</th>
             <th width="100">公众号账号</th>
             <th width="100">app_id</th>
-            <th width="200">app_secret</th>
-            <th width="150">token</th>
+            <th width="150">app_secret</th>
+            <th width="100">token</th>
             <th width="100">地址</th>
             <th width="50">启用</th>
             <th width="50">默认</th>
+            <th width="50">ATS</th>
         </tr>
         </thead>
         <tbody>
@@ -70,6 +71,11 @@
             <td class="form-group" align="center">
                 <label>
                     <input type="checkbox" ng-checked="item.default" ng-click="defaultChecked(item.id)">
+                </label>
+            </td>
+            <td class="form-group" align="center">
+                <label>
+                    <input type="checkbox" ng-checked="item.usingTokenServer" ng-click="">
                 </label>
             </td>
         </tr>
@@ -120,6 +126,17 @@
                     <label for="modelUrl">URL:</label>
                     <input type="text" class="form-control" id="modelUrl" placeholder="地址"
                            ng-model="basicModelData.url">
+                </div>
+                <td class="form-group" align="center">
+                    <label>
+                        <input type="checkbox" ng-checked="basicModelData.usingTokenServer" ng-click="doModalChecked()">
+                        启用ATS
+                    </label>
+                </td>
+                <div class="form-group">
+                    <label for="modelATS">ATS(Access Token Server):</label>
+                    <input type="text" class="form-control" id="modelATS" placeholder="ATS"
+                           ng-model="basicModelData.tokenServer">
                 </div>
             </div>
             <div class="modal-footer">
