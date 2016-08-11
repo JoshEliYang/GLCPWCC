@@ -85,5 +85,9 @@
 		`passwd`=#{passwd}
 		WHERE id=#{id}
 	</update>
+	
+	<insert id="addLevel" parameterType="AdminLevel">
+		INSERT INTO `userLevel` (`levelName`, `remark`) VALUES (#{levelName}, #{remark});
+	</insert>
 
 </mapper>

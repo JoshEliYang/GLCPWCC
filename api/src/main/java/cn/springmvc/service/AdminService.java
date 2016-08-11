@@ -2,6 +2,7 @@ package cn.springmvc.service;
 
 import java.util.List;
 
+import cn.springmvc.model.AdminLevel;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 
@@ -86,5 +87,15 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	public void resetPassword(User admin) throws Exception;
+	
+	
+	/**
+	 * add level
+	 * 
+	 * @param adminLevel
+	 * @throws Exception
+	 */
+	public void addLevel(AdminLevel adminLevel) throws Exception;
+	
 
 }

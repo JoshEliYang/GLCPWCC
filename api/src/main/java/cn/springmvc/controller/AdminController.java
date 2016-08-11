@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springmvc.utils.GLCPStringUtils;
 import com.springmvc.utils.HttpUtils;
 
+import cn.springmvc.model.AdminLevel;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 import cn.springmvc.service.AdminService;
@@ -166,4 +168,33 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * admin add level
+	 * 
+	 * @param adminLevel
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addLevel", method = RequestMethod.POST)
+	public Map<String, Object> addLevel(@RequestBody AdminLevel adminLevel) {
+		try {
+			if (adminLevel == null ||
+					GLCPStringUtils.isNull(adminLevel.getLevelName())) {
+				return HttpUtils.generateResponse("1", "请求错误", null);
+			}
+			
+			if (!adminLevel.getLevelName().equals("超级管理员") || 
+					!adminLevel.getLevelName().equals("管理员")) {
+				return HttpUtils.generateResponse("1", "无权限", null);
+			}
+			
+			service.addLevel(adminLevel);
+			
+			return HttpUtils.generateResponse("0", "管理员添加权限成功", null);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			logger.error("admin add level >>> \n");
+			return HttpUtils.generateResponse("1", "管理员添加权限", null);
+		}
+	}
 }

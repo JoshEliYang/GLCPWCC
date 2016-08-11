@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.springmvc.utils.MD5Util;
 
 import cn.springmvc.dao.AdminDao;
+import cn.springmvc.model.AdminLevel;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 import cn.springmvc.service.AdminService;
@@ -120,5 +121,15 @@ public class AdminServiceImpl implements AdminService {
 		password = MD5Util.string2MD5(password);
 		admin.setPasswd(password);
 		dao.resetPassword(admin);
+	}
+
+	/**
+	 * add level
+	 * 
+	 * @param  Admin Level 
+	 * @throws Exception
+	 */
+	public void addLevel(AdminLevel adminLevel) throws Exception {
+		dao.addLevel(adminLevel);
 	}
 }
