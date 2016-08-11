@@ -182,12 +182,7 @@ public class AdminController {
 					GLCPStringUtils.isNull(adminLevel.getLevelName())) {
 				return HttpUtils.generateResponse("1", "请求错误", null);
 			}
-			
-			if (!adminLevel.getLevelName().equals("超级管理员") || 
-					!adminLevel.getLevelName().equals("管理员")) {
-				return HttpUtils.generateResponse("1", "无权限", null);
-			}
-			
+
 			service.addLevel(adminLevel);
 			
 			return HttpUtils.generateResponse("0", "管理员添加权限成功", null);
