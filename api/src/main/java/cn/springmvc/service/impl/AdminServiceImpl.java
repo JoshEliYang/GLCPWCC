@@ -9,6 +9,7 @@ import com.springmvc.utils.MD5Util;
 
 import cn.springmvc.dao.AdminDao;
 import cn.springmvc.model.AdminLevel;
+import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 import cn.springmvc.service.AdminService;
@@ -131,5 +132,39 @@ public class AdminServiceImpl implements AdminService {
 	 */
 	public void addLevel(AdminLevel adminLevel) throws Exception {
 		dao.addLevel(adminLevel);
+	}
+
+	/**
+	 * set right is visible
+	 * 
+	 * @param Right right
+	 * @throws Exception
+	 */
+	public void setRightAdd(Right right) throws Exception {
+		dao.setRightAdd(right);
+	}
+
+	/**
+	 * set right is disable
+	 * 
+	 * @param Right right
+	 * @throws Exception
+	 */
+	public void setRightDelete(Right right) throws Exception {
+		dao.setRightDelete(right);
+	}
+	
+	/**
+	 * set right is visible or disable
+	 * @param right
+	 * @throws Exception
+	 */
+	public void updateRight(Right right) throws Exception {
+		if (right.isVisible() == true) {
+			dao.setRightAdd(right);
+			return ;
+		}
+		
+		dao.setRightDelete(right);
 	}
 }

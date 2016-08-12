@@ -19,6 +19,7 @@ import com.springmvc.utils.GLCPStringUtils;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.AdminLevel;
+import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 import cn.springmvc.service.AdminService;
@@ -190,6 +191,27 @@ public class AdminController {
 			ex.printStackTrace();
 			logger.error("admin add level >>> \n");
 			return HttpUtils.generateResponse("1", "管理员添加权限", null);
+		}
+	}
+	
+	/**
+	 * admin update button group
+	 * 
+	 * @param right
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/button/setRight", method = RequestMethod.PATCH)
+	public Map<String, Object> setRight(@RequestBody Right right) {
+		try {
+			if (right == null) {
+				return HttpUtils.generateResponse("1", "请求参数错误", null);
+			}
+			service.updateRight(right);
+			return HttpUtils.generateResponse("0", "修改按钮成功", null);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return HttpUtils.generateResponse("1", "修改按钮错误", null);
 		}
 	}
 }
