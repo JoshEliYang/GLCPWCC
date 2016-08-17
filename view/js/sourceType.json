@@ -1,0 +1,24 @@
+{
+  "sourceType": [
+    {
+      "type": "image",
+      "name": "图片",
+      "default": true
+    },
+    {
+      "type": "video",
+      "name": "视频",
+      "default": false
+    },
+    {
+      "type": "voice",
+      "name": "语音",
+      "default": false
+    },
+    {
+      "type": "news",
+      "name": "图文",
+      "default": false
+    }
+  ]
+}

@@ -3,6 +3,17 @@
  */
 
 /**
+ * convert timestamp to date time
+ *
+ * @param nS
+ * @returns {string}
+ * @constructor
+ */
+function TimestampToDate(nS) {
+    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+}
+
+/**
  * set cookie
  *
  * if you want delete, use setCookie(c_name,'',-1)

@@ -74,4 +74,11 @@ public interface BasicDao {
 	 * @throws Exception
 	 */
 	public void delete(int id) throws Exception;
+
+	/**
+	 * set token server available or unavailable
+	 * 
+	 * @throws Exception
+	 */
+	public void setTokenServer(int id, boolean usingTokenServer) throws Exception;
 }

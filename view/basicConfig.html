@@ -6,10 +6,10 @@
     <meta name="Author" content="Johnson,starjohnson@sina.com">
     <title>微信基础信息配置</title>
 
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="lib/bootstrap3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/jquery-confirm.min.css" rel="stylesheet">
+    <link href="lib/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 
     <link href="css/ConfigStyle.css" rel="stylesheet">
     <link href="css/basicConfig.css" rel="stylesheet">
@@ -63,19 +63,19 @@
             <td ng-bind="item.appSecret"></td>
             <td ng-bind="item.token"></td>
             <td ng-bind="item.url"></td>
-            <td class="form-group" align="center">
+            <td class="form-group" align="center" ng-click="usingChecked(item.id,!item.using)">
                 <label>
-                    <input type="checkbox" ng-checked="item.using" ng-click="usingChecked(item.id,!item.using)">
+                    <input type="checkbox" ng-checked="item.using">
                 </label>
             </td>
-            <td class="form-group" align="center">
+            <td class="form-group" align="center" ng-click="defaultChecked(item.id)">
                 <label>
-                    <input type="checkbox" ng-checked="item.default" ng-click="defaultChecked(item.id)">
+                    <input type="checkbox" ng-checked="item.default">
                 </label>
             </td>
-            <td class="form-group" align="center">
+            <td class="form-group" align="center" ng-click="selectTokenServer($index)">
                 <label>
-                    <input type="checkbox" ng-checked="item.usingTokenServer" ng-click="">
+                    <input type="checkbox" ng-checked="item.usingTokenServer">
                 </label>
             </td>
         </tr>
@@ -138,6 +138,17 @@
                     <input type="text" class="form-control" id="modelATS" placeholder="ATS"
                            ng-model="basicModelData.tokenServer">
                 </div>
+                <td class="form-group" align="center">
+                    <label>
+                        <input type="checkbox" ng-checked="" ng-click="">
+                        对外提供ATS
+                    </label>
+                </td>
+                <div class="form-group">
+                    <label for="modelProvideATS">ATS地址:</label>
+                    <input type="text" class="form-control" id="modelProvideATS" placeholder="ATS地址"
+                           ng-model="">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -149,13 +160,13 @@
     </div>
 </div>
 
-<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="lib/jquery2.2.4/jquery.min.js"></script>
+<script src="lib/bootstrap3.3.6/js/bootstrap.min.js"></script>
 
-<script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
-<script src="http://cdn.bootcss.com/angular-sanitize/1.5.7/angular-sanitize.min.js"></script>
+<script src="lib/angular1.5.7/angular.min.js"></script>
+<script src="lib/angular1.5.7/angular-sanitize.min.js"></script>
 
-<script src="js/jquery-confirm.min.js"></script>
+<script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
 
 <script src="js/util.js" type="text/javascript"></script>
 <script src="js/conf.js" type="text/javascript"></script>

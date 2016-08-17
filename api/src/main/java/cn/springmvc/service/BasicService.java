@@ -71,12 +71,19 @@ public interface BasicService {
 	 * @throws Exception
 	 */
 	public void edit(BasicModel basicModel) throws Exception;
-	
+
 	/**
 	 * delete basic model by id
 	 * 
 	 * @param id
 	 * @throws Exception
 	 */
-	public void delete(int id)throws Exception;
+	public void delete(int id) throws Exception;
+
+	/**
+	 * set token server available or unavailable
+	 * 
+	 * @throws Exception
+	 */
+	public void setTokenServer(int id, boolean usingTokenServer) throws Exception;
 }
