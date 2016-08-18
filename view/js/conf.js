@@ -26,3 +26,12 @@ var buttonsUrl = "http://localhost:8080/GLCPWCC/button/button/";
 var msgTypeUrl = "http://localhost:8080/GLCPWCC/msgtype/all";
 var keyWordsUrl = "http://localhost:8080/GLCPWCC/keywords/all";
 var keyWordsInsertUrl = "http://localhost:8080/GLCPWCC/keywords/insert";
+
+var tagGetUrl =  "http://localhost:8080/GLCPWCC/tag/get";
+var tagGetUserUrl = "http://localhost:8080/GLCPWCC/tag/getUser";
+var tagCreateUrl = "http://localhost:8080/GLCPWCC/tag/create";
+var tagDeleteUrl = "http://localhost:8080/GLCPWCC/tag/delete";
+var tagUpdateUrl = "http://localhost:8080/GLCPWCC/tag/update";
+var tagCreateWithQr = "http://localhost:8080/GLCPWCC/tag/tagAndQrcode";
+
+var qrcodeGetUrl = "http://localhost:8080/GLCPWCC/Qrcode/select";
