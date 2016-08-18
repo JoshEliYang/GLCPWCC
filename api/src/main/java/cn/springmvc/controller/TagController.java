@@ -1,6 +1,5 @@
 package cn.springmvc.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.model.TagModel;
 import cn.springmvc.service.TagService;
 
 @Scope("prototype")
