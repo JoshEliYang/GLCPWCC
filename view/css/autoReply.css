@@ -16,3 +16,7 @@ textarea {
     top: -10px;
     right: 0;
 }
+
+.input-group {
+    margin-top: 10px;
+}

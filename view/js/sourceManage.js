@@ -3,11 +3,12 @@
  */
 
 /**
- * max number in a pge (used for pagination)
+ * max number in a page (used for pagination)
  *
  * @type {number}
  */
 var maxPage = 12;
+var maxPageNews = 3;
 
 $(function () {
     $('[data-toggle="popover"]').popover()
@@ -28,7 +29,11 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService, ResourceServ
     };
 
     $scope.getResource = function (type, offset) {
-        ResourceService.getResource($scope, $http, type, offset, maxPage);
+        if (type == 'news') {
+            ResourceService.getResource($scope, $http, type, offset, maxPageNews);
+        } else {
+            ResourceService.getResource($scope, $http, type, offset, maxPage);
+        }
     };
 
 
@@ -57,6 +62,20 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService, ResourceServ
             $scope.getResource(type, $scope.pageList[i + 1].offset);
         }
     };
+
+    $scope.openPicDialog = function (index) {
+        $scope.picDialogDat = $scope.resourceDat.item[index];
+        $('#picDetailModal').modal('show');
+        location.href = "#head";
+        location.href = "#picDetailModa";
+    };
+
+    $scope.openNewsDialog = function (index) {
+        $scope.newsModelDat = $scope.resourceDat.item[index];
+        $('#newsDetailModal').modal('show');
+        location.href = "#head";
+        location.href = "#picDetailModa";
+    };
 });
 
 app.service('BasicService', function () {
@@ -84,10 +103,11 @@ app.service('BasicService', function () {
 
 app.service('ResourceService', function () {
     this.getResource = function ($scope, $http, type, offset, count) {
+        $('#loadingDialog').modal('show');
         $http({
             method: "GET",
-            /*url: getResourceListUrl + type + "/" + offset + "/" + count + '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,*/
-            url: getResourceListUrl + type + "/" + offset + "/" + count + '?token=' + getCookie("token") + '&wechatAccount=1',
+            url: getResourceListUrl + type + "/" + offset + "/" + count + '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,
+            /*url: getResourceListUrl + type + "/" + offset + "/" + count + '?token=' + getCookie("token") + '&wechatAccount=1',*/
             'Content-Type': 'application/json'
             //data: params
         }).success(function (data) {
@@ -109,10 +129,23 @@ app.service('ResourceService', function () {
                     str = str.replace('http://mmbiz.qpic.cn/mmbiz', 'https://mmbiz.qlogo.cn/mmbiz');
                     resourceDat.item[i].url = getImageUrl + '?wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id + '&url=' + encodeURI(str);
                 }
+                if (type == 'news') {
+                    for (var j = 0; j < resourceDat.item[i].content.news_item.length; j++) {
+                        var strx = resourceDat.item[i].content.news_item[j].thumb_url;
+                        strx = strx.replace('http://mmbiz.qpic.cn/mmbiz', 'https://mmbiz.qlogo.cn/mmbiz');
+                        resourceDat.item[i].content.news_item[j].thumb_url = getImageUrl + '?wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id + '&url=' + encodeURI(strx);
+                    }
+                }
                 resourceDat.item[i].date = TimestampToDate(resourceDat.item[i].update_time);
             }
             $scope.resourceDat = resourceDat;
-            doPaginating($scope, offset, $scope.resourceDat);
+            if (type == 'news') {
+                doPaginating($scope, offset, maxPageNews, $scope.resourceDat);
+            } else {
+                doPaginating($scope, offset, maxPage, $scope.resourceDat);
+            }
+
+            $('#loadingDialog').modal('hide');
         }).error(function () {
             $.alert({
                 theme: "material",
@@ -124,12 +157,12 @@ app.service('ResourceService', function () {
         });
     };
 
-    var doPaginating = function ($scope, offset, resourceDat) {
-        // var maxPage = 200;
-        var pageNow = Math.floor(offset / maxPage);
+    var doPaginating = function ($scope, offset, maxPageDat, resourceDat) {
+        // var maxPageDat = 200;
+        var pageNow = Math.floor(offset / maxPageDat);
         pageNow += 1;
 
-        var pageTotal = Math.ceil(resourceDat.total_count / maxPage);
+        var pageTotal = Math.ceil(resourceDat.total_count / maxPageDat);
         $scope.pageTotal = pageTotal;
         if (pageTotal == 0) pageTotal = 1;
 
@@ -138,7 +171,7 @@ app.service('ResourceService', function () {
             for (var i = 0; i < pageTotal; i++) {
                 var item = {
                     "page": i + 1,
-                    "offset": i * maxPage,
+                    "offset": i * maxPageDat,
                     "css": ""
                 };
                 if (pageNow == (i + 1)) item.css = 'active';
@@ -151,21 +184,21 @@ app.service('ResourceService', function () {
                 for (j = 0; j < pageNow - 1; j++) {
                     itemDat = {
                         "page": j + 1,
-                        "offset": j * maxPage,
+                        "offset": j * maxPageDat,
                         "css": ""
                     };
                     pageList.push(itemDat);
                 }
                 itemDat = {
                     "page": pageNow,
-                    "offset": (pageNow - 1) * maxPage,
+                    "offset": (pageNow - 1) * maxPageDat,
                     "css": "active"
                 };
                 pageList.push(itemDat);
                 for (j = pageNow; j < 10; j++) {
                     itemDat = {
                         "page": j + 1,
-                        "offset": j * maxPage,
+                        "offset": j * maxPageDat,
                         "css": ""
                     };
                     pageList.push(itemDat);
@@ -174,21 +207,21 @@ app.service('ResourceService', function () {
                 for (j = pageNow - 5; j < pageNow - 1; j++) {
                     itemDat = {
                         "page": j + 1,
-                        "offset": j * maxPage,
+                        "offset": j * maxPageDat,
                         "css": ""
                     };
                     pageList.push(itemDat);
                 }
                 itemDat = {
                     "page": pageNow,
-                    "offset": (pageNow - 1) * maxPage,
+                    "offset": (pageNow - 1) * maxPageDat,
                     "css": "active"
                 };
                 pageList.push(itemDat);
                 for (j = pageNow; j < pageTotal; j++) {
                     itemDat = {
                         "page": j + 1,
-                        "offset": j * maxPage,
+                        "offset": j * maxPageDat,
                         "css": ""
                     };
                     pageList.push(itemDat);
@@ -197,21 +230,21 @@ app.service('ResourceService', function () {
                 for (j = pageNow - 5; j < pageNow - 1; j++) {
                     itemDat = {
                         "page": j + 1,
-                        "offset": j * maxPage,
+                        "offset": j * maxPageDat,
                         "css": ""
                     };
                     pageList.push(itemDat);
                 }
                 itemDat = {
                     "page": pageNow,
-                    "offset": (pageNow - 1) * maxPage,
+                    "offset": (pageNow - 1) * maxPageDat,
                     "css": "active"
                 };
                 pageList.push(itemDat);
                 for (j = pageNow; j < pageNow + 5; j++) {
                     itemDat = {
                         "page": j + 1,
-                        "offset": j * maxPage,
+                        "offset": j * maxPageDat,
                         "css": ""
                     };
                     pageList.push(itemDat);
@@ -221,4 +254,32 @@ app.service('ResourceService', function () {
         $scope.pageList = pageList;
 
     };
+});
+
+var clip = new ZeroClipboard(document.getElementById("picCopyBtn"), {
+    moviePath: "lib/ZeroClipboard/ZeroClipboard.swf"
+});
+
+clip.on('complete', function (client, args) {
+    $.alert({
+        theme: "material",
+        title: "复制成功",
+        content: '<b>复制内容：' + args.text + '</b>',
+        confirmButtonClass: 'btn-info',
+        autoClose: 'confirm|10000'
+    });
+});
+
+var newsClip = new ZeroClipboard(document.getElementById("newsCopyBtn"), {
+    moviePath: "lib/ZeroClipboard/ZeroClipboard.swf"
+});
+
+newsClip.on('complete', function (client, args) {
+    $.alert({
+        theme: "material",
+        title: "复制成功",
+        content: '<b>复制内容：' + args.text + '</b>',
+        confirmButtonClass: 'btn-info',
+        autoClose: 'confirm|10000'
+    });
 });

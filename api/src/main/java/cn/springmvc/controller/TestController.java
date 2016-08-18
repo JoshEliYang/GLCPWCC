@@ -1,6 +1,7 @@
 package cn.springmvc.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -90,6 +91,12 @@ public class TestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@ResponseBody
@@ -127,6 +134,12 @@ public class TestController {
 			response.setHeader("Content-Type", "image/jpeg");
 			response.getOutputStream().write(readInputStream(inputStream));
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			inputStream.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

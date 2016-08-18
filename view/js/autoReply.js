@@ -39,6 +39,8 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
             delete params.title;
             delete params.msgTypeName;
 
+            var replyDat = document.getElementById('repleyContent').value;
+            params.reply = replyDat;
             KeyWordService.insert($scope, $http, params);
             $('#ConfigModal').modal('hide');
         }
@@ -133,7 +135,7 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
             });
             return;
         }
-        if(param.count < 1){
+        if (param.count < 1) {
             $.alert({
                 theme: "material",
                 title: "警告",
@@ -153,6 +155,17 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
         $('#ConfigModal').modal('show');
     };
 
+    $scope.addHyperlink = function () {
+        $scope.addHyperlinkFlag = true;
+    };
+
+    $scope.doAddHyperlink = function () {
+        var hyperlinkText = document.getElementById('hyperlinkText').value;
+        var hyperlinkUrl = document.getElementById('hyperlinkUrl').value;
+        var hyperDat = '<a href="' + hyperlinkUrl + '">' + hyperlinkText + '</a>';
+        insertText(document.getElementById('repleyContent'), hyperDat);
+        $scope.addHyperlinkFlag = false;
+    }
 });
 
 //////////////////////////////////////// service ////////////////////////////////////////////////////

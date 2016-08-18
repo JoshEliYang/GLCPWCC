@@ -99,9 +99,19 @@
                 </div>
                 <p ng-show="selectEmpty" class="errorBlock">请选择消息回复类型</p>
 
+                <div class="input-group" ng-show="addHyperlinkFlag" ng-if="modelDat.msgType==1">
+                    <span class="input-group-addon">链接文字</span>
+                    <input type="text" class="form-control" id="hyperlinkText">
+                    <span class="input-group-addon">链接URL</span>
+                    <input type="text" class="form-control" id="hyperlinkUrl" value="http://">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" ng-click="doAddHyperlink()">添加</button>
+                      </span>
+                </div>
+
                 <div class="form-group replyBlock" ng-if="modelDat.msgType==1">
                     <label for="repleyContent">回复文本:</label>
-                    <button type="button" class="btn btn-success btn-sm" ng-click="">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="addHyperlink()">
                         <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                         添加超链接
                     </button>

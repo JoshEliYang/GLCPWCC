@@ -68,3 +68,17 @@ background: linear-gradient(#CCFFCC, #CCFF99); !* 标准的语法 *!
     color: #339999;
     font-weight: bold;
 }
+
+.loadingCover {
+    text-align: center;
+    align-items: center;
+}
+
+.loadingCover p {
+    font-weight: bold;
+    color: #666666;
+}
+
+.loadingCover img {
+    width: 60px;
+}
