@@ -39,11 +39,11 @@
 
 	<!-- 配置定时任务 -->
 	<!-- 配置调用的工作类 -->
-	<bean id="activityAction" class="cn.springmvc.service.impl.RefreshServiceImpl" />
+ <bean id="activityAction" class="cn.springmvc.service.impl.RefreshServiceImpl" />
 	<!-- spring调用自动执行 -->
 	<bean id="jobtask"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<!-- 调用的类 -->
+		<!-- 调用的类urlencode -->
 		<property name="targetObject">
 			<ref bean="activityAction" />
 		</property>
@@ -60,11 +60,11 @@
 		</property>
 		<!-- cron表达式 -->
 		<property name="cronExpression">
-			<!-- <value>0 58 * * * ?</value> -->
-			<value>0 0 * * * ?</value>
+			<value>0 58 * * * ?</value>
+			<!-- <value>0 0 * * * ?</value> -->
 		</property>
 	</bean>
-	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+<!-- 	总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
 	<bean id="startQuertz" lazy-init="false" autowire="no"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">

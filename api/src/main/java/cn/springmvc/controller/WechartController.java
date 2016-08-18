@@ -149,13 +149,16 @@ public class WechartController {
 				Keywords mesgResult = messageService.textProcess(model.getContent(), model.getMsgId(), basicModel);
 
 				if (mesgResult != null) {
+					logger.error(
+							"msgType = " + mesgResult.getMsgType() + " type name = " + mesgResult.getMsgTypeName());
 					MsgType msgType = msgTypeService.getById(mesgResult.getId());
 
-					if ("text".equals(msgType.getMsgType())) {
+					if ("text".equals(msgTypeService.getById(mesgResult.getMsgType()).getMsgType())) {
+						logger.error("in text process");
 						response.getOutputStream().write(
 								messageService.sendText(mesgResult.getReply(), openId, basicModel).getBytes("UTF-8"));
 						return;
-					} else if ("news".equals(msgType.getMsgType())) {
+					} else if ("news".equals(msgTypeService.getById(mesgResult.getMsgType()).getMsgType())) {
 						response.getOutputStream().write(messageService
 								.sendPictureText(mesgResult.getReply(), openId, basicModel).getBytes("UTF-8"));
 						return;
@@ -263,7 +266,7 @@ public class WechartController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("xml2Object error >>> \n" + e.getLocalizedMessage());
+			logger.error("xml2Object error >>> \n" + e.getMessage());
 		}
 
 		// return "success";

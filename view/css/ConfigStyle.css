@@ -1,4 +1,3 @@
-
 table {
     table-layout: fixed;
 }
@@ -30,18 +29,26 @@ td {
     background-color: #336666;
 }
 
+/*.table-striped > tbody > tr:nth-of-type(odd) {
+background: -webkit-linear-gradient(#CCFFCC, #CCFF99); !* Safari 5.1 - 6.0 *!
+background: -o-linear-gradient(#CCFFCC, #CCFF99); !* Opera 11.1 - 12.0 *!
+background: -moz-linear-gradient(#CCFFCC, #CCFF99); !* Firefox 3.6 - 15 *!
+background: linear-gradient(#CCFFCC, #CCFF99); !* 标准的语法 *!
+}*/
+
+/*.table-striped > tbody > tr:hover {*/
+/*background: -webkit-linear-gradient(#CCFFFF, #99FFCC); !* Safari 5.1 - 6.0 *!*/
+/*background: -o-linear-gradient(#CCFFFF, #99FFCC); !* Opera 11.1 - 12.0 *!*/
+/*background: -moz-linear-gradient(#CCFFFF, #99FFCC); !* Firefox 3.6 - 15 *!*/
+/*background: linear-gradient(#CCFFFF, #99FFCC); !* 标准的语法 *!*/
+/*}*/
+
 .table-striped > tbody > tr:nth-of-type(odd) {
-    background: -webkit-linear-gradient(#CCFFCC, #CCFF99); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#CCFFCC, #CCFF99); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#CCFFCC, #CCFF99); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#CCFFCC, #CCFF99); /* 标准的语法 */
+    background-color: #DDFFDD;
 }
 
 .table-striped > tbody > tr:hover {
-    background: -webkit-linear-gradient(#CCFFFF, #99FFCC); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#CCFFFF, #99FFCC); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#CCFFFF, #99FFCC); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#CCFFFF, #99FFCC); /* 标准的语法 */
+    background-color: #99CCCC;
 }
 
 .modal-header {
@@ -55,4 +62,9 @@ td {
 .errorBlock {
     color: #FF6666;
     font-style: italic;
+}
+
+.dropdown-menu > li > a {
+    color: #339999;
+    font-weight: bold;
 }

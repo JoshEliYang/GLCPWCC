@@ -16,6 +16,8 @@ public class BasicModel {
 	boolean isDefault;
 	String remark;
 	String url;
+	String tokenServer;
+	boolean usingTokenServer;
 	String bak1;
 	String bak2;
 
@@ -89,6 +91,22 @@ public class BasicModel {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getTokenServer() {
+		return tokenServer;
+	}
+
+	public void setTokenServer(String tokenServer) {
+		this.tokenServer = tokenServer;
+	}
+
+	public boolean isUsingTokenServer() {
+		return usingTokenServer;
+	}
+
+	public void setUsingTokenServer(boolean usingTokenServer) {
+		this.usingTokenServer = usingTokenServer;
 	}
 
 	public String getBak1() {

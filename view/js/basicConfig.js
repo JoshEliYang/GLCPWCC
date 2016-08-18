@@ -48,7 +48,9 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService) {
             "token": "",
             "url": "",
             "using": false,
-            "default": false
+            "default": false,
+            "tokenServer": "",
+            "usingTokenServer": false
         };
         $('#basicConfigModal').modal('show');
         var modelRemark = document.getElementById('modelRemark');
@@ -136,6 +138,18 @@ app.controller('wechatCtrl', function ($scope, $http, BasicService) {
             cancel: function () {
             }
         });
+    };
+
+    $scope.doModalChecked = function () {
+        $scope.basicModelData.usingTokenServer = !$scope.basicModelData.usingTokenServer;
+    };
+
+    $scope.selectTokenServer = function (index) {
+        var params = {
+            "id": $scope.basicList[index].id,
+            "usingTokenServer": !$scope.basicList[index].usingTokenServer
+        };
+        BasicService.selectTokenServer($scope, $http, params);
     };
 });
 
@@ -331,6 +345,36 @@ app.service('BasicService', function () {
                 autoClose: 'confirm|10000'
             });
         });
-    }
+    };
+
+    this.selectTokenServer = function ($scope, $http, params) {
+        $http({
+            method: "PUT",
+            url: selectTokenServerUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
+                return;
+            }
+
+            getAll($scope, $http);
+        }).error(function () {
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
+        });
+    };
 
 });

@@ -106,4 +106,13 @@ public class BasicServiceImpl implements BasicService {
 	public void delete(int id) throws Exception {
 		dao.delete(id);
 	}
+
+	/**
+	 * set token server available or unavailable
+	 * 
+	 * @throws Exception
+	 */
+	public void setTokenServer(int id, boolean usingTokenServer) throws Exception {
+		dao.setTokenServer(id, usingTokenServer);
+	}
 }

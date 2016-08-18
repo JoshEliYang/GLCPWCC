@@ -2,9 +2,13 @@
 
 # ![](http://120.26.54.131:8090/GMS/image/G.ico) 绿地微信管理后台
 
-
-## 功能模块
 ***
+## 2016/8/12 更新
+1. 可以配置ATS（Access Token Server），即可以从其他server获得Access Token。
+2. 可以提供ATS服务
+
+***
+## 功能模块
 1. 验证模块（沿用旧版）
 2. 基础配置模块（新增）
 3. 自动回复模块（重构）
@@ -24,8 +28,8 @@
 所有API请求要带上 ```?wechatAccount=[basicId]``` 
 ```wechatAccount``` 即微信账号id（appid、appSecret...具体在数据库中配置），项目中要使用微信相关账号直接调用 ```Consts``` 中的 ```BASIC_DATA``` 
 
-## 详细API
 ***
+## 详细API
 1. 验证模块（沿用旧版）
 2. 基础配置模块（新增）
     * 微信账号配置（增删改查）
@@ -84,8 +88,7 @@
     }
 ```
 
-
-## 关于作者
 ***
+## 关于作者
 * [@Johnson Yu](http://weibo.com/2794870214/profile?topnav=1&wvr=6&is_all=1)
 * @Wu hai

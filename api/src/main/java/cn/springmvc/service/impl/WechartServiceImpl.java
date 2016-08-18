@@ -23,6 +23,10 @@ public class WechartServiceImpl implements WechartService {
 
 	// get access_token
 	public String getAccessToken(BasicModel basicModel) throws Exception {
+		if (basicModel.isUsingTokenServer()) {
+			return getAccessTokenByServer(basicModel);
+		}
+
 		// request access_token from wechart
 		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
 				+ basicModel.getAppId() + "&secret=" + basicModel.getAppSecret();
@@ -34,6 +38,12 @@ public class WechartServiceImpl implements WechartService {
 
 		logger.error("access_token: " + token);
 		return token;
+	}
+
+	public String getAccessTokenByServer(BasicModel basicModel) throws Exception {
+		String response = RequestUtil.doGet(basicModel.getTokenServer());
+		Map<String, Object> result = (Map<String, Object>) JSON.parse(response);
+		return (String) result.get("access_token");
 	}
 
 }

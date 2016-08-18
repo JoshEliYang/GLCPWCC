@@ -35,6 +35,8 @@
 		`isDefault`,
 		`remark`,
 		`url`,
+		`tokenServer`,
+		`usingTokenServer`,
 		`bak1`,
 		`bak2`
 		)
@@ -47,6 +49,8 @@
 		#{isDefault},
 		#{remark},
 		#{url},
+		#{tokenServer},
+		#{usingTokenServer},
 		#{bak1},
 		#{bak2}
 		)
@@ -75,6 +79,8 @@
 		`isDefault`=#{isDefault},
 		`remark`=#{remark},
 		`url`=#{url},
+		`tokenServer`=#{tokenServer},
+		`usingTokenServer`=#{usingTokenServer},
 		`bak1`=#{bak1},
 		`bak2`=#{bak2}
 		WHERE
@@ -85,4 +91,11 @@
 		DELETE FROM basic
 		WHERE id=#{1}
 	</delete>
+
+	<update id="setTokenServer">
+		UPDATE basic
+		SET usingTokenServer = #{1}
+		WHERE
+		id = #{0}
+	</update>
 </mapper>

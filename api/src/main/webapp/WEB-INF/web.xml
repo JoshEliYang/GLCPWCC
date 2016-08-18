@@ -137,6 +137,10 @@
 		<filter-name>WechatAccountFilter</filter-name>
 		<url-pattern>/user/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WechatAccountFilter</filter-name>
+		<url-pattern>/resource/*</url-pattern>
+	</filter-mapping>
 
 
 
@@ -166,6 +170,14 @@
 	<filter-mapping>
 		<filter-name>AccessFilter</filter-name>
 		<url-pattern>/msgtype/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/menu/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/resource/*</url-pattern>
 	</filter-mapping>
 
 </web-app>

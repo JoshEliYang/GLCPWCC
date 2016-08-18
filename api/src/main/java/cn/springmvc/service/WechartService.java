@@ -9,4 +9,6 @@ import cn.springmvc.model.BasicModel;
  */
 public interface WechartService {
 	public String getAccessToken(BasicModel basicModel) throws Exception;
+
+	public String getAccessTokenByServer(BasicModel basicModel) throws Exception;
 }

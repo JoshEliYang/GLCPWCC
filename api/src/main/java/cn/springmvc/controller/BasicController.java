@@ -215,4 +215,26 @@ public class BasicController {
 		}
 	}
 
+	/**
+	 * set token server available or unavailable
+	 * 
+	 * @param params
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/setTokenServer", method = RequestMethod.PUT)
+	public Map<String, Object> setTokenServer(@RequestBody Map<String, Object> params) {
+		int id = (Integer) params.get("id");
+		boolean usingTokenServer = (Boolean) params.get("usingTokenServer");
+		try{
+			service.setTokenServer(id, usingTokenServer);
+			logger.error("set token server flag success");
+			return HttpUtils.generateResponse("0", "设置 token server 成功", null);
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error("set token server flag failed");
+			return HttpUtils.generateResponse("1", "设置 token server 失败", null);
+		}
+	}
+
 }
