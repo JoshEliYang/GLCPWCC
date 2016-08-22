@@ -1,5 +1,12 @@
 /**
  * Created by johnson on 2016/8/15.
+ *
+ * Trust me, try to understand this script is wasting your time.
+ * If you are doing that, forget it and go get some drink.
+ *
+ * If you still want to fix some things, here are some tips for you.
+ * Tips: ...\(-_-)/
+ * I hope you won't make a mess of it, good luck for you!
  */
 
 /**

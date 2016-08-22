@@ -14,6 +14,7 @@ public class Keywords {
 	String reply;
 	String remark;
 	boolean isSubscribe;
+	boolean inUsing;
 	String bak1;
 	String bak2;
 	String msgTypeName;
@@ -72,6 +73,14 @@ public class Keywords {
 
 	public void setSubscribe(boolean isSubscribe) {
 		this.isSubscribe = isSubscribe;
+	}
+
+	public boolean isInUsing() {
+		return inUsing;
+	}
+
+	public void setInUsing(boolean inUsing) {
+		this.inUsing = inUsing;
 	}
 
 	public String getBak1() {

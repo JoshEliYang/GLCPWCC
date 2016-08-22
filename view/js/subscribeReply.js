@@ -1,12 +1,7 @@
 /**
- * Created by johsnon on 2016/7/28.
+ * Created by johnson on 2016/8/21.
  */
 
-/**
- * max number in a page
- *
- * @type {number}
- */
 var pageMax = 10;
 
 $(function () {
@@ -15,17 +10,52 @@ $(function () {
 
 var app = angular.module('wechatApp', ['ngSanitize']);
 
-app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeService) {
+app.controller('wechatCtrl', function ($scope, $http, SubscribeService, MsgTypeService) {
     $scope.pageNow = 0;
 
-    KeyWordService.getKeyWord($scope, $http);
+    SubscribeService.getSubscribeReply($scope, $http);
     MsgTypeService.getall($scope, $http);
+
+    $scope.doCheckAll = function () {
+        var param = {
+            "count": 0,
+            "target": 0
+        };
+        getSelect(param);
+        if (param.count == $scope.subscribeList.length) {
+            $scope.checkAll = false;
+            doChecked(false);
+        } else {
+            $scope.checkAll = true;
+            doChecked(true);
+        }
+    };
+
+    var doChecked = function (flag) {
+        for (var i = 0; i < $scope.subscribeList.length; i++) {
+            $scope.subscribeList[i].checked = flag;
+        }
+    };
+
+    $scope.doSelect = function (index) {
+        $scope.subscribeList[index].checked = !$scope.subscribeList[index].checked;
+        var param = {
+            "count": 0,
+            "target": 0
+        };
+        getSelect(param);
+        if (param.count == $scope.subscribeList.length) {
+            $scope.checkAll = true;
+        } else {
+            $scope.checkAll = false;
+        }
+    };
+
 
     $scope.openAddDialog = function () {
         $scope.modelDat = {
             "title": "添加",
             "msgTypeName": "未选择",
-            "value": "",
             "msgType": -1
         };
         $('#ConfigModal').modal('show');
@@ -37,12 +67,29 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
         modalSelectCheck();
     };
 
-    $scope.modelConfim = function (title) {
-        if ($scope.keywordsChange()) return;
-        if (modalSelectCheck()) return;
-        if ($scope.replyChange()) return;
+    var modalSelectCheck = function () {
+        if ($scope.modelDat.msgType == -1) {
+            $scope.selectEmpty = true;
+        } else {
+            $scope.selectEmpty = false;
+        }
+        return $scope.selectEmpty;
+    };
 
-        if (title == "添加") {
+    $scope.addHyperlink = function () {
+        $scope.addHyperlinkFlag = true;
+    };
+
+    $scope.doAddHyperlink = function () {
+        var hyperlinkText = document.getElementById('hyperlinkText').value;
+        var hyperlinkUrl = document.getElementById('hyperlinkUrl').value;
+        var hyperDat = '<a href="' + hyperlinkUrl + '">' + hyperlinkText + '</a>';
+        insertText(document.getElementById('repleyContent'), hyperDat);
+        $scope.addHyperlinkFlag = false;
+    };
+
+    $scope.modelConfim = function (title) {
+        if (title == '添加') {
             var params = $scope.modelDat;
             delete params.title;
             delete params.msgTypeName;
@@ -51,7 +98,7 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
                 var replyDat = document.getElementById('repleyContent').value;
                 params.reply = replyDat;
             }
-            KeyWordService.insert($scope, $http, params);
+            SubscribeService.insert($scope, $http, params);
             $('#ConfigModal').modal('hide');
         } else if (title == "修改") {
             var param = {
@@ -68,85 +115,24 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
                 var replyDat = document.getElementById('repleyContent').value;
                 params.reply = replyDat;
             }
-            params.id = $scope.keyWordsList[param.target].id;
-            params.inUsing = $scope.keyWordsList[param.target].inUsing;
+            params.id = $scope.subscribeList[param.target].id;
+            params.inUsing = $scope.subscribeList[param.target].inUsing;
+            params.subscribe = true;
 
-            KeyWordService.edit($scope, $http, params);
+            SubscribeService.edit($scope, $http, params);
             $('#ConfigModal').modal('hide');
-        }
-    };
-
-    $scope.doCheckAll = function () {
-        var param = {
-            "count": 0,
-            "target": 0
-        };
-        getSelect(param);
-        if (param.count == $scope.keyWordsList.length) {
-            $scope.checkAll = false;
-            doChecked(false);
-        } else {
-            $scope.checkAll = true;
-            doChecked(true);
-        }
-    };
-
-    var doChecked = function (flag) {
-        for (var i = 0; i < $scope.keyWordsList.length; i++) {
-            $scope.keyWordsList[i].checked = flag;
-        }
-    };
-
-    $scope.doSelect = function (index) {
-        $scope.keyWordsList[index].checked = !$scope.keyWordsList[index].checked;
-        var param = {
-            "count": 0,
-            "target": 0
-        };
-        getSelect(param);
-        if (param.count == $scope.keyWordsList.length) {
-            $scope.checkAll = true;
-        } else {
-            $scope.checkAll = false;
         }
     };
 
     var getSelect = function (param) {
         param.count = 0;
         param.target = 0;
-        for (var i = 0; i < $scope.keyWordsList.length; i++) {
-            if ($scope.keyWordsList[i].checked) {
+        for (var i = 0; i < $scope.subscribeList.length; i++) {
+            if ($scope.subscribeList[i].checked) {
                 param.count++;
                 param.target = i;
             }
         }
-    };
-
-    $scope.keywordsChange = function () {
-        if ($scope.modelDat.value == "") {
-            $scope.keywordsEmpty = true;
-        } else {
-            $scope.keywordsEmpty = false;
-        }
-        return $scope.keywordsEmpty;
-    };
-
-    var modalSelectCheck = function () {
-        if ($scope.modelDat.msgType == -1) {
-            $scope.selectEmpty = true;
-        } else {
-            $scope.selectEmpty = false;
-        }
-        return $scope.selectEmpty;
-    };
-
-    $scope.replyChange = function () {
-        if ($scope.modelDat.reply == "") {
-            $scope.replyTextEmpty = true;
-        } else {
-            $scope.replyTextEmpty = false;
-        }
-        return $scope.replyTextEmpty;
     };
 
     $scope.openEditDialog = function () {
@@ -177,32 +163,11 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
         }
         $scope.modelDat = {
             "title": "修改",
-            "msgTypeName": $scope.keyWordsList[param.target].msgTypeName,
-            "value": $scope.keyWordsList[param.target].value,
-            "msgType": $scope.keyWordsList[param.target].msgType,
-            "reply": $scope.keyWordsList[param.target].reply
+            "msgTypeName": $scope.subscribeList[param.target].msgTypeName,
+            "msgType": $scope.subscribeList[param.target].msgType,
+            "reply": $scope.subscribeList[param.target].reply
         };
         $('#ConfigModal').modal('show');
-    };
-
-    $scope.addHyperlink = function () {
-        $scope.addHyperlinkFlag = true;
-    };
-
-    $scope.doAddHyperlink = function () {
-        var hyperlinkText = document.getElementById('hyperlinkText').value;
-        var hyperlinkUrl = document.getElementById('hyperlinkUrl').value;
-        var hyperDat = '<a href="' + hyperlinkUrl + '">' + hyperlinkText + '</a>';
-        insertText(document.getElementById('repleyContent'), hyperDat);
-        $scope.addHyperlinkFlag = false;
-    };
-
-    $scope.setInUsing = function (index) {
-        var params = {
-            "id": $scope.keyWordsList[index].id,
-            "inUsing": !$scope.keyWordsList[index].inUsing
-        };
-        KeyWordService.setInUsing($scope, $http, params)
     };
 
     $scope.doDelete = function () {
@@ -228,9 +193,9 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
             confirmButtonClass: 'btn-info',
             cancelButtonClass: 'btn-danger',
             confirm: function () {
-                for (var i = 0; i < $scope.keyWordsList.length; i++) {
-                    if ($scope.keyWordsList[i].checked) {
-                        KeyWordService.delete($scope, $http, $scope.keyWordsList[i].id);
+                for (var i = 0; i < $scope.subscribeList.length; i++) {
+                    if ($scope.subscribeList[i].checked) {
+                        SubscribeService.delete($scope, $http, $scope.subscribeList[i].id);
                     }
                 }
             },
@@ -239,38 +204,45 @@ app.controller('wechatCtrl', function ($scope, $http, KeyWordService, MsgTypeSer
         });
     };
 
+    $scope.setInUsing = function (index) {
+        var params = {
+            "id": $scope.subscribeList[index].id
+        };
+        SubscribeService.setInUsing($scope, $http, params)
+    };
+
     $scope.openPage = function (index) {
-        KeyWordService.getPage($scope, index);
+        SubscribeService.getPage($scope, index);
     };
 
     $scope.getPrevious = function () {
         if ($scope.pageNow != 0) {
-            KeyWordService.getPage($scope, $scope.pageNow - 1);
+            SubscribeService.getPage($scope, $scope.pageNow - 1);
         }
     };
 
     $scope.getNext = function () {
-        if ($scope.pageNow < $scope.keyWordsGroup.length - 1) {
-            KeyWordService.getPage($scope, $scope.pageNow + 1);
+        if ($scope.pageNow < $scope.pageGroup.length - 1) {
+            SubscribeService.getPage($scope, $scope.pageNow + 1);
         }
     };
-
 });
 
-//////////////////////////////////////// service ////////////////////////////////////////////////////
-app.service('KeyWordService', function () {
+
+////////////////////////////////////////////////  service /////////////////////////////////////////
+app.service('SubscribeService', function () {
     var getBasic = function () {
         return JSON.parse(sessionStorage.getItem("basic"));
     };
 
-    this.getKeyWord = function ($scope, $http) {
-        getKeyWords($scope, $http);
+    this.getSubscribeReply = function ($scope, $http) {
+        getSubscribeReply($scope, $http);
     };
-    var getKeyWords = function ($scope, $http) {
+    var getSubscribeReply = function ($scope, $http) {
         $('#loadingDialog').modal('show');
         $http({
             method: "GET",
-            url: keyWordsUrl + '?token=' + getCookie("token") + '&wechatAccount=' + getBasic().id,
+            url: subscribeReplyUrl + '?token=' + getCookie("token") + '&wechatAccount=' + getBasic().id,
             'Content-Type': 'application/json'
             //data: params
         }).success(function (data) {
@@ -286,8 +258,8 @@ app.service('KeyWordService', function () {
             }
 
             $scope.totalCount = data.data.length;
-            $scope.keyWordsGroup = doPagination(data.data, pageMax);
-            if ($scope.pageNow < $scope.keyWordsGroup.length)
+            $scope.pageGroup = doPagination(data.data, pageMax);
+            if ($scope.pageNow < $scope.pageGroup.length)
                 getPage($scope, $scope.pageNow);
             else
                 getPage($scope, 0);
@@ -336,14 +308,14 @@ app.service('KeyWordService', function () {
 
     var getPage = function ($scope, page) {
         $scope.pageNow = page;
-        for (var i = 0; i < $scope.keyWordsGroup.length; i++) {
-            for (var j = 0; j < $scope.keyWordsGroup[i].data.length; j++) {
-                $scope.keyWordsGroup[i].data[j].checked = false;
+        for (var i = 0; i < $scope.pageGroup.length; i++) {
+            for (var j = 0; j < $scope.pageGroup[i].data.length; j++) {
+                $scope.pageGroup[i].data[j].checked = false;
             }
-            $scope.keyWordsGroup[i].css = "";
+            $scope.pageGroup[i].css = "";
         }
-        $scope.keyWordsGroup[page].css = "active";
-        $scope.keyWordsList = $scope.keyWordsGroup[page].data;
+        $scope.pageGroup[page].css = "active";
+        $scope.subscribeList = $scope.pageGroup[page].data;
     };
 
     this.getPage = function ($scope, page) {
@@ -355,7 +327,7 @@ app.service('KeyWordService', function () {
         params.basicId = getBasic().id;
         $http({
             method: "POST",
-            url: keyWordsInsertUrl + '?token=' + getCookie("token") + '&wechatAccount=' + getBasic().id,
+            url: insertSubscribeUrl + '?token=' + getCookie("token") + '&wechatAccount=' + getBasic().id,
             'Content-Type': 'application/json',
             data: params
         }).success(function (data) {
@@ -371,39 +343,7 @@ app.service('KeyWordService', function () {
             }
 
             $('#loadingDialog').modal('hide');
-            getKeyWords($scope, $http);
-        }).error(function () {
-            $.alert({
-                theme: "material",
-                title: "警告",
-                content: '<b>请求失败<br>请检查您的网络！</b>',
-                confirmButtonClass: 'btn-info',
-                autoClose: 'confirm|10000'
-            });
-        });
-    };
-
-    this.setInUsing = function ($scope, $http, params) {
-        $('#loadingDialog').modal('show');
-        $http({
-            method: "POST",
-            url: keyWordsSetInUsing + '?token=' + getCookie("token") + '&wechatAccount=' + getBasic().id,
-            'Content-Type': 'application/json',
-            data: params
-        }).success(function (data) {
-            if (data.code != 0) {
-                $.alert({
-                    theme: "material",
-                    title: "警告",
-                    content: '<b>' + data.msg + '</b>',
-                    confirmButtonClass: 'btn-info',
-                    autoClose: 'confirm|10000'
-                });
-                return;
-            }
-
-            $('#loadingDialog').modal('hide');
-            getKeyWords($scope, $http);
+            getSubscribeReply($scope, $http);
         }).error(function () {
             $.alert({
                 theme: "material",
@@ -436,7 +376,7 @@ app.service('KeyWordService', function () {
             }
 
             $('#loadingDialog').modal('hide');
-            getKeyWords($scope, $http);
+            getSubscribeReply($scope, $http);
         }).error(function () {
             $.alert({
                 theme: "material",
@@ -468,7 +408,40 @@ app.service('KeyWordService', function () {
             }
 
             $('#loadingDialog').modal('hide');
-            getKeyWords($scope, $http);
+            getSubscribeReply($scope, $http);
+        }).error(function () {
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: '<b>请求失败<br>请检查您的网络！</b>',
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
+        });
+    };
+
+    this.setInUsing = function ($scope, $http, params) {
+        $('#loadingDialog').modal('show');
+        params.basicId = getBasic().id;
+        $http({
+            method: "POST",
+            url: setSubscribeInUsingUrl + '?token=' + getCookie("token") + '&wechatAccount=' + getBasic().id,
+            'Content-Type': 'application/json',
+            data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
+                return;
+            }
+
+            $('#loadingDialog').modal('hide');
+            getSubscribeReply($scope, $http);
         }).error(function () {
             $.alert({
                 theme: "material",

@@ -16,33 +16,111 @@
 		AND a.isSubscribe = FALSE;
 	</select>
 
+	<select id="getAllExceptUnused" parameterType="Integer"
+		resultType="Keywords">
+		SELECT
+		a.*, b.remark AS msgTypeName
+		FROM
+		keywords a
+		LEFT JOIN
+		msgType b ON
+		(a.msgType = b.id)
+		WHERE
+		a.basicId = #{1}
+		AND
+		a.isSubscribe=FALSE
+		AND a.inUsing=TRUE;
+	</select>
+
+
 	<insert id="insert" parameterType="Keywords">
-	INSERT INTO keywords(
-	`basicId`,
-	`value`,
-	`msgType`,
-	`reply`,
-	`remark`,
-	`isSubscribe`,
-	`bak1`,
-	`bak2`
-	) VALUES(
-	#{basicId},
-	#{value},
-	#{msgType},
-	#{reply},
-	#{remark},
-	FALSE,
-	#{bak1},
-	#{bak2}
-	)
+		INSERT INTO keywords(
+		`basicId`,
+		`value`,
+		`msgType`,
+		`reply`,
+		`remark`,
+		`isSubscribe`,
+		`inUsing`,
+		`bak1`,
+		`bak2`
+		) VALUES(
+		#{basicId},
+		#{value},
+		#{msgType},
+		#{reply},
+		#{remark},
+		#{isSubscribe},
+		#{inUsing},
+		#{bak1},
+		#{bak2}
+		)
 	</insert>
 
 	<select id="getSubscribeReply" parameterType="Integer"
 		resultType="Keywords">
-		SELECT * FROM keywords WHERE
-		isSubscribe=True AND
-		basicId=#{1};
+		SELECT
+		a.*, b.remark AS msgTypeName
+		FROM
+		keywords a
+		LEFT JOIN
+		msgType b ON (a.msgType = b.id)
+		WHERE
+		a.isSubscribe = TRUE
+		AND basicId =
+		#{1}
 	</select>
+
+	<update id="setInUsing" parameterType="Keywords">
+		UPDATE keywords
+		SET
+		inUsing=#{inUsing}
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="subscribeSetInUsing" parameterType="Keywords">
+		call
+		setSubscribleInUsing(#{id},#{basicId});
+	</update>
+
+	<select id="getSubscribe" parameterType="Integer" resultType="Keywords">
+		SELECT
+		a.*, b.remark AS msgTypeName
+		FROM
+		keywords a
+		LEFT JOIN
+		msgType b ON
+		(a.msgType = b.id)
+		WHERE
+		a.isSubscribe = TRUE
+		AND basicId=#{1}
+		AND
+		a.inUsing=TRUE
+	</select>
+
+	<update id="edit" parameterType="Keywords">
+		UPDATE keywords
+		SET
+		`basicId`=#{basicId},
+		`value`=#{value},
+		`msgType`=#{msgType},
+		`reply`=#{reply},
+		`remark`=#{remark},
+		`isSubscribe`=#{isSubscribe},
+		`inUsing`=#{inUsing},
+		`bak1`=#{bak1},
+		`bak2`=#{bak2}
+		where
+		id=#{id}
+	</update>
+
+	<delete id="delete" parameterType="Integer">
+		DELETE
+		FROM
+		keywords
+		WHERE
+		id=#{1}
+	</delete>
 
 </mapper>

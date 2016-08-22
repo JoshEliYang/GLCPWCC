@@ -82,3 +82,7 @@ background: linear-gradient(#CCFFCC, #CCFF99); !* 标准的语法 *!
 .loadingCover img {
     width: 60px;
 }
+
+.paginationNav {
+    text-align: center;
+}

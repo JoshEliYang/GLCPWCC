@@ -2,7 +2,7 @@
  * Created by johnson on 2016/8/3.
  *
  * When I written it, only God and I known what it meant.
- * Now, only God know!
+ * Now, only God knows!
  */
 
 $(function () {
