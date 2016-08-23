@@ -33,11 +33,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in qrcodeList">
+        <tr ng-repeat="item in qrcodeList" ng-click="testconsole()">
             <td ng-bind="$index+1"></td>
             <td ng-bind="item.name"></td>
             <td ng-bind="item.ticket"></td>
-            <td ng-bind="item.url" ng-click="testconsole()"></td>
+            <td ng-bind="item.url"></td>
             <td ng-bind="item.sceneid"></td>
         </tr>
         </tbody>

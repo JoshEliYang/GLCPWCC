@@ -32,7 +32,6 @@ public class QrcodeServiceImpl implements QrcodeService {
 	public List<QrcodeModel> createQrcode(long ID, BasicModel basicModel) throws Exception{
 		String accessToken = service.getAccessToken(basicModel);
 		String qrcodeCreateUrl  = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + accessToken;
-//		String jsonStr = "{\"group\":{\"name\":\"" + ID + "\"}}";
 		String jsonStr = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":\"" + ID + "\"}}}";
 		String qrcodeResponse = RequestUtil.doPost(qrcodeCreateUrl, jsonStr);
 		Map<String, String> res = (Map<String, String>) JSON.parse(qrcodeResponse);

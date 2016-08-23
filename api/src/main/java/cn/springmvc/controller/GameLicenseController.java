@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.HttpUtils;
 
-import cn.springmvc.service.gameLicenseService;
+import cn.springmvc.service.GameLicenseService;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/game")
-public class gameLicenseController {
+public class GameLicenseController {
 	
 	@Autowired
-	public gameLicenseService gameLicenseService;
-	Logger logger = Logger.getLogger(gameLicenseController.class);
+	public GameLicenseService gameLicenseService;
+	Logger logger = Logger.getLogger(GameLicenseController.class);
 	
 	@ResponseBody
 	@RequestMapping(value = "/license", method = RequestMethod.POST)

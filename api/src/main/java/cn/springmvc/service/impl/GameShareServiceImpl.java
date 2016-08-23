@@ -1,0 +1,69 @@
+package cn.springmvc.service.impl;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSON;
+import com.springmvc.utils.RequestUtil;
+import com.springmvc.utils.ShaUtil;
+
+import cn.springmvc.model.BasicModel;
+import cn.springmvc.service.WechartService;
+import cn.springmvc.service.GameShareService;
+
+@Service
+public class GameShareServiceImpl implements GameShareService {
+
+	@Autowired
+	public WechartService wechatService;
+	
+	Logger logger = Logger.getLogger(GameShareServiceImpl.class);
+	
+	public Map<String, String> getTicket(BasicModel basicModel) throws Exception {
+		logger.error("success to impl !");
+		String accessToken = wechatService.getAccessToken(basicModel);
+		logger.error("accessToken--"+accessToken);
+		String ticketUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + accessToken + "&type=jsapi";
+		String ticketJson = RequestUtil.doGet(ticketUrl);
+		logger.error("ticketJson--"+ticketJson);
+		Map<String, String> res = (Map<String, String>) JSON.parse(ticketJson);
+		String ticket = res.get("ticket");
+		logger.error("ticket--"+ticket);
+		String noncestr = UUID.randomUUID().toString();
+		logger.error("noncestr--"+noncestr);
+		String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+		logger.error("timestamp--"+timestamp);
+		String url = "http://g-super.glcp.com.cn/game/815/";
+		HashMap<String, String> hash = new HashMap<String, String>();
+		hash.put("ticket", ticket);
+		hash.put("noncestr", noncestr);
+		hash.put("timestamp", timestamp);
+		hash.put("url", url);
+		Collection<String> key = hash.keySet();
+		List<String> list = new ArrayList<String>(key);
+		Collections.sort(list);
+		String str = null;
+		for(int i=0; i<list.size(); i++){
+			str = str + list.get(i) + hash.get(list.get(i));
+		}
+		logger.error("String ticket+noncestr+timestamp+url--"+str);
+		String signature = ShaUtil.encryptSHA(str);
+		logger.error("signature--"+signature);
+		Map<String, String> result = new HashMap<String, String>();
+		result.put("signature", signature);
+		result.put("noncestr", noncestr);
+		result.put("timestamp", timestamp);
+		logger.error("result--"+result);
+		return result;
+	}
+
+}
