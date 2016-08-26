@@ -47,7 +47,7 @@ public class KeywordsController {
 
 		List<Keywords> result = null;
 		try {
-			result = service.getAll(basicModel);
+			result = service.getAll(basicModel, false);
 			logger.error("get all keywords success >>> \n" + result);
 			return HttpUtils.generateResponse("0", "关键字查询成功", result);
 		} catch (Exception e) {
@@ -87,7 +87,7 @@ public class KeywordsController {
 	public Map<String, Object> getSubscribeReply(HttpServletRequest request) {
 		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
 
-		Keywords result = null;
+		List<Keywords> result = null;
 		try {
 			result = service.getSubscribeReply(basicModel);
 			logger.error("get subscribe reply message success" + result);
@@ -96,6 +96,111 @@ public class KeywordsController {
 			e.printStackTrace();
 			logger.error("get subscribe reply failed\n" + null);
 			return HttpUtils.generateResponse("1", "关注回复查询失败", null);
+		}
+	}
+
+	/**
+	 * insert subscribe reply
+	 * 
+	 * @param request
+	 * @param keyword
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/subscribe", method = RequestMethod.POST)
+	public Map<String, Object> insertSubscribe(HttpServletRequest request, @RequestBody Keywords keyword) {
+		try {
+			service.insertSubscribe(keyword);
+			logger.error("insert subscribe reply success >>> \n");
+			return HttpUtils.generateResponse("0", "关注回复插入成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("insert subscribe reply error >>> \n");
+			return HttpUtils.generateResponse("1", "关注回复插入失败", null);
+		}
+	}
+
+	/**
+	 * set inUsing
+	 * 
+	 * @param request
+	 * @param keyword
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/setInUsing", method = RequestMethod.POST)
+	public Map<String, Object> setInUsing(HttpServletRequest request, @RequestBody Keywords keyword) {
+		try {
+			service.setInUsing(keyword);
+			logger.error("set inUsing flag success");
+			return HttpUtils.generateResponse("0", "启用设置成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("set inUsing flag failed");
+			return HttpUtils.generateResponse("1", "启用设置成功失败", null);
+		}
+	}
+
+	/**
+	 * set subscribe inUsing flag
+	 * 
+	 * @param request
+	 * @param keyword
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/subscribe/setInUsing", method = RequestMethod.POST)
+	public Map<String, Object> subscribeSetInUsing(HttpServletRequest request, @RequestBody Keywords keyword) {
+		try {
+			service.subscribeSetInUsing(keyword);
+			logger.error("set subscribe inUsing flag success");
+			return HttpUtils.generateResponse("0", "启用设置成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("set subscribe inUsing flag failed");
+			return HttpUtils.generateResponse("1", "启用设置成功失败", null);
+		}
+	}
+
+	/**
+	 * edit keyword and auto-reply message
+	 * 
+	 * @param request
+	 * @param keyword
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
+	public Map<String, Object> edit(HttpServletRequest request, @RequestBody Keywords keyword) {
+		try {
+			service.edit(keyword);
+			logger.error("edit keyword success");
+			return HttpUtils.generateResponse("0", "修改成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("edit keyword failed");
+			return HttpUtils.generateResponse("1", "修改失败", null);
+		}
+	}
+
+	/**
+	 * delete keyword
+	 * 
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public Map<String, Object> delete(HttpServletRequest request, @PathVariable int id) {
+		try {
+			service.delete(id);
+			logger.error("delete keyword success");
+			return HttpUtils.generateResponse("0", "删除成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("delete keyword failed");
+			return HttpUtils.generateResponse("1", "删除失败", null);
 		}
 	}
 }

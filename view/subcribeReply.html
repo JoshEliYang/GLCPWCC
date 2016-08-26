@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Author" content="Johnson,starjohnson@sina.com">
-    <title>自动回复</title>
+    <title>关注自动回复</title>
 
     <link href="lib/bootstrap3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="lib/bootstrap3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -12,12 +12,12 @@
     <link href="lib/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 
     <link href="css/ConfigStyle.css" rel="stylesheet">
-    <link href="css/autoReply.css" rel="stylesheet">
+    <link href="css/subscribeReply.css" rel="stylesheet">
 </head>
 <body ng-app="wechatApp" ng-controller="wechatCtrl">
 
-
 <div class="outerContainer" id="head">
+
     <div class="AddBtnPanel">
         <button type="button" class="btn btn-success" ng-click="openAddDialog()">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -42,21 +42,19 @@
                 </label>
             </th>
             <th width="50">编号</th>
-            <th width="150">关键字</th>
             <th width="100">回复类型</th>
             <th>回复内容</th>
             <th width="50">启用</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in keyWordsList" ng-click="doSelect($index)">
+        <tr ng-repeat="item in subscribeList" ng-click="doSelect($index)">
             <td>
                 <label>
                     <input type="checkbox" ng-checked="item.checked">
                 </label>
             </td>
             <td ng-bind="$index+1"></td>
-            <td ng-bind="item.value"></td>
             <td ng-bind="item.msgTypeName"></td>
             <td ng-bind="item.reply"></td>
             <td ng-click="setInUsing($index)">
@@ -75,7 +73,7 @@
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 </a>
             </li>
-            <li ng-repeat="item in keyWordsGroup" ng-class="item.css">
+            <li ng-repeat="item in pageGroup" ng-class="item.css">
                 <a href="#head" ng-click="openPage($index)"
                    ng-bind="$index+1"></a>
             </li>
@@ -85,9 +83,11 @@
                 </a>
             </li>
         </ul>
-        <p>共{{keyWordsGroup.length}}页 {{totalCount}}条记录</p>
+        <p>共{{pageGroup.length}}页 {{totalCount}}条记录</p>
     </nav>
+
 </div>
+
 
 <div class="modal fade" id="ConfigModal" tabindex="-1" role="dialog" data-backdrop="false"
      aria-labelledby="myModalLabel">
@@ -102,12 +102,6 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="modelKeywords">关键字:</label>
-                    <input type="text" class="form-control" id="modelKeywords" placeholder="关键字"
-                           ng-model="modelDat.value" ng-change="keywordsChange()">
-                    <p ng-show="keywordsEmpty" class="errorBlock">不能为空</p>
-                </div>
                 <label>回复消息类型:</label>
                 <div class="btn-group">
                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
@@ -191,6 +185,6 @@
 
 <script src="js/util.js" type="text/javascript"></script>
 <script src="js/conf.js" type="text/javascript"></script>
-<script src="js/autoReply.js" type="text/javascript"></script>
+<script src="js/subscribeReply.js" type="text/javascript"></script>
 </body>
 </html>

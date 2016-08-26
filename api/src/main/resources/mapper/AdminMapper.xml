@@ -85,5 +85,16 @@
 		`passwd`=#{passwd}
 		WHERE id=#{id}
 	</update>
+	
+	<insert id="addLevel" parameterType="AdminLevel">
+		INSERT INTO `userLevel` (`levelName`, `remark`) VALUES (#{levelName}, #{remark});
+	</insert>
 
+    <insert id="setRightAdd" parameterType="Right">
+    	INSERT INTO `userRight` (`groupId`, `levelId`) VALUES (#{groupId}, #{levelId});
+    </insert>
+    
+    <delete id="setRightDelete" parameterType="Right">
+    	DELETE FROM `userRight` WHERE groupId = #{groupId} and levelId = #{levelId};
+    </delete>
 </mapper>

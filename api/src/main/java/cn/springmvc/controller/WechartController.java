@@ -26,6 +26,7 @@ import cn.springmvc.model.Keywords;
 import cn.springmvc.model.MsgType;
 import cn.springmvc.model.WechartModel;
 import cn.springmvc.service.BasicService;
+import cn.springmvc.service.KeywordsService;
 import cn.springmvc.service.MessageService;
 import cn.springmvc.service.MsgTypeService;
 import cn.springmvc.service.UserService;
@@ -47,6 +48,8 @@ public class WechartController {
 	public BasicService basicService;
 	@Autowired
 	private MsgTypeService msgTypeService;
+	@Autowired
+	private KeywordsService keywordsService;
 
 	Logger logger = Logger.getLogger(WechartController.class);
 
@@ -249,14 +252,27 @@ public class WechartController {
 						logger.error("SCAN 2 OK");
 					}
 
-					String subscribeReply = KeyWords.getInstance().REPLY_SUBSCRIBE;
-					if (subscribeReply.startsWith("text_"))
-						subscribeReply = subscribeReply.substring(5);
-					if (subscribeReply.startsWith("media_id_"))
-						subscribeReply = subscribeReply.substring(9);
+					// String subscribeReply =
+					// KeyWords.getInstance().REPLY_SUBSCRIBE;
+					// if (subscribeReply.startsWith("text_"))
+					// subscribeReply = subscribeReply.substring(5);
+					// if (subscribeReply.startsWith("media_id_"))
+					// subscribeReply = subscribeReply.substring(9);
 
-					response.getOutputStream()
-							.write(messageService.sendText(subscribeReply, openId, basicModel).getBytes("UTF-8"));
+					// response.getOutputStream()
+					// .write(messageService.sendText(subscribeReply, openId,
+					// basicModel).getBytes("UTF-8"));
+
+					Keywords keyword = keywordsService.getSubscribe(basicModel);
+					if (keyword.getMsgType() == 1) {
+						// reply text message
+						response.getOutputStream().write(
+								messageService.sendText(keyword.getReply(), openId, basicModel).getBytes("UTF-8"));
+					} else if (keyword.getMsgType() == 6) {
+						// reply news message
+						response.getOutputStream().write(messageService
+								.sendPictureText(keyword.getReply(), openId, basicModel).getBytes("UTF-8"));
+					}
 					return;
 				} else if ("SCAN".equals(model.getEvent())) {
 					// 已关注用户扫码事件

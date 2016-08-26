@@ -2,6 +2,8 @@ package cn.springmvc.dao;
 
 import java.util.List;
 
+import cn.springmvc.model.AdminLevel;
+import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 
@@ -86,4 +88,29 @@ public interface AdminDao {
 	 * @throws Exception
 	 */
 	public void resetPassword(User admin) throws Exception;
+	
+	/**
+	 * add level
+	 * 
+	 * @param adminLevel
+	 * @throws Exception
+	 */
+	public void addLevel(AdminLevel adminLevel) throws Exception;
+	
+	/**
+	 * set right is visible
+	 * 
+	 * @param right
+	 * @throws Exception
+	 */
+	public void setRightAdd (Right right) throws Exception;
+	
+	/**
+	 * set right is disable
+	 * 
+	 * @param right
+	 * @throws Exception
+	 */
+	public void setRightDelete (Right right) throws Exception;
+	
 }
