@@ -141,11 +141,6 @@
 		<filter-name>WechatAccountFilter</filter-name>
 		<url-pattern>/resource/*</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>WechatAccountFilter</filter-name>
-		<url-pattern>/game/*</url-pattern>
-	</filter-mapping>
-
 
 
 

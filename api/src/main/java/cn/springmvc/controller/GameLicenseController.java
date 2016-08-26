@@ -4,8 +4,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
