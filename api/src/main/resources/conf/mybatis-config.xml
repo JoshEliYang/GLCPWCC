@@ -20,10 +20,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 		<typeAlias alias="VerifyCode" type="cn.springmvc.model.VerifyCode" />
 		<typeAlias alias="LoginData" type="cn.springmvc.model.LoginData" />
-		
-		<typeAlias alias="QrcodeModel" type="cn.springmvc.model.QrcodeModel"/>
-		<typeAlias alias="AdminLevel" type="cn.springmvc.model.AdminLevel"/>
+
+		<typeAlias alias="QrcodeModel" type="cn.springmvc.model.QrcodeModel" />
+		<typeAlias alias="AdminLevel" type="cn.springmvc.model.AdminLevel" />
 		<typeAlias alias="Right" type="cn.springmvc.model.Right" />
+
+		<typeAlias alias="TemplateMessage" type="cn.springmvc.model.TemplateMessage" />
 	</typeAliases>
 
 	<!-- 映射map -->

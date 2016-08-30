@@ -66,7 +66,7 @@ public class AccessFilter implements Filter {
 		}
 
 		if (userAccess == null) {
-			String outJson = "{\"code\":\"1\",\"msg\":\"尚未登录\"}";
+			String outJson = "{\"code\":\"101\",\"msg\":\"尚未登录\"}";
 			httpResponse.getOutputStream().write(outJson.getBytes("UTF-8"));
 			return;
 		}

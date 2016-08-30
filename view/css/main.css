@@ -50,11 +50,16 @@
     color: #339999;
 }
 
-.relativeCss{
+.relativeCss {
     position: relative;
 }
 
-.absoluteRightCss{
+.absoluteRightCss {
     position: absolute !important;
     right: 0;
 }
+
+.badge {
+    background: #FF0066;
+}
+
