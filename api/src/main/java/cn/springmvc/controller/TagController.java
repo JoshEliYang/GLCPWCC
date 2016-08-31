@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -20,14 +21,16 @@ import cn.springmvc.service.TagService;
 @Scope("prototype")
 @Controller
 @RequestMapping("/tag")
+
 public class TagController {
 	@Autowired
 	public TagService service;
-	
+	Logger logger = Logger.getLogger(TagController.class);
 	
 	/*
 	 * 创建标签
 	 */
+	
 	@ResponseBody
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public Map<String, Object>create(@RequestBody String jsonStr, HttpServletRequest request){
@@ -35,9 +38,11 @@ public class TagController {
 		Map<String, String> result = null;
 		try{
 			result = service.createTag(jsonStr, model);
-			return HttpUtils.generateResponse("0", "success", null);
+			logger.error("tags--"+result);
+			return HttpUtils.generateResponse("0", "success", result);
 		}catch (Exception e){
 			e.printStackTrace();
+			logger.error("error");
 			return HttpUtils.generateResponse("1", "failed", null);
 		}
 	}
@@ -63,12 +68,14 @@ public class TagController {
 	 * 更新标签
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public Map<String, Object>update(@RequestBody String jsonStr, HttpServletRequest request){
 		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
+		logger.error("json--"+jsonStr);
 		Map<String, String> result = null;
 		try {
 			result = service.update(jsonStr, model);
+			logger.error("string response--"+result);
 			return HttpUtils.generateResponse("0", "success", result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,14 +90,16 @@ public class TagController {
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public Map<String, Object>getAll(HttpServletRequest request){
 		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
-		
+		logger.error(model);
 		Map<String, String> result = null;
 		try{
 			result = service.getAll(model);
 //			List<TagModel> tagList = result.get("tags");
+			logger.error("tags--"+result);
 			return HttpUtils.generateResponse("0", "success", result);
 		} catch(Exception e){
 			e.printStackTrace();
+			logger.error("error");
 			return HttpUtils.generateResponse("1", "fail", null);
 		}
 	}

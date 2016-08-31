@@ -2,11 +2,20 @@ package cn.springmvc.model;
 
 public class QrcodeModel {
 	int id;
+	long basicId;
 	String name;
 	String url;
 	String ticket;
 	long sceneid;
 
+	public long getBasicId() {
+		return basicId;
+	}
+
+	public void setBasicId(long basicId) {
+		this.basicId = basicId;
+	}
+	
 	public long getSceneid() {
 		return sceneid;
 	}

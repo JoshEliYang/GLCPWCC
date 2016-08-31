@@ -141,6 +141,14 @@
 		<filter-name>WechatAccountFilter</filter-name>
 		<url-pattern>/resource/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WechatAccountFilter</filter-name>
+		<url-pattern>/tag/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WechatAccountFilter</filter-name>
+		<url-pattern>/Qrcode/*</url-pattern>
+	</filter-mapping>
 
 
 
@@ -177,6 +185,14 @@
 	<filter-mapping>
 		<filter-name>AccessFilter</filter-name>
 		<url-pattern>/resource/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/tag/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/Qrcode/*</url-pattern>
 	</filter-mapping>
 
 </web-app>

@@ -7,7 +7,7 @@
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/jquery-confirm.min.css" rel="stylesheet">
+    <link href="lib/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 
 
     <link href="css/ConfigStyle.css" rel="stylesheet">
@@ -16,7 +16,7 @@
 <body ng-app = "wechatApp" ng-controller = "wechatController">
 <div class="outerContainer">
     <div class="AddBtnPanel">
-        <button type="button" class="btn btn-success" ng-click="opeAddDialog()">
+        <button type="button" class="btn btn-success" ng-click="openAddDialog()">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
             添加
         </button>
@@ -27,22 +27,76 @@
         <tr>
             <th width="50">编号</th>
             <th width="100">name</th>
-            <th width="150">ticket</th>
-            <th>url</th>
-            <th width="150">sceneID</th>
+            <th width="150">url</th>
+            <th width="100">sceneID</th>
+            <th>ticket</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in qrcodeList" ng-click="testconsole()">
+        <tr ng-repeat="item in qrcodeList" ng-click="showQrcode($index)">
             <td ng-bind="$index+1"></td>
             <td ng-bind="item.name"></td>
-            <td ng-bind="item.ticket"></td>
             <td ng-bind="item.url"></td>
             <td ng-bind="item.sceneid"></td>
+            <td ng-bind="item.ticket"></td>
         </tr>
         </tbody>
     </table>
 
+    <div class="modal fade" id="qrcodeAddModal" tabindex="-1" role="dialog" data-backdrop="false"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                        新建二维码
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="qrcodeName">二维码名称:</label>
+                        <input type="text" class="form-control" id="qrcodeName" placeholder=""
+                               ng-model="addQrcodeName" ng-change="tanNameChange()">
+                        <p ng-show="tagNameEmpty" class="errorBlock">不能为空</p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="qrcodeId">id(1--100000):</label>
+                        <input type="text" class="form-control" id="qrcodeId" placeholder=""
+                               ng-model="addQrcodeId" ng-change="tanNameChange()">
+                        <p ng-show="tagNameEmpty" class="errorBlock">不能为空</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-success" ng-click="doInsert()">
+                        确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="qrcodeModal" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="qrcodeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="qrcodeModalLabel">{{qrcodeData.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <img src={{qrcodeData.url}}>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -52,7 +106,7 @@
 <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
 <script src="http://cdn.bootcss.com/angular-sanitize/1.5.7/angular-sanitize.min.js"></script>
 
-<script src="js/jquery-confirm.min.js"></script>
+<script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
 
 <script src="js/util.js" type="text/javascript"></script>
 <script src="js/conf.js" type="text/javascript"></script>

@@ -44,6 +44,7 @@ var tagUpdateUrl = "http://localhost:8080/GLCPWCC/tag/update";
 var tagCreateWithQr = "http://localhost:8080/GLCPWCC/tag/tagAndQrcode";
 
 var qrcodeGetUrl = "http://localhost:8080/GLCPWCC/Qrcode/select";
+var qrcodeCreateUrl = "http://localhost:8080/GLCPWCC/Qrcode/create"
 var getResourceListUrl = "http://localhost:8080/GLCPWCC/resource/";
 var getImageUrl = "http://localhost:8080/GLCPWCC/test/wechatimage";
 
