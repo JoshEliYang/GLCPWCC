@@ -48,6 +48,12 @@ var qrcodeCreateUrl = "http://localhost:8080/GLCPWCC/Qrcode/create"
 var getResourceListUrl = "http://localhost:8080/GLCPWCC/resource/";
 var getImageUrl = "http://localhost:8080/GLCPWCC/test/wechatimage";
 
+var MessageExcelUrl = "http://localhost:8080/GLCPWCC/message/upload";
+var TemplateMessageButtonsUrl = "http://localhost:8080/GLCPWCC/message/templates";
+
+var socketUrl = "ws://localhost:8080/GLCPWCC/progress";
+
+var getMenuUrl = "http://localhost:8080/GLCPWCC/wechatMenu";
 
 //////////////////////////////////////// https //////////////////////////////////////////
 // var loginUrl = "https://localhost:8443/GLCPWCC/login/login";

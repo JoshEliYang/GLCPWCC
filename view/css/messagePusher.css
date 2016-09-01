@@ -1,0 +1,33 @@
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+    background-color: #339999;
+}
+
+.nav-pills > li > a {
+    background-color: #EEEEEE;
+    color: #777;
+    font-weight: bold;
+}
+
+.nav-pills > li > a:hover {
+    background-color: #339999;
+    color: #fff;
+}
+
+.controlPanel {
+    margin-top: 15px;
+}
+
+.contentPanel {
+    padding: 0;
+}
+
+.contentPanel > iframe {
+    margin: 15px 0 0 20px;
+    background: #EEEEEE;
+    width: 95%;
+
+    -moz-box-shadow: 2px 3px 15px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 3px 15px #909090; /*safari或chrome*/
+    box-shadow: 2px 3px 15px #909090; /*opera或ie9*/
+}

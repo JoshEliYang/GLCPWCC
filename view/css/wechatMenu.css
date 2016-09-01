@@ -1,0 +1,46 @@
+
+.menuBlock button {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.InputPanel {
+    /*background: #CCFFFF;*/
+    -moz-box-shadow: -2px 3px 15px #909090; /*firefox*/
+    -webkit-box-shadow: -2px 3px 15px #909090; /*safari或chrome*/
+    box-shadow: -2px 3px 15px #909090; /*opera或ie9*/
+}
+
+.menuPanel {
+    position: relative;
+    left: 5px;
+    padding: 20px;
+    height: 750px;
+    width: 95%;
+    -moz-box-shadow: -2px 3px 15px #909090; /*firefox*/
+    -webkit-box-shadow: -2px 3px 15px #909090; /*safari或chrome*/
+    box-shadow: -2px 3px 15px #909090; /*opera或ie9*/
+}
+
+.menuPanelTitle {
+    position: relative;
+}
+
+.menuPanelTitle button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 500px !important;
+}
+
+.codeModelStyle {
+    width: 95%;
+}
+
+.btn-group {
+    margin-bottom: 5px;
+}

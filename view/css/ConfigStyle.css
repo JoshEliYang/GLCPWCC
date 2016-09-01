@@ -43,6 +43,13 @@ background: linear-gradient(#CCFFCC, #CCFF99); !* 标准的语法 *!
 /*background: linear-gradient(#CCFFFF, #99FFCC); !* 标准的语法 *!*/
 /*}*/
 
+.table {
+    width: 99%;
+    -moz-box-shadow: 2px 3px 15px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 3px 15px #909090; /*safari或chrome*/
+    box-shadow: 2px 3px 15px #909090; /*opera或ie9*/
+}
+
 .table-striped > tbody > tr:nth-of-type(odd) {
     background-color: #DDFFDD;
 }

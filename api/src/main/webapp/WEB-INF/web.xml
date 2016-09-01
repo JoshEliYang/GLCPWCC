@@ -149,6 +149,13 @@
 		<filter-name>WechatAccountFilter</filter-name>
 		<url-pattern>/Qrcode/*</url-pattern>
 	</filter-mapping>
+		<url-pattern>/message/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WechatAccountFilter</filter-name>
+		<url-pattern>/wechatMenu/*</url-pattern>
+	</filter-mapping>
+
 
 
 
@@ -193,6 +200,11 @@
 	<filter-mapping>
 		<filter-name>AccessFilter</filter-name>
 		<url-pattern>/Qrcode/*</url-pattern>
+		<url-pattern>/message/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/wechatMenu/*</url-pattern>
 	</filter-mapping>
 
 </web-app>

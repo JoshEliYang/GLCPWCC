@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Author" content="Johnson,starjohnson@sina.com">
+    <title>消息推送</title>
+
+    <link href="lib/bootstrap3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="lib/bootstrap3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="lib/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+
+    <link href="css/ConfigStyle.css" rel="stylesheet">
+    <link href="css/messagePusher.css" rel="stylesheet">
+</head>
+<body ng-app="wechatApp" ng-controller="wechatCtrl">
+
+<div class="row">
+    <div class="col-md-10 col-sm-10 contentPanel">
+        <iframe name="MessagePushFrame" ng-cloak src="{{buttonSelected.page}}" height="{{buttonSelected.height}}"
+                frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="col-md-2 col-sm-2">
+        <ul class="nav nav-pills nav-stacked controlPanel">
+            <li role="presentation" ng-class="item.css" ng-repeat="item in buttonsList">
+                <a ng-bind="item.itemName" ng-click="changeBtn($index)"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="lib/jquery2.2.4/jquery.min.js"></script>
+<script src="lib/bootstrap3.3.6/js/bootstrap.min.js"></script>
+
+<script src="lib/angular1.5.7/angular.min.js"></script>
+<script src="lib/angular1.5.7/angular-sanitize.min.js"></script>
+
+<script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
+
+<script src="js/util.js" type="text/javascript"></script>
+<script src="js/conf.js" type="text/javascript"></script>
+<script src="js/ctrl/messagePusherCtrl.js" type="text/javascript"></script>
+
+<script src="js/service/messagePusherService.js" type="text/javascript"></script>
+</body>
+</html>

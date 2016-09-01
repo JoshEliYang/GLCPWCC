@@ -5,15 +5,46 @@
  * Now, only God knows!
  */
 
+var pageMax = 10;
+
 $(function () {
     $('[data-toggle="popover"]').popover()
 });
 
 var app = angular.module('wechatApp', ['ngSanitize']);
 
-app.controller('wechatCtrl', function ($scope, $http, UserService) {
-    UserService.getAllUser($scope, $http);
-    UserService.getAllUserLevel($scope, $http);
+app.controller('wechatCtrl', function ($scope, $http, AdminServiceGlobal, PaginationServiceGlobal) {
+
+    var getUserCallback = function (data) {
+        PaginationServiceGlobal.doPagination(data, pageMax, function (pageGroup, totalCount) {
+            $scope.pageGroup = pageGroup;
+            $scope.totalCount = totalCount;
+        });
+        if ($scope.pageNow < $scope.pageGroup.length)
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.adminList = showList;
+            });
+        else
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, 0, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.adminList = showList;
+            });
+    };
+
+    AdminServiceGlobal.getAllUser($http, getUserCallback);
+
+    AdminServiceGlobal.getAllUserLevel($http, function callback(data) {
+        $scope.UserLevelList = data;
+    });
 
     $scope.adminCheckAll = function () {
         var flag = true;
@@ -111,15 +142,22 @@ app.controller('wechatCtrl', function ($scope, $http, UserService) {
             if (!$scope.passwdChange()) return;
             delete params.title;
             delete params.passwdConfirm;
-            UserService.doInsert($scope, $http, params);
+            AdminServiceGlobal.doInsert($http, params, function callback() {
+                AdminServiceGlobal.getAllUser($http, getUserCallback);
+            });
             $('#adminConfigModal').modal('hide');
         } else if (params.title == "修改") {
             delete params.title;
             delete params.passwd;
             delete params.passwdConfirm;
-            UserService.doEdit($scope, $http, params);
+            AdminServiceGlobal.doEdit($http, params, function callback() {
+                AdminServiceGlobal.getAllUser($http, getUserCallback);
+            });
             $('#adminConfigModal').modal('hide');
         }
+
+        location.href = "#btnPanel";
+        location.href = "#head";
     };
 
     $scope.usernameChange = function () {
@@ -184,7 +222,9 @@ app.controller('wechatCtrl', function ($scope, $http, UserService) {
             confirm: function () {
                 for (var i = 0; i < $scope.adminList.length; i++) {
                     if ($scope.adminList[i].checked)
-                        UserService.doDelete($scope, $http, $scope.adminList[i].id);
+                        AdminServiceGlobal.doDelete($http, $scope.adminList[i].id, function callback() {
+                            AdminServiceGlobal.getAllUser($http, getUserCallback);
+                        });
                 }
             },
             cancel: function () {
@@ -233,7 +273,9 @@ app.controller('wechatCtrl', function ($scope, $http, UserService) {
                             "id": $scope.adminList[i].id,
                             "passwd": newPasswd
                         };
-                        UserService.doResetPasswd($scope, $http, params);
+                        AdminServiceGlobal.doResetPasswd($http, params, function callback() {
+                            AdminServiceGlobal.getAllUser($http, getUserCallback);
+                        });
                     }
                 }
             },
@@ -243,194 +285,41 @@ app.controller('wechatCtrl', function ($scope, $http, UserService) {
 
     };
 
-});
-
-//////////////////////////////////////// service ////////////////////////////////////////////////////
-app.service('UserService', function () {
-    this.getAllUser = function ($scope, $http) {
-        getAllUser($scope, $http);
-    };
-    var getAllUser = function ($scope, $http) {
-        $http({
-            method: "GET",
-            url: userUrlAll + '?token=' + getCookie("token"),
-            'Content-Type': 'application/json'
-            //data: params
-        }).success(function (data) {
-            if (data.code != 0) {
-                $.alert({
-                    theme: "material",
-                    title: "警告",
-                    content: '<b>' + data.msg + '</b>',
-                    confirmButtonClass: 'btn-info',
-                    autoClose: 'confirm|10000'
-                });
-                return;
-            }
-
-            var adminList = data.data;
-            for (var i = 0; i < adminList.length; i++) {
-                adminList[i].checked = false;
-            }
-            $scope.adminList = adminList;
-        }).error(function () {
-            $.alert({
-                theme: "material",
-                title: "警告",
-                content: '<b>请求失败<br>请检查您的网络！</b>',
-                confirmButtonClass: 'btn-info',
-                autoClose: 'confirm|10000'
-            });
+    $scope.openPage = function (index) {
+        PaginationServiceGlobal.getPage({
+            "pageNow": $scope.pageNow,
+            "pageGroup": $scope.pageGroup
+        }, index, function (pageNow, pageGroup, showList) {
+            $scope.pageNow = pageNow;
+            $scope.pageGroup = pageGroup;
+            $scope.adminList = showList;
         });
     };
 
-    this.getAllUserLevel = function ($scope, $http) {
-        $http({
-            method: "GET",
-            url: userLevelsUrlAll + '?token=' + getCookie("token"),
-            'Content-Type': 'application/json'
-            //data: params
-        }).success(function (data) {
-            if (data.code != 0) {
-                $.alert({
-                    theme: "material",
-                    title: "警告",
-                    content: '<b>' + data.msg + '</b>',
-                    confirmButtonClass: 'btn-info',
-                    autoClose: 'confirm|10000'
-                });
-                return;
-            }
-
-            $scope.UserLevelList = data.data;
-        }).error(function () {
-            $.alert({
-                theme: "material",
-                title: "警告",
-                content: '<b>请求失败<br>请检查您的网络！</b>',
-                confirmButtonClass: 'btn-info',
-                autoClose: 'confirm|10000'
+    $scope.getPrevious = function () {
+        if ($scope.pageNow != 0) {
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow - 1, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.adminList = showList;
             });
-        });
+        }
     };
 
-    this.doInsert = function ($scope, $http, params) {
-        $http({
-            method: "POST",
-            url: userInsertUrl + '?token=' + getCookie("token"),
-            'Content-Type': 'application/json',
-            data: params
-        }).success(function (data) {
-            if (data.code != 0) {
-                $.alert({
-                    theme: "material",
-                    title: "警告",
-                    content: '<b>' + data.msg + '</b>',
-                    confirmButtonClass: 'btn-info',
-                    autoClose: 'confirm|10000'
-                });
-                return;
-            }
-
-            getAllUser($scope, $http);
-        }).error(function () {
-            $.alert({
-                theme: "material",
-                title: "警告",
-                content: '<b>请求失败<br>请检查您的网络！</b>',
-                confirmButtonClass: 'btn-info',
-                autoClose: 'confirm|10000'
+    $scope.getNext = function () {
+        if ($scope.pageNow < $scope.pageGroup.length - 1) {
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow + 1, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.adminList = showList;
             });
-        });
+        }
     };
 
-    this.doEdit = function ($scope, $http, params) {
-        $http({
-            method: "PUT",
-            url: userEditUrl + '?token=' + getCookie("token"),
-            'Content-Type': 'application/json',
-            data: params
-        }).success(function (data) {
-            if (data.code != 0) {
-                $.alert({
-                    theme: "material",
-                    title: "警告",
-                    content: '<b>' + data.msg + '</b>',
-                    confirmButtonClass: 'btn-info',
-                    autoClose: 'confirm|10000'
-                });
-                return;
-            }
-
-            getAllUser($scope, $http);
-        }).error(function () {
-            $.alert({
-                theme: "material",
-                title: "警告",
-                content: '<b>请求失败<br>请检查您的网络！</b>',
-                confirmButtonClass: 'btn-info',
-                autoClose: 'confirm|10000'
-            });
-        });
-    };
-
-    this.doDelete = function ($scope, $http, id) {
-        $http({
-            method: "DELETE",
-            url: userDeleteUrl + id + '?token=' + getCookie("token"),
-            'Content-Type': 'application/json'
-            // data: params
-        }).success(function (data) {
-            if (data.code != 0) {
-                $.alert({
-                    theme: "material",
-                    title: "警告",
-                    content: '<b>' + data.msg + '</b>',
-                    confirmButtonClass: 'btn-info',
-                    autoClose: 'confirm|10000'
-                });
-                return;
-            }
-
-            getAllUser($scope, $http);
-        }).error(function () {
-            $.alert({
-                theme: "material",
-                title: "警告",
-                content: '<b>请求失败<br>请检查您的网络！</b>',
-                confirmButtonClass: 'btn-info',
-                autoClose: 'confirm|10000'
-            });
-        });
-    };
-
-    this.doResetPasswd = function ($scope, $http, params) {
-        $http({
-            method: "PATCH",
-            url: resetPasswdUrl + '?token=' + getCookie("token"),
-            'Content-Type': 'application/json',
-            data: params
-        }).success(function (data) {
-            if (data.code != 0) {
-                $.alert({
-                    theme: "material",
-                    title: "警告",
-                    content: '<b>' + data.msg + '</b>',
-                    confirmButtonClass: 'btn-info',
-                    autoClose: 'confirm|10000'
-                });
-                return;
-            }
-
-            getAllUser($scope, $http);
-        }).error(function () {
-            $.alert({
-                theme: "material",
-                title: "警告",
-                content: '<b>请求失败<br>请检查您的网络！</b>',
-                confirmButtonClass: 'btn-info',
-                autoClose: 'confirm|10000'
-            });
-        });
-    };
 });
