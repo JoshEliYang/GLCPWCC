@@ -19,7 +19,7 @@ import com.springmvc.utils.GLCPStringUtils;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.AdminLevel;
-import cn.springmvc.model.Right;
+import cn.springmvc.model.LevelRight;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 import cn.springmvc.service.AdminService;
@@ -179,18 +179,56 @@ public class AdminController {
 	@RequestMapping(value = "/addLevel", method = RequestMethod.POST)
 	public Map<String, Object> addLevel(@RequestBody AdminLevel adminLevel) {
 		try {
-			if (adminLevel == null ||
-					GLCPStringUtils.isNull(adminLevel.getLevelName())) {
+			if (adminLevel == null || GLCPStringUtils.isNull(adminLevel.getLevelName())) {
 				return HttpUtils.generateResponse("1", "请求错误", null);
 			}
 
 			service.addLevel(adminLevel);
-			
+
 			return HttpUtils.generateResponse("0", "管理员添加权限成功", null);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.error("admin add level >>> \n");
 			return HttpUtils.generateResponse("1", "管理员添加权限", null);
+		}
+	}
+
+	/**
+	 * get all level's rights
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/levelRight", method = RequestMethod.GET)
+	public Map<String, Object> addLevelRight() {
+		List<LevelRight> result = null;
+		try {
+			result = service.getAllLevelRights();
+			return HttpUtils.generateResponse("0", "查询所有权限功能成功", result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("get all level right error >>>> " + e.getMessage());
+			return HttpUtils.generateResponse("1", "查询所有权限功能失败", null);
+		}
+	}
+
+	/**
+	 * enable/unable level's right
+	 * 
+	 * @param param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/levelRight", method = RequestMethod.PATCH)
+	public Map<String, Object> setLevelRight(@RequestBody Map<String, Object> param) {
+		try {
+			service.setLevelRight((Integer) (param.get("levelId")), (Integer) (param.get("groupId")),
+					(Boolean) (param.get("enable")));
+			return HttpUtils.generateResponse("0", "设置权限功能成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("get all level right error >>>> " + e.getMessage());
+			return HttpUtils.generateResponse("1", "设置权限功能失败", null);
 		}
 	}
 

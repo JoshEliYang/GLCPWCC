@@ -40,6 +40,30 @@ app.service('ButtonServiceGlobal', function () {
     };
 
     /**
+     * get all button groups with out doing other process
+     *
+     * @param $http
+     * @param callback
+     */
+    this.getButtonGroupOnly = function ($http, callback) {
+        $http({
+            method: "GET",
+            url: buttonGroupUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json'
+            //data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                showError(data.msg);
+                return;
+            }
+
+            callback(data.data);
+        }).error(function () {
+            showError('请求失败<br>请检查您的网络！');
+        });
+    };
+
+    /**
      * get buttons
      *
      * @param $http

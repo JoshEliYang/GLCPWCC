@@ -174,11 +174,64 @@ app.service('AdminServiceGlobal', function () {
         });
     };
 
+    /**
+     * reset password
+     *
+     * @param $http
+     * @param params
+     * @param callback
+     */
     this.doResetPasswd = function ($http, params, callback) {
         $('#loadingDialog').modal('show');
         $http({
             method: "PATCH",
             url: resetPasswdUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                showError(data.msg);
+                return;
+            }
+
+            $('#loadingDialog').modal('hide');
+            callback();
+        }).error(function () {
+            showError('请求失败<br>请检查您的网络！');
+        });
+    };
+
+    /**
+     * get all level-buttonGroup mapping
+     *
+     * @param $http
+     * @param callback
+     */
+    this.getAllLevelRights = function ($http, callback) {
+        $('#loadingDialog').modal('show');
+        $http({
+            method: "GET",
+            url: levelRightUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json'
+            // data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                showError(data.msg);
+                return;
+            }
+
+            $('#loadingDialog').modal('hide');
+            callback(data.data);
+        }).error(function () {
+            showError('请求失败<br>请检查您的网络！');
+        });
+    };
+
+    this.setLevelRight = function ($http, params, callback) {
+        $('#loadingDialog').modal('show');
+        $http({
+            method: "PATCH",
+            url: levelRightUrl + '?token=' + getCookie("token"),
             'Content-Type': 'application/json',
             data: params
         }).success(function (data) {

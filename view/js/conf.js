@@ -22,6 +22,7 @@ var userInsertUrl = "http://localhost:8080/GLCPWCC/admin/insert";
 var userEditUrl = "http://localhost:8080/GLCPWCC/admin/edit";
 var userDeleteUrl = "http://localhost:8080/GLCPWCC/admin/delete/";
 var resetPasswdUrl = "http://localhost:8080/GLCPWCC/admin/resetPasswd";
+var levelRightUrl = "http://localhost:8080/GLCPWCC/admin/levelRight";
 
 var buttonGroupUrl = "http://localhost:8080/GLCPWCC/button/group";
 var buttonsUrl = "http://localhost:8080/GLCPWCC/button/button/";

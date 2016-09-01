@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="UserLevel" type="cn.springmvc.model.UserLevel" />
 		<typeAlias alias="UserRight" type="cn.springmvc.model.UserRight" />
 		<typeAlias alias="UserAccess" type="cn.springmvc.model.UserAccess" />
+		<typeAlias alias="LevelRight" type="cn.springmvc.model.LevelRight" />
 
 		<typeAlias alias="VerifyCode" type="cn.springmvc.model.VerifyCode" />
 		<typeAlias alias="LoginData" type="cn.springmvc.model.LoginData" />

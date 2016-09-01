@@ -3,6 +3,7 @@ package cn.springmvc.service;
 import java.util.List;
 
 import cn.springmvc.model.AdminLevel;
+import cn.springmvc.model.LevelRight;
 import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
@@ -88,8 +89,7 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	public void resetPassword(User admin) throws Exception;
-	
-	
+
 	/**
 	 * add level
 	 * 
@@ -97,7 +97,7 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	public void addLevel(AdminLevel adminLevel) throws Exception;
-	
+
 	/**
 	 * set right is visible
 	 * 
@@ -105,7 +105,7 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	public void setRightAdd(Right right) throws Exception;
-	
+
 	/**
 	 * set right is disable
 	 * 
@@ -121,4 +121,22 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	public void updateRight(Right right) throws Exception;
+
+	/**
+	 * get all level's rights
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LevelRight> getAllLevelRights() throws Exception;
+
+	/**
+	 * enable/unable levels' right
+	 * 
+	 * @param levelId
+	 * @param groupId
+	 * @param enable
+	 * @throws Exception
+	 */
+	public void setLevelRight(int levelId, int groupId, boolean enable) throws Exception;
 }

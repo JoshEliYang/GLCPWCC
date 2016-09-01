@@ -63,3 +63,8 @@
     background: #FF0066;
 }
 
+.logoStyle {
+    position: relative;
+    top: -15px;
+    height: 50px;
+}

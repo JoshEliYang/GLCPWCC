@@ -9,6 +9,7 @@ import com.springmvc.utils.MD5Util;
 
 import cn.springmvc.dao.AdminDao;
 import cn.springmvc.model.AdminLevel;
+import cn.springmvc.model.LevelRight;
 import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
@@ -127,7 +128,8 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * add level
 	 * 
-	 * @param  Admin Level 
+	 * @param Admin
+	 *            Level
 	 * @throws Exception
 	 */
 	public void addLevel(AdminLevel adminLevel) throws Exception {
@@ -137,7 +139,8 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * set right is visible
 	 * 
-	 * @param Right right
+	 * @param Right
+	 *            right
 	 * @throws Exception
 	 */
 	public void setRightAdd(Right right) throws Exception {
@@ -147,24 +150,52 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * set right is disable
 	 * 
-	 * @param Right right
+	 * @param Right
+	 *            right
 	 * @throws Exception
 	 */
 	public void setRightDelete(Right right) throws Exception {
 		dao.setRightDelete(right);
 	}
-	
+
 	/**
 	 * set right is visible or disable
+	 * 
 	 * @param right
 	 * @throws Exception
 	 */
 	public void updateRight(Right right) throws Exception {
 		if (right.isVisible() == true) {
 			dao.setRightAdd(right);
-			return ;
+			return;
 		}
-		
+
 		dao.setRightDelete(right);
+	}
+
+	/**
+	 * get all level's rights
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LevelRight> getAllLevelRights() throws Exception {
+		return dao.getAllLevelRights();
+	}
+
+	/**
+	 * enable/unable levels' right
+	 * 
+	 * @param levelId
+	 * @param groupId
+	 * @param enable
+	 * @throws Exception
+	 */
+	public void setLevelRight(int levelId, int groupId, boolean enable) throws Exception {
+		if (enable) {
+			dao.enableLevelRight(levelId, groupId);
+		} else {
+			dao.unableLevelRight(levelId, groupId);
+		}
 	}
 }
