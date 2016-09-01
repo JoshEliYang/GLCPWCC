@@ -20,10 +20,12 @@ app.controller('wechatCtrl', function ($scope, $http, ReplyServiceGlobal, Pagina
 
     // do paginate
     var getDataCallback = function (data) {
+        console.log(data);
         PaginationServiceGlobal.doPagination(data, pageMax, function (pageGroup, totalCount) {
             $scope.keyWordsGroup = pageGroup;
             $scope.totalCount = totalCount;
         });
+        console.log($scope.keyWordsGroup);
         if ($scope.pageNow < $scope.keyWordsGroup.length)
             PaginationServiceGlobal.getPage({
                 "pageNow": $scope.pageNow,

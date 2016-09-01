@@ -1,0 +1,19 @@
+{
+  "menuSourceType": [
+    {
+      "name": "网页",
+      "type": "view",
+      "inputType": "url"
+    },
+    {
+      "name": "图片",
+      "type": "media_id",
+      "inputType": "media_id"
+    },
+    {
+      "name": "图文消息",
+      "type": "view_limited",
+      "inputType": "media_id"
+    }
+  ]
+}

@@ -98,13 +98,6 @@ public class TemplateMessageController {
 		TaskRequest task = new TaskRequest("SendTemplateMessage", taskTimestamp, admin,
 				JSON.toJSONString(templateTask));
 		MqSender.sender(task);
-
-		// try {
-		// ArrayList<Coupon> coupons = templateService.getCoupon(filePath);
-		// templateService.pushToUser(coupons, basicModel, templateId);
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
 	}
 
 	/**
