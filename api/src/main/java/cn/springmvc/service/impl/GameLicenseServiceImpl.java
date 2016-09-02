@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.springmvc.utils.RequestUtil;
 
-import cn.springmvc.service.gameLicenseService;
+import cn.springmvc.service.GameLicenseService;
 
 
 @Service
-public class gameLicenseServiceImpl implements gameLicenseService {
+public class GameLicenseServiceImpl implements GameLicenseService {
 	
-	Logger logger = Logger.getLogger(gameLicenseServiceImpl.class);
+	Logger logger = Logger.getLogger(GameLicenseServiceImpl.class);
 	
 	@SuppressWarnings("unchecked")
 	public Map<String, String> getUserInfo(String code) throws ClientProtocolException, IOException {

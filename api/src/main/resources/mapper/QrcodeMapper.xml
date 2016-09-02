@@ -6,20 +6,26 @@
 <mapper namespace="cn.springmvc.dao.QrcodeDao">
 	<select id="getAll" resultType="QrcodeModel">
 		SELECT *
-		FROM qrcode;
+		FROM qrcode
+		WHERE basicId=#{0}
 	</select>
 	
 	<select id="createQrcode" resultType="QrcodeModel">
 		INSERT INTO qrcode(
-		'id',
-		'name',
-		'ticket',
-		'url',
-		'sceneid'
+		`id`,
+		`basicId`,
+		`name`,
+		`url`,
+		`ticket`,
+		`sceneid`
 		)
 		VALUES(
-		
+		#{id},
+		#{basicId},
+		#{name},
+		#{url},
+		#{ticket},
+		#{sceneid}
 		)
-		
 	</select>
 </mapper>

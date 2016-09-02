@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.http.client.ClientProtocolException;
 
-public interface gameLicenseService {
+public interface GameLicenseService {
 	public Map<String, String> getUserInfo(String code) throws ClientProtocolException, IOException;
 
 }

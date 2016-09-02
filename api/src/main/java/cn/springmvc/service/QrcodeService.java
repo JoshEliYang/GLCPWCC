@@ -8,9 +8,9 @@ import cn.springmvc.model.QrcodeModel;
 
 public interface QrcodeService {
 	
-	public List<QrcodeModel>getAll() throws Exception;
+	public List<QrcodeModel>getAll(BasicModel basicModel) throws Exception;
 	
-	public List<QrcodeModel> createQrcode(long ID, BasicModel basicModel) throws Exception;
+	public List<QrcodeModel> createQrcode(int basicId, long sceneId, String name, String accessToken) throws Exception;
 	
 	
 
