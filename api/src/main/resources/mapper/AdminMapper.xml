@@ -119,4 +119,21 @@
 		WHERE
 		`groupId`=#{1} AND `levelId`=#{0}
 	</delete>
+
+	<update id="editUserLevel" parameterType="UserLevel">
+		UPDATE userLevel
+		SET
+		`levelName` = #{levelName},
+		`remark` = #{remark},
+		`bak1` = #{bak1},
+		`bak2`=#{bak2}
+		WHERE
+		`id` = #{id}
+	</update>
+
+	<delete id="removeAdminLevel" parameterType="Integer">
+		call
+		removeLevel(#{1})
+	</delete>
+
 </mapper>

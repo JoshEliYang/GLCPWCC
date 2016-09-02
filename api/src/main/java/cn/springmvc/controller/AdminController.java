@@ -227,8 +227,40 @@ public class AdminController {
 			return HttpUtils.generateResponse("0", "设置权限功能成功", null);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("get all level right error >>>> " + e.getMessage());
+			logger.error("edit level right error >>>> " + e.getMessage());
 			return HttpUtils.generateResponse("1", "设置权限功能失败", null);
+		}
+	}
+
+	/**
+	 * edit user level
+	 * 
+	 * @param adminLevel
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/userLevel", method = RequestMethod.PATCH)
+	public Map<String, Object> editAdminLevel(@RequestBody UserLevel adminLevel) {
+		try {
+			service.editUserLevel(adminLevel);
+			return HttpUtils.generateResponse("0", "修改权限成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("edit user level error >>>> " + e.getMessage());
+			return HttpUtils.generateResponse("1", "修改权限失败", null);
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/userLevel/{id}", method = RequestMethod.DELETE)
+	public Map<String, Object> removeAdminLevel(@PathVariable int id) {
+		try {
+			service.removeAdminLevel(id);
+			return HttpUtils.generateResponse("0", "修改权限成功", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("remove user level error >>>> " + e.getMessage());
+			return HttpUtils.generateResponse("1", "修改权限失败", null);
 		}
 	}
 

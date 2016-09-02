@@ -8,9 +8,9 @@ package cn.springmvc.model;
 public class UserLevel {
 	int id;
 	String levelName;
-	String remark;
-	String bak1;
-	String bak2;
+	String remark = "";
+	String bak1 = "";
+	String bak2 = "";
 
 	public int getId() {
 		return id;

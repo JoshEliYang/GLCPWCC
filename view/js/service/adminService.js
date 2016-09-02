@@ -227,6 +227,13 @@ app.service('AdminServiceGlobal', function () {
         });
     };
 
+    /**
+     * enable/unable level's right
+     *
+     * @param $http
+     * @param params
+     * @param callback
+     */
     this.setLevelRight = function ($http, params, callback) {
         $('#loadingDialog').modal('show');
         $http({
@@ -234,6 +241,87 @@ app.service('AdminServiceGlobal', function () {
             url: levelRightUrl + '?token=' + getCookie("token"),
             'Content-Type': 'application/json',
             data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                showError(data.msg);
+                return;
+            }
+
+            $('#loadingDialog').modal('hide');
+            callback();
+        }).error(function () {
+            showError('请求失败<br>请检查您的网络！');
+        });
+    };
+
+    /**
+     * add new level
+     *
+     * @param $http
+     * @param params
+     * @param callback
+     */
+    this.addAdminLevel = function ($http, params, callback) {
+        $('#loadingDialog').modal('show');
+        $http({
+            method: "POST",
+            url: addAdminLevelUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                showError(data.msg);
+                return;
+            }
+
+            $('#loadingDialog').modal('hide');
+            callback();
+        }).error(function () {
+            showError('请求失败<br>请检查您的网络！');
+        });
+    };
+
+    /**
+     * edit user level
+     *
+     * @param $http
+     * @param params
+     * @param callback
+     */
+    this.editUserLevel = function ($http, params, callback) {
+        $('#loadingDialog').modal('show');
+        $http({
+            method: "PATCH",
+            url: adminLevelEditUrl + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json',
+            data: params
+        }).success(function (data) {
+            if (data.code != 0) {
+                showError(data.msg);
+                return;
+            }
+
+            $('#loadingDialog').modal('hide');
+            callback();
+        }).error(function () {
+            showError('请求失败<br>请检查您的网络！');
+        });
+    };
+
+    /**
+     * delete user level
+     *
+     * @param $http
+     * @param id
+     * @param callback
+     */
+    this.removeUserLevel = function ($http, id, callback) {
+        $('#loadingDialog').modal('show');
+        $http({
+            method: "DELETE",
+            url: adminLevelEditUrl + '/' + id + '?token=' + getCookie("token"),
+            'Content-Type': 'application/json'
+            // data: params
         }).success(function (data) {
             if (data.code != 0) {
                 showError(data.msg);

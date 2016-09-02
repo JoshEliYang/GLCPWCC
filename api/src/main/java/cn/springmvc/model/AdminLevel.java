@@ -1,10 +1,20 @@
 package cn.springmvc.model;
 
 public class AdminLevel {
-	
+
+	private int id;
+
 	private String levelName;
-	
+
 	private String remark;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getLevelName() {
 		return levelName;
@@ -34,7 +44,6 @@ public class AdminLevel {
 
 	@Override
 	public String toString() {
-		return "AdminLevel [levelName=" + levelName + ", remark=" + remark
-				+ "]";
+		return "AdminLevel [levelName=" + levelName + ", remark=" + remark + "]";
 	}
 }

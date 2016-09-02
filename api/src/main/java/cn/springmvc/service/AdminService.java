@@ -139,4 +139,20 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	public void setLevelRight(int levelId, int groupId, boolean enable) throws Exception;
+
+	/**
+	 * edit user level
+	 * 
+	 * @param adminLevel
+	 * @throws Exception
+	 */
+	public void editUserLevel(UserLevel adminLevel) throws Exception;
+
+	/**
+	 * remove user level
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void removeAdminLevel(int id) throws Exception;
 }

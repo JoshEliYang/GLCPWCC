@@ -140,4 +140,19 @@ public interface AdminDao {
 	 */
 	public void unableLevelRight(int levelId, int groupId) throws Exception;
 
+	/**
+	 * edit user level
+	 * 
+	 * @param adminLevel
+	 * @throws Exception
+	 */
+	public void editUserLevel(UserLevel adminLevel) throws Exception;
+
+	/**
+	 * remove user level
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void removeAdminLevel(int id) throws Exception;
 }

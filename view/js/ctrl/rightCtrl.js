@@ -96,4 +96,103 @@ app.controller('wechatCtrl', function ($scope, $http, AdminServiceGlobal, Button
         });
     };
 
+    /**
+     * do add/edit/delete
+     *
+     * @param action
+     */
+    $scope.openNewLevel = function (action) {
+        var getChecked = function () {
+            var list = new Array();
+            var result = {
+                "list": list,
+                "count": 0
+            };
+            for (var i = 0; i < $scope.levelButtonMapping.length; i++) {
+                if ($scope.levelButtonMapping[i].checked) {
+                    result.count++;
+                    var dat = {
+                        "id": $scope.UserLevelList[i].id,
+                        "levelName": $scope.levelButtonMapping[i].levelName
+                    };
+                    result.list.push(dat);
+                }
+            }
+            return result;
+        };
+
+        if (action == 'add') {
+            $scope.modalDat = {
+                "levelName": "",
+                "title": "添加"
+            };
+            $('#LevelModel').modal('show');
+        } else if (action == 'edit') {
+            var result = getChecked();
+            if (result.count != 1) {
+                showWarning('请选着1个对象，本操作不能多选');
+                return;
+            }
+            $scope.modalDat = {
+                "levelName": result.list[0].levelName,
+                "id": result.list[0].id,
+                "title": "修改"
+            };
+            $('#LevelModel').modal('show');
+        } else if (action == 'delete') {
+            var resultx = getChecked();
+            $.confirm({
+                title: '警告',
+                content: '本次删除会删除相关用户，且不可恢复，确认删除？',
+                theme: "material",
+                confirmButtonClass: 'btn-info',
+                cancelButtonClass: 'btn-danger',
+                confirm: function () {
+                    for (var i = 0; i < resultx.list.length; i++) {
+                        AdminServiceGlobal.removeUserLevel($http, resultx.list[0].id, function () {
+                            init();
+                        });
+                    }
+                },
+                cancel: function () {
+                }
+            });
+        }
+    };
+
+    /**
+     * add new level
+     */
+    $scope.addNewLevel = function () {
+        if ($scope.modalDat.title == '添加') {
+            AdminServiceGlobal.addAdminLevel($http, {
+                "levelName": $scope.modalDat.levelName
+            }, function callback() {
+                $('#LevelModel').modal('hide');
+                init();
+            });
+        } else if ($scope.modalDat.title == '修改') {
+            AdminServiceGlobal.editUserLevel($http, {
+                "id": $scope.modalDat.id,
+                "levelName": $scope.modalDat.levelName
+            }, function () {
+                $('#LevelModel').modal('hide');
+                init();
+            });
+        }
+    };
+
+    $scope.doCheck = function (index) {
+        $scope.levelButtonMapping[index].checked = !$scope.levelButtonMapping[index].checked;
+    };
+
+    var showWarning = function (msg) {
+        $.alert({
+            theme: "material",
+            title: "警告",
+            content: '<b>' + msg + '</b>',
+            confirmButtonClass: 'btn-info',
+            autoClose: 'confirm|10000'
+        });
+    };
 });

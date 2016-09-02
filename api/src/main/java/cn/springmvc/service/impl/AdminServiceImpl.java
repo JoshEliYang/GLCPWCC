@@ -198,4 +198,24 @@ public class AdminServiceImpl implements AdminService {
 			dao.unableLevelRight(levelId, groupId);
 		}
 	}
+
+	/**
+	 * edit user level
+	 * 
+	 * @param adminLevel
+	 * @throws Exception
+	 */
+	public void editUserLevel(UserLevel adminLevel) throws Exception {
+		dao.editUserLevel(adminLevel);
+	}
+
+	/**
+	 * remove user level
+	 * 
+	 * @param id
+	 * @throws Exception
+	 */
+	public void removeAdminLevel(int id) throws Exception {
+		dao.removeAdminLevel(id);
+	}
 }
