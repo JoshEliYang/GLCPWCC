@@ -34,7 +34,7 @@ function verifyOnEnter() {
 
 function refreshCode() {
     var img = document.getElementById('verifyPic');
-    img.src = "http://localhost:8080/GLCPWCC/login/getVerification?rnd=" + Math.random();
+    img.src = "http://120.26.54.131:8080/GLCPWCC/login/getVerification?rnd=" + Math.random();
 }
 
 function doLogin() {
