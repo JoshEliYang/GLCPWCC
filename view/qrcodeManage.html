@@ -93,12 +93,41 @@
                 <h4 class="modal-title" id="qrcodeModalLabel">{{qrcodeData.title}}</h4>
             </div>
             <div class="modal-body">
-                <img src={{qrcodeData.url}}>
+                <label>Qrcode Url</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="qrcodeData.url" id="mediaCopyDat" readonly>
+                    <span class="input-group-btn">
+                        <button class="btn btn-success my_clip_button" type="button" id="picCopyBtn"
+                                data-clipboard-target="mediaCopyDat">
+                            <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                            点击复制
+                        </button>
+                    </span>
+                </div>
+                <img src={{qrcodeData.qrcode}}>
             </div>
         </div>
     </div>
 </div>
 
+
+<div class="modal fade" id="loadingDialog" tabindex="-1" role="dialog" data-backdrop="false"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    LOADING...
+                </h4>
+            </div>
+            <div class="modal-body loadingCover">
+                <p>正在加载...</p>
+                <img src="image/loading.gif">
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -107,11 +136,13 @@
 <script src="http://cdn.bootcss.com/angular-sanitize/1.5.7/angular-sanitize.min.js"></script>
 
 <script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="lib/ZeroClipboard/ZeroClipboard.min.js"></script>
 
 <script src="js/util.js" type="text/javascript"></script>
 <script src="js/conf.js" type="text/javascript"></script>
-<script src="js/qrcodeManage.js" type="text/javascript"></script>
-
+<!--<script src="js/qrcodeManage.js" type="text/javascript"></script>-->
+<script src="js/ctrl/qrcodeCtrl.js" type="text/javascript"></script>
+<script src="js/service/qrcodeService.js" type="text/javascript"></script>
 
 
 </body>
