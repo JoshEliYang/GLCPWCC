@@ -2,7 +2,7 @@
  * Created by johsnon on 2016/7/29.
  */
 
-var pageMax = 2;
+var pageMax = 10;
 
 $(function () {
     $('[data-toggle="popover"]').popover()
