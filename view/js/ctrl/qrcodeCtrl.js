@@ -1,10 +1,30 @@
 /**
  * Created by L on 2016/9/1.
  */
+
+var pageMax = 10;
+
 var app = angular.module('wechatApp', []);
 
-app.controller('wechatController', function ($scope, $http, QrcodeService) {
+app.controller('wechatController', function ($scope, $http, QrcodeService, PaginationServiceGlobal) {
+    $scope.pageNow = 0;
+
     QrcodeService.getAll($scope, $http);
+
+    $scope.pagination = function (data) {
+        PaginationServiceGlobal.doPagination(data, pageMax, function (pageGroup, totalCount) {
+            $scope.pageGroup = pageGroup;
+            $scope.totalCount = totalCount;
+        });
+        PaginationServiceGlobal.getPage({
+            "pageNow": $scope.pageNow,
+            "pageGroup": $scope.pageGroup
+        }, $scope.pageNow, function (pageNow, pageGroup, showList) {
+            $scope.pageNow = pageNow;
+            $scope.pageGroup = pageGroup;
+            $scope.qrcodeList = showList;
+        });
+    };
 
     $scope.showQrcode = function (index) {
         $scope.qrcodeData = {
@@ -13,12 +33,12 @@ app.controller('wechatController', function ($scope, $http, QrcodeService) {
             "url" : $scope.qrcodeList[index].url
         };
         $('#qrcodeModal').modal('show');
-    }
+    };
 
     $scope.doInsert = function () {
         QrcodeService.createQrcode($scope, $http, $scope.addQrcodeName, $scope.addQrcodeId);
         $('#qrcodeAddModal').modal('hide');
-    }
+    };
 
     $scope.openAddDialog = function () {
         $.confirm({
@@ -33,8 +53,45 @@ app.controller('wechatController', function ($scope, $http, QrcodeService) {
             cancel: function () {
             }
         })
-    }
-})
+    };
+
+    $scope.openPage = function (index) {
+        PaginationServiceGlobal.getPage({
+            "pageNow": $scope.pageNow,
+            "pageGroup": $scope.pageGroup
+        }, index, function (pageNow, pageGroup, showList) {
+            $scope.pageNow = pageNow;
+            $scope.pageGroup = pageGroup;
+            $scope.qrcodeList = showList;
+        });
+    };
+
+    $scope.getPrevious = function () {
+        if ($scope.pageNow != 0) {
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow - 1, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.qrcodeList = showList;
+            });
+        }
+    };
+
+    $scope.getNext = function () {
+        if ($scope.pageNow < $scope.pageGroup.length - 1) {
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow + 1, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.qrcodeList = showList;
+            });
+        }
+    };
+});
 
 var clip = new ZeroClipboard(document.getElementById("picCopyBtn"), {
     moviePath: "lib/ZeroClipboard/ZeroClipboard.swf"

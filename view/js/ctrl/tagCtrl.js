@@ -1,13 +1,33 @@
 /**
  * Created by L on 2016/9/1.
  */
+
+var pageMax = 10;
+
 var app = angular.module('wechatApp', []);
-app.controller('wechatController', function($scope, $http, TagService) {
+app.controller('wechatController', function($scope, $http, TagService, PaginationServiceGlobal) {
+    $scope.pageNow = 0;
+
     getAll($scope, $http);
+
+    $scope.pagination = function (data) {
+        PaginationServiceGlobal.doPagination(data, pageMax, function (pageGroup, totalCount) {
+            $scope.pageGroup = pageGroup;
+            $scope.totalCount = totalCount;
+        });
+        PaginationServiceGlobal.getPage({
+            "pageNow": $scope.pageNow,
+            "pageGroup": $scope.pageGroup
+        }, $scope.pageNow, function (pageNow, pageGroup, showList) {
+            $scope.pageNow = pageNow;
+            $scope.pageGroup = pageGroup;
+            $scope.tagList = showList;
+        });
+    };
 
     $scope.openAddDialog = function () {
         $('#tagAddModal').modal('show');
-    }
+    };
 
     $scope.openEditDialog = function () {
         var count = 0;
@@ -39,7 +59,7 @@ app.controller('wechatController', function($scope, $http, TagService) {
         }
         $scope.editTagName = $scope.tagList[target].name;
         $('#tagEditModal').modal('show');
-    }
+    };
 
     $scope.tagNameChange = function () {
         if ($scope.tagName == "") {
@@ -54,12 +74,12 @@ app.controller('wechatController', function($scope, $http, TagService) {
     $scope.doInsert = function () {
         TagService.doInsert($scope, $http);
         $('#tagAddModal').modal('hide');
-    }
+    };
 
     $scope.doEdit = function () {
         TagService.doEdit($scope, $http);
         $('#tagEditModal').modal('hide');
-    }
+    };
 
     $scope.doCheckAll = function () {
         var flag = true;
@@ -73,13 +93,13 @@ app.controller('wechatController', function($scope, $http, TagService) {
         for (var i = 0; i < $scope.tagList.length; i++)
             $scope.tagList[i].checked = !flag;
         $scope.checkAll = !flag;
-    }
+    };
 
     $scope.doCheck = function (index) {
         if ($scope.tagList[index].checked)
             $scope.checkAll = !$scope.tagList[index].checked;
         $scope.tagList[index].checked = !$scope.tagList[index].checked;
-    }
+    };
 
     $scope.doDelete = function () {
         var count = 0;
@@ -114,6 +134,43 @@ app.controller('wechatController', function($scope, $http, TagService) {
             cancel: function () {
             }
         })
-    }
+    };
+
+    $scope.openPage = function (index) {
+        PaginationServiceGlobal.getPage({
+            "pageNow": $scope.pageNow,
+            "pageGroup": $scope.pageGroup
+        }, index, function (pageNow, pageGroup, showList) {
+            $scope.pageNow = pageNow;
+            $scope.pageGroup = pageGroup;
+            $scope.tagList = showList;
+        });
+    };
+
+    $scope.getPrevious = function () {
+        if ($scope.pageNow != 0) {
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow - 1, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.tagList = showList;
+            });
+        }
+    };
+
+    $scope.getNext = function () {
+        if ($scope.pageNow < $scope.pageGroup.length - 1) {
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow + 1, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.tagList = showList;
+            });
+        }
+    };
 
 });

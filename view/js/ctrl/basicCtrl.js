@@ -2,7 +2,7 @@
  * Created by johsnon on 2016/7/29.
  */
 
-var pageMax = 10;
+var pageMax = 2;
 
 $(function () {
     $('[data-toggle="popover"]').popover()
@@ -12,7 +12,6 @@ var app = angular.module('wechatApp', ['ngSanitize']);
 
 app.controller('wechatCtrl', function ($scope, $http, BasicServiceGlobal, PaginationServiceGlobal) {
     $scope.pageNow = 0;
-
     // do paginate
     var getDataCallback = function (data) {
         PaginationServiceGlobal.doPagination(data, pageMax, function (pageGroup, totalCount) {
@@ -212,14 +211,14 @@ app.controller('wechatCtrl', function ($scope, $http, BasicServiceGlobal, Pagina
 
     $scope.getNext = function () {
         if ($scope.pageNow < $scope.pageGroup.length - 1) {
-            var param = {
+            ;PaginationServiceGlobal.getPage({
                 "pageNow": $scope.pageNow,
                 "pageGroup": $scope.pageGroup
-            };
-            var result = PaginationServiceGlobal.getPage(param, $scope.pageNow + 1);
-            $scope.pageGroup = result.pageGroup;
-            $scope.pageNow = result.pageNow;
-            $scope.basicList = result.showList;
+            }, $scope.pageNow + 1,function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.basicList = showList;
+            });
         }
     };
 });

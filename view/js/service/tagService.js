@@ -25,6 +25,7 @@ app.service('TagService', function () {
                 tagList[i].checked = false;
             }
             $scope.tagList = tagList;
+            $scope.pagination(tagList);
             $('#loadingDialog').modal('hide');
         }).error(function () {
             $.alert({

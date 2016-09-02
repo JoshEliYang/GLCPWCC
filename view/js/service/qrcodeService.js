@@ -25,6 +25,7 @@ app.service('QrcodeService', function () {
             }
             qrcodeList = data.data;
             $scope.qrcodeList = qrcodeList;
+            $scope.pagination(qrcodeList);
             $('#loadingDialog').modal('hide');
         }).error(function () {
             $.alert({
