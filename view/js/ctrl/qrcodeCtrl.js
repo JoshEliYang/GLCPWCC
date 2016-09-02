@@ -2,7 +2,7 @@
  * Created by L on 2016/9/1.
  */
 
-var pageMax = 10;
+var pageMax = 5;
 
 var app = angular.module('wechatApp', []);
 
