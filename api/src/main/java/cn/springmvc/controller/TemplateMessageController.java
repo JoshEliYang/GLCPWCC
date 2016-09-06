@@ -70,7 +70,9 @@ public class TemplateMessageController {
 				Matcher matcher = pattern.matcher(file.getOriginalFilename());
 				if (matcher.find()) {
 					// 文件保存路径
-					filePath = "F:/testFile/" + System.currentTimeMillis() + matcher.group(0);
+					// filePath = "F:/testFile/" + System.currentTimeMillis() +
+					// matcher.group(0);
+					filePath = "/opt/data/source/uploaded/" + System.currentTimeMillis() + matcher.group(0);
 				} else {
 					logger.error("file upload error >>>>> get file type by regex error!");
 					response.getOutputStream().print("{\"code\":\"2\"}");
