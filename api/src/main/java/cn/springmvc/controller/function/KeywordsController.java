@@ -1,4 +1,4 @@
-package cn.springmvc.controller;
+package cn.springmvc.controller.function;
 
 import java.util.List;
 import java.util.Map;
@@ -42,7 +42,7 @@ public class KeywordsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public Map<String, Object> getAll(HttpServletRequest request) {
+	public Map<String, Object> getAllKeywords(HttpServletRequest request) {
 		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
 
 		List<Keywords> result = null;
@@ -65,7 +65,7 @@ public class KeywordsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public Map<String, Object> insert(HttpServletRequest request, @RequestBody Keywords keyword) {
+	public Map<String, Object> insertKeywords(HttpServletRequest request, @RequestBody Keywords keyword) {
 		try {
 			service.insert(keyword);
 			logger.error("insert keywords success >>> \n");
@@ -108,7 +108,7 @@ public class KeywordsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/subscribe", method = RequestMethod.POST)
-	public Map<String, Object> insertSubscribe(HttpServletRequest request, @RequestBody Keywords keyword) {
+	public Map<String, Object> insertSubscribeReply(HttpServletRequest request, @RequestBody Keywords keyword) {
 		try {
 			service.insertSubscribe(keyword);
 			logger.error("insert subscribe reply success >>> \n");
@@ -129,7 +129,7 @@ public class KeywordsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/setInUsing", method = RequestMethod.POST)
-	public Map<String, Object> setInUsing(HttpServletRequest request, @RequestBody Keywords keyword) {
+	public Map<String, Object> setKeywordInUsing(HttpServletRequest request, @RequestBody Keywords keyword) {
 		try {
 			service.setInUsing(keyword);
 			logger.error("set inUsing flag success");
@@ -150,7 +150,7 @@ public class KeywordsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/subscribe/setInUsing", method = RequestMethod.POST)
-	public Map<String, Object> subscribeSetInUsing(HttpServletRequest request, @RequestBody Keywords keyword) {
+	public Map<String, Object> setSubsrcibeInUsing(HttpServletRequest request, @RequestBody Keywords keyword) {
 		try {
 			service.subscribeSetInUsing(keyword);
 			logger.error("set subscribe inUsing flag success");
@@ -170,7 +170,7 @@ public class KeywordsController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
+	@RequestMapping(value = "/keywordEdit", method = RequestMethod.PUT)
 	public Map<String, Object> edit(HttpServletRequest request, @RequestBody Keywords keyword) {
 		try {
 			service.edit(keyword);
@@ -192,7 +192,7 @@ public class KeywordsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public Map<String, Object> delete(HttpServletRequest request, @PathVariable int id) {
+	public Map<String, Object> keywordDelete(HttpServletRequest request, @PathVariable int id) {
 		try {
 			service.delete(id);
 			logger.error("delete keyword success");

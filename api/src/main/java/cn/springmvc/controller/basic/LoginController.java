@@ -1,4 +1,4 @@
-package cn.springmvc.controller;
+package cn.springmvc.controller.basic;
 
 import java.io.IOException;
 import java.util.Map;

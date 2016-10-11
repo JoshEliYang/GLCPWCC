@@ -1,9 +1,8 @@
-package cn.springmvc.controller;
+package cn.springmvc.controller.game;
 
 import java.util.Map;
+
 import org.apache.log4j.Logger;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,31 +13,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.HttpUtils;
 
-import cn.springmvc.service.GameLicenseService;
+import cn.springmvc.service.GameShareService;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/game")
-public class GameLicenseController {
+public class GameShareController {
 	
 	@Autowired
-	public GameLicenseService gameLicenseService;
-	Logger logger = Logger.getLogger(GameLicenseController.class);
+	public GameShareService gameShareService;
+	Logger logger = Logger.getLogger(GameShareController.class);
 	
 	@ResponseBody
-	@RequestMapping(value = "/license", method = RequestMethod.POST)
-	public Map<String, Object> getUserInfo(@RequestBody Map<String, String> jsonCode){
+	@RequestMapping(value = "/ticket", method = RequestMethod.POST)
+	public Map<String, Object> getTicket(@RequestBody Map<String, String> jsonUrl){
 		Map<String, String> result = null;
-		String code = jsonCode.get("code");
-		logger.error("code--" + code);
+		String url = jsonUrl.get("url");
+		logger.error("url--" + url);
 		try {
-			result = gameLicenseService.getUserInfo(code);
-			logger.error("get code success --" + result);
+			result = gameShareService.getTicket(url);
+			logger.error("success--"+result);
 			return HttpUtils.generateResponse("0", "success", result);
 		} catch (Exception e) {
-			logger.error("get code errer");
+			// TODO: handle exception
+			logger.error("failed");
 			return HttpUtils.generateResponse("1", "failed", null);
 		}
 	}
-
 }

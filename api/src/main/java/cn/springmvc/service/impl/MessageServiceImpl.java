@@ -61,6 +61,22 @@ public class MessageServiceImpl implements MessageService {
 		logger.error("generate xml >>> " + xml);
 		return new String(xml.getBytes(), "UTF-8");
 	}
+	
+	
+	public String sendPicture(String mediaId,String toUser,BasicModel basicModel)throws Exception{
+		String xml="<xml>"
+				+ "<ToUserName><![CDATA["+toUser+"]]></ToUserName>"
+				+ "<FromUserName><![CDATA["+basicModel.getWechatAccount()+"]]></FromUserName>"
+				+ "<CreateTime>"+(System.currentTimeMillis() / 1000)+"</CreateTime>"
+				+ "<MsgType><![CDATA[image]]></MsgType>"
+				+ "<Image>"
+				+ "<MediaId><![CDATA["+mediaId+"]]></MediaId>"
+				+ "</Image>"
+				+ "</xml>";
+		
+		logger.error("generate xml >>> " + xml);
+		return new String(xml.getBytes(), "UTF-8");
+	}
 
 	// 转发消息到客服
 	public String transferToCustomerService(String toUser, BasicModel basicModel) throws Exception {

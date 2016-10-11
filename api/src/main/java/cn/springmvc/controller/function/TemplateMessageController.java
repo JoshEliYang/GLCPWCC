@@ -1,4 +1,4 @@
-package cn.springmvc.controller;
+package cn.springmvc.controller.function;
 
 import java.io.File;
 import java.io.IOException;

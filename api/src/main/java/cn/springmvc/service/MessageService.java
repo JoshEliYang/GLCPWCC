@@ -15,6 +15,9 @@ public interface MessageService {
 
 	// 回复图文消息
 	public String sendPictureText(String mediaId, String toUser, BasicModel basicModel) throws Exception;
+	
+	// 回复图片消息
+	public String sendPicture(String mediaId,String toUser,BasicModel basicModel)throws Exception;
 
 	// 转发消息到客服
 	public String transferToCustomerService(String toUser, BasicModel basicModel) throws Exception;

@@ -1,4 +1,4 @@
-package cn.springmvc.controller;
+package cn.springmvc.controller.function;
 
 import java.util.List;
 import java.util.Map;

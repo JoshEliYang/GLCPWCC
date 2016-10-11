@@ -16,6 +16,13 @@ public class User {
 	String bak1;
 	String bak2;
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", realname=" + realname + ", passwd=" + passwd
+				+ ", email=" + email + ", userLevel=" + userLevel + ", levelName=" + levelName + ", bak1=" + bak1
+				+ ", bak2=" + bak2 + "]";
+	}
+
 	public int getId() {
 		return id;
 	}
