@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.HttpUtils;
 
-import cn.springmvc.service.GameLicenseService;
+import cn.springmvc.service.game.GameLicenseService;
 
 @Scope("prototype")
 @Controller

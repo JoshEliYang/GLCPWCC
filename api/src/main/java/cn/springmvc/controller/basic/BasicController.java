@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.service.BasicService;
+import cn.springmvc.service.basic.BasicService;
 
 /**
  * set basic configuration

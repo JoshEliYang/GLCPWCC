@@ -21,8 +21,8 @@ import cn.springmvc.model.Button;
 import cn.springmvc.model.ButtonGroup;
 import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
-import cn.springmvc.service.AdminService;
-import cn.springmvc.service.ButtonService;
+import cn.springmvc.service.basic.AdminService;
+import cn.springmvc.service.basic.ButtonService;
 
 /**
  * 

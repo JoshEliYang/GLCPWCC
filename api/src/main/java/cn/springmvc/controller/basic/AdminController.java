@@ -22,7 +22,7 @@ import cn.springmvc.model.AdminLevel;
 import cn.springmvc.model.LevelRight;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
-import cn.springmvc.service.AdminService;
+import cn.springmvc.service.basic.AdminService;
 
 /**
  * 

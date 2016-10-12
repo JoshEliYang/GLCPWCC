@@ -41,10 +41,20 @@ public class OperateLog {
 		super();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
 		this.dateTime = df.format(new Date());
-		this.adminId = admin.getId();
-		this.adminName = admin.getRealname();
-		this.basicId = basicModel.getId();
-		this.basicRemark = basicModel.getRemark();
+		if (admin != null) {
+			this.adminId = admin.getId();
+			this.adminName = admin.getRealname();
+		} else {
+			this.adminId = -1;
+			this.adminName = "";
+		}
+		if (basicModel != null) {
+			this.basicId = basicModel.getId();
+			this.basicRemark = basicModel.getRemark();
+		} else {
+			this.basicId = -1;
+			this.basicRemark = "";
+		}
 		this.className = className;
 		this.methodName = methodName;
 		this.argList = argList;
@@ -68,10 +78,20 @@ public class OperateLog {
 		super();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
 		this.dateTime = df.format(new Date());
-		this.adminId = admin.getId();
-		this.adminName = admin.getRealname();
-		this.basicId = basicModel.getId();
-		this.basicRemark = basicModel.getRemark();
+		if (admin != null) {
+			this.adminId = admin.getId();
+			this.adminName = admin.getRealname();
+		} else {
+			this.adminId = -1;
+			this.adminName = "";
+		}
+		if (basicModel != null) {
+			this.basicId = basicModel.getId();
+			this.basicRemark = basicModel.getRemark();
+		} else {
+			this.basicId = -1;
+			this.basicRemark = "";
+		}
 		this.className = className;
 		this.methodName = methodName;
 		this.argList = argList;

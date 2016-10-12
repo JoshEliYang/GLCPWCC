@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.service.WechartService;
+import cn.springmvc.service.wechat.WechartService;
 
 /**
  * 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.service.MenuService;
+import cn.springmvc.service.function.MenuService;
 
 /**
  * 

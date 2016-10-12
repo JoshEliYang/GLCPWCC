@@ -22,9 +22,9 @@ import cn.springmvc.model.LoginData;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserAccess;
 import cn.springmvc.model.VerifyCode;
-import cn.springmvc.service.AdminService;
-import cn.springmvc.service.LoginService;
-import cn.springmvc.service.VerifyCodeService;
+import cn.springmvc.service.basic.AdminService;
+import cn.springmvc.service.basic.LoginService;
+import cn.springmvc.service.basic.VerifyCodeService;
 
 /**
  * 

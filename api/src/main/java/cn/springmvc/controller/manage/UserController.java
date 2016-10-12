@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.service.UserService;
+import cn.springmvc.service.manage.UserService;
 
 /**
  * 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.MsgType;
-import cn.springmvc.service.MsgTypeService;
+import cn.springmvc.service.wechat.MsgTypeService;
 
 /**
  * 

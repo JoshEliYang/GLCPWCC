@@ -18,8 +18,8 @@ import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.QrcodeModel;
-import cn.springmvc.service.QrcodeService;
-import cn.springmvc.service.WechartService;
+import cn.springmvc.service.manage.QrcodeService;
+import cn.springmvc.service.wechat.WechartService;
 
 @Scope("prototype")
 @Controller

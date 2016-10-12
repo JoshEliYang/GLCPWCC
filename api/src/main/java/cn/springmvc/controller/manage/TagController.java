@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.service.TagService;
+import cn.springmvc.service.manage.TagService;
 
 @Scope("prototype")
 @Controller

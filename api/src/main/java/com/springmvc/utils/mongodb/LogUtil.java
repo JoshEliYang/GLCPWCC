@@ -40,12 +40,12 @@ public class LogUtil {
 
 			public void run() {
 				try {
-					mongoDB.setup();
+//					mongoDB.setup();
 					mongoDB.insert("operate_log", log);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					mongoDB.destory();
+//					mongoDB.destory();
 				}
 			}
 		};
@@ -57,12 +57,12 @@ public class LogUtil {
 	public void errorLog(String message) {
 		ErrorLog log = new ErrorLog(className, message);
 		try {
-			mongoDB.setup();
+//			mongoDB.setup();
 			mongoDB.insert("error_log", log);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mongoDB.destory();
+//		mongoDB.destory();
 	}
 
 }

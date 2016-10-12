@@ -25,11 +25,11 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.Keywords;
 import cn.springmvc.model.MsgType;
 import cn.springmvc.model.WechartModel;
-import cn.springmvc.service.BasicService;
-import cn.springmvc.service.KeywordsService;
-import cn.springmvc.service.MessageService;
-import cn.springmvc.service.MsgTypeService;
-import cn.springmvc.service.UserService;
+import cn.springmvc.service.basic.BasicService;
+import cn.springmvc.service.function.KeywordsService;
+import cn.springmvc.service.manage.UserService;
+import cn.springmvc.service.wechat.MessageService;
+import cn.springmvc.service.wechat.MsgTypeService;
 
 /**
  * 

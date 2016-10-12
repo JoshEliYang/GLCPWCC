@@ -18,7 +18,7 @@ import com.springmvc.utils.HttpUtils;
 import com.springmvc.utils.RequestUtil;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.service.WechartService;
+import cn.springmvc.service.wechat.WechartService;
 
 @Scope("prototype")
 @Controller

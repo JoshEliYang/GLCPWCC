@@ -110,8 +110,8 @@ public class MongoDBUtil {
 	}
 
 	public void destory() {
-		if (mongoClient != null)
-			mongoClient.close();
+		// if (mongoClient != null)
+		// mongoClient.close();
 	}
 
 	public String getSERVER_ADDR() {

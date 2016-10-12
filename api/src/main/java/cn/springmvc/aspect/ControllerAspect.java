@@ -61,7 +61,7 @@ public class ControllerAspect {
 		this.logUtil = logUtil;
 	}
 
-	@Pointcut("execution(* cn.springmvc.controller.*Controller*.*(..))")
+	@Pointcut("execution(* cn.springmvc.controller.*.*Controller*.*(..))")
 	private void aopController() {
 	}
 

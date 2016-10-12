@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.HttpUtils;
 
-import cn.springmvc.service.GameShareService;
+import cn.springmvc.service.game.GameShareService;
 
 @Scope("prototype")
 @Controller

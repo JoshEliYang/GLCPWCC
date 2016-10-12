@@ -15,8 +15,8 @@ import cn.springmvc.model.Coupon;
 import cn.springmvc.model.TaskResponse;
 import cn.springmvc.model.User;
 import cn.springmvc.mq.model.TemplateParameter;
-import cn.springmvc.service.WechartService;
-import cn.springmvc.service.impl.WechartServiceImpl;
+import cn.springmvc.service.impl.wechat.WechartServiceImpl;
+import cn.springmvc.service.wechat.WechartService;
 import cn.springmvc.websocket.ProgressSocket;
 
 /**

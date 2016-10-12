@@ -19,7 +19,7 @@ import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.Keywords;
-import cn.springmvc.service.KeywordsService;
+import cn.springmvc.service.function.KeywordsService;
 
 /**
  * 

@@ -29,7 +29,7 @@ import cn.springmvc.model.TemplateMessage;
 import cn.springmvc.model.User;
 import cn.springmvc.mq.MqSender;
 import cn.springmvc.mq.model.TemplateParameter;
-import cn.springmvc.service.TemplateMessageService;
+import cn.springmvc.service.function.TemplateMessageService;
 
 /**
  * 
