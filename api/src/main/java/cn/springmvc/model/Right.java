@@ -3,9 +3,9 @@ package cn.springmvc.model;
 public class Right {
 
 	private int goupId;
-	
+
 	private int levelId;
-	
+
 	private boolean visible;
 
 	public int getGoupId() {
@@ -42,4 +42,10 @@ public class Right {
 	public Right() {
 		super();
 	}
+
+	@Override
+	public String toString() {
+		return "Right [goupId=" + goupId + ", levelId=" + levelId + ", visible=" + visible + "]";
+	}
+
 }

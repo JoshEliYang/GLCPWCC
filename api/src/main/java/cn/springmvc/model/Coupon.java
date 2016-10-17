@@ -98,8 +98,8 @@ public class Coupon {
 
 	@Override
 	public String toString() {
-		return this.getOpenid() + "\t" + this.getFirst() + "\t" + this.getKeyword1() + "\t" + this.getKeyword2() + "\t"
-				+ this.getKeyword3() + "\t" + this.getKeyword4() + "\t" + this.getRemark() + "\t" + this.getUrl();
+		return "Coupon [openid=" + openid + ", first=" + first + ", keyword1=" + keyword1 + ", keyword2=" + keyword2
+				+ ", keyword3=" + keyword3 + ", keyword4=" + keyword4 + ", remark=" + remark + ", url=" + url + "]";
 	}
 
 }

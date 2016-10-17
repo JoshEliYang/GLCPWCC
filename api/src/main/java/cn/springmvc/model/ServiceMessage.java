@@ -86,8 +86,8 @@ public class ServiceMessage {
 
 	@Override
 	public String toString() {
-		return this.getOpenid() + "\t" + this.getFirst() + "\t" + this.getKeyword1() + "\t" + this.getKeyword2() + "\t"
-				+ this.getKeyword3() + "\t" + this.getRemark() + "\t" + this.getUrl();
+		return "ServiceMessage [openid=" + openid + ", first=" + first + ", keyword1=" + keyword1 + ", keyword2="
+				+ keyword2 + ", keyword3=" + keyword3 + ", remark=" + remark + ", url=" + url + "]";
 	}
 
 }

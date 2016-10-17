@@ -15,7 +15,7 @@ public class QrcodeModel {
 	public void setBasicId(long basicId) {
 		this.basicId = basicId;
 	}
-	
+
 	public long getSceneid() {
 		return sceneid;
 	}
@@ -55,5 +55,11 @@ public class QrcodeModel {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "QrcodeModel [id=" + id + ", basicId=" + basicId + ", name=" + name + ", url=" + url + ", ticket="
+				+ ticket + ", sceneid=" + sceneid + "]";
+	}
+
 }

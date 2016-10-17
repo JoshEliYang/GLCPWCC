@@ -44,6 +44,7 @@ public class AdminLevel {
 
 	@Override
 	public String toString() {
-		return "AdminLevel [levelName=" + levelName + ", remark=" + remark + "]";
+		return "AdminLevel [id=" + id + ", levelName=" + levelName + ", remark=" + remark + "]";
 	}
+
 }

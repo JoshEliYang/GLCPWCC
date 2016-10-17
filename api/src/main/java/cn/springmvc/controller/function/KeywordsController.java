@@ -39,10 +39,11 @@ public class KeywordsController {
 	 * get all keywords and reply message
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public Map<String, Object> getAllKeywords(HttpServletRequest request) {
+	public Map<String, Object> getAllKeywords(HttpServletRequest request) throws Exception {
 		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
 
 		List<Keywords> result = null;

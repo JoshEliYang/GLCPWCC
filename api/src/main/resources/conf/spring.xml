@@ -17,6 +17,7 @@
 	<!-- 扫描文件（自动将servicec层注入） -->
 	<context:component-scan base-package="cn.springmvc.service" />
 
-	<bean id="serviceAspect" class="cn.springmvc.aspect.ServiceAspect" />
+
+	<!-- <bean id="serviceAspect" class="cn.springmvc.aspect.ServiceAspect" /> -->
 
 </beans>

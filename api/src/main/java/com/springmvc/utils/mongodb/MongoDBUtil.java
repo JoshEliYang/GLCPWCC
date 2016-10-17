@@ -16,6 +16,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.springmvc.utils.mongodb.model.MongoConfig;
 
 /**
  * 
@@ -33,6 +34,17 @@ public class MongoDBUtil {
 	private MongoClient mongoClient = null;
 	private MongoDatabase mongoDatabase = null;
 
+	public MongoDBUtil(MongoConfig mongoConfig) {
+		this.SERVER_ADDR = mongoConfig.getSERVER_ADDR();
+		this.SERVER_PORT = mongoConfig.getSERVER_PORT();
+		this.USER_NAME = mongoConfig.getUSER_NAME();
+		this.DB_NAME = mongoConfig.getDB_NAME();
+		this.DB_PWD = mongoConfig.getDB_PWD();
+	}
+
+	/**
+	 * establish the connection with mongoDB server
+	 */
 	public void setup() {
 		ServerAddress addr = new ServerAddress(SERVER_ADDR, SERVER_PORT);
 
@@ -109,49 +121,12 @@ public class MongoDBUtil {
 		return result;
 	}
 
+	/**
+	 * close the connection with mongoDB server
+	 */
 	public void destory() {
-		// if (mongoClient != null)
-		// mongoClient.close();
-	}
-
-	public String getSERVER_ADDR() {
-		return SERVER_ADDR;
-	}
-
-	public void setSERVER_ADDR(String sERVER_ADDR) {
-		SERVER_ADDR = sERVER_ADDR;
-	}
-
-	public int getSERVER_PORT() {
-		return SERVER_PORT;
-	}
-
-	public void setSERVER_PORT(int sERVER_PORT) {
-		SERVER_PORT = sERVER_PORT;
-	}
-
-	public String getUSER_NAME() {
-		return USER_NAME;
-	}
-
-	public void setUSER_NAME(String uSER_NAME) {
-		USER_NAME = uSER_NAME;
-	}
-
-	public String getDB_NAME() {
-		return DB_NAME;
-	}
-
-	public void setDB_NAME(String dB_NAME) {
-		DB_NAME = dB_NAME;
-	}
-
-	public String getDB_PWD() {
-		return DB_PWD;
-	}
-
-	public void setDB_PWD(String dB_PWD) {
-		DB_PWD = dB_PWD;
+		if (mongoClient != null)
+			mongoClient.close();
 	}
 
 }

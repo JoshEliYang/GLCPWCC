@@ -53,32 +53,12 @@
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
 
-	<!-- 配置定时任务 -->
-	<!-- 配置调用的工作类 -->
-	<!-- <bean id="activityAction" class="cn.springmvc.service.impl.RefreshServiceImpl" 
-		/> spring调用自动执行 <bean id="jobtask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> 
-		调用的类urlencode <property name="targetObject"> <ref bean="activityAction" /> 
-		</property> 调用类中的方法 <property name="targetMethod"> <value>cacheRefresh</value> 
-		</property> </bean> 定义触发时间 <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> 
-		<property name="jobDetail"> <ref bean="jobtask" /> </property> cron表达式 <property 
-		name="cronExpression"> <value>0 58 * * * ?</value> <value>0 0 * * * ?</value> 
-		</property> </bean> 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 <bean id="startQuertz" 
-		lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
-		<property name="triggers"> <list> <ref bean="doTime" /> </list> </property> 
-		</bean> -->
-
 	<bean id="InitListener" class="cn.springmvc.interceptor.InitListener" />
-
-	<bean id="controllerAspect" class="cn.springmvc.aspect.ControllerAspect">
-		<property name="logUtil" ref="logUtil" />
-	</bean>
 
 	<!-- 引入 mongo.properties -->
 	<context:property-placeholder location="classpath:conf/mongo.properties" />
 
-	<!-- mongoDB -->
-	<bean id="mongoUtil" class="com.springmvc.utils.mongodb.MongoDBUtil"
-		init-method="setup">
+	<bean id="mongoConfig" class="com.springmvc.utils.mongodb.model.MongoConfig">
 		<property name="SERVER_ADDR" value="${mongo_addr}" />
 		<property name="SERVER_PORT" value="${mongo_port}" />
 		<property name="USER_NAME" value="${mongo_user}" />
@@ -86,8 +66,35 @@
 		<property name="DB_PWD" value="${mongo_pwd}" />
 	</bean>
 
-	<bean id="logUtil" class="com.springmvc.utils.mongodb.LogUtil">
-		<property name="mongoDB" ref="mongoUtil" />
+	<bean id="logFactory" class="com.springmvc.utils.mongodb.LogFactory">
+		<property name="mongoConfig" ref="mongoConfig" />
+		<property name="DEBUG_MODE" value="${mongo_debug}" />
 	</bean>
+
+	<bean id="controllerAspect" class="cn.springmvc.aspect.ControllerAspect">
+		<property name="logFactory" ref="logFactory" />
+		<property name="DEBUG_MODE" value="${mongo_debug}" />
+	</bean>
+
+	<bean id="serviceAspect" class="cn.springmvc.aspect.ServiceAspect">
+		<property name="logFactory" ref="logFactory" />
+		<property name="DEBUG_MODE" value="${mongo_debug}" />
+	</bean>
+
+	<bean id="DaoAspect" class="cn.springmvc.aspect.DaoAspect">
+		<property name="logFactory" ref="logFactory" />
+		<property name="DEBUG_MODE" value="${mongo_debug}" />
+	</bean>
+
+	<bean id="operateMapper"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:conf/operate.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
 
 </beans>

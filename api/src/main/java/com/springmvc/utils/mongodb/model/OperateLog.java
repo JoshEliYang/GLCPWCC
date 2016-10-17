@@ -15,13 +15,26 @@ import cn.springmvc.model.User;
 public class OperateLog {
 	String dateTime;
 	int adminId;
+	/**
+	 * admin's real name
+	 */
 	String adminName;
 	int basicId;
 	String basicRemark;
 	String className;
 	String methodName;
 	String argList;
+	/**
+	 * action:[add,delete,update,query...]
+	 */
 	String action;
+	/**
+	 * the object which was treated
+	 */
+	String target;
+	/**
+	 * before/after/return action
+	 */
 	String status;
 	String retrunDat;
 
@@ -37,7 +50,7 @@ public class OperateLog {
 	 * @param retrunDat
 	 */
 	public OperateLog(User admin, BasicModel basicModel, String className, String methodName, String argList,
-			String action, String status, String retrunDat) {
+			String action, String target, String status, String retrunDat) {
 		super();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
 		this.dateTime = df.format(new Date());
@@ -59,6 +72,7 @@ public class OperateLog {
 		this.methodName = methodName;
 		this.argList = argList;
 		this.action = action;
+		this.target = target;
 		this.status = status;
 		this.retrunDat = retrunDat;
 	}
@@ -74,7 +88,7 @@ public class OperateLog {
 	 * @param action
 	 */
 	public OperateLog(User admin, BasicModel basicModel, String className, String methodName, String argList,
-			String action, String status) {
+			String action, String target, String status) {
 		super();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
 		this.dateTime = df.format(new Date());
@@ -96,6 +110,7 @@ public class OperateLog {
 		this.methodName = methodName;
 		this.argList = argList;
 		this.action = action;
+		this.target = target;
 		this.status = status;
 	}
 
@@ -105,10 +120,9 @@ public class OperateLog {
 
 	@Override
 	public String toString() {
-		return "OperateLog [dateTime=" + dateTime + ", adminId=" + adminId + ", adminName=" + adminName + ", basicId="
-				+ basicId + ", basicRemark=" + basicRemark + ", className=" + className + ", methodName=" + methodName
-				+ ", argList=" + argList + ", action=" + action + ", status=" + status + ", retrunDat=" + retrunDat
-				+ "]";
+		return dateTime + " " + adminName + action + target + " 状态:" + status + " (用户ID:" + adminId + ", basicId="
+				+ basicId + ", basicRemark=" + basicRemark + ", 类名=" + className + ", 方法名=" + methodName + ", 参数列表="
+				+ argList + ", 返回值=" + retrunDat + ")";
 	}
 
 	public String getDateTime() {
@@ -181,6 +195,14 @@ public class OperateLog {
 
 	public void setAction(String action) {
 		this.action = action;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
 	}
 
 	public String getStatus() {

@@ -86,4 +86,10 @@ public class TaskResponse {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "TaskResponse [adminId=" + adminId + ", taskTimestamp=" + taskTimestamp + ", task=" + task + ", message="
+				+ message + ", isRunning=" + isRunning + ", progress=" + progress + ", max=" + max + "]";
+	}
+
 }

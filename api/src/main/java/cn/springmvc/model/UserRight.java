@@ -52,4 +52,10 @@ public class UserRight {
 		this.bak2 = bak2;
 	}
 
+	@Override
+	public String toString() {
+		return "UserRight [id=" + id + ", groupId=" + groupId + ", levelId=" + levelId + ", bak1=" + bak1 + ", bak2="
+				+ bak2 + "]";
+	}
+
 }

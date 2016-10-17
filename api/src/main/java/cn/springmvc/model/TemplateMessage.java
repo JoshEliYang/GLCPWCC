@@ -74,4 +74,11 @@ public class TemplateMessage {
 		this.templateUrl = templateUrl;
 	}
 
+	@Override
+	public String toString() {
+		return "TemplateMessage [id=" + id + ", basicId=" + basicId + ", itemName=" + itemName + ", templateId="
+				+ templateId + ", index=" + index + ", page=" + page + ", height=" + height + ", templateUrl="
+				+ templateUrl + "]";
+	}
+
 }

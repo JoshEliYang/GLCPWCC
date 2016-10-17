@@ -62,4 +62,10 @@ public class MsgType {
 		this.bak2 = bak2;
 	}
 
+	@Override
+	public String toString() {
+		return "MsgType [id=" + id + ", msgType=" + msgType + ", remark=" + remark + ", requireDat=" + requireDat
+				+ ", bak1=" + bak1 + ", bak2=" + bak2 + "]";
+	}
+
 }

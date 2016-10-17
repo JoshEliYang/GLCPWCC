@@ -81,6 +81,4 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 
-	<bean id="DaoAspect" class="cn.springmvc.aspect.DaoAspect" />
-
 </beans>
