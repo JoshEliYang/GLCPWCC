@@ -17,6 +17,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.springmvc.utils.mongodb.model.MongoConfig;
+import com.springmvc.utils.mongodb.model.MongoResponse;
 
 /**
  * 
@@ -34,12 +35,23 @@ public class MongoDBUtil {
 	private MongoClient mongoClient = null;
 	private MongoDatabase mongoDatabase = null;
 
-	public MongoDBUtil(MongoConfig mongoConfig) {
+	private MongoDBUtil(MongoConfig mongoConfig) {
 		this.SERVER_ADDR = mongoConfig.getSERVER_ADDR();
 		this.SERVER_PORT = mongoConfig.getSERVER_PORT();
 		this.USER_NAME = mongoConfig.getUSER_NAME();
 		this.DB_NAME = mongoConfig.getDB_NAME();
 		this.DB_PWD = mongoConfig.getDB_PWD();
+
+		setup();
+	}
+
+	private static MongoDBUtil instance = null;
+
+	public static synchronized MongoDBUtil getInstance(MongoConfig mongoConfig) {
+		if (instance == null) {
+			instance = new MongoDBUtil(mongoConfig);
+		}
+		return instance;
 	}
 
 	/**
@@ -61,6 +73,7 @@ public class MongoDBUtil {
 	}
 
 	/**
+	 * insert
 	 * 
 	 * @param collectionName
 	 * @param obj
@@ -70,63 +83,106 @@ public class MongoDBUtil {
 	 */
 	public <T> void insert(String collectionName, T obj)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
-		Document document = new Document();
+		synchronized (MongoDBUtil.class) {
+			MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
+			Document document = new Document();
 
-		Field[] fields = obj.getClass().getDeclaredFields();
-		for (Field field : fields) {
-			String key = field.getName();
-			field.setAccessible(true);
-			Object value = field.get(obj);
-			document.append(key, value);
-		}
+			Field[] fields = obj.getClass().getDeclaredFields();
+			for (Field field : fields) {
+				String key = field.getName();
+				field.setAccessible(true);
+				Object value = field.get(obj);
+				document.append(key, value);
+			}
 
-		List<Document> documents = new ArrayList<Document>();
-		documents.add(document);
+			List<Document> documents = new ArrayList<Document>();
+			documents.add(document);
 
-		collection.insertMany(documents);
-	}
-
-	public void test() {
-		MongoCollection<Document> collection = mongoDatabase.getCollection("operate_log");
-		System.out.println("集合 test 选择成功");
-
-		FindIterable<Document> findIterable = collection.find();
-		MongoCursor<Document> mongoCursor = findIterable.iterator();
-		while (mongoCursor.hasNext()) {
-			System.out.println(mongoCursor.next());
+			collection.insertMany(documents);
 		}
 	}
 
-	public <T> List<T> query(Class<?> T, String collectionName) {
+	/**
+	 * query
+	 * 
+	 * @param collectionName
+	 * @param startTime
+	 * @param endTime
+	 * @param skip
+	 * @param limit
+	 * @return
+	 */
+	public MongoResponse query(String collectionName, String startTime, String endTime, int skip, int limit) {
+		MongoResponse result = new MongoResponse();
+		List<Document> docs = new ArrayList<Document>();
 
-		return null;
-	}
+		synchronized (MongoDBUtil.class) {
+			MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
+			result.setTotal(collection.count(new Document("dateTime", new Document("$gte", startTime))
+					.append("dateTime", new Document("$lt", endTime))));
 
-	public <T> List<T> query(Class<?> T, String collectionName, String startTime) {
-
-		return null;
-	}
-
-	public <T> List<T> query(Class<?> T, String collectionName, String startTime, String endTime) {
-		List<T> result = new ArrayList<T>();
-
-		MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
-		FindIterable<Document> findIterable = collection.find(new Document("datetime", new Document("$gte", startTime))
-				.append("datetime", new Document("$lt", endTime)));
-		MongoCursor<Document> mongoCursor = findIterable.iterator();
-		while (mongoCursor.hasNext()) {
-			System.out.println(mongoCursor.next());
+			FindIterable<Document> findIterable = collection
+					.find(new Document("dateTime", new Document("$gte", startTime)).append("dateTime",
+							new Document("$lt", endTime)))
+					.skip(skip).limit(limit);
+			MongoCursor<Document> mongoCursor = findIterable.iterator();
+			while (mongoCursor.hasNext()) {
+				Document doc = mongoCursor.next();
+				System.out.println(doc);
+				docs.add(doc);
+			}
 		}
+
+		result.setDocs(docs);
+		result.setCount(docs.size());
 		return result;
+	}
+
+	/**
+	 * query
+	 * 
+	 * @param collectionName
+	 * @param queryDoc
+	 * @param skip
+	 * @param limit
+	 * @return
+	 */
+	public MongoResponse query(String collectionName, Document queryDoc, int skip, int limit) {
+		MongoResponse result = new MongoResponse();
+		List<Document> docs = new ArrayList<Document>();
+
+		synchronized (MongoDBUtil.class) {
+			MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
+			result.setTotal(collection.count(queryDoc));
+
+			FindIterable<Document> findIterable = collection.find(queryDoc).skip(skip).limit(limit);
+			MongoCursor<Document> mongoCursor = findIterable.iterator();
+			while (mongoCursor.hasNext()) {
+				Document doc = mongoCursor.next();
+				System.out.println(doc);
+				docs.add(doc);
+			}
+		}
+
+		result.setDocs(docs);
+		result.setCount(docs.size());
+		return result;
+	}
+
+	/**
+	 * 
+	 * @param collectionName
+	 */
+	public void clear(String collectionName) {
+		mongoDatabase.getCollection(collectionName).drop();
 	}
 
 	/**
 	 * close the connection with mongoDB server
 	 */
 	public void destory() {
-		if (mongoClient != null)
-			mongoClient.close();
+		// if (mongoClient != null)
+		// mongoClient.close();
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.springmvc.utils.mongodb;
+package com.springmvc.utils.mongodb.log;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

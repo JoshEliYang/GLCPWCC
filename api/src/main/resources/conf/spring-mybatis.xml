@@ -81,4 +81,23 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 
+	<!-- 引入 mongo.properties -->
+	<context:property-placeholder location="classpath:conf/mongo.properties" />
+
+	<bean id="mongoConfig" class="com.springmvc.utils.mongodb.model.MongoConfig">
+		<property name="SERVER_ADDR" value="${mongo_addr}" />
+		<property name="SERVER_PORT" value="${mongo_port}" />
+		<property name="USER_NAME" value="${mongo_user}" />
+		<property name="DB_NAME" value="${mongo_db}" />
+		<property name="DB_PWD" value="${mongo_pwd}" />
+	</bean>
+
+	<bean id="logFactory" class="com.springmvc.utils.mongodb.log.LogFactory">
+		<property name="mongoConfig" ref="mongoConfig" />
+	</bean>
+
+	<bean id="DaoAspect" class="cn.springmvc.aspect.DaoAspect">
+		<property name="logFactory" ref="logFactory" />
+	</bean>
+
 </beans>

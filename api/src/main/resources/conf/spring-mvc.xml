@@ -66,35 +66,12 @@
 		<property name="DB_PWD" value="${mongo_pwd}" />
 	</bean>
 
-	<bean id="logFactory" class="com.springmvc.utils.mongodb.LogFactory">
+	<bean id="logFactory" class="com.springmvc.utils.mongodb.log.LogFactory">
 		<property name="mongoConfig" ref="mongoConfig" />
-		<property name="DEBUG_MODE" value="${mongo_debug}" />
 	</bean>
 
 	<bean id="controllerAspect" class="cn.springmvc.aspect.ControllerAspect">
 		<property name="logFactory" ref="logFactory" />
-		<property name="DEBUG_MODE" value="${mongo_debug}" />
 	</bean>
-
-	<bean id="serviceAspect" class="cn.springmvc.aspect.ServiceAspect">
-		<property name="logFactory" ref="logFactory" />
-		<property name="DEBUG_MODE" value="${mongo_debug}" />
-	</bean>
-
-	<bean id="DaoAspect" class="cn.springmvc.aspect.DaoAspect">
-		<property name="logFactory" ref="logFactory" />
-		<property name="DEBUG_MODE" value="${mongo_debug}" />
-	</bean>
-
-	<bean id="operateMapper"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="locations">
-			<list>
-				<value>classpath:conf/operate.properties</value>
-			</list>
-		</property>
-	</bean>
-
-
 
 </beans>

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.ShaUtil;
 import com.springmvc.utils.XMLUtils;
 
-import cn.springmvc.KeyWords;
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.Keywords;
 import cn.springmvc.model.MsgType;
@@ -165,9 +164,9 @@ public class WechartController {
 						response.getOutputStream().write(messageService
 								.sendPictureText(mesgResult.getReply(), openId, basicModel).getBytes("UTF-8"));
 						return;
-					}else if("image".equals(msgTypeService.getById(mesgResult.getMsgType()).getMsgType())){
-						response.getOutputStream().write(
-								messageService.sendPicture(mesgResult.getReply(), openId, basicModel).getBytes("UTF-8"));
+					} else if ("image".equals(msgTypeService.getById(mesgResult.getMsgType()).getMsgType())) {
+						response.getOutputStream().write(messageService
+								.sendPicture(mesgResult.getReply(), openId, basicModel).getBytes("UTF-8"));
 						return;
 					}
 

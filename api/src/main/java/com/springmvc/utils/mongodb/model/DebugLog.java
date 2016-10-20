@@ -17,9 +17,14 @@ public class DebugLog {
 	String status;
 	String retrunDat;
 	String errorMesg;
+	String layer;
+
+	public DebugLog() {
+		super();
+	}
 
 	public DebugLog(String className, String methodName, String argList, String status, String retrunDat,
-			String errorMesg) {
+			String errorMesg, String layer) {
 		super();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
 		this.dateTime = df.format(new Date());
@@ -29,12 +34,14 @@ public class DebugLog {
 		this.status = status;
 		this.retrunDat = retrunDat;
 		this.errorMesg = errorMesg;
+		this.layer = layer;
 	}
 
 	@Override
 	public String toString() {
-		return dateTime + " [debug] className=" + className + ", methodName=" + methodName + ", status=" + status
-				+ "\r\nargList=" + argList + "\r\nretrunDat=" + retrunDat + "\r\nerrorMesg=" + errorMesg;
+		return dateTime + " [debug] className=" + className + ", methodName=" + methodName + ", layer=" + layer
+				+ ", status=" + status + "\r\nargList=" + argList + "\r\nretrunDat=" + retrunDat + "\r\nerrorMesg="
+				+ errorMesg;
 	}
 
 	public String getDateTime() {
@@ -91,6 +98,14 @@ public class DebugLog {
 
 	public void setErrorMesg(String errorMesg) {
 		this.errorMesg = errorMesg;
+	}
+
+	public String getLayer() {
+		return layer;
+	}
+
+	public void setLayer(String layer) {
+		this.layer = layer;
 	}
 
 }

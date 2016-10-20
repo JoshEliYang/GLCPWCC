@@ -1,7 +1,9 @@
-package com.springmvc.utils.mongodb;
+package com.springmvc.utils.mongodb.log.impl;
 
 import org.aspectj.lang.JoinPoint;
 
+import com.springmvc.utils.mongodb.MongoDBUtil;
+import com.springmvc.utils.mongodb.log.LogUtil;
 import com.springmvc.utils.mongodb.model.DebugLog;
 import com.springmvc.utils.mongodb.model.MongoConfig;
 
@@ -10,9 +12,11 @@ import cn.springmvc.aspect.AspectPosition;
 public class DebugLogUtil implements LogUtil {
 
 	private MongoConfig mongoConfig;
+	private String layer;
 
-	public DebugLogUtil(MongoConfig mongoConfig) {
+	public DebugLogUtil(MongoConfig mongoConfig, String layer) {
 		this.mongoConfig = mongoConfig;
+		this.layer = layer;
 	}
 
 	public Object doLog(JoinPoint joinPoint, Object retVal, AspectPosition p, Exception e) {
@@ -28,15 +32,18 @@ public class DebugLogUtil implements LogUtil {
 		DebugLog debugLog = null;
 		switch (p) {
 		case Aop_Before:
-			debugLog = new DebugLog(className, methodName, argList, "开始", "", "");
+			debugLog = new DebugLog(className, methodName, argList, "开始", "", "", layer);
 			log(debugLog);
 			break;
 		case Aop_After:
-			debugLog = new DebugLog(className, methodName, argList, "结束", "", "");
+			debugLog = new DebugLog(className, methodName, argList, "结束", "", "", layer);
 			log(debugLog);
 			break;
 		case Aop_Return:
-			debugLog = new DebugLog(className, methodName, argList, "返回结果", retVal.toString(), "");
+			if (retVal != null)
+				debugLog = new DebugLog(className, methodName, argList, "返回结果", retVal.toString(), "", layer);
+			else
+				debugLog = new DebugLog(className, methodName, argList, "返回结果", "", "", layer);
 			log(debugLog);
 			break;
 		case Aop_Throw:
@@ -44,7 +51,7 @@ public class DebugLogUtil implements LogUtil {
 			for (StackTraceElement item : e.getStackTrace()) {
 				errorMesg += "\r\n" + item.toString();
 			}
-			debugLog = new DebugLog(className, methodName, argList, "异常", "", errorMesg);
+			debugLog = new DebugLog(className, methodName, argList, "异常", "", errorMesg, layer);
 			log(debugLog);
 			break;
 		}
@@ -76,14 +83,14 @@ public class DebugLogUtil implements LogUtil {
 			public void run() {
 				MongoDBUtil mongoUtil = null;
 				try {
-					mongoUtil = new MongoDBUtil(mongoConfig);
-					mongoUtil.setup();
+					mongoUtil = MongoDBUtil.getInstance(mongoConfig);
+					// mongoUtil.setup();
 					mongoUtil.insert("debug_log", log);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					if (mongoUtil != null)
-						mongoUtil.destory();
+					// if (mongoUtil != null)
+					// mongoUtil.destory();
 				}
 			}
 		};

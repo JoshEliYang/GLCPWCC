@@ -1,4 +1,4 @@
-package com.springmvc.utils.mongodb;
+package com.springmvc.utils.mongodb.log.impl;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,6 +12,8 @@ import org.aspectj.lang.JoinPoint;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.springmvc.utils.mongodb.MongoDBUtil;
+import com.springmvc.utils.mongodb.log.LogUtil;
 import com.springmvc.utils.mongodb.model.MongoConfig;
 import com.springmvc.utils.mongodb.model.OperateLog;
 
@@ -51,9 +53,11 @@ public class OperateLogUtil implements LogUtil {
 			put(".*insert.*", "添加");
 
 			put(".*delete.*", "删除");
+			put(".*clear.*", "删除");
 
 			put(".*update.*", "更新");
 			put(".*edit.*", "更新");
+			put(".*change.*", "更新");
 
 			put(".*query.*", "查询");
 			put(".*get.*", "查询");
@@ -87,8 +91,11 @@ public class OperateLogUtil implements LogUtil {
 			}
 			break;
 		case Aop_Return:
-			log = new OperateLog(admin, basicModel, className, methodName, argList, action, target, "返回结果",
-					retVal.toString());
+			if (retVal != null)
+				log = new OperateLog(admin, basicModel, className, methodName, argList, action, target, "返回结果",
+						retVal.toString());
+			else
+				log = new OperateLog(admin, basicModel, className, methodName, argList, action, target, "返回结果", "");
 			log(log);
 			break;
 		case Aop_After:
@@ -164,14 +171,14 @@ public class OperateLogUtil implements LogUtil {
 			public void run() {
 				MongoDBUtil mongoUtil = null;
 				try {
-					mongoUtil = new MongoDBUtil(mongoConfig);
-					mongoUtil.setup();
+					mongoUtil = MongoDBUtil.getInstance(mongoConfig);
+					// mongoUtil.setup();
 					mongoUtil.insert("operate_log", log);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					if (mongoUtil != null)
-						mongoUtil.destory();
+					// if (mongoUtil != null)
+					// mongoUtil.destory();
 				}
 			}
 		};
