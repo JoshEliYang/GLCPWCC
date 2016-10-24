@@ -1,6 +1,12 @@
 package cn.springmvc.controller.log;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -12,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springmvc.utils.HttpUtils;
+import com.springmvc.utils.mongodb.model.DebugLog;
 import com.springmvc.utils.mongodb.model.DebugResponse;
+import com.springmvc.utils.mongodb.model.ErrorLog;
 import com.springmvc.utils.mongodb.model.ErrorResponse;
 import com.springmvc.utils.mongodb.model.MongoConfig;
+import com.springmvc.utils.mongodb.model.OperateLog;
 import com.springmvc.utils.mongodb.model.OperateResponse;
 
 import cn.springmvc.Consts;
@@ -87,6 +96,35 @@ public class LogController {
 	}
 
 	/**
+	 * export operate log
+	 * 
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/operate/export", method = RequestMethod.GET)
+	public void exportOperateLog(HttpServletResponse response) throws IOException {
+		StringBuilder content = new StringBuilder("");
+		try {
+			List<OperateLog> res = operateService.getAll(mongoConfig);
+			for (int i = 0; i < res.size(); i++) {
+				content.append(res.get(i).toString());
+				content.append("\r\n\r\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.getOutputStream().print("内部服务器错误");
+		}
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		String fileName = "operateLog" + df.format(new Date()) + ".log";
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+		response.getOutputStream().print(new String(content.toString().getBytes(), "ISO-8859-1"));
+	}
+
+	/**
 	 * get debug log
 	 * 
 	 * @param queryDat
@@ -123,6 +161,35 @@ public class LogController {
 	}
 
 	/**
+	 * get all debug logs
+	 * 
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/debug/export", method = RequestMethod.GET)
+	public void exportDebugLog(HttpServletResponse response) throws IOException {
+		StringBuilder content = new StringBuilder("");
+		try {
+			List<DebugLog> res = debugService.getAll(mongoConfig);
+			for (int i = 0; i < res.size(); i++) {
+				content.append(res.get(i).toString());
+				content.append("\r\n\r\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.getOutputStream().print("服务器内部错误");
+		}
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		String fileName = "debug" + df.format(new Date()) + ".log";
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+		response.getOutputStream().print(new String(content.toString().getBytes(), "ISO-8859-1"));
+	}
+
+	/**
 	 * get error log
 	 * 
 	 * @param queryDat
@@ -142,6 +209,11 @@ public class LogController {
 		}
 	}
 
+	/**
+	 * clear error log
+	 * 
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/error", method = RequestMethod.DELETE)
 	public Map<String, Object> clearErrorLog() {
@@ -152,6 +224,33 @@ public class LogController {
 			e.printStackTrace();
 			return HttpUtils.generateResponse("1", "清空异常日志失败", null);
 		}
+	}
+
+	/**
+	 * export error log
+	 * 
+	 * @param response
+	 * @throws IOException
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/error/export", method = RequestMethod.GET)
+	public void exportErrorLog(HttpServletResponse response) throws IOException {
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		String fileName = "Error" + df.format(new Date()) + ".log";
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+		StringBuilder content = new StringBuilder("");
+		try {
+			List<ErrorLog> res = errorService.getAll(mongoConfig);
+			for (int i = 0; i < res.size(); i++) {
+				content.append(res.get(i).toString());
+				content.append("\r\n\r\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.getOutputStream().print("服务器内部错误");
+		}
+		response.getOutputStream().print(new String(content.toString().getBytes(), "ISO-8859-1"));
 	}
 
 	/**

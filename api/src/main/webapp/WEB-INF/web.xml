@@ -211,5 +211,9 @@
 		<filter-name>AccessFilter</filter-name>
 		<url-pattern>/wechatMenu/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/log/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

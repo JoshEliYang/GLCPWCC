@@ -124,7 +124,7 @@ public class MongoDBUtil {
 			FindIterable<Document> findIterable = collection
 					.find(new Document("dateTime", new Document("$gte", startTime)).append("dateTime",
 							new Document("$lt", endTime)))
-					.skip(skip).limit(limit);
+					.skip(skip).limit(limit).sort(new Document("dateTime", -1));
 			MongoCursor<Document> mongoCursor = findIterable.iterator();
 			while (mongoCursor.hasNext()) {
 				Document doc = mongoCursor.next();
@@ -147,7 +147,7 @@ public class MongoDBUtil {
 	 * @param limit
 	 * @return
 	 */
-	public MongoResponse query(String collectionName, Document queryDoc, int skip, int limit) {
+	public MongoResponse query(String collectionName, Document queryDoc, int skip, int limit, Document sortDoc) {
 		MongoResponse result = new MongoResponse();
 		List<Document> docs = new ArrayList<Document>();
 
@@ -155,7 +155,37 @@ public class MongoDBUtil {
 			MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
 			result.setTotal(collection.count(queryDoc));
 
-			FindIterable<Document> findIterable = collection.find(queryDoc).skip(skip).limit(limit);
+			FindIterable<Document> findIterable = collection.find(queryDoc).skip(skip).limit(limit).sort(sortDoc);
+			MongoCursor<Document> mongoCursor = findIterable.iterator();
+			while (mongoCursor.hasNext()) {
+				Document doc = mongoCursor.next();
+				System.out.println(doc);
+				docs.add(doc);
+			}
+		}
+
+		result.setDocs(docs);
+		result.setCount(docs.size());
+		return result;
+	}
+
+	/**
+	 * get all logs (mainly for export)
+	 * 
+	 * @param collectionName
+	 * @param queryDoc
+	 * @param sortDoc
+	 * @return
+	 */
+	public MongoResponse query(String collectionName, Document queryDoc, Document sortDoc) {
+		MongoResponse result = new MongoResponse();
+		List<Document> docs = new ArrayList<Document>();
+
+		synchronized (MongoDBUtil.class) {
+			MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
+			result.setTotal(collection.count(queryDoc));
+
+			FindIterable<Document> findIterable = collection.find(queryDoc).sort(sortDoc);
 			MongoCursor<Document> mongoCursor = findIterable.iterator();
 			while (mongoCursor.hasNext()) {
 				Document doc = mongoCursor.next();

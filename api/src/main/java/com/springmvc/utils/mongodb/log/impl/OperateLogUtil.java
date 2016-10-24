@@ -58,6 +58,7 @@ public class OperateLogUtil implements LogUtil {
 			put(".*update.*", "更新");
 			put(".*edit.*", "更新");
 			put(".*change.*", "更新");
+			put(".*set.*","更新");
 
 			put(".*query.*", "查询");
 			put(".*get.*", "查询");

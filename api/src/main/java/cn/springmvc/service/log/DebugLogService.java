@@ -1,5 +1,8 @@
 package cn.springmvc.service.log;
 
+import java.util.List;
+
+import com.springmvc.utils.mongodb.model.DebugLog;
 import com.springmvc.utils.mongodb.model.DebugResponse;
 import com.springmvc.utils.mongodb.model.MongoConfig;
 
@@ -52,4 +55,13 @@ public interface DebugLogService {
 	 * @throws Exception
 	 */
 	public DebugResponse getLog(DebugLogQuery queryDat, MongoConfig mongoConfig) throws Exception;
+
+	/**
+	 * get all debug logs
+	 * 
+	 * @param mongoConfig
+	 * @return
+	 * @throws Exception
+	 */
+	public List<DebugLog> getAll(MongoConfig mongoConfig) throws Exception;
 }

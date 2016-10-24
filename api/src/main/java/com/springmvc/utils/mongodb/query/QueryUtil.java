@@ -15,6 +15,7 @@ import com.springmvc.utils.mongodb.model.MongoResponse;
 /**
  * 
  * @author johnson
+ * @param <logClazz>
  *
  */
 public class QueryUtil {
@@ -109,10 +110,11 @@ public class QueryUtil {
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException
 	 */
-	public <logClazz> Object query(Document queryDoc, int skip) throws InstantiationException, IllegalAccessException,
-			NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
+	public <logClazz> Object query(Document queryDoc, int skip, Document sortDoc)
+			throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException,
+			IllegalArgumentException, InvocationTargetException {
 
-		MongoResponse result = mongoUtil.query(collectionName, queryDoc, skip, max);
+		MongoResponse result = mongoUtil.query(collectionName, queryDoc, skip, max, sortDoc);
 		List<logClazz> logs = new ArrayList<logClazz>();
 		for (int i = 0; i < result.getDocs().size(); i++) {
 			try {
@@ -127,6 +129,26 @@ public class QueryUtil {
 		Method addLogs = responseClazz.getMethod("setLogs", new Class[] { List.class });
 		addLogs.invoke(response, new Object[] { logs });
 		return response;
+	}
+	
+	/**
+	 * query all logs
+	 * 
+	 * @param queryDoc
+	 * @param sortDoc
+	 * @return
+	 */
+	public <logClazz> List<logClazz> query(Document queryDoc, Document sortDoc){
+		MongoResponse result = mongoUtil.query(collectionName, queryDoc, sortDoc);
+		List<logClazz> logs = new ArrayList<logClazz>();
+		for (int i = 0; i < result.getDocs().size(); i++) {
+			try {
+				logs.add((logClazz) getObj(logClazz, result.getDocs().get(i)));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return logs;
 	}
 
 	/**

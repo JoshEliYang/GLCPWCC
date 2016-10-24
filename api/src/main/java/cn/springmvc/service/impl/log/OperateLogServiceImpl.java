@@ -1,9 +1,12 @@
 package cn.springmvc.service.impl.log;
 
+import java.util.List;
+
 import org.bson.Document;
 import org.springframework.stereotype.Service;
 
 import com.springmvc.utils.mongodb.model.MongoConfig;
+import com.springmvc.utils.mongodb.model.OperateLog;
 import com.springmvc.utils.mongodb.model.OperateResponse;
 import com.springmvc.utils.mongodb.query.QueryFactory;
 import com.springmvc.utils.mongodb.query.QueryType;
@@ -61,7 +64,15 @@ public class OperateLogServiceImpl implements OperateLogService {
 			queryDoc.append("status", logQuery.getStatus());
 
 		QueryUtil queryUtil = QueryFactory.getInstance(QueryType.operate, mongoConfig);
-		return (OperateResponse) queryUtil.query(queryDoc, logQuery.getSkip());
+		return (OperateResponse) queryUtil.query(queryDoc, logQuery.getSkip(), new Document("dateTime", -1));
+	}
+
+	/**
+	 * get all operate logs (mainly for export)
+	 */
+	public List<OperateLog> getAll(MongoConfig mongoConfig) throws Exception {
+		QueryUtil queryUtil = QueryFactory.getInstance(QueryType.operate, mongoConfig);
+		return queryUtil.query(new Document(), new Document("dateTime", -1));
 	}
 
 }

@@ -1,8 +1,11 @@
 package cn.springmvc.service.impl.log;
 
+import java.util.List;
+
 import org.bson.Document;
 import org.springframework.stereotype.Service;
 
+import com.springmvc.utils.mongodb.model.DebugLog;
 import com.springmvc.utils.mongodb.model.DebugResponse;
 import com.springmvc.utils.mongodb.model.MongoConfig;
 import com.springmvc.utils.mongodb.query.QueryFactory;
@@ -55,7 +58,15 @@ public class DebugLogServiceImpl implements DebugLogService {
 			queryDoc.append("status", queryDat.getStatus());
 
 		QueryUtil queryUtil = QueryFactory.getInstance(QueryType.debug, mongoConfig);
-		return (DebugResponse) queryUtil.query(queryDoc, queryDat.getSkip());
+		return (DebugResponse) queryUtil.query(queryDoc, queryDat.getSkip(), new Document("dateTime", -1));
+	}
+
+	/**
+	 * get all debug logs
+	 */
+	public List<DebugLog> getAll(MongoConfig mongoConfig) throws Exception {
+		QueryUtil queryUtil = QueryFactory.getInstance(QueryType.debug, mongoConfig);
+		return queryUtil.query(new Document(), new Document("dateTime", -1));
 	}
 
 }

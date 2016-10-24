@@ -1,6 +1,9 @@
 package cn.springmvc.service.log;
 
+import java.util.List;
+
 import com.springmvc.utils.mongodb.model.MongoConfig;
+import com.springmvc.utils.mongodb.model.OperateLog;
 import com.springmvc.utils.mongodb.model.OperateResponse;
 
 import cn.springmvc.model.log.OperateLogQuery;
@@ -45,7 +48,7 @@ public interface OperateLogService {
 	public void clear(MongoConfig mongoConfig) throws Exception;
 
 	/**
-	 * get operate log
+	 * get operate logs
 	 * 
 	 * @param logQuery
 	 * @param mongoConfig
@@ -53,4 +56,14 @@ public interface OperateLogService {
 	 * @throws Exception
 	 */
 	public OperateResponse getOperateLog(OperateLogQuery logQuery, MongoConfig mongoConfig) throws Exception;
+
+	/**
+	 * get all operate logs
+	 * 
+	 * @param logQuery
+	 * @param mongoConfig
+	 * @return
+	 * @throws Exception
+	 */
+	public List<OperateLog> getAll(MongoConfig mongoConfig) throws Exception;
 }
