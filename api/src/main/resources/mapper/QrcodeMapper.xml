@@ -7,9 +7,18 @@
 	<select id="getAll" resultType="QrcodeModel">
 		SELECT *
 		FROM qrcode
-		WHERE basicId=#{0}
+		WHERE
+		basicId=#{0}
 	</select>
-	
+
+	<select id="query" resultType="QrcodeModel">
+		SELECT *
+		FROM qrcode
+		WHERE
+		basicId=#{0}
+		and name like #{1}
+	</select>
+
 	<select id="createQrcode" resultType="QrcodeModel">
 		INSERT INTO qrcode(
 		`id`,

@@ -15,24 +15,23 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.QrcodeModel;
 import cn.springmvc.service.manage.QrcodeService;
 
-
-
 @Service
 public class QrcodeServiceImpl implements QrcodeService {
-	
+
 	@Autowired
 	private QrcodeDao dao;
-	
+
 	Logger logger = Logger.getLogger(QrcodeServiceImpl.class);
-	
-	public List<QrcodeModel>getAll(BasicModel basicModel) throws Exception{
+
+	public List<QrcodeModel> getAll(BasicModel basicModel) throws Exception {
 		return dao.getAll(basicModel.getId());
 	}
-	
-	public List<QrcodeModel> createQrcode(int basicId, long sceneId, String name, String accessToken) throws Exception{
-//		String accessToken = service.getAccessToken(basicModel);
-		String qrcodeCreateUrl  = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + accessToken;
-		String jsonStr = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":\"" + sceneId + "\"}}}";
+
+	public List<QrcodeModel> createQrcode(int basicId, long sceneId, String name, String accessToken) throws Exception {
+		// String accessToken = service.getAccessToken(basicModel);
+		String qrcodeCreateUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + accessToken;
+		String jsonStr = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":\"" + sceneId
+				+ "\"}}}";
 		logger.error("jsonstr--" + jsonStr);
 		String qrcodeResponse = RequestUtil.doPost(qrcodeCreateUrl, jsonStr);
 		logger.error("qrcoderesponse--" + qrcodeResponse);
@@ -44,6 +43,14 @@ public class QrcodeServiceImpl implements QrcodeService {
 		model.setName(name);
 		model.setBasicId(basicId);
 		return dao.createQrcode(model);
+	}
+
+	/**
+	 * query QrCodes by given keywords
+	 */
+	public List<QrcodeModel> getAll(BasicModel basicModel, String queryDat) throws Exception {
+		queryDat = "%" + queryDat + "%";
+		return dao.query(basicModel.getId(), queryDat);
 	}
 
 }
