@@ -266,4 +266,15 @@ public class LogController {
 		return HttpUtils.generateResponse("0", "debug模式设置成功", Consts.DEBUG_MODE);
 	}
 
+	/**
+	 * get debug mode
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/DebugMode", method = RequestMethod.GET)
+	public Map<String, Object> getDebugMode() {
+		return HttpUtils.generateResponse("0", "debug模式设置查询成功", Consts.DEBUG_MODE);
+	}
+
 }
