@@ -1,0 +1,9 @@
+.m-t-none {
+    margin-top: 0 !important;
+}
+.m-b {
+    margin-bottom: 15px;
+}
+.pagination-sm {
+.pagination-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+}
