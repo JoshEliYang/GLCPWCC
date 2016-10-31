@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="lib/zj/bootstrap.css" rel="stylesheet" />
+    <link href="css/operation.css" rel="stylesheet">
+
+    <link href="css/ConfigStyle.css" rel="stylesheet">
+    <style>
+        .page-list .pagination {float:left;}
+        .page-list .pagination span {cursor: pointer;}
+        .page-list .pagination .separate span{cursor: default; border-top:none;border-bottom:none;}
+        .page-list .pagination .separate span:hover {background: none;}
+        .page-list .page-total {float:left; margin: 25px 20px;}
+        .page-list .page-total input, .page-list .page-total select{height: 26px; border: 1px solid #ddd;}
+        .page-list .page-total input {width: 40px; padding-left:3px;}
+        .page-list .page-total select {width: 50px;}
+    </style>
+
+</head>
+<body ng-app="operation" ng-controller="operationCtrl">
+
+
+<div class="outerContainer" id="head" >
+
+    <div class="AddBtnPanel text-right navbar-btn">
+
+        <label class="i-checks" style="position: absolute;left: 0">
+            <input ng-change="ifdebug(ifDebug)"  type="checkbox" name="chickenEgg" value="standard" ng-model="ifDebug">
+            Debug模式
+        </label>
+
+        <label class="i-checks">
+            <input ng-checked="true" ng-click="chose()" type="radio" name="chickenEgg" value="standard" ng-model="formData.chickenEgg">
+            标准
+        </label>
+        <label class="i-checks">
+            <input ng-click="chose()" type="radio" name="chickenEgg" value="detail" ng-model="formData.chickenEgg">
+            详情
+        </label>
+
+        <button type="button" class="btn btn-danger" ng-click="clearLog()">
+            <span class="glyphicon  glyphicon-remove" aria-hidden="true"></span>
+            清空日志
+        </button>
+
+        <a href={{url}} target="_blank">
+            <button type="button" class="btn btn-success" >
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                导出日志
+            </button>
+        </a>
+    </div>
+
+
+    <div class="form-group">
+    <div class="input-group" style="width: 100%;">
+        <input  placeholder="开始时间" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="begin_time" is-open="activibegin_open" ng-required="true" close-text="关闭" max-date="maxDate"
+               clear-text="清空" current-text="今天" datepicker-options="dateOptions" ng-required="true" readonly="true" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="activity_begin($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+        <input  placeholder="结束时间" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="end_time" is-open="activiend_open" ng-required="true" close-text="关闭" max-date="minDate"
+               clear-text="清空" current-text="今天" datepicker-options="dateOptions" ng-required="true" readonly="true" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="activity_end($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+        <select  ng-model="adminId" class="form-control" style="margin-left: 5px;width: 100px"
+                ng-options="p.realname for p in adminAll" ng-change="choseadminId()">
+            <option value="">全部用户</option>
+        </select>
+        <select   ng-model="basicId" class="form-control" style="margin-left: 5px;width: 100px "
+                ng-change="choseadbasicId()">
+            <option value="1" selected="selected">绿地</option>
+        </select>
+        <select  ng-model="action" class="form-control" style="margin-left: 5px;width: 100px ">
+            <option value="" ng-selected="'全部'">全部操作</option>
+            <option value="添加">添加</option>
+            <option value="删除">删除</option>
+            <option value="更新">更新</option>
+            <option value="查询">查询</option>
+        </select>
+        <select  ng-model="status" class="form-control" style="margin-left: 5px;width: 100px ">
+            <option value="" ng-selected="'全部'">全部状态</option>
+            <option value="开始">开始</option>
+            <option value="结束">结束</option>
+            <option value="返回结果">返回结果</option>
+            <option value="异常">异常</option>
+        </select>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" style="background-color: #27c24c;color: #27c24c" ng-click="searchLog()"><i style="color: #ffffff">搜索</i></button>
+            </span>
+    </div>
+    </div>
+
+    <div ng-if="tableFlag == 0" style="height: 500px ;overflow: scroll;">
+            <table style="table-layout: fixed" width="100%" class="table table-bordered table-hover table-condensed table-striped bg-white-only">
+                <thead>
+                <tr style="width: 500px">
+                    <th  style="width: 100px;">时间</th>
+                    <th   style="width: 50px;">微信</th>
+                    <th style="width: 50px;">用户</th>
+                    <th style="width: 50px;">状态</th>
+                    <th style="width: 50px;">对象</th>
+                    <th style="width: 50px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in items">
+                    <td  ng-click="showq()" class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{item.dateTime}}</td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{item.basicRemark}}</td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.adminName}}</td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.status }}</td>
+                    <td ng-click="openAddDialog(item.target)" class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.target }}</td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.action }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div ng-if="tableFlag == 1" style="height: 500px ;overflow: scroll;">
+        <table style="table-layout: fixed" width="100%" class="table table-bordered table-hover table-condensed table-striped bg-white-only">
+            <thead>
+            <tr style="width: 500px">
+                <th style="width: 200px;overflow: hidden;">时间</th>
+                <th style="width: 100px;overflow: hidden;" >微信</th>
+                <th style="width: 100px;overflow: hidden;">用户</th>
+                <th style="width: 100px;overflow: hidden;">状态</th>
+                <th style="width: 150px;overflow: hidden;">对象</th>
+                <th style="width: 100px;overflow: hidden;">类名</th>
+                <th style="width: 100px;overflow: hidden;">方法</th>
+                <th style="width: 100px;overflow: hidden;">返回值</th>
+                <th style="width: 100px;overflow: hidden;">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in items">
+                <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{item.dateTime}}</td>
+                <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{item.basicRemark}}</td>
+                <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.adminName}}</td>
+                <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.status }}</td>
+                    <td ng-click="openAddDialog(item.target)" class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.target }}</td>
+                    <td ng-click="openAddDialog(item.className)" class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.className }}</td>
+                <td ng-click="openAddDialog(item.methodName)" class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.methodName }}</td>
+                <td ng-click="openAddDialog(item.retrunDat)" class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.retrunDat }}</td>
+                <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">{{ item.action }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <tm-pagination conf="paginationConf"></tm-pagination>
+</div>
+
+
+<div class="modal fade" id="tagAddModal" tabindex="-1" role="dialog" data-backdrop="false"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #33CC99">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">
+                    详情
+                </h4>
+            </div>
+            <p  style="padding-left: 10px;padding-right: 12px">{{deatildata}}</p>
+        </div>
+    </div>
+</div>
+
+
+<script src="lib/zj/angular.js"></script>
+<script src="js/conf.js" type="text/javascript"></script>
+
+<script src="lib/zj/ui-bootstrap-tpls.js"></script>
+
+<script src="lib/zj/angular-locale_zh-cn.js"></script>
+<script src="js/ctrl/operationLogCtrl.js" type="text/javascript"></script>
+<script src="lib/zj/tm.pagination.js"></script>
+<script src="js/service/operationLogService.js" type="text/javascript"></script>
+
+
+
+<script src="lib/zj/jquery.js"></script>
+<script src="lib/bootstrap3.3.6/js/bootstrap.js"></script>
+
+</body>
+
+</html>
