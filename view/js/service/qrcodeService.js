@@ -38,6 +38,42 @@ app.service('QrcodeService', function () {
         });
     }
 
+    this.getDetail = function ($scope, $http,detail) {
+        getDetail($scope, $http,detail);
+    };
+
+    var getDetail = function ($scope, $http,detail) {
+        $http({
+            method: 'GET',
+            url: qrcodeGetUrl +"/"+detail+ '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,
+            'Content-Type': 'application/json'
+        }).success(function (data) {
+            debugger;
+            if (data.code != 0) {
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
+                return;
+            }
+            qrcodeList = data.data;
+            $scope.qrcodeList = qrcodeList;
+            $scope.pagination(qrcodeList);
+            $('#loadingDialog').modal('hide');
+        }).error(function () {
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
+        });
+    }
+
     this.createQrcode = function ($scope, $http, name, id) {
         var qrParam = {
             "id": id,
