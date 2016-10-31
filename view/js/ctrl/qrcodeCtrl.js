@@ -79,6 +79,15 @@ app.controller('wechatController', function ($scope, $http, QrcodeService, Pagin
         }
     };
 
+
+    $scope.asearch = function(){
+        if( $scope.inputSearch == ""){
+            QrcodeService.getAll($scope, $http);
+        }else{
+            QrcodeService.getDetail($scope, $http,$scope.inputSearch);
+        }
+    }
+
     $scope.getNext = function () {
         if ($scope.pageNow < $scope.pageGroup.length - 1) {
             PaginationServiceGlobal.getPage({

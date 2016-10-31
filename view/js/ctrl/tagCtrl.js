@@ -25,6 +25,14 @@ app.controller('wechatController', function($scope, $http, TagService, Paginatio
         });
     };
 
+    $scope.search = function(){
+        if( $scope.inputSearch == ""){
+            getAll($scope, $http);
+        }else{
+            getDeatil($scope, $http,$scope.inputSearch);
+        }
+    }
+
     $scope.openAddDialog = function () {
         $('#tagAddModal').modal('show');
     };

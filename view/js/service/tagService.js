@@ -38,6 +38,40 @@ app.service('TagService', function () {
         });
     };
 
+    getDeatil = function ($scope, $http,detail) {
+        $http({
+            method: "GET",
+            url: tagGetUrl +"/"+detail+ '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,
+            'Content-Type': 'application/json'
+        }).success(function (data) {
+            if (data.code != 0) {
+                $.alert({
+                    theme: "material",
+                    title: "警告",
+                    content: '<b>' + data.msg + '</b>',
+                    confirmButtonClass: 'btn-info',
+                    autoClose: 'confirm|10000'
+                });
+                return;
+            }
+            var tagList = JSON.parse(data.data).tags;
+            for(var i = 0; i < tagList.length; i++){
+                tagList[i].checked = false;
+            }
+            $scope.tagList = tagList;
+            $scope.pagination(tagList);
+            $('#loadingDialog').modal('hide');
+        }).error(function () {
+            $.alert({
+                theme: "material",
+                title: "警告",
+                content: "<b>请求失败<br>请检查您的网络！</b>",
+                confirmButtonClass: 'btn-info',
+                autoClose: 'confirm|10000'
+            });
+        });
+    };
+
     this.doInsert = function ($scope, $http) {
         var tagParam = {
             "tag" : {
