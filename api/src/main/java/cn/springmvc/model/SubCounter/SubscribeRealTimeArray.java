@@ -50,6 +50,18 @@ public class SubscribeRealTimeArray implements Serializable {
 		return "SubscribeRealTimeArray_" + tagId + "_" + basicId + "_" + date;
 	}
 
+	/**
+	 * generate the key of Map
+	 * 
+	 * @param basicId
+	 * @param tagId
+	 * @param date
+	 * @return
+	 */
+	public static String generateKey(int basicId, int tagId, String date) {
+		return "SubscribeRealTimeArray_" + tagId + "_" + basicId + "_" + date;
+	}
+
 	public enum Type {
 		Subscribe, UnSubscribe
 	}
@@ -84,7 +96,8 @@ public class SubscribeRealTimeArray implements Serializable {
 
 	@Override
 	public String toString() {
-		return "SubscribeRealTimeArray [date=" + date + ", realTimeMap=" + realTimeMap + "]";
+		return "SubscribeRealTimeArray [date=" + date + ", basicId=" + basicId + ", tagId=" + tagId + ", realTimeMap="
+				+ realTimeMap + "]";
 	}
 
 	public String getDate() {

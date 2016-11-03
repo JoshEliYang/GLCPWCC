@@ -41,6 +41,5 @@ public interface SubscribeCountService {
 	 */
 	public SubscribeCountResponse get(SubscribeInfoQuery queryData, BasicModel basic) throws Exception;
 	
-	
 
 }

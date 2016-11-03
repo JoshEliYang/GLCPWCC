@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,8 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 	@Autowired
 	private SubscribeCountDao subDao;
 
+	Logger logger = Logger.getLogger(SubscribeCountServiceImpl.class);
+
 	/**
 	 * add subscribe count for specific tag
 	 * 
@@ -55,6 +58,7 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 			String key = SubscribeRealTimeArray.generateKey(basic.getId(), tagId);
 			MemcacheUtil memcacheUtil = MemcacheUtil.getInstance();
 			SubscribeRealTimeArray arrayDat = memcacheUtil.getDat(key, SubscribeRealTimeArray.class);
+//			logger.error("get subscribe info from memcache >>>> " + arrayDat);
 			if (arrayDat != null) {
 				arrayDat.add(Type.Subscribe);
 				memcacheUtil.setDat(key, 3600 * 24 * 7, arrayDat);
@@ -80,7 +84,7 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 				tagId = -1;
 			}
 
-			SubscribeCount subCounter = new SubscribeCount(new Date(), tagList[tagList.length - 1], basic);
+			SubscribeCount subCounter = new SubscribeCount(new Date(), tagId, basic);
 			SubscribeCount queryResult = subDao.query(subCounter);
 			if (queryResult != null) {
 				queryResult.setUnsubscribe(queryResult.getUnsubscribe() + 1);
@@ -97,6 +101,7 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 			String key = SubscribeRealTimeArray.generateKey(basic.getId(), tagId);
 			MemcacheUtil memcacheUtil = MemcacheUtil.getInstance();
 			SubscribeRealTimeArray arrayDat = memcacheUtil.getDat(key, SubscribeRealTimeArray.class);
+//			logger.error("get subscribe info from memcache >>>> " + arrayDat);
 			if (arrayDat != null) {
 				arrayDat.add(Type.UnSubscribe);
 				memcacheUtil.setDat(key, 3600 * 24 * 7, arrayDat);
