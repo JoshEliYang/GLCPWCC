@@ -27,6 +27,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="Right" type="cn.springmvc.model.Right" />
 
 		<typeAlias alias="TemplateMessage" type="cn.springmvc.model.TemplateMessage" />
+
+		<typeAlias alias="SubscribeCount"
+			type="cn.springmvc.model.SubCounter.SubscribeCount" />
+		<typeAlias alias="SubscribeDBQuery"
+			type="cn.springmvc.model.SubCounter.SubscribeDBQuery" />
 	</typeAliases>
 
 	<!-- 映射map -->

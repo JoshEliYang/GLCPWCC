@@ -157,8 +157,10 @@
 		<filter-name>WechatAccountFilter</filter-name>
 		<url-pattern>/wechatMenu/*</url-pattern>
 	</filter-mapping>
-
-
+	<filter-mapping>
+		<filter-name>WechatAccountFilter</filter-name>
+		<url-pattern>/subscribe_report/*</url-pattern>
+	</filter-mapping>
 
 
 
