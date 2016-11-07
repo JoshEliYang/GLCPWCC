@@ -4,7 +4,9 @@
 }
 
 .headBlock {
-    background-color: #33CC99;
+    /*background-color: #33CC99;*/
+    background: url(../image/greenLand.jpg) no-repeat;
+    background-size: 100%;
     padding-top: 30px;
     padding-bottom: 30px;
 
@@ -16,6 +18,12 @@
 }
 
 .headBlock div h1 {
+    color: white;
+    float: right;
+    margin-right: 150px;
+}
+
+.headBlock div h1 small {
     color: white;
 }
 

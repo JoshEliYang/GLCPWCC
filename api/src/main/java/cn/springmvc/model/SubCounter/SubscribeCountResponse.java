@@ -11,6 +11,8 @@ import java.util.Map;
 public class SubscribeCountResponse {
 	Map<Integer, List<SubscribeCount>> result;
 
+	List<SubscribeSetting> settingList;
+
 	/**
 	 * 1.means year 2.means month 3.means day 4.means week
 	 */
@@ -19,7 +21,8 @@ public class SubscribeCountResponse {
 
 	@Override
 	public String toString() {
-		return "SubscibeCountResponse [result=" + result + ", dateType=" + dateType + ", basicId=" + basicId + "]";
+		return "SubscribeCountResponse [result=" + result + ", settingList=" + settingList + ", dateType=" + dateType
+				+ ", basicId=" + basicId + "]";
 	}
 
 	public Map<Integer, List<SubscribeCount>> getResult() {
@@ -28,6 +31,14 @@ public class SubscribeCountResponse {
 
 	public void setResult(Map<Integer, List<SubscribeCount>> result) {
 		this.result = result;
+	}
+
+	public List<SubscribeSetting> getSettingList() {
+		return settingList;
+	}
+
+	public void setSettingList(List<SubscribeSetting> settingList) {
+		this.settingList = settingList;
 	}
 
 	public int getDateType() {

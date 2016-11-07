@@ -1,9 +1,7 @@
 package cn.springmvc.service.impl.manage;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,48 +94,48 @@ public class TagServiceImpl implements TagService {
 
 		return null;
 	}
-}
 
-class TagDat {
-	int id;
-	String name;
-	int count;
+	public class TagDat {
+		int id;
+		String name;
+		int count;
 
-	public int getId() {
-		return id;
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public int getCount() {
+			return count;
+		}
+
+		public void setCount(int count) {
+			this.count = count;
+		}
+
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public class TagList {
+		ArrayList<TagDat> tags;
+
+		public ArrayList<TagDat> getTags() {
+			return tags;
+		}
+
+		public void setTags(ArrayList<TagDat> tags) {
+			this.tags = tags;
+		}
+
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-}
-
-class TagList {
-	ArrayList<TagDat> tags;
-
-	public ArrayList<TagDat> getTags() {
-		return tags;
-	}
-
-	public void setTags(ArrayList<TagDat> tags) {
-		this.tags = tags;
-	}
-
 }

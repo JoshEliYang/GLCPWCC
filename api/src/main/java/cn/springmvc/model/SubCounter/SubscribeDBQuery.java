@@ -2,6 +2,7 @@ package cn.springmvc.model.SubCounter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,7 +28,7 @@ public class SubscribeDBQuery {
 	}
 
 	public SubscribeDBQuery(String startDate, String endDate, int tagId, BasicModel basic) throws ParseException {
-		DateFormat df = DateFormat.getDateInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date startD = df.parse(startDate);
 		Date endD = df.parse(endDate);
 		Calendar startCal = Calendar.getInstance();

@@ -23,7 +23,7 @@ public class SubscribeRealTimeArray implements Serializable {
 	String date;
 	int basicId;
 	int tagId;
-	Map<Integer, List<SubscribeRealTime>> realTimeMap;
+	Map<Integer, SubscribeRealTimeArrayItem> realTimeMap;
 
 	public SubscribeRealTimeArray() {
 		super();
@@ -32,7 +32,7 @@ public class SubscribeRealTimeArray implements Serializable {
 	public SubscribeRealTimeArray(int basicId, int tagId) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		date = df.format(new Date());
-		realTimeMap = new HashMap<Integer, List<SubscribeRealTime>>();
+		realTimeMap = new HashMap<Integer, SubscribeRealTimeArrayItem>();
 		this.basicId = basicId;
 		this.tagId = tagId;
 	}
@@ -77,21 +77,11 @@ public class SubscribeRealTimeArray implements Serializable {
 		int minute = now.get(Calendar.MINUTE);
 		int current_minutes = ((hour * 60) + minute);
 
-		List<SubscribeRealTime> list = realTimeMap.get(current_minutes);
-		SubscribeRealTime realTimeDat;
-		if (type == Type.Subscribe) {
-			realTimeDat = new SubscribeRealTime(true, false);
-		} else {
-			realTimeDat = new SubscribeRealTime(false, true);
-		}
-
-		if (list != null) {
-			list.add(realTimeDat);
-		} else {
-			list = new ArrayList<SubscribeRealTime>();
-			list.add(realTimeDat);
-			realTimeMap.put(current_minutes, list);
-		}
+		SubscribeRealTimeArrayItem item = realTimeMap.get(current_minutes);
+		if (item == null)
+			item = new SubscribeRealTimeArrayItem(current_minutes);
+		item.add(type);
+		realTimeMap.put(current_minutes, item);
 	}
 
 	@Override
@@ -108,11 +98,27 @@ public class SubscribeRealTimeArray implements Serializable {
 		this.date = date;
 	}
 
-	public Map<Integer, List<SubscribeRealTime>> getRealTimeMap() {
+	public int getBasicId() {
+		return basicId;
+	}
+
+	public void setBasicId(int basicId) {
+		this.basicId = basicId;
+	}
+
+	public int getTagId() {
+		return tagId;
+	}
+
+	public void setTagId(int tagId) {
+		this.tagId = tagId;
+	}
+
+	public Map<Integer, SubscribeRealTimeArrayItem> getRealTimeMap() {
 		return realTimeMap;
 	}
 
-	public void setRealTimeMap(Map<Integer, List<SubscribeRealTime>> realTimeMap) {
+	public void setRealTimeMap(Map<Integer, SubscribeRealTimeArrayItem> realTimeMap) {
 		this.realTimeMap = realTimeMap;
 	}
 

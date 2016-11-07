@@ -138,4 +138,13 @@
 		date
 	</select>
 
+	<select id="getQueryList" parameterType="Integer" resultType="SubscribeSetting">
+		SELECT
+		*
+		FROM
+		subscribeSetting
+		WHERE
+		basicId = #{0}
+	</select>
+
 </mapper>

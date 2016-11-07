@@ -1,5 +1,6 @@
 package cn.springmvc.service.impl.wechat;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import com.springmvc.utils.MemcacheUtil;
 
 import cn.springmvc.dao.SubscribeCountDao;
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.SubCounter.SubscribeSetting;
 import cn.springmvc.model.SubCounter.SubscribeCount;
 import cn.springmvc.model.SubCounter.SubscribeCountResponse;
 import cn.springmvc.model.SubCounter.SubscribeDBQuery;
@@ -54,19 +56,11 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 			/**
 			 * storage as real-time info (storage into cache, and keep for 7
 			 * days)
+			 * 
+			 * -255 means total
 			 */
-			String key = SubscribeRealTimeArray.generateKey(basic.getId(), tagId);
-			MemcacheUtil memcacheUtil = MemcacheUtil.getInstance();
-			SubscribeRealTimeArray arrayDat = memcacheUtil.getDat(key, SubscribeRealTimeArray.class);
-//			logger.error("get subscribe info from memcache >>>> " + arrayDat);
-			if (arrayDat != null) {
-				arrayDat.add(Type.Subscribe);
-				memcacheUtil.setDat(key, 3600 * 24 * 7, arrayDat);
-			} else {
-				SubscribeRealTimeArray newArray = new SubscribeRealTimeArray(basic.getId(), tagId);
-				newArray.add(Type.Subscribe);
-				memcacheUtil.setDat(key, 3600 * 24 * 7, newArray);
-			}
+			setSubscribeRealTimeArray(tagId, basic, Type.Subscribe);
+			setSubscribeRealTimeArray(-255, basic, Type.Subscribe);
 		}
 	}
 
@@ -97,19 +91,34 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 			/**
 			 * storage as real-time info (storage into cache, and keep for 7
 			 * days)
+			 * 
+			 * -255 means total
 			 */
-			String key = SubscribeRealTimeArray.generateKey(basic.getId(), tagId);
-			MemcacheUtil memcacheUtil = MemcacheUtil.getInstance();
-			SubscribeRealTimeArray arrayDat = memcacheUtil.getDat(key, SubscribeRealTimeArray.class);
-//			logger.error("get subscribe info from memcache >>>> " + arrayDat);
-			if (arrayDat != null) {
-				arrayDat.add(Type.UnSubscribe);
-				memcacheUtil.setDat(key, 3600 * 24 * 7, arrayDat);
-			} else {
-				SubscribeRealTimeArray newArray = new SubscribeRealTimeArray(basic.getId(), tagId);
-				newArray.add(Type.UnSubscribe);
-				memcacheUtil.setDat(key, 3600 * 24 * 7, newArray);
-			}
+			setSubscribeRealTimeArray(tagId, basic, Type.UnSubscribe);
+			setSubscribeRealTimeArray(-255, basic, Type.UnSubscribe);
+		}
+	}
+
+	/**
+	 * storage as real-time info (storage into cache, and keep for 7 days)
+	 * 
+	 * @param tagId
+	 * @param basic
+	 * @param type
+	 * @throws IOException
+	 */
+	private void setSubscribeRealTimeArray(int tagId, BasicModel basic, Type type) throws IOException {
+		String key = SubscribeRealTimeArray.generateKey(basic.getId(), tagId);
+		MemcacheUtil memcacheUtil = MemcacheUtil.getInstance();
+		SubscribeRealTimeArray arrayDat = memcacheUtil.getDat(key, SubscribeRealTimeArray.class);
+		logger.error("get subscribe info from memcache >>>> " + arrayDat);
+		if (arrayDat != null) {
+			arrayDat.add(type);
+			memcacheUtil.setDat(key, 3600 * 24 * 7, arrayDat);
+		} else {
+			SubscribeRealTimeArray newArray = new SubscribeRealTimeArray(basic.getId(), tagId);
+			newArray.add(type);
+			memcacheUtil.setDat(key, 3600 * 24 * 7, newArray);
 		}
 	}
 
@@ -149,4 +158,10 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 		return subResponse;
 	}
 
+	/**
+	 * query tag info from DB
+	 */
+	public List<SubscribeSetting> getQueryList(BasicModel basic) throws Exception {
+		return subDao.getQueryList(basic.getId());
+	}
 }

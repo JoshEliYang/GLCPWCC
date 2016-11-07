@@ -1,6 +1,9 @@
 package cn.springmvc.service.wechat;
 
+import java.util.List;
+
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.SubCounter.SubscribeSetting;
 import cn.springmvc.model.SubCounter.SubscribeCountResponse;
 import cn.springmvc.model.SubCounter.SubscribeInfoQuery;
 
@@ -40,6 +43,13 @@ public interface SubscribeCountService {
 	 * @throws Exception
 	 */
 	public SubscribeCountResponse get(SubscribeInfoQuery queryData, BasicModel basic) throws Exception;
-	
 
+	/**
+	 * query tag info from DB
+	 * 
+	 * @param basic
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SubscribeSetting> getQueryList(BasicModel basic) throws Exception;
 }
