@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSON;
 import cn.springmvc.model.TaskRequest;
 import cn.springmvc.mq.model.TemplateParameter;
 import cn.springmvc.mq.task.TemplateMessageTask;
+import cn.springmvc.mq.task.TicketExpiredTask;
 
 /**
  * 
@@ -63,6 +64,12 @@ public class MqReceiver implements Runnable {
 						Thread templateMessageThread = new Thread(
 								new TemplateMessageTask(task.getTaskTimeStamp(), task.getAdmin(), taskParameter));
 						templateMessageThread.start();
+					} else if ("TicketExpiredMessage".equals(task.getMethod())) {
+						TemplateParameter taskParameter = JSON.parseObject(task.getParameter(),
+								TemplateParameter.class);
+						Thread TicketExpiredThread = new Thread(
+								new TicketExpiredTask(task.getTaskTimeStamp(), task.getAdmin(), taskParameter));
+						TicketExpiredThread.start();
 					}
 				}
 			}

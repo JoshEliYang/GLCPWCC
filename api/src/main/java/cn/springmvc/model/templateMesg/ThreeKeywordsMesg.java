@@ -1,35 +1,27 @@
-package cn.springmvc.model;
+package cn.springmvc.model.templateMesg;
 
-public class Coupon {
+/**
+ * 
+ * @author johnson
+ *
+ */
+public class ThreeKeywordsMesg {
 	String openid;
-	/**
-	 * title
-	 */
 	String first;
-	/**
-	 * 兑换券名称
-	 */
 	String keyword1;
-	/**
-	 * 兑换券数量
-	 */
 	String keyword2;
-	/**
-	 * 兑换码
-	 */
 	String keyword3;
-	/**
-	 * 有效期
-	 */
-	String keyword4;
-	/**
-	 * 附加消息
-	 */
 	String remark;
 	String url;
 
 	public static String[] getFields() {
-		return new String[] { "openid", "first", "keyword1", "keyword2", "keyword3", "keyword4", "remark", "url" };
+		return new String[] { "openid", "first", "keyword1", "keyword2", "keyword3", "remark", "url" };
+	}
+
+	@Override
+	public String toString() {
+		return "ThreeKeywordsMesg [openid=" + openid + ", first=" + first + ", keyword1=" + keyword1 + ", keyword2="
+				+ keyword2 + ", keyword3=" + keyword3 + ", remark=" + remark + ", url=" + url + "]";
 	}
 
 	public String getOpenid() {
@@ -72,14 +64,6 @@ public class Coupon {
 		this.keyword3 = keyword3;
 	}
 
-	public String getKeyword4() {
-		return keyword4;
-	}
-
-	public void setKeyword4(String keyword4) {
-		this.keyword4 = keyword4;
-	}
-
 	public String getRemark() {
 		return remark;
 	}
@@ -94,12 +78,6 @@ public class Coupon {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	@Override
-	public String toString() {
-		return "Coupon [openid=" + openid + ", first=" + first + ", keyword1=" + keyword1 + ", keyword2=" + keyword2
-				+ ", keyword3=" + keyword3 + ", keyword4=" + keyword4 + ", remark=" + remark + ", url=" + url + "]";
 	}
 
 }

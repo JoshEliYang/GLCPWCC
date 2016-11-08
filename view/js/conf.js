@@ -63,12 +63,13 @@ var falseDebugLog = "http://120.26.54.131:8080/GLCPWCC/log/setDebug/false";
 var getDebug = "http://120.26.54.131:8080/GLCPWCC/log/DebugMode";
 
 
-var MessageExcelUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload";
+var MessageExcelUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload/SendTemplateMessage";
 var TemplateMessageButtonsUrl = "http://120.26.54.131:8080/GLCPWCC/message/templates";
+var TicketExpiredUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload/TicketExpiredMessage";
 
 var socketUrl = "ws://120.26.54.131:8080/GLCPWCC/progress";
 
 var getMenuUrl = "http://120.26.54.131:8080/GLCPWCC/wechatMenu";
 
 // subscribe info
-var getSubscribeInfoByDay="http://120.26.54.131:8080/GLCPWCC/subscribe_report";
+var getSubscribeInfoByDay = "http://120.26.54.131:8080/GLCPWCC/subscribe_report";

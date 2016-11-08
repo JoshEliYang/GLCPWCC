@@ -1,4 +1,4 @@
-package cn.springmvc.model;
+package cn.springmvc.model.templateMesg;
 
 public class TemplateMessage {
 	int id;

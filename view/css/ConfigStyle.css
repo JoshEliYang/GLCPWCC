@@ -50,6 +50,12 @@ background: linear-gradient(#CCFFCC, #CCFF99); !* 标准的语法 *!
     box-shadow: 2px 3px 15px #909090; /*opera或ie9*/
 }
 
+td {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .table-striped > tbody > tr:nth-of-type(odd) {
     background-color: #DDFFDD;
 }

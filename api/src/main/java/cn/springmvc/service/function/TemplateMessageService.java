@@ -3,7 +3,7 @@ package cn.springmvc.service.function;
 import java.util.List;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.model.TemplateMessage;
+import cn.springmvc.model.templateMesg.TemplateMessage;
 
 /**
  * 
