@@ -2,7 +2,7 @@
  * Created by L on 2016/9/1.
  */
 
-var pageMax = 5;
+var pageMax = 10;
 
 var app = angular.module('wechatApp', []);
 
@@ -86,7 +86,7 @@ app.controller('wechatController', function ($scope, $http, QrcodeService, Pagin
         }else{
             QrcodeService.getDetail($scope, $http,$scope.inputSearch);
         }
-    }
+    };
 
     $scope.getNext = function () {
         if ($scope.pageNow < $scope.pageGroup.length - 1) {

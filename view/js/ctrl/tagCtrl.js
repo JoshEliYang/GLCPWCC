@@ -5,7 +5,7 @@
 var pageMax = 10;
 
 var app = angular.module('wechatApp', []);
-app.controller('wechatController', function($scope, $http, TagService, PaginationServiceGlobal) {
+app.controller('wechatController', function ($scope, $http, TagService, PaginationServiceGlobal) {
     $scope.pageNow = 0;
 
     getAll($scope, $http);
@@ -25,13 +25,13 @@ app.controller('wechatController', function($scope, $http, TagService, Paginatio
         });
     };
 
-    $scope.search = function(){
-        if( $scope.inputSearch == ""){
+    $scope.search = function () {
+        if ($scope.inputSearch == "") {
             getAll($scope, $http);
-        }else{
-            getDeatil($scope, $http,$scope.inputSearch);
+        } else {
+            getDeatil($scope, $http, $scope.inputSearch);
         }
-    }
+    };
 
     $scope.openAddDialog = function () {
         $('#tagAddModal').modal('show');
@@ -111,12 +111,12 @@ app.controller('wechatController', function($scope, $http, TagService, Paginatio
 
     $scope.doDelete = function () {
         var count = 0;
-        for(var i = 0; i < $scope.tagList.length; i++){
-            if($scope.tagList[i].checked){
+        for (var i = 0; i < $scope.tagList.length; i++) {
+            if ($scope.tagList[i].checked) {
                 count++;
             }
         }
-        if(count==0){
+        if (count == 0) {
             $.alert({
                 theme: "material",
                 title: "警告",

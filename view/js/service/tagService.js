@@ -21,7 +21,7 @@ app.service('TagService', function () {
                 return;
             }
             var tagList = data.data.tags;
-            for(var i = 0; i < tagList.length; i++){
+            for (var i = 0; i < tagList.length; i++) {
                 tagList[i].checked = false;
             }
             $scope.tagList = tagList;
@@ -38,10 +38,10 @@ app.service('TagService', function () {
         });
     };
 
-    getDeatil = function ($scope, $http,detail) {
+    getDeatil = function ($scope, $http, detail) {
         $http({
             method: "GET",
-            url: tagGetUrl +"/"+detail+ '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,
+            url: tagGetUrl + "/" + detail + '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,
             'Content-Type': 'application/json'
         }).success(function (data) {
             if (data.code != 0) {
@@ -55,7 +55,7 @@ app.service('TagService', function () {
                 return;
             }
             var tagList = JSON.parse(data.data).tags;
-            for(var i = 0; i < tagList.length; i++){
+            for (var i = 0; i < tagList.length; i++) {
                 tagList[i].checked = false;
             }
             $scope.tagList = tagList;
@@ -74,8 +74,8 @@ app.service('TagService', function () {
 
     this.doInsert = function ($scope, $http) {
         var tagParam = {
-            "tag" : {
-                "name" : $scope.addTagName//标签名
+            "tag": {
+                "name": $scope.addTagName//标签名
             }
         };
         $('#loadingDialog').modal('show');
@@ -95,9 +95,9 @@ app.service('TagService', function () {
                 });
                 return;
             }
-            if($scope.addQrcodeCheck == true){
+            if ($scope.addQrcodeCheck == true) {
                 createQrcode($scope, $http, data.data.tag.id, $scope.addTagName);
-            }else {
+            } else {
                 getAll($scope, $http);
             }
         }).error(function () {
@@ -139,9 +139,9 @@ app.service('TagService', function () {
 
     this.doEdit = function ($scope, $http) {
         var param = {
-            "tag" : {
-                "id" : $scope.tagList[target].id,
-                "name" : $scope.editTagName
+            "tag": {
+                "id": $scope.tagList[target].id,
+                "name": $scope.editTagName
             }
         };
         $('#loadingDialog').modal('show');
@@ -175,8 +175,8 @@ app.service('TagService', function () {
 
     this.doDelete = function ($scope, $http, id) {
         var param = {
-            "tag":{
-                "id" : id
+            "tag": {
+                "id": id
             }
         }
         $('#loadingDialog').modal('show');

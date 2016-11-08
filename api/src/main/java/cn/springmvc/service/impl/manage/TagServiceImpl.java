@@ -1,6 +1,7 @@
 package cn.springmvc.service.impl.manage;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -58,7 +59,7 @@ public class TagServiceImpl implements TagService {
 	}
 
 	/**
-	 * query all tags and do filter
+	 * quer all tags and do filter
 	 * 
 	 * @author johnson
 	 */
@@ -68,16 +69,22 @@ public class TagServiceImpl implements TagService {
 		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + accessToken;
 		String response = RequestUtil.doGet(url);
 
-		TagList tags = JSON.parseObject(response, TagList.class);
-		for (int i = tags.getTags().size() - 1; i >= 0; i--) {
-			String name = tags.getTags().get(i).getName();
+		System.out.println(response);
+
+		Map<String, List<Map<String, String>>> res = (Map<String, List<Map<String, String>>>) JSON.parse(response);
+		List<Map<String, String>> tags = res.get("tags");
+
+		for (int i = tags.size() - 1; i >= 0; i--) {
+			String name = tags.get(i).get("name");
 			String regex = ".*" + queryDat + ".*";
 			if (!name.matches(regex)) {
-				tags.getTags().remove(i);
+				tags.remove(i);
 			}
 		}
 
-		return JSON.toJSONString(tags);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("tags", tags);
+		return JSON.toJSONString(result);
 	}
 
 	public Map<String, String> getUserByTag(String jsonStr, BasicModel model) throws Exception {
@@ -127,13 +134,13 @@ public class TagServiceImpl implements TagService {
 	}
 
 	public class TagList {
-		ArrayList<TagDat> tags;
+		List<TagDat> tags;
 
-		public ArrayList<TagDat> getTags() {
+		public List<TagDat> getTags() {
 			return tags;
 		}
 
-		public void setTags(ArrayList<TagDat> tags) {
+		public void setTags(List<TagDat> tags) {
 			this.tags = tags;
 		}
 
