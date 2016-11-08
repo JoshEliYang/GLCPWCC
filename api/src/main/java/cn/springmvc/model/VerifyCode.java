@@ -61,4 +61,10 @@ public class VerifyCode {
 		this.lapsedTime = lapsedTime;
 	}
 
+	@Override
+	public String toString() {
+		return "VerifyCode [id=" + id + ", verifyCode=" + verifyCode + ", ip=" + ip + ", lapsedTime=" + lapsedTime
+				+ "]";
+	}
+
 }

@@ -21,6 +21,14 @@ public class BasicModel {
 	String bak1;
 	String bak2;
 
+	@Override
+	public String toString() {
+		return "BasicModel [id=" + id + ", token=" + token + ", appId=" + appId + ", appSecret=" + appSecret
+				+ ", wechatAccount=" + wechatAccount + ", isUsing=" + isUsing + ", isDefault=" + isDefault + ", remark="
+				+ remark + ", url=" + url + ", tokenServer=" + tokenServer + ", usingTokenServer=" + usingTokenServer
+				+ ", bak1=" + bak1 + ", bak2=" + bak2 + "]";
+	}
+
 	public int getId() {
 		return id;
 	}

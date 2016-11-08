@@ -16,6 +16,13 @@ public class Button {
 	String bak1;
 	String bak2;
 
+	@Override
+	public String toString() {
+		return "Button [id=" + id + ", parentId=" + parentId + ", buttonName=" + buttonName + ", index=" + index
+				+ ", uri=" + uri + ", isDefault=" + isDefault + ", frameHeight=" + frameHeight + ", bak1=" + bak1
+				+ ", bak2=" + bak2 + "]";
+	}
+
 	public int getId() {
 		return id;
 	}

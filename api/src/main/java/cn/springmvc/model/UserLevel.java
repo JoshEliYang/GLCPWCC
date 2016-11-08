@@ -52,4 +52,10 @@ public class UserLevel {
 		this.bak2 = bak2;
 	}
 
+	@Override
+	public String toString() {
+		return "UserLevel [id=" + id + ", levelName=" + levelName + ", remark=" + remark + ", bak1=" + bak1 + ", bak2="
+				+ bak2 + "]";
+	}
+
 }

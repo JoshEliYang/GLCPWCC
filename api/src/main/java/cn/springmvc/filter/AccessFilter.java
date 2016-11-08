@@ -18,8 +18,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserAccess;
-import cn.springmvc.service.AdminService;
-import cn.springmvc.service.LoginService;
+import cn.springmvc.service.basic.AdminService;
+import cn.springmvc.service.basic.LoginService;
 
 /**
  * Servlet Filter implementation class AccessFilter

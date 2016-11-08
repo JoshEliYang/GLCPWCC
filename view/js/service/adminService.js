@@ -20,7 +20,9 @@ app.service('AdminServiceGlobal', function () {
      * @param callback
      */
     this.getAdmin = function ($http, callback) {
+        debugger;
         var token = getCookie("token");
+        sessionStorage.setItem("token", token, 1)
         var username = getCookie("username");
         if (token == null || token == "" || username == null || username == "") {
             location.href = "login.html";

@@ -107,4 +107,11 @@ public class Keywords {
 		this.msgTypeName = msgTypeName;
 	}
 
+	@Override
+	public String toString() {
+		return "Keywords [id=" + id + ", basicId=" + basicId + ", value=" + value + ", msgType=" + msgType + ", reply="
+				+ reply + ", remark=" + remark + ", isSubscribe=" + isSubscribe + ", inUsing=" + inUsing + ", bak1="
+				+ bak1 + ", bak2=" + bak2 + ", msgTypeName=" + msgTypeName + "]";
+	}
+
 }

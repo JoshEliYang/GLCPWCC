@@ -13,6 +13,12 @@ public class ButtonGroup {
 	String bak1;
 	String bak2;
 
+	@Override
+	public String toString() {
+		return "ButtonGroup [id=" + id + ", groupName=" + groupName + ", index=" + index + ", isDefault=" + isDefault
+				+ ", bak1=" + bak1 + ", bak2=" + bak2 + "]";
+	}
+
 	public int getId() {
 		return id;
 	}

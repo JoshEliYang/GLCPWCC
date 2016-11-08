@@ -4,17 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.alibaba.fastjson.JSON;
 import com.springmvc.utils.ExcelUtil;
 import com.springmvc.utils.RequestUtil;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.model.Coupon;
 import cn.springmvc.model.TaskResponse;
 import cn.springmvc.model.User;
+import cn.springmvc.model.templateMesg.Coupon;
 import cn.springmvc.mq.model.TemplateParameter;
-import cn.springmvc.service.WechartService;
-import cn.springmvc.service.impl.WechartServiceImpl;
+import cn.springmvc.service.impl.wechat.WechartServiceImpl;
+import cn.springmvc.service.wechat.WechartService;
 import cn.springmvc.websocket.ProgressSocket;
 
 /**
@@ -26,6 +28,8 @@ public class TemplateMessageTask implements Runnable {
 	User admin;
 	TemplateParameter message;
 	String taskTimestamp;
+
+	Logger logger = Logger.getLogger(TemplateMessageTask.class);
 
 	public TemplateMessageTask(String taskTimestamp, User admin, TemplateParameter message) {
 		this.admin = admin;
@@ -85,7 +89,7 @@ public class TemplateMessageTask implements Runnable {
 
 			sendMessage("推送给用户：" + coupons.get(i).getOpenid(), i, coupons.size(), true);
 			String response = RequestUtil.doPost(url, data);
-			System.out.println(response);
+			logger.error("send template message result >>>>>>> " + response);
 			Map<String, Object> result = (Map<String, Object>) JSON.parse(response);
 			if ((Integer) result.get("errcode") == 0) {
 				success++;

@@ -1,13 +1,12 @@
 package com.springmvc.utils;
 
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
-import net.rubyeye.xmemcached.MemcachedClient;
-import net.rubyeye.xmemcached.MemcachedClientBuilder;
-import net.rubyeye.xmemcached.XMemcachedClientBuilder;
-import net.rubyeye.xmemcached.exception.MemcachedException;
-import net.rubyeye.xmemcached.utils.AddrUtil;
+import net.spy.memcached.AddrUtil;
+import net.spy.memcached.ConnectionFactoryBuilder;
+import net.spy.memcached.MemcachedClient;
+import net.spy.memcached.auth.AuthDescriptor;
+import net.spy.memcached.auth.PlainCallbackHandler;
 
 /**
  * 
@@ -16,41 +15,65 @@ import net.rubyeye.xmemcached.utils.AddrUtil;
  */
 public class MemcacheUtil {
 
-	// 内网IP
-	static String url = "10.117.214.106:11211";
-	// 外网IP
-	// static String url = "120.26.58.34:11211";
-	int expire = 3600;
+	MemcachedClient mc = null;
+	int exp = 60 * 60 * 24;
 
-	MemcachedClient memcachedClient = null;
+	static MemcacheUtil instance = new MemcacheUtil();
 
-	public MemcacheUtil() throws IOException {
+	private MemcacheUtil() {
 		super();
 		setup();
 	}
 
 	public static MemcacheUtil getInstance() throws IOException {
-		return new MemcacheUtil();
+		return instance;
 	}
 
 	// init
-	public void setup() throws IOException {
-		MemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil.getAddresses(url));
-		memcachedClient = builder.build();
+	private void setup() {
+		AuthDescriptor ad = new AuthDescriptor(new String[] { "PLAIN" },
+				new PlainCallbackHandler("aa149643ad9b469f", "uWtj4nHU"));
+
+		try {
+			mc = new MemcachedClient(
+					new ConnectionFactoryBuilder().setProtocol(ConnectionFactoryBuilder.Protocol.BINARY)
+							.setAuthDescriptor(ad).build(),
+					AddrUtil.getAddresses("aa149643ad9b469f.m.cnhzaliqshpub001.ocs.aliyuncs.com:11211"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// set data into memcache
-	public <T> void setDat(String key, T obj) throws TimeoutException, InterruptedException, MemcachedException {
-		memcachedClient.set(key, expire, obj);
+	public <T> void setDat(String key, T obj) throws IOException {
+		doing(1, key, obj, exp, null);
+	}
+
+	public <T> void setDat(String key, int exp, T obj) throws IOException {
+		doing(1, key, obj, exp, null);
 	}
 
 	// get data from memcache
-	public <T> T getDat(String key, Class<T> clazz) throws TimeoutException, InterruptedException, MemcachedException {
-		T res = memcachedClient.get(key);
-		return res;
+	public <T> T getDat(String key, Class<T> clazz) throws IOException {
+		return doing(3, key, null, exp, clazz);
+	}
+
+	private synchronized <T> T doing(int type, String key, T obj, int exp, Class<T> clazz) {
+		if (type == 1) {
+			mc.set(key, this.exp, obj);
+			return null;
+		} else if (type == 2) {
+			mc.set(key, exp, obj);
+			return null;
+		} else if (type == 3) {
+			T res = (T) mc.get(key);
+			return res;
+		}
+		return null;
 	}
 
 	public void destory() throws IOException {
-		memcachedClient.shutdown();
+		// if (mc != null)
+		// mc.shutdown();
 	}
 }

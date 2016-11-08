@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.service.BasicService;
+import cn.springmvc.service.basic.BasicService;
 
 /**
  * Servlet Filter implementation class WechatAccountFilter

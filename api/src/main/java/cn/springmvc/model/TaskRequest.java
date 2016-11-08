@@ -58,4 +58,10 @@ public class TaskRequest {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "TaskRequest [method=" + method + ", taskTimeStamp=" + taskTimeStamp + ", admin=" + admin
+				+ ", parameter=" + parameter + "]";
+	}
+
 }

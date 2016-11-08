@@ -167,7 +167,7 @@ app.controller('wechatCtrl', function ($scope, $http, WechatMenuServiceGlobal) {
             $scope.isAddNew = true;
             $scope.inputName = '';
         }
-        $scope.inputValue = 'http://';
+        // $scope.inputValue = 'http://';
     };
 
     $scope.addNewSubButton = function (column, row) {

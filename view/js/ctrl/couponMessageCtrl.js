@@ -8,7 +8,8 @@ var getBasic = function () {
 
 function do_upload() {
     var data = new FormData($('#uploadForm')[0]);
-    data.append("templateId", "1sa5ZLIto73LIpAaT7kmuHpmvseGQwsdnXM_eEkfOUs");
+    //data.append("templateId", "1sa5ZLIto73LIpAaT7kmuHpmvseGQwsdnXM_eEkfOUs");
+    data.append("templateId", (JSON.parse(sessionStorage.getItem("messagePusherDat")).templateId));
     data.append("timestamp", new Date().getTime());
     $.ajax({
         url: MessageExcelUrl + "?wechatAccount=" + getBasic().id + "&token=" + getCookie("token"),

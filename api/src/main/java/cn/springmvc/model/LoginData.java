@@ -52,4 +52,10 @@ public class LoginData {
 		this.longTermFlag = longTermFlag;
 	}
 
+	@Override
+	public String toString() {
+		return "LoginData [username=" + username + ", passwd=" + passwd + ", verification=" + verification + ", ip="
+				+ ip + ", longTermFlag=" + longTermFlag + "]";
+	}
+
 }

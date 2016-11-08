@@ -16,6 +16,7 @@
 <body ng-app="wechatApp" ng-controller="wechatController">
 <div class="outerContainer">
     <div class="AddBtnPanel">
+        <input class="" placeholder="输入查询条件" style="position: absolute;left: 5px" ng-model="inputSearch" ng-change="asearch()">
         <button type="button" class="btn btn-success" ng-click="openAddDialog()">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
             添加

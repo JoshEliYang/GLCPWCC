@@ -70,4 +70,10 @@ public class UserAccess {
 		this.bak2 = bak2;
 	}
 
+	@Override
+	public String toString() {
+		return "UserAccess [id=" + id + ", userId=" + userId + ", token=" + token + ", loginTime=" + loginTime
+				+ ", lapsedTime=" + lapsedTime + ", bak1=" + bak1 + ", bak2=" + bak2 + "]";
+	}
+
 }
