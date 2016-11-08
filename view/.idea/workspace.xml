@@ -2,25 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cef5695a-538a-40a2-8c3d-c1f7838831c6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/ctrl/ticketExpiredMessageCtrl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ticketExpiredMessage.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../api/service.xlsx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/function/TemplateMessageController.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/function/TemplateMessageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/dao/TemplateMessageDao.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/dao/TemplateMessageDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/mq/MqReceiver.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/mq/MqReceiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/mq/task/TemplateMessageTask.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/mq/task/TemplateMessageTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/function/TemplateMessageService.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/function/TemplateMessageService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/function/TemplateMessageServiceImpl.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/function/TemplateMessageServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/resources/conf/mq.properties" afterPath="$PROJECT_DIR$/../api/src/main/resources/conf/mq.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/resources/conf/mybatis-config.xml" afterPath="$PROJECT_DIR$/../api/src/main/resources/conf/mybatis-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/test/java/com/springmvc/utils/ExcelUtilTest.java" afterPath="$PROJECT_DIR$/../api/src/test/java/com/springmvc/utils/ExcelUtilTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/target/classes/conf/mybatis-config.xml" afterPath="$PROJECT_DIR$/../api/target/classes/conf/mybatis-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/ConfigStyle.css" afterPath="$PROJECT_DIR$/css/ConfigStyle.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/userSubscribeInfo.css" afterPath="$PROJECT_DIR$/css/userSubscribeInfo.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/conf.js" afterPath="$PROJECT_DIR$/js/conf.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/Coupon.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/templateMesg/Coupon.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/TemplateMessage.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/templateMesg/TemplateMessage.java" />
     </list>
     <ignored path="view.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="conf.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="conf.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/conf.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="59" column="73" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="73" />
+            <state relative-caret-position="589">
+              <caret line="31" column="70" selection-start-line="31" selection-start-column="70" selection-end-line="31" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -63,7 +45,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="subscribeReplyCtrl.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="subscribeReplyCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/ctrl/subscribeReplyCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="608">
@@ -129,9 +111,9 @@
         <option value="$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js" />
         <option value="$PROJECT_DIR$/css/userSubscribeInfo.css" />
         <option value="$PROJECT_DIR$/js/ctrl/ticketExpiredMessageCtrl.js" />
-        <option value="$PROJECT_DIR$/js/conf.js" />
         <option value="$PROJECT_DIR$/ticketExpiredMessage.html" />
         <option value="$PROJECT_DIR$/css/ConfigStyle.css" />
+        <option value="$PROJECT_DIR$/js/conf.js" />
       </list>
     </option>
   </component>
@@ -362,12 +344,12 @@
       <workItem from="1478413286503" duration="3169000" />
       <workItem from="1478430343612" duration="8355000" />
       <workItem from="1478480232486" duration="16386000" />
-      <workItem from="1478567436271" duration="1346000" />
+      <workItem from="1478567436271" duration="2190000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43896000" />
+    <option name="totallyTimeSpent" value="44740000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-908" width="1456" height="886" extended-state="6" />
@@ -740,14 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="59" column="73" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ticketExpiredMessage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -776,6 +750,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="608">
           <caret line="35" column="41" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="31" column="70" selection-start-line="31" selection-start-column="70" selection-end-line="31" selection-end-column="70" />
           <folding />
         </state>
       </provider>
