@@ -106,7 +106,6 @@ app.service('ButtonServiceGlobal', function () {
     this.changeButton = function ($scope, buttonId) {
         for (var i = 0; i < $scope.buttonsList.length; i++) {
             if (buttonId == $scope.buttonsList[i].id) {
-                debugger;
                 $scope.mainFramePage = $scope.buttonsList[i].uri;
                 $scope.mainFrameHeight = $scope.buttonsList[i].frameHeight;
                 break;

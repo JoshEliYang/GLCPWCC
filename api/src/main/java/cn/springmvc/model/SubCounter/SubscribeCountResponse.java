@@ -1,5 +1,6 @@
 package cn.springmvc.model.SubCounter;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 public class SubscribeCountResponse {
 	Map<Integer, List<SubscribeCount>> result;
 
+	List<String> dates;
 	List<SubscribeSetting> settingList;
 
 	/**
@@ -21,8 +23,8 @@ public class SubscribeCountResponse {
 
 	@Override
 	public String toString() {
-		return "SubscribeCountResponse [result=" + result + ", settingList=" + settingList + ", dateType=" + dateType
-				+ ", basicId=" + basicId + "]";
+		return "SubscribeCountResponse [result=" + result + ", dates=" + dates + ", settingList=" + settingList
+				+ ", dateType=" + dateType + ", basicId=" + basicId + "]";
 	}
 
 	public Map<Integer, List<SubscribeCount>> getResult() {
@@ -31,6 +33,19 @@ public class SubscribeCountResponse {
 
 	public void setResult(Map<Integer, List<SubscribeCount>> result) {
 		this.result = result;
+	}
+
+	public List<String> getDates() {
+		return dates;
+	}
+
+	public void setDates(List<String> dates) {
+		this.dates = dates;
+	}
+	
+	public void setDates(){
+		Date now=new Date();
+		
 	}
 
 	public List<SubscribeSetting> getSettingList() {

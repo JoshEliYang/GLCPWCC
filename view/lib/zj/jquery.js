@@ -3651,7 +3651,7 @@ Data.prototype = {
 		//
 		this.set( owner, key, value );
 
-		// Since the "set" path can have two possible entry points
+		// Since the "set" path can have two possible entry lines
 		// return the expected data based on which path was taken[*]
 		return value !== undefined ? value : key;
 	},

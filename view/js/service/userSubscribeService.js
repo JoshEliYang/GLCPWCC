@@ -6,12 +6,7 @@ var getBasic = function () {
     return JSON.parse(sessionStorage.getItem("basic"));
 };
 
-var param = {
-    startDate: "2016-11-01",
-    endDate: "2016-11-07",
-    tagList: [-255, -1, 147],
-    dateType: 3
-};
+var settingList;
 
 $.ajax({
     type: "GET",
@@ -25,10 +20,7 @@ $.ajax({
             return;
         }
 
-        // alert(JSON.stringify(data.data));
-        // alert(JSON.stringify(data.data.result["-255"]));
-
-        var settingList = data.data.settingList;
+        settingList = data.data.settingList;
 
         var xArray;
         var max = 0;
@@ -46,11 +38,14 @@ $.ajax({
 
         diagramInit("diagram1", function (canvas) {
             signAsix(canvas, xArray, getMax(max));
+
             for (var i = 0; i < settingList.length; i++) {
                 var datArray = data.data.result[settingList[i].tagId];
-                drawData(canvas, datArray, getMax(max), settingList[i].color);
+                drawMutipleLines(canvas, datArray, settingList[i].color, settingList[i].uncolor, settingList[i].tagId, settingList[i].tagName, xArray.length, getMax(max));
             }
         });
+
+        setDiagram(settingList, "diagram1Setting");
     },
     error: function () {
         showError('请求失败<br>请检查您的网络！');
@@ -88,4 +83,17 @@ function getMax(dat) {
         res = res * 10;
     }
     return res;
+}
+
+
+function setDiagram(settingList, elementId) {
+    var tBody = document.getElementById(elementId);
+    tBody.innerHTML = "";
+    for (var i = 0; i < settingList.length; i++) {
+        tBody.innerHTML += "<tr onmousemove='drawBoldByTagId(" + settingList[i].tagId + ")' onmouseleave='resetDiagram()'>"
+            + "<td>" + settingList[i].tagName + "</td>"
+            + "<td width='50' align='center'><div class='boll' style='background: " + settingList[i].color + "'></div></td>"
+            + "<td width='50' align='center'><div class='boll' style='background: " + settingList[i].uncolor + "'></div></td>"
+            + "</tr>";
+    }
 }
