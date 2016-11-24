@@ -31,6 +31,8 @@
 
 .control {
     text-align: center;
+    height: 300px;
+    overflow-y: auto;
 }
 
 .control > h4 {

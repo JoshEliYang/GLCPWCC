@@ -59,7 +59,22 @@ public class TagServiceImpl implements TagService {
 	}
 
 	/**
-	 * quer all tags and do filter
+	 * get all tags
+	 * 
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TagDat> getTags(BasicModel model) throws Exception {
+		String accessToken = service.getAccessToken(model);
+		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + accessToken;
+		String response = RequestUtil.doGet(url);
+		TagList tags = JSON.parseObject(response, TagList.class);
+		return tags.getTags();
+	}
+
+	/**
+	 * query all tags and do filter
 	 * 
 	 * @author johnson
 	 */
@@ -76,7 +91,7 @@ public class TagServiceImpl implements TagService {
 
 		for (int i = tags.size() - 1; i >= 0; i--) {
 			String name = tags.get(i).get("name");
-			String tagId=tags.get(i).get("id");
+			String tagId = tags.get(i).get("id");
 			String regex = ".*" + queryDat + ".*";
 			if (!name.matches(regex)) {
 				tags.remove(i);

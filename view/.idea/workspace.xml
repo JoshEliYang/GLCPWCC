@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cef5695a-538a-40a2-8c3d-c1f7838831c6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/report/SubscribeReportController.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/report/SubscribeReportController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/SubCounter/SubscribeCountResponse.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/SubCounter/SubscribeCountResponse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/manage/TagServiceImpl.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/manage/TagServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/manage/TagService.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/manage/TagService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/ConfigStyle.css" afterPath="$PROJECT_DIR$/css/ConfigStyle.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/userSubscribeInfo.css" afterPath="$PROJECT_DIR$/css/userSubscribeInfo.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js" afterPath="$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/service/adminService.js" afterPath="$PROJECT_DIR$/js/service/adminService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/service/buttonService.js" afterPath="$PROJECT_DIR$/js/service/buttonService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/service/userSubscribeService.js" afterPath="$PROJECT_DIR$/js/service/userSubscribeService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/angular1.5.7/angular-sanitize.min.js" afterPath="$PROJECT_DIR$/lib/angular1.5.7/angular-sanitize.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/zj/angular.js" afterPath="$PROJECT_DIR$/lib/zj/angular.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/zj/jquery.js" afterPath="$PROJECT_DIR$/lib/zj/jquery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userSubscribeInfo.html" afterPath="$PROJECT_DIR$/userSubscribeInfo.html" />
     </list>
     <ignored path="view.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,28 +33,38 @@
       <file leaf-file-name="userSubscribeInfo.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/userSubscribeInfo.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+            <state relative-caret-position="361">
+              <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userSubscribeInfo.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="userSubscribeInfo.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/userSubscribeInfo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="36" column="10" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
+            <state relative-caret-position="1539">
+              <caret line="81" column="7" selection-start-line="81" selection-start-column="7" selection-end-line="81" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userSubscribeCtrl.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="userSubscribeCtrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="361">
+              <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -70,7 +73,7 @@
       <file leaf-file-name="userSubscribeService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/service/userSubscribeService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="837">
+            <state relative-caret-position="1634">
               <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
               <folding>
                 <marker date="1479187505507" expanded="true" signature="2635:2647" ph="..." />
@@ -112,9 +115,9 @@
         <option value="$PROJECT_DIR$/js/service/buttonService.js" />
         <option value="$PROJECT_DIR$/js/service/adminService.js" />
         <option value="$PROJECT_DIR$/js/service/userSubscribeService.js" />
-        <option value="$PROJECT_DIR$/css/userSubscribeInfo.css" />
         <option value="$PROJECT_DIR$/css/ConfigStyle.css" />
         <option value="$PROJECT_DIR$/userSubscribeInfo.html" />
+        <option value="$PROJECT_DIR$/css/userSubscribeInfo.css" />
         <option value="$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js" />
       </list>
     </option>
@@ -156,6 +159,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -254,12 +258,11 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="E:/QQfile/1215918086/FileRecv/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../GreenlandBackendHome" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -353,33 +356,42 @@
       <workItem from="1478739698034" duration="12309000" />
       <workItem from="1478829737627" duration="1915000" />
       <workItem from="1479084286253" duration="14510000" />
-      <workItem from="1479171119756" duration="19781000" />
+      <workItem from="1479171119756" duration="21958000" />
+      <workItem from="1479262453451" duration="1978000" />
+      <workItem from="1479343603874" duration="3556000" />
+      <workItem from="1479370106219" duration="1243000" />
+      <workItem from="1479431025184" duration="3045000" />
+      <workItem from="1479690456684" duration="807000" />
+      <workItem from="1479698543976" duration="1846000" />
+      <workItem from="1479778649102" duration="2480000" />
+      <workItem from="1479875578815" duration="621000" />
+      <workItem from="1479949785948" duration="1238000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120217000" />
+    <option name="totallyTimeSpent" value="139208000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-908" width="1456" height="886" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22708039" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22496474" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -398,13 +410,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/userSubscribeInfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -525,13 +530,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/rightConfig.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -571,13 +569,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="494">
           <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -679,13 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="32" column="79" selection-start-line="32" selection-start-column="79" selection-end-line="32" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/service/buttonService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2052">
@@ -700,24 +684,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/service/adminService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/basicConfig.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/ConfigStyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adminConfig.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="90" column="6" selection-start-line="90" selection-start-column="6" selection-end-line="90" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/autoReply.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="120" column="29" selection-start-line="120" selection-start-column="29" selection-end-line="120" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="590">
+          <caret line="75" column="81" selection-start-line="75" selection-start-column="81" selection-end-line="75" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/userSubscribeInfo.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/service/userSubscribeService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="837">
+        <state relative-caret-position="1634">
           <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
           <folding>
             <marker date="1479187505507" expanded="true" signature="2635:2647" ph="..." />
@@ -726,50 +746,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/ConfigStyle.css">
+    <entry file="file://$PROJECT_DIR$/image/loading.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/userSubscribeInfo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        <state relative-caret-position="1539">
+          <caret line="81" column="7" selection-start-line="81" selection-start-column="7" selection-end-line="81" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/userSubscribeInfo.css">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+        <state relative-caret-position="418">
+          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/adminConfig.html">
+    <entry file="file://$PROJECT_DIR$/js/service/adminService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="90" column="6" selection-start-line="90" selection-start-column="6" selection-end-line="90" selection-end-column="6" />
-          <folding />
+        <state relative-caret-position="457">
+          <caret line="339" column="15" selection-start-line="339" selection-start-column="10" selection-end-line="339" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/autoReply.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="120" column="29" selection-start-line="120" selection-start-column="29" selection-end-line="120" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/userSubscribeInfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="36" column="10" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
+        <state relative-caret-position="361">
+          <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
           <folding />
         </state>
       </provider>

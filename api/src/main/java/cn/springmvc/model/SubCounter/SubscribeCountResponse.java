@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import cn.springmvc.service.impl.manage.TagServiceImpl.TagDat;
+
 /**
  * 
  * @author johnson
@@ -14,6 +16,7 @@ public class SubscribeCountResponse {
 
 	List<String> dates;
 	List<SubscribeSetting> settingList;
+	List<TagDat> tags;
 
 	/**
 	 * 1.means year 2.means month 3.means day 4.means week
@@ -24,7 +27,7 @@ public class SubscribeCountResponse {
 	@Override
 	public String toString() {
 		return "SubscribeCountResponse [result=" + result + ", dates=" + dates + ", settingList=" + settingList
-				+ ", dateType=" + dateType + ", basicId=" + basicId + "]";
+				+ ", tags=" + tags + ", dateType=" + dateType + ", basicId=" + basicId + "]";
 	}
 
 	public Map<Integer, List<SubscribeCount>> getResult() {
@@ -42,10 +45,10 @@ public class SubscribeCountResponse {
 	public void setDates(List<String> dates) {
 		this.dates = dates;
 	}
-	
-	public void setDates(){
-		Date now=new Date();
-		
+
+	public void setDates() {
+		Date now = new Date();
+
 	}
 
 	public List<SubscribeSetting> getSettingList() {
@@ -54,6 +57,14 @@ public class SubscribeCountResponse {
 
 	public void setSettingList(List<SubscribeSetting> settingList) {
 		this.settingList = settingList;
+	}
+
+	public List<TagDat> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<TagDat> tags) {
+		this.tags = tags;
 	}
 
 	public int getDateType() {

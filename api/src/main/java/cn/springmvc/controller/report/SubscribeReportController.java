@@ -21,6 +21,7 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.SubCounter.SubscribeCountResponse;
 import cn.springmvc.model.SubCounter.SubscribeInfoQuery;
 import cn.springmvc.model.SubCounter.SubscribeSetting;
+import cn.springmvc.service.manage.TagService;
 import cn.springmvc.service.wechat.SubscribeCountService;
 
 /**
@@ -35,6 +36,9 @@ public class SubscribeReportController {
 
 	@Autowired
 	private SubscribeCountService subscribeService;
+
+	@Autowired
+	private TagService tagService;
 
 	/**
 	 * query subscribe info
@@ -94,10 +98,20 @@ public class SubscribeReportController {
 		try {
 			result = subscribeService.get(queryDat, basicModel);
 			result.setSettingList(queryList);
-			return HttpUtils.generateResponse("0", "用户关注统计信息查询成功", result);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return HttpUtils.generateResponse("2", "用户关注统计信息查询失败", null);
 		}
+		
+		try {
+			/**
+			 * set all tags
+			 */
+			result.setTags(tagService.getTags(basicModel));
+			return HttpUtils.generateResponse("3", "用户关注统计信息查询失败", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return HttpUtils.generateResponse("0", "用户关注统计信息查询成功", result);
 	}
 }
