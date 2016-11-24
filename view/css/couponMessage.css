@@ -1,6 +1,8 @@
 
 body {
     background: #EEEEEE;
+    border: 1px solid #CCC;
+    border-radius: 5px;
 }
 
 .page-header {
@@ -26,12 +28,12 @@ textarea {
     margin-bottom: 10px;
 }
 
-.contentBlock{
+.contentBlock {
     /*border: 2px solid #BBBBBB;*/
     margin: 10px 0 20px 0;
     padding: 10px;
 
-    -moz-border-radius: 15px;      /* Gecko browsers */
-    -webkit-border-radius: 15px;   /* Webkit browsers */
-    border-radius:15px;            /* W3C syntax */
+    -moz-border-radius: 15px; /* Gecko browsers */
+    -webkit-border-radius: 15px; /* Webkit browsers */
+    border-radius: 15px; /* W3C syntax */
 }

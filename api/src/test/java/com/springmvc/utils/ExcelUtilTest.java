@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import cn.springmvc.model.Coupon;
+import cn.springmvc.model.templateMesg.Coupon;
 
 public class ExcelUtilTest {
 

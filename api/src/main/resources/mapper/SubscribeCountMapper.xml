@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.springmvc.dao.SubscribeCountDao">
+
+	<select id="query" parameterType="SubscribeCount" resultType="SubscribeCount">
+		SELECT * FROM subscribe_count
+		WHERE year=#{year}
+		AND month=#{month}
+		AND
+		day=#{day}
+		AND tagId=#{tagId}
+		AND basicId=#{basicId}
+	</select>
+
+	<insert id="insert" parameterType="SubscribeCount">
+		INSERT INTO
+		subscribe_count(`year`,`month`,`day`,`week`,`tagId`,`subscribe`,`unsubscribe`,`basicId`)
+		VALUES(#{year},#{month},#{day},#{week},#{tagId},#{subscribe},#{unsubscribe},#{basicId})
+	</insert>
+
+	<update id="update" parameterType="SubscribeCount">
+		UPDATE subscribe_count
+		SET
+		subscribe=#{subscribe},unsubscribe=#{unsubscribe}
+		WHERE year=#{year}
+		AND month=#{month}
+		AND day=#{day}
+		AND tagId=#{tagId}
+		AND
+		basicId=#{basicId}
+	</update>
+
+	<select id="queryByDay" parameterType="SubscribeDBQuery"
+		resultType="SubscribeCount">
+		SELECT
+		*, CONCAT(
+		`year`,
+		'-',
+		IF (
+		`month` <![CDATA[<]]>
+		10,
+		CONCAT('0',
+		`month`),
+		`month`
+		),
+		'-',
+		IF (
+		`day` <![CDATA[<]]>
+		10,
+		CONCAT('0', `day`),
+		`day`
+		)
+		) AS
+		`date`
+		FROM
+		subscribe_count
+		WHERE
+		tagId =
+		#{tagId}
+		AND basicId =
+		#{basicId}
+		AND `year` <![CDATA[>=]]>
+		#{startYear}
+		AND `month` <![CDATA[>=]]>
+		#{startMonth}
+		AND `day`
+		<![CDATA[>=]]>
+		#{startDay}
+		AND `year` <![CDATA[<=]]>
+		#{endYear}
+		AND
+		`month` <![CDATA[<=]]>
+		#{endMonth}
+		AND `day` <![CDATA[<=]]>
+		#{endDay}
+		ORDER BY `date`
+	</select>
+
+	<select id="queryAllByDay" parameterType="SubscribeDBQuery"
+		resultType="SubscribeCount">
+		SELECT
+		a.`year`,
+		a.`month`,
+		a.`day`,
+		a.`week`,
+		date,
+		sum(a.subscribe) AS
+		subscribe,
+		sum(a.unsubscribe) AS unsubscribe,
+		a.basicId
+		FROM
+		(
+		SELECT
+		*,
+		CONCAT(
+		`year`,
+		'-',
+
+		IF (
+		`month` <![CDATA[<]]>
+		10,
+		CONCAT('0', `month`),
+		`month`
+		),
+		'-',
+
+		IF (
+		`day` <![CDATA[<]]>
+		10,
+		CONCAT('0', `day`),
+		`day`
+		)
+		) AS `date`
+		FROM
+		subscribe_count
+		WHERE
+		basicId = #{basicId}
+		AND `year` <![CDATA[>=]]>
+		#{startYear}
+		AND `month` <![CDATA[>=]]>
+		#{startMonth}
+		AND `day` <![CDATA[>=]]>
+		#{startDay}
+		AND `year`
+		<![CDATA[<=]]>
+		#{endYear}
+		AND `month` <![CDATA[<=]]>
+		#{endMonth}
+		AND `day` <![CDATA[<=]]>
+		#{endDay}
+		) a
+		GROUP BY
+		a.date
+		ORDER BY
+		date
+	</select>
+
+	<select id="getQueryList" parameterType="Integer" resultType="SubscribeSetting">
+		SELECT
+		*
+		FROM
+		subscribeSetting
+		WHERE
+		basicId = #{0}
+	</select>
+
+</mapper>

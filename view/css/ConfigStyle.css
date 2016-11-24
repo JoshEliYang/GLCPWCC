@@ -4,11 +4,19 @@ table {
 
 th {
     text-align: center;
+
+    border: 1px solid #cad9ea;
 }
 
 td {
     word-break: break-all;
     word-wrap: break-word;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    border: 1px solid #cad9ea;
 }
 
 .outerContainer {
@@ -29,34 +37,41 @@ td {
     background-color: #336666;
 }
 
-/*.table-striped > tbody > tr:nth-of-type(odd) {
-background: -webkit-linear-gradient(#CCFFCC, #CCFF99); !* Safari 5.1 - 6.0 *!
-background: -o-linear-gradient(#CCFFCC, #CCFF99); !* Opera 11.1 - 12.0 *!
-background: -moz-linear-gradient(#CCFFCC, #CCFF99); !* Firefox 3.6 - 15 *!
-background: linear-gradient(#CCFFCC, #CCFF99); !* 标准的语法 *!
-}*/
+.table-striped > tbody > tr {
+    height: 20px;
+}
 
-/*.table-striped > tbody > tr:hover {*/
-/*background: -webkit-linear-gradient(#CCFFFF, #99FFCC); !* Safari 5.1 - 6.0 *!*/
-/*background: -o-linear-gradient(#CCFFFF, #99FFCC); !* Opera 11.1 - 12.0 *!*/
-/*background: -moz-linear-gradient(#CCFFFF, #99FFCC); !* Firefox 3.6 - 15 *!*/
-/*background: linear-gradient(#CCFFFF, #99FFCC); !* 标准的语法 *!*/
-/*}*/
+.table-striped > tbody > tr:nth-of-type(odd) {
+    /*background: -webkit-linear-gradient(#FFF, #EEE); !* Safari 5.1 - 6.0 *!*/
+    /*background: -o-linear-gradient(#FFF, #EEE); !* Opera 11.1 - 12.0 *!*/
+    /*background: -moz-linear-gradient(#FFF, #EEE); !* Firefox 3.6 - 15 *!*/
+    /*background: linear-gradient(#FFF, #EEE); !* 标准的语法 *!*/
+}
+
+.table-striped > tbody > tr:hover {
+    background: -webkit-linear-gradient(#FFF, #EEE); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FFF, #EEE); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FFF, #EEE); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FFF, #EEE); /* 标准的语法 */
+}
 
 .table {
     width: 99%;
     -moz-box-shadow: 2px 3px 15px #909090; /*firefox*/
     -webkit-box-shadow: 2px 3px 15px #909090; /*safari或chrome*/
     box-shadow: 2px 3px 15px #909090; /*opera或ie9*/
+
+    border: 1px solid #cad9ea;
+    color: #555;
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: #DDFFDD;
-}
+/*.table-striped > tbody > tr:nth-of-type(odd) {*/
+/*background-color: #DDFFDD;*/
+/*}*/
 
-.table-striped > tbody > tr:hover {
-    background-color: #99CCCC;
-}
+/*.table-striped > tbody > tr:hover {*/
+/*background-color: #99CCCC;*/
+/*}*/
 
 .modal-header {
     background-color: #339999;

@@ -2,7 +2,7 @@ package cn.springmvc.dao;
 
 import java.util.List;
 
-import cn.springmvc.model.TemplateMessage;
+import cn.springmvc.model.templateMesg.TemplateMessage;
 
 /**
  * 

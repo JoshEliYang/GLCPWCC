@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +26,8 @@ import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.TaskRequest;
-import cn.springmvc.model.TemplateMessage;
 import cn.springmvc.model.User;
+import cn.springmvc.model.templateMesg.TemplateMessage;
 import cn.springmvc.mq.MqSender;
 import cn.springmvc.mq.model.TemplateParameter;
 import cn.springmvc.service.function.TemplateMessageService;
@@ -53,9 +54,10 @@ public class TemplateMessageController {
 	 * @param response
 	 * @throws IOException
 	 */
-	@RequestMapping(value = ("/upload"), method = RequestMethod.POST)
+	@RequestMapping(value = ("/upload/{methodName}"), method = RequestMethod.POST)
 	public void fileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response, @PathVariable String methodName) throws IOException {
+
 		User admin = (User) request.getAttribute("admin");
 		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
 		String templateId = request.getParameter("templateId");
@@ -70,8 +72,7 @@ public class TemplateMessageController {
 				Matcher matcher = pattern.matcher(file.getOriginalFilename());
 				if (matcher.find()) {
 					// 文件保存路径
-					// filePath = "F:/testFile/" + System.currentTimeMillis() +
-					// matcher.group(0);
+//					filePath = "F:/testFile/" + System.currentTimeMillis() + matcher.group(0);
 					filePath = "/opt/data/source/uploaded/" + System.currentTimeMillis() + matcher.group(0);
 				} else {
 					logger.error("file upload error >>>>> get file type by regex error!");
@@ -97,8 +98,7 @@ public class TemplateMessageController {
 		response.getOutputStream().print("{\"code\":\"0\",\"data\":\"" + filePath + "\"}");
 
 		TemplateParameter templateTask = new TemplateParameter(filePath, basicModel, templateId);
-		TaskRequest task = new TaskRequest("SendTemplateMessage", taskTimestamp, admin,
-				JSON.toJSONString(templateTask));
+		TaskRequest task = new TaskRequest(methodName, taskTimestamp, admin, JSON.toJSONString(templateTask));
 		MqSender.sender(task);
 	}
 

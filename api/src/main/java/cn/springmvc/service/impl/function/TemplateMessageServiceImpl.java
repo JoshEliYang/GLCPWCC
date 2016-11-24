@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cn.springmvc.dao.TemplateMessageDao;
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.model.TemplateMessage;
+import cn.springmvc.model.templateMesg.TemplateMessage;
 import cn.springmvc.service.function.TemplateMessageService;
 
 /**

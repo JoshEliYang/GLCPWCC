@@ -3,6 +3,7 @@ package cn.springmvc.service.manage;
 import java.util.Map;
 
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.WechatUser;
 
 /**
  * 
@@ -18,4 +19,15 @@ public interface UserService {
 
 	// 移动用户分组
 	public boolean moveToGroup(String openId, String groupId, BasicModel basicModel) throws Exception;
+
+	/**
+	 * get user info
+	 * 
+	 * @author johnson
+	 * @param openId
+	 * @param basicModel
+	 * @return
+	 * @throws Exception
+	 */
+	public WechatUser getUserInfo(String openId, BasicModel basicModel) throws Exception;
 }

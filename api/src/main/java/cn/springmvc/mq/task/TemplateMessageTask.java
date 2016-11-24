@@ -11,9 +11,9 @@ import com.springmvc.utils.ExcelUtil;
 import com.springmvc.utils.RequestUtil;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.model.Coupon;
 import cn.springmvc.model.TaskResponse;
 import cn.springmvc.model.User;
+import cn.springmvc.model.templateMesg.Coupon;
 import cn.springmvc.mq.model.TemplateParameter;
 import cn.springmvc.service.impl.wechat.WechartServiceImpl;
 import cn.springmvc.service.wechat.WechartService;

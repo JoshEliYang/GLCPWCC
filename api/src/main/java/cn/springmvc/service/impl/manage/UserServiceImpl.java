@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.springmvc.utils.RequestUtil;
 
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.WechatUser;
 import cn.springmvc.service.manage.UserService;
 import cn.springmvc.service.wechat.WechartService;
 
@@ -54,4 +55,19 @@ public class UserServiceImpl implements UserService {
 		}
 		return true;
 	}
+
+	/**
+	 * get user info
+	 * 
+	 * @author johnson
+	 */
+	public WechatUser getUserInfo(String openId, BasicModel basicModel) throws Exception {
+		String accessToken = wechartService.getAccessToken(basicModel);
+		String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + accessToken + "&openid=" + openId
+				+ "&lang=zh_CN";
+		String response = RequestUtil.doGet(url);
+		WechatUser user = JSON.parseObject(response, WechatUser.class);
+		return user;
+	}
+
 }

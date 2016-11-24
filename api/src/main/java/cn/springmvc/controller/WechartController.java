@@ -24,11 +24,13 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.Keywords;
 import cn.springmvc.model.MsgType;
 import cn.springmvc.model.WechartModel;
+import cn.springmvc.model.WechatUser;
 import cn.springmvc.service.basic.BasicService;
 import cn.springmvc.service.function.KeywordsService;
 import cn.springmvc.service.manage.UserService;
 import cn.springmvc.service.wechat.MessageService;
 import cn.springmvc.service.wechat.MsgTypeService;
+import cn.springmvc.service.wechat.SubscribeCountService;
 
 /**
  * 
@@ -49,6 +51,9 @@ public class WechartController {
 	private MsgTypeService msgTypeService;
 	@Autowired
 	private KeywordsService keywordsService;
+
+	@Autowired
+	private SubscribeCountService subCountService;
 
 	Logger logger = Logger.getLogger(WechartController.class);
 
@@ -145,9 +150,6 @@ public class WechartController {
 
 			if ("text".equalsIgnoreCase(model.getMsgType())) {
 				// 处理文本消息
-				// String mesgResult =
-				// messageService.textProcess(model.getContent(),
-				// model.getMsgId());
 				Keywords mesgResult = messageService.textProcess(model.getContent(), model.getMsgId(), basicModel);
 
 				if (mesgResult != null) {
@@ -170,19 +172,6 @@ public class WechartController {
 						return;
 					}
 
-					// if (mesgResult.startsWith("media_id_")) {
-					// mesgResult = mesgResult.substring(9);
-					// response.getOutputStream()
-					// .write(messageService.sendPictureText(mesgResult,
-					// openId).getBytes("UTF-8"));
-					// return;
-					// }
-					// if (mesgResult.startsWith("text_")) {
-					// mesgResult = mesgResult.substring(5);
-					// response.getOutputStream().write(messageService.sendText(mesgResult,
-					// openId).getBytes("UTF-8"));
-					// return;
-					// }
 				}
 
 				// 转发给客服
@@ -244,27 +233,20 @@ public class WechartController {
 					// 未关注用户事件
 					logger.error("subscribe OK");
 
-					if (model.getEventKey() != "") {
+					if (model.getEventKey() != "" && model.getEventKey() != null && !model.getEventKey().isEmpty()) {
 						// 未关注用户 扫码事件
 						String eventKey = model.getEventKey();
 						if (eventKey.startsWith("qrscene_")) {
 							String scene = eventKey.substring(8);
 							logger.error("sence id <<< " + scene);
 							userService.moveToGroup(openId, scene, basicModel);
+							subCountService.addSubscribe(Integer.parseInt(scene), basicModel);
 						}
 						logger.error("SCAN 2 OK");
+					} else {
+						// 用户直接关注事件
+						subCountService.addSubscribe(-1, basicModel);
 					}
-
-					// String subscribeReply =
-					// KeyWords.getInstance().REPLY_SUBSCRIBE;
-					// if (subscribeReply.startsWith("text_"))
-					// subscribeReply = subscribeReply.substring(5);
-					// if (subscribeReply.startsWith("media_id_"))
-					// subscribeReply = subscribeReply.substring(9);
-
-					// response.getOutputStream()
-					// .write(messageService.sendText(subscribeReply, openId,
-					// basicModel).getBytes("UTF-8"));
 
 					Keywords keyword = keywordsService.getSubscribe(basicModel);
 					if (keyword.getMsgType() == 1) {
@@ -280,6 +262,10 @@ public class WechartController {
 				} else if ("SCAN".equals(model.getEvent())) {
 					// 已关注用户扫码事件
 					logger.error("SCAN OK");
+				} else if ("unsubscribe".equals(model.getEvent())) {
+					// 取消关注事件
+					WechatUser userInfo = userService.getUserInfo(openId, basicModel);
+					subCountService.addUnsubscribe(userInfo.getTagid_list(), basicModel);
 				}
 			}
 

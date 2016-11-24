@@ -26,7 +26,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="AdminLevel" type="cn.springmvc.model.AdminLevel" />
 		<typeAlias alias="Right" type="cn.springmvc.model.Right" />
 
-		<typeAlias alias="TemplateMessage" type="cn.springmvc.model.TemplateMessage" />
+		<typeAlias alias="TemplateMessage"
+			type="cn.springmvc.model.templateMesg.TemplateMessage" />
+
+		<typeAlias alias="SubscribeCount"
+			type="cn.springmvc.model.SubCounter.SubscribeCount" />
+		<typeAlias alias="SubscribeDBQuery"
+			type="cn.springmvc.model.SubCounter.SubscribeDBQuery" />
+		<typeAlias alias="SubscribeSetting"
+			type="cn.springmvc.model.SubCounter.SubscribeSetting" />
+
 	</typeAliases>
 
 	<!-- 映射map -->

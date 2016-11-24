@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Author" content="Johnson,starjohnson@sina.com">
+    <title>Title</title>
+
+    <link href="lib/bootstrap3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="lib/bootstrap3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="lib/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+
+    <link href="css/ConfigStyle.css" rel="stylesheet">
+    <link href="css/couponMessage.css" rel="stylesheet">
+</head>
+<body ng-app="wechatApp" ng-controller="wechatCtrl">
+
+<div class="container-fluid">
+
+    <div class="contentBlock">
+        <div class="page-header">
+            <h3>第1步 下载 服务券到期提醒 模板
+                <small>下载模板并编辑信息</small>
+            </h3>
+        </div>
+        <div class="input-group">
+        <span class="input-group-btn">
+            <a href="{{messagePusherDat.templateUrl}}" target="_blank"><button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                下载Excel模板
+            </button></a>
+          </span>
+            <input type="text" class="form-control" ng-model="messagePusherDat.templateUrl" id="templatesCopyDat">
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-success" id="templatesCopyBtn"
+                    data-clipboard-target="templatesCopyDat">
+                <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                复制地址
+            </button>
+          </span>
+        </div>
+        <div class="alert alert-danger" role="alert">
+            <strong>注意：</strong>同一用户在不同公众号的openid是不同的，填写时请确认。
+        </div>
+    </div>
+
+    <div class="contentBlock">
+        <div class="page-header">
+            <h3>第2部 上传并执行
+                <small>上传Excel文件并推送消息</small>
+            </h3>
+        </div>
+        <form id="uploadForm">
+            <div class="input-group">
+                <input type="file" class="form-control" id="file" name="file">
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-success" onclick="do_upload()">
+                    <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                    上传并执行
+                </button>
+              </span>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script src="lib/jquery2.2.4/jquery.min.js"></script>
+<script src="lib/bootstrap3.3.6/js/bootstrap.min.js"></script>
+
+<script src="lib/angular1.5.7/angular.min.js"></script>
+<script src="lib/angular1.5.7/angular-sanitize.min.js"></script>
+
+<script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
+
+<script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="lib/ZeroClipboard/ZeroClipboard.min.js"></script>
+
+<script src="js/util.js" type="text/javascript"></script>
+<script src="js/conf.js" type="text/javascript"></script>
+<script src="js/ctrl/ticketExpiredMessageCtrl.js" type="text/javascript"></script>
+</body>
+</html>
