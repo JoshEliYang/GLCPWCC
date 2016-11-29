@@ -36,6 +36,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="SubscribeSetting"
 			type="cn.springmvc.model.SubCounter.SubscribeSetting" />
 
+
+		<typeAlias alias="TagList" type="cn.springmvc.model.TagList" />
+
 	</typeAliases>
 
 	<!-- 映射map -->

@@ -409,6 +409,7 @@ function writeValues(canvas, points, values, color) {
 /**
  * draw bold lines and points
  *
+ *
  * @param tagId
  */
 function drawBoldByTagId(tagId) {
@@ -416,11 +417,11 @@ function drawBoldByTagId(tagId) {
     for (var i = 0; i < mutipleLines.length; i++) {
         if (mutipleLines[i].tagId == tagId) {
             drawBoldLines(canvas, mutipleLines[i].sub_lines, mutipleLines[i].color);
-            drawBoldLines(canvas, mutipleLines[i].unsub_lines, mutipleLines[i].uncolor);
+            /*drawBoldLines(canvas, mutipleLines[i].unsub_lines, mutipleLines[i].uncolor);*/
             drawBoldPoints(canvas, mutipleLines[i].sub_points, mutipleLines[i].color);
-            drawBoldPoints(canvas, mutipleLines[i].unsub_points, mutipleLines[i].uncolor);
+            /*drawBoldPoints(canvas, mutipleLines[i].unsub_points, mutipleLines[i].uncolor);*/
             writeValues(canvas, mutipleLines[i].sub_points, mutipleLines[i].sub_values, mutipleLines[i].color);
-            writeValues(canvas, mutipleLines[i].unsub_points, mutipleLines[i].unsub_values, mutipleLines[i].uncolor);
+            /*writeValues(canvas, mutipleLines[i].unsub_points, mutipleLines[i].unsub_values, mutipleLines[i].uncolor);*/
             break;
         }
     }

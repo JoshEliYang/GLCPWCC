@@ -3,6 +3,7 @@ package cn.springmvc.dao;
 import java.util.List;
 
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.TagList;
 
 public interface BasicDao {
 	/**
@@ -81,4 +82,8 @@ public interface BasicDao {
 	 * @throws Exception
 	 */
 	public void setTokenServer(int id, boolean usingTokenServer) throws Exception;
+
+	public int addTag(TagList tl);
+	
+	public int deleteTag(TagList tl);
 }

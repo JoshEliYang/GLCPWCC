@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.TagList;
 import cn.springmvc.service.impl.manage.TagServiceImpl.TagDat;
 
 public interface TagService {
@@ -39,4 +40,8 @@ public interface TagService {
 	public Map<String, String> getUserByTag(String jsonStr, BasicModel model) throws Exception;
 
 	public Map<String, String> createTagAndQrcode(String jsonStr, BasicModel model) throws Exception;
+
+	public String addTag(TagList tl);
+	
+	public String deleteTag(TagList tl);
 }

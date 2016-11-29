@@ -1,6 +1,10 @@
 package cn.springmvc.service.impl.manage;
 
 import java.util.HashMap;
+
+import cn.springmvc.dao.BasicDao;
+import cn.springmvc.model.TagList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +22,9 @@ import cn.springmvc.service.wechat.WechartService;
 @Service
 public class TagServiceImpl implements TagService {
 	@Autowired
+	
+	private BasicDao basicDao;
+	
 	public WechartService service;
 	Logger logger = Logger.getLogger(TagServiceImpl.class);
 
@@ -161,4 +168,18 @@ public class TagServiceImpl implements TagService {
 		}
 
 	}
+
+
+	public String addTag(cn.springmvc.model.TagList tl) {
+		// TODO Auto-generated method stub
+		
+		return String.valueOf(basicDao.addTag(tl));
+	}
+	
+	public String deleteTag(cn.springmvc.model.TagList tl) {
+		// TODO Auto-generated method stub
+		
+		return String.valueOf(basicDao.deleteTag(tl));
+	}
+	
 }

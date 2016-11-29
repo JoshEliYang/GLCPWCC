@@ -10,6 +10,7 @@ app.service('TagService', function () {
             url: tagGetUrl + '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,
             'Content-Type': 'application/json'
         }).success(function (data) {
+            debugger;
             if (data.code != 0) {
                 $.alert({
                     theme: "material",

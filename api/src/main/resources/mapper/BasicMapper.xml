@@ -98,4 +98,20 @@
 		WHERE
 		id = #{0}
 	</update>
+	
+	<insert id="addTag" parameterType="TagList">
+			INSERT INTO subscribeSetting  VALUES 
+			(null, 
+			#{tagId},
+			 #{tagname}, 
+			 #{color}, 
+			 #{uncolor}, 
+			 #{basicId});
+	</insert>
+	
+	<delete id="deleteTag" parameterType="TagList">
+		DELETE FROM subscribeSetting
+		WHERE tagId=#{tagId}
+	</delete>
+	
 </mapper>
