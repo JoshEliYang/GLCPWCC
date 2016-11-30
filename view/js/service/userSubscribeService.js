@@ -19,7 +19,6 @@ $.ajax({
     contentType: "application/json; charset=utf-8",
     dataType: "json",
     success: function (data) {
-        debugger;
 
         totilItens = data.data.tags;
     }
@@ -37,7 +36,6 @@ $.ajax({
             showError(data.msg);
             return;
         }
-debugger;
 
         settingList = data.data.settingList;
 
@@ -82,14 +80,11 @@ var showError = function (msg) {
 };
 
 $("#show").click(function(){
-
-
     var tds = "";
     for(var i in totilItens){
         totilItens[i].checked  = false;
     }
 
-    debugger;
     for(var i = 0;i<settingList.length;i++){
         for(var j = 0 ;j<totilItens.length;j++){
             if(settingList[i].tagId == totilItens[j].id){
@@ -100,7 +95,6 @@ $("#show").click(function(){
 
     //totilItens = data.data.tags;
     for(var i in totilItens){
-        debugger;
         if(totilItens[i].checked == true){
             tds += '<tr >'+'<td >'+
                     /*'<input type="checkbox" totilItens[i].checked >' +'</td>'+'<td>'+*/
@@ -124,19 +118,15 @@ $("#show").click(function(){
 
 
 var detail = function(id){
-    debugger;
 
     for(var i in totilItens){
         if(totilItens[i].id ==id){
-            debugger;
             if(totilItens[i].checked ==true){
                 totilItens[i].checked = false;
-                debugger;
 
                 deleteItems(totilItens[i].id)
             }else if(totilItens[i].checked ==false){
                 totilItens[i].checked ==true
-                debugger;
                 addItems(totilItens[i].id,totilItens[i].name)
             }
         }
@@ -174,7 +164,6 @@ var temp ={
         dataType: "json",
         data:JSON.stringify(temp),
         success: function (data) {
-            debugger;
         }
     })
 
@@ -192,7 +181,6 @@ function deleteItems(tagId){
         dataType: "json",
         data:JSON.stringify(temp),
         success: function (data) {
-            debugger;
         }
     })
 
@@ -243,7 +231,6 @@ $("#closeModal").click(function(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            debugger;
 
             totilItens = data.data.tags;
         }
@@ -261,7 +248,6 @@ $("#closeModal").click(function(){
                 showError(data.msg);
                 return;
             }
-            debugger;
             settingList = data.data.settingList;
 
             var xArray;
