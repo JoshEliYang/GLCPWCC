@@ -8,7 +8,7 @@ var app = angular.module('wechatApp', []);
 app.controller('wechatController', function ($scope, $http, TagService, PaginationServiceGlobal) {
     $scope.pageNow = 0;
 
-    debugger;
+    // debugger;
     getAll($scope, $http);
 
     $scope.pagination = function (data) {
@@ -21,7 +21,7 @@ app.controller('wechatController', function ($scope, $http, TagService, Paginati
             "pageGroup": $scope.pageGroup
         }, $scope.pageNow, function (pageNow, pageGroup, showList) {
             $scope.pageNow = pageNow;
-            debugger;
+            // debugger;
             $scope.pageGroup = pageGroup;
             $scope.tagList = showList;
         });
