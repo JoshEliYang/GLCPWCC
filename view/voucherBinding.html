@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>优惠券绑定</title>
+
+    <link href="lib/bootstrap3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="lib/bootstrap3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="lib/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+
+    <link href="css/ConfigStyle.css" rel="stylesheet">
+    <!--<link href="css/wechatMenu.css" rel="stylesheet">-->
+</head>
+
+<body ng-app="voucher"  ng-controller="voucherCtrl">
+        <div class="outerContainer" id="head">
+            <div class="AddBtnPanel" id="btnPanel">
+                <button type="button" class="btn btn-success" ng-click="openFilter()">
+                    筛选
+                </button>
+                <div style="float: right">
+                    <button type="button" class="btn btn-success" ng-click="openFilter()">
+                        生成优惠券
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="openFilter()">
+                        绑定选中
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="openFilter()">
+                        绑定全部
+                    </button>
+                </div>
+
+                <div style="max-height: 500px ;overflow: scroll;margin-top:10px;">
+                    <table style="table-layout: fixed" width="100%"
+                           class="table table-bordered table-hover table-condensed table-striped bg-white-only">
+                        <thead>
+                        <tr style="width: 900px">
+                            <th style="width: 50px;overflow: hidden;"> </th>
+                            <th style="width: 50px;overflow: hidden;">序号</th>
+                            <th style="width: 100px;overflow: hidden;">昵称</th>
+                            <th style="width: 100px;overflow: hidden;">真名</th>
+                            <th style="width: 50px;overflow: hidden;">性别</th>
+                            <th style="width: 50px;overflow: hidden;">年龄</th>
+                            <th style="width: 100px;overflow: hidden;">总金额</th>
+                            <th style="width: 100px;overflow: hidden;">订单数</th>
+                            <th style="width: 100px;overflow: hidden;">最近下单时间</th>
+                            <th style="width: 100px;overflow: hidden;">电话</th>
+                            <th style="width: 100px;overflow: hidden;">身份证</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr >
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;">
+                                <input type="checkbox"/>
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                item.dateTime}}
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                item.basicRemark}}
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                item.adminName}}
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                item.status }}
+                            </td>
+                            <td ng-click="" class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis"> item.target }}
+                            </td>
+                            <td ng-click="" class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">item.className }}
+                            </td>
+                            <td ng-click="" class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">item.methodName }}
+                            </td>
+                            <td ng-click="" class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis"> item.retrunDat }}
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                item.action }}
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                item.dateTime}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <tm-pagination conf="paginationConf"></tm-pagination>
+            </div>
+        </div>
+
+        <script type="text/ng-template" id="myModelContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">筛选</h3>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat="item in items">
+                        <a ng-click="selected.item = item">{{item}}</a>
+                    </li>
+                    当前选择： <b>{{selected.item}}</b>
+                </ul>
+                <div class="filterType">
+                    <div class="form-group">
+                        <label for="sex" class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="sex" ng-model="filterSex">
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tel" class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+                            <input type="text"  class="form-control" id="tel" ng-model="filterTel">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="idNum" class="col-sm-2 control-label">身份证</label>
+                        <div class="col-sm-10">
+                            <input type="text"  class="form-control" id="idNum" ng-model="filterIdNum">
+                        </div>
+                    </div>
+                </div>
+                <div class="rank">
+                    <ul class="rankValue">
+
+                    </ul>
+                    <ul class="rankType">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">
+                    筛选
+                </button>
+                <button class="btn btn-warning" ng-click="cancel()">取消</button>
+            </div>
+        </script>
+
+
+<script src="lib/jquery2.2.4/jquery.min.js"></script>
+<script src="lib/bootstrap3.3.6/js/bootstrap.min.js"></script>
+
+<script src="lib/angular1.5.7/angular.min.js"></script>
+<script src="lib/angular1.5.7/angular-sanitize.min.js"></script>
+
+<script src="http://cdn.bootcss.com/angular-ui-bootstrap/0.11.2/ui-bootstrap-tpls.js"></script>
+
+
+<script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
+
+<script src="js/ctrl/voucherBindingCtrl.js" type="text/javascript"></script>
+
+<script src="js/service/voucherBindingService.js" type="text/javascript"></script>
+</body>
+
+<!--<body ng-app="voucher" ng-controller="voucherCtrl">
+        <toaster-container
+                toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+        <div>
+            <button class=" btn m-b-xs w-xs shopBtn" ng-click="selectcheck(item)">筛选</button>
+        </div>
+
+
+
+        <div class="outerContainer" id="head">
+            <div class="AddBtnPanel" id="btnPanel">
+                <button type="button" class="btn btn-success" ng-click="openFilter()" style="">
+                    筛选
+                </button>
+                <div style="float: right">
+                    <button type="button" class="btn btn-success" ng-click="openAddDialog()">
+                        生成优惠券
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="openEditDialog()">
+                        绑定选中
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="doDelete()">
+                        绑定全部
+                    </button>
+                </div>
+
+        <div style="max-height: 500px ;overflow: scroll;margin-top:10px;">
+            <table style="table-layout: fixed" width="100%"
+                   class="table table-bordered table-hover table-condensed table-striped bg-white-only">
+                <thead>
+                <tr style="width: 900px">
+                    <th style="width: 50px;overflow: hidden;"> </th>
+                    <th style="width: 50px;overflow: hidden;">序号</th>
+                    <th style="width: 100px;overflow: hidden;">昵称</th>
+                    <th style="width: 100px;overflow: hidden;">真名</th>
+                    <th style="width: 50px;overflow: hidden;">性别</th>
+                    <th style="width: 50px;overflow: hidden;">年龄</th>
+                    <th style="width: 100px;overflow: hidden;">总金额</th>
+                    <th style="width: 100px;overflow: hidden;">订单数</th>
+                    <th style="width: 100px;overflow: hidden;">最近下单时间</th>
+                    <th style="width: 100px;overflow: hidden;">电话</th>
+                    <th style="width: 100px;overflow: hidden;">身份证</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr >
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;">
+                        <input type="checkbox"/>
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        item.dateTime}}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        item.basicRemark}}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        item.adminName}}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        item.status }}
+                    </td>
+                    <td ng-click="" class="v-middle"
+                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis"> item.target }}
+                    </td>
+                    <td ng-click="" class="v-middle"
+                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">item.className }}
+                    </td>
+                    <td ng-click="" class="v-middle"
+                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">item.methodName }}
+                    </td>
+                    <td ng-click="" class="v-middle"
+                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis"> item.retrunDat }}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        item.action }}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        item.dateTime}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <tm-pagination conf="paginationConf"></tm-pagination>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+<script src="lib/jquery2.2.4/jquery.min.js"></script>
+<script src="lib/bootstrap3.3.6/js/bootstrap.min.js"></script>
+
+<script src="lib/angular1.5.7/angular.min.js"></script>
+<script src="lib/angular1.5.7/angular-sanitize.min.js"></script>
+
+<script src="lib/zj/ui-bootstrap.js"></script>
+
+
+<script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
+
+<script src="js/ctrl/voucherBindingCtrl.js" type="text/javascript"></script>
+
+<script src="js/service/voucherBindingService.js" type="text/javascript"></script>
+</body>-->
+</html>
