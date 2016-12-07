@@ -19,31 +19,30 @@ import com.springmvc.utils.HttpUtils;
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.UserParamModel;
 import cn.springmvc.model.VoucherModel;
-import cn.springmvc.service.GameShareService;
 import cn.springmvc.service.VoucherBuildingService;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/voucherBinding")
 public class VoucherController {
-	
+
 	@Autowired
 	public VoucherBuildingService voucherBuildingService;
 	Logger logger = Logger.getLogger(VoucherController.class);
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public Map<String, Object>create(@RequestBody VoucherModel vmodel, HttpServletRequest request){
-		BasicModel model = (BasicModel)request.getAttribute("BasicModel");
-		//Map<String, String> result = null;
-		
+	public Map<String, Object> create(@RequestBody VoucherModel vmodel, HttpServletRequest request) {
+		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
+		// Map<String, String> result = null;
+
 		List<UserParamModel> result;
-		
-		try{
+
+		try {
 			result = voucherBuildingService.getUser(vmodel, model);
-			logger.error("tags--"+result);
+			logger.error("tags--" + result);
 			return HttpUtils.generateResponse("0", "success", result);
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("error");
 			return HttpUtils.generateResponse("1", "failed", null);
