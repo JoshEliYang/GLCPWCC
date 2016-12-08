@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.springmvc.dao.BasicDao">
+	<select id="getAll" resultType="BasicModel">
+		SELECT * FROM basic;
+	</select>
+
+	<select id="getInusing" resultType="BasicModel">
+		SELECT * FROM basic WHERE
+		isUsing=True;
+	</select>
+
+	<select id="getById" parameterType="Integer" resultType="BasicModel">
+		SELECT *
+		FROM basic WHERE
+		id=#{1};
+	</select>
+
+	<select id="getByUrl" parameterType="String" resultType="BasicModel">
+		SELECT *
+		FROM basic
+		WHERE url=#{1}
+	</select>
+
+	<insert id="insert" parameterType="BasicModel">
+		INSERT INTO basic(
+		`token`,
+		`appId`,
+		`appSecret`,
+		`wechatAccount`,
+		`isUsing`,
+		`isDefault`,
+		`remark`,
+		`url`,
+		`tokenServer`,
+		`usingTokenServer`,
+		`bak1`,
+		`bak2`
+		)
+		VALUES(
+		#{token},
+		#{appId},
+		#{appSecret},
+		#{wechatAccount},
+		#{isUsing},
+		#{isDefault},
+		#{remark},
+		#{url},
+		#{tokenServer},
+		#{usingTokenServer},
+		#{bak1},
+		#{bak2}
+		)
+	</insert>
+
+	<update id="setUsing">
+		UPDATE basic
+		SET isUsing = #{1}
+		WHERE
+		id = #{0}
+	</update>
+
+	<update id="setDefault" parameterType="Integer">
+		CALL setBasicDefault(#{1})
+	</update>
+
+
+	<update id="edit" parameterType="BasicModel">
+		UPDATE basic
+		SET
+		`token`=#{token},
+		`appId`=#{appId},
+		`appSecret`=#{appSecret},
+		`wechatAccount`=#{wechatAccount},
+		`isUsing`=#{isUsing},
+		`isDefault`=#{isDefault},
+		`remark`=#{remark},
+		`url`=#{url},
+		`tokenServer`=#{tokenServer},
+		`usingTokenServer`=#{usingTokenServer},
+		`bak1`=#{bak1},
+		`bak2`=#{bak2}
+		WHERE
+		`id`=#{id}
+	</update>
+
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM basic
+		WHERE id=#{1}
+	</delete>
+
+	<update id="setTokenServer">
+		UPDATE basic
+		SET usingTokenServer = #{1}
+		WHERE
+		id = #{0}
+	</update>
+	
+	<insert id="addTag" parameterType="TagList">
+			INSERT INTO subscribeSetting  VALUES 
+			(null, 
+			#{tagId},
+			 #{tagname}, 
+			 #{color}, 
+			 #{uncolor}, 
+			 #{basicId});
+	</insert>
+	
+	<delete id="deleteTag" parameterType="TagList">
+		DELETE FROM subscribeSetting
+		WHERE tagId=#{tagId}
+	</delete>
+	
+</mapper>

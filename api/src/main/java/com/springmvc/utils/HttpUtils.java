@@ -17,4 +17,20 @@ public class HttpUtils {
 		return response;
 	}
 
+	
+	public static Map<String, Object> generateResponseFour(String code,
+			String msg,
+			Object info
+			,String count) {
+		
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("code", code);
+		response.put("msg", msg);
+		response.put("data", info);
+		response.put("count", count);
+		
+		return response;
+	}
+	
+	
 }

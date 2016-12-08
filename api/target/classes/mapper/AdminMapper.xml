@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.springmvc.dao.AdminDao">
+	<select id="getAllUsers" resultType="User">
+		SELECT
+		a.id,
+		a.username,
+		a.realname,
+		a.passwd,
+		a.email,
+		a.userLevel,
+		a.bak1,
+		a.bak2,
+		b.levelName
+		FROM
+		`user` a
+		LEFT JOIN userLevel b ON (a.userLevel = b.id)
+	</select>
+
+	<select id="getAllUserLevels" resultType="UserLevel">
+		SELECT *
+		FROM
+		`userLevel`
+	</select>
+
+	<select id="getLevelId" parameterType="Integer" resultType="Button">
+		SELECT `userLevel`
+		FROM `user`
+		WHERE `id`=#{1}
+	</select>
+
+	<select id="checkUser" parameterType="String" resultType="User">
+		SELECT
+		*
+		FROM `user`
+		WHERE username=#{0} AND passwd=#{1}
+	</select>
+
+	<select id="getUserById" parameterType="Integer" resultType="User">
+		SELECT
+		*
+		FROM `user`
+		WHERE id=#{1}
+	</select>
+
+	<insert id="insert" parameterType="User">
+		INSERT INTO `user`(
+		`username`,
+		`realname`,
+		`passwd`,
+		`email`,
+		`userLevel`
+		)
+		VALUES(
+		#{username},
+		#{realname},
+		#{passwd},
+		#{email},
+		#{userLevel}
+		)
+	</insert>
+
+	<update id="edit" parameterType="User">
+		UPDATE `user`
+		SET
+		`username`=#{username},
+		`realname`=#{realname},
+		`email`=#{email},
+		`userLevel`=#{userLevel}
+		WHERE id=#{id}
+	</update>
+
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM `user`
+		WHERE
+		id=#{1}
+	</delete>
+
+	<update id="resetPassword" parameterType="User">
+		UPDATE `user`
+		SET
+		`passwd`=#{passwd}
+		WHERE id=#{id}
+	</update>
+
+	<insert id="addLevel" parameterType="AdminLevel">
+		INSERT INTO `userLevel`
+		(`levelName`, `remark`) VALUES (#{levelName}, #{remark});
+	</insert>
+
+	<insert id="setRightAdd" parameterType="Right">
+		INSERT INTO `userRight`
+		(`groupId`, `levelId`) VALUES (#{groupId},
+		#{levelId});
+	</insert>
+
+	<delete id="setRightDelete" parameterType="Right">
+		DELETE FROM
+		`userRight` WHERE groupId = #{groupId} and levelId = #{levelId};
+	</delete>
+
+	<select id="getAllLevelRights" resultType="LevelRight">
+		SELECT * FROM
+		userRight
+	</select>
+
+	<insert id="enableLevelRight" parameterType="Integer">
+		INSERT INTO
+		`userRight`
+		(`groupId`, `levelId`) VALUES (#{1}, #{0});
+	</insert>
+
+	<delete id="unableLevelRight" parameterType="Integer">
+		DELETE FROM
+		`userRight`
+		WHERE
+		`groupId`=#{1} AND `levelId`=#{0}
+	</delete>
+
+	<update id="editUserLevel" parameterType="UserLevel">
+		UPDATE userLevel
+		SET
+		`levelName` = #{levelName},
+		`remark` = #{remark},
+		`bak1` = #{bak1},
+		`bak2`=#{bak2}
+		WHERE
+		`id` = #{id}
+	</update>
+
+	<delete id="removeAdminLevel" parameterType="Integer">
+		call
+		removeLevel(#{1})
+	</delete>
+
+</mapper>
