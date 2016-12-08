@@ -38,7 +38,7 @@
 
             lang: 'en', //'chinese'
             views: ['days'], // ['days'], ['days', 'months', 'years']
-            outputFormat: 'yyyy/mm/dd',
+            outputFormat: 'yyyy-mm-dd',
 
             mobileMode: false,
 

@@ -78,54 +78,52 @@
                    class="table table-bordered table-hover table-condensed table-striped bg-white-only">
                 <thead>
                 <tr style="width: 900px">
-                    <th style="width: 50px;overflow: hidden;"></th>
-                    <th style="width: 50px;overflow: hidden;">序号</th>
+                    <th style="width: 40px;overflow: hidden;"></th>
                     <th style="width: 100px;overflow: hidden;">昵称</th>
-                    <th style="width: 100px;overflow: hidden;">真名</th>
-                    <th style="width: 50px;overflow: hidden;">性别</th>
-                    <th style="width: 50px;overflow: hidden;">年龄</th>
-                    <th style="width: 100px;overflow: hidden;">总金额</th>
-                    <th style="width: 100px;overflow: hidden;">订单数</th>
-                    <th style="width: 100px;overflow: hidden;">最近下单时间</th>
+                    <th style="width: 80px;overflow: hidden;">真名</th>
+                    <th style="width: 40px;overflow: hidden;">性别</th>
+                    <th style="width: 40px;overflow: hidden;">年龄</th>
+                    <th style="width: 80px;overflow: hidden;">总金额</th>
+                    <th style="width: 60px;overflow: hidden;">订单数</th>
+                    <th style="width: 150px;overflow: hidden;">最近下单时间</th>
                     <th style="width: 100px;overflow: hidden;">电话</th>
-                    <th style="width: 100px;overflow: hidden;">身份证</th>
+                    <th style="width: 150px;overflow: hidden;">身份证</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="v-middle"
-                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;">
+                <tr ng-repeat="item in items">
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;">
                         <input type="checkbox"/>
                     </td>
+                    <!--<td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        {{$index + 1}}
+                    </td>-->
                     <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                        item.dateTime}}
-                    </td>
-                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                        item.basicRemark}}
-                    </td>
-                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                        item.adminName}}
+                        {{item.nickName}}
                     </td>
                     <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                        item.status }}
-                    </td>
-                    <td ng-click="" class="v-middle"
-                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis"> item.target }}
-                    </td>
-                    <td ng-click="" class="v-middle"
-                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">item.className }}
-                    </td>
-                    <td ng-click="" class="v-middle"
-                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">item.methodName }}
-                    </td>
-                    <td ng-click="" class="v-middle"
-                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis"> item.retrunDat }}
+                        {{item.realName}}
                     </td>
                     <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                        item.action }}
+                        {{(item.gender == 'D00401')?"男":"女"}}
                     </td>
                     <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                        item.dateTime}}
+                        {{item.age}}
+                    </td>
+                    <td  class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        {{item.totalAmount}}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        {{item.orders}}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        {{item.recentOrder}}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        {{item.iphone}}
+                    </td>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                        {{item.idCard}}
                     </td>
                 </tr>
                 </tbody>
@@ -135,6 +133,7 @@
     </div>
 </div>
 
+<!--筛选模态框-->
 <div class="modal fade" id="filterDialog" tabindex="-1" role="dialog" data-backdrop="false"
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -145,90 +144,92 @@
                 <h4 class="modal-title" id="myModalLabel">筛选
                 </h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body row">
                 <div class="filterType col-sm-8">
-                    <div class="form-group">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0">
+                    <div class="form-group overflowh">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseSex">
 
-                        <div class="form-group col-sm-11 padding0">
-                            <label for="sex" class="col-sm-2 control-label padding0">性别</label>
+                        <div class="col-sm-11 padding0">
+                            <label for="sex" class="col-sm-3 control-label padding0 lineheight34">性别</label>
 
-                            <div class="col-sm-10 padding0">
-                                <select class="form-control" id="sex" ng-model="filterSex">
-                                    <option>男</option>
-                                    <option>女</option>
+                            <div class="col-sm-9 padding0">
+                                <!--<select class="form-control" id="sex" ng-model="filterSex" ng-class="{'disabled':(choseSex == true)}">-->
+                                <select class="form-control" id="sex" ng-model="filterSex" ng-disabled="!(choseSex)">
+                                    <option value="D00401">男</option>
+                                    <option value="D00402">女</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0">
+                    <div class="form-group overflowh">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseTel">
 
-                        <div class="form-group col-sm-11 padding0">
-                            <label for="tel" class="col-sm-2 padding0 control-label">电话</label>
+                        <div class="col-sm-11 padding0">
+                            <label for="tel" class="col-sm-3 padding0 control-label lineheight34" >电话</label>
 
-                            <div class="col-sm-10 padding0">
-                                <input type="text" class="form-control" id="tel" ng-model="filterTel">
+                            <div class="col-sm-9 padding0">
+                                <input type="text" class="form-control" id="tel" ng-model="filterTel" ng-disabled="!(choseTel)">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0">
+                    <div class="form-group overflowh">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseId">
 
-                        <div class="form-group col-sm-11 padding0">
-                            <label for="idNum" class="col-sm-2 padding0 control-label">身份证</label>
+                        <div class="col-sm-11 padding0">
+                            <label for="idNum" class="col-sm-3 padding0 control-label lineheight34">身份证</label>
 
-                            <div class="col-sm-10 padding0">
-                                <input type="text" class="form-control" id="idNum" ng-model="filterIdNum">
+                            <div class="col-sm-9 padding0">
+                                <input type="text" class="form-control" id="idNum" ng-model="filterIdCard" ng-disabled="!(choseId)">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0">
+                    <div class="form-group overflowh">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseAge">
 
-                        <div class="form-group col-sm-11 padding0">
-                            <label class="col-sm-2 control-label  padding0">年龄段</label>
+                        <div class="col-sm-11 padding0">
+                            <label class="col-sm-3 control-label  padding0 lineheight34">年龄段</label>
 
-                            <div class="input-group col-sm-10  padding0">
-                                <input type="number" class="form-control" id="ageMin" ng-model="filterAgeMin">
-                                <span class="input-group-btn">
-                                <button type="button" class="btn btn-default">~</button>
-                                </span>
-                                <input type="number" id="ageMax" class="form-control" ng-model="filterAgeMax">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0">
-
-                        <div class="form-group col-sm-11 padding0">
-                            <label class="col-sm-2 control-label  padding0">总金额</label>
-
-                            <div class="input-group col-sm-10  padding0">
-                                <input type="number" class="form-control" id="costMin" ng-model="filterCostMin">
-                                <span class="input-group-btn">
-                                <button type="button" class="btn btn-default">~</button>
-                                </span>
-                                <input type="number" id="costMax" class="form-control" ng-model="filterCostMax">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0">
-
-                        <div class="form-group col-sm-11 padding0">
-                            <label class="col-sm-2 padding0 control-label">最近下单时间</label>
-
-                            <div class="input-group col-sm-10 padding0 timeBlock">
+                            <div class="input-group col-sm-9  padding0 choseBlock">
                                 <div>
-                                    <input placeholder="开始时间" type="text" class="form-control" ng-model="begin_time"
-                                           id="begin_time"/>
+                                    <input type="number" class="form-control minChose" id="ageMin" ng-model="filterAgeMin" ng-disabled="!(choseAge)">
                                 </div>
                                 <span>~</span>
                                 <div>
-                                    <input placeholder="结束时间" type="text" class="form-control" ng-model="end_time"
-                                           id="end_time"/>
+                                    <input type="number" class="form-control maxChose" id="ageMax" ng-model="filterAgeMax" ng-disabled="!(choseAge)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group overflowh">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseAmount">
+
+                        <div class="col-sm-11 padding0">
+                            <label class="col-sm-3 control-label  padding0 lineheight34">总金额</label>
+
+                            <div class="input-group col-sm-9  padding0 choseBlock">
+                                <div>
+                                    <input type="number" class="form-control minChose" id="costMin" ng-model="filterCostMin" ng-disabled="!(choseAmount)">
+                                </div>
+                                <span>~</span>
+                                <div>
+                                    <input type="number" class="form-control maxChose" id="costMax" ng-model="filterCostMax" ng-disabled="!(choseAmount)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group  overflowh">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseTime">
+
+                        <div class="col-sm-11 padding0">
+                            <label class="col-sm-3 padding0 control-label lineheight34">最近下单时间</label>
+
+                            <div class="input-group col-sm-9 padding0 choseBlock">
+                                <div>
+                                    <input placeholder="开始时间" type="text" class="form-control minChose" id="begin_time" ng-model="begin_time" ng-disabled="!(choseTime)"/>
+                                </div>
+                                <span>~</span>
+                                <div>
+                                    <input placeholder="结束时间" type="text" class="form-control maxChose" id="end_time" ng-model="end_time" ng-disabled="!(choseTime)"/>
                                 </div>
                             </div>
                         </div>
@@ -241,25 +242,25 @@
                     <div class="rankValue">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="rankValue" value="">
+                                <input type="radio" name="rankValue" ng-click="choseOrder('age')">
                                 年龄
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="rankValue" value="" checked>
+                                <input type="radio" name="rankValue" ng-click="choseOrder('totalAmount')" checked>
                                 总金额
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="rankValue" value="">
+                                <input type="radio" name="rankValue" ng-click="choseOrder('orders')">
                                 订单数
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="rankValue" value="">
+                                <input type="radio" name="rankValue" ng-click="choseOrder('recentOrder')">
                                 最近下单时间
                             </label>
                         </div>
@@ -267,14 +268,14 @@
                     <div class="rankOrder">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="rankOrder" value="" checked>
-                                升序
+                                <input type="radio" name="rankOrder" ng-click="choseSort('desc')" checked>
+                                降序
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="rankOrder" value="">
-                                降序
+                                <input type="radio" name="rankOrder" ng-click="choseSort('asc')">
+                                升序
                             </label>
                         </div>
                     </div>
@@ -290,219 +291,24 @@
         </div>
     </div>
 </div>
-
-<!--&lt;!&ndash;modal模态框页面&ndash;&gt;-->
-<!--<script type="text/ng-template" id="usersFilter.html">-->
-<!--<div class="modal-header">-->
-<!--<h3 class="modal-title">筛选-->
-<!--<span class="close-btn"><button type="button" class="close" ng-click="cancel()"><span-->
-<!--aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></span>-->
-<!--</h3>-->
-<!--</div>-->
-<!--<div class="modal-body row">-->
-<!--<div class="filterType col-sm-8">-->
-<!--<div class="form-group">-->
-<!--<input type="checkbox" name="filterType" class="col-sm-1 padding0">-->
-
-<!--<div class="form-group col-sm-11 padding0">-->
-<!--<label for="sex" class="col-sm-2 control-label padding0">性别</label>-->
-
-<!--<div class="col-sm-10 padding0">-->
-<!--<select class="form-control" id="sex" ng-model="filterSex">-->
-<!--<option>男</option>-->
-<!--<option>女</option>-->
-<!--</select>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<input type="checkbox" name="filterType" class="col-sm-1 padding0">-->
-
-<!--<div class="form-group col-sm-11 padding0">-->
-<!--<label for="tel" class="col-sm-2 padding0 control-label">电话</label>-->
-
-<!--<div class="col-sm-10 padding0">-->
-<!--<input type="text" class="form-control" id="tel" ng-model="filterTel">-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<input type="checkbox" name="filterType" class="col-sm-1 padding0">-->
-
-<!--<div class="form-group col-sm-11 padding0">-->
-<!--<label for="idNum" class="col-sm-2 padding0 control-label">身份证</label>-->
-
-<!--<div class="col-sm-10 padding0">-->
-<!--<input type="text" class="form-control" id="idNum" ng-model="filterIdNum">-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<input type="checkbox" name="filterType" class="col-sm-1 padding0">-->
-
-<!--<div class="form-group col-sm-11 padding0">-->
-<!--<label class="col-sm-2 control-label  padding0">年龄段</label>-->
-
-<!--<div class="input-group col-sm-10  padding0">-->
-<!--<input type="number" class="form-control" id="ageMin" ng-model="filterAgeMin">-->
-<!--<span class="input-group-btn">-->
-<!--<button type="button" class="btn btn-default">~</button>-->
-<!--</span>-->
-<!--<input type="number" id="ageMax" class="form-control" ng-model="filterAgeMax">-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<input type="checkbox" name="filterType" class="col-sm-1 padding0">-->
-
-<!--<div class="form-group col-sm-11 padding0">-->
-<!--<label class="col-sm-2 control-label  padding0">总金额</label>-->
-
-<!--<div class="input-group col-sm-10  padding0">-->
-<!--<input type="number" class="form-control" id="costMin" ng-model="filterCostMin">-->
-<!--<span class="input-group-btn">-->
-<!--<button type="button" class="btn btn-default">~</button>-->
-<!--</span>-->
-<!--<input type="number" id="costMax" class="form-control" ng-model="filterCostMax">-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--&lt;!&ndash;-->
-<!--<div class="form-group">-->
-<!--<input type="checkbox" name="filterType" class="col-sm-1 padding0">-->
-<!---->
-<!--<div class="form-group col-sm-11 padding0">-->
-<!--<label class="col-sm-2 padding0 control-label">最近下单时间</label>-->
-<!---->
-<!--<div class="input-group col-sm-10 padding0">-->
-<!--<input placeholder="开始时间" type="text" class="form-control"-->
-<!--ng-model="begin_time" id="begin_time"/>-->
-<!--<span class="input-group-btn">-->
-<!--<button type="button" class="btn btn-default" ng-click="activity_begin($event)"><i-->
-<!--class="glyphicon glyphicon-calendar"></i></button>-->
-<!--</span>-->
-<!--<input placeholder="结束时间" type="text" class="form-control"-->
-<!--ng-model="end_time" id="end_time"/>-->
-<!--<span class="input-group-btn">-->
-<!--<button type="button" class="btn btn-default" ng-click="activity_end($event)"><i-->
-<!--class="glyphicon glyphicon-calendar"></i></button>-->
-<!--</span>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--&ndash;&gt;-->
-<!--<div class="form-group">-->
-<!--<input type="checkbox" name="filterType" class="col-sm-1 padding0">-->
-
-<!--<div class="form-group col-sm-11 padding0">-->
-<!--<label class="col-sm-2 padding0 control-label">最近下单时间</label>-->
-
-<!--<div class="input-group col-sm-10 padding0">-->
-<!--<input placeholder="开始时间" type="date" class="form-control"-->
-<!--ng-model="begin_time"/>-->
-<!--<span class="input-group-btn">-->
-<!--<button type="button" class="btn btn-default">~</button>-->
-<!--</span>-->
-<!--<input placeholder="结束时间" type="date" class="form-control"-->
-<!--ng-model="end_time"/>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--</div>-->
-<!--<div class="rank col-sm-3">-->
-<!--<p>排序</p>-->
-
-<!--<div class="rankValue">-->
-<!--<div class="radio">-->
-<!--<label>-->
-<!--<input type="radio" name="rankValue" value="">-->
-<!--年龄-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="radio">-->
-<!--<label>-->
-<!--<input type="radio" name="rankValue" value="" checked>-->
-<!--总金额-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="radio">-->
-<!--<label>-->
-<!--<input type="radio" name="rankValue" value="">-->
-<!--订单数-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="radio">-->
-<!--<label>-->
-<!--<input type="radio" name="rankValue" value="">-->
-<!--最近下单时间-->
-<!--</label>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="rankOrder">-->
-<!--<div class="radio">-->
-<!--<label>-->
-<!--<input type="radio" name="rankOrder" value="" checked>-->
-<!--升序-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="radio">-->
-<!--<label>-->
-<!--<input type="radio" name="rankOrder" value="">-->
-<!--降序-->
-<!--</label>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--</div>-->
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--<button class="btn btn-success" ng-click="ok()">筛选</button>-->
-<!--<button class="btn btn-success" ng-click="cancel()">取消</button>-->
-<!--</div>-->
-<!--</script>-->
-<!--<script type="text/ng-template" id="createVoucher.html">-->
-<!--<div class="modal-header">-->
-<!--<h3 class="modal-title">生成优惠券-->
-<!--<span class="close-btn"><button type="button" class="close" ng-click="cancel()"><span-->
-<!--aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></span>-->
-<!--</h3>-->
-<!--</div>-->
-<!--<div class="modal-body row">-->
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--<button class="btn btn-success" ng-click="ok()">确定</button>-->
-<!--<button class="btn btn-success" ng-click="cancel()">取消</button>-->
-<!--</div>-->
-<!--</script>-->
-<!--<script type="text/ng-template" id="blindAll.html">-->
-<!--<div class="modal-header">-->
-<!--<h3 class="modal-title">绑定优惠券-->
-<!--<span class="close-btn"><button type="button" class="close" ng-click="cancel()"><span-->
-<!--aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></span>-->
-<!--</h3>-->
-<!--</div>-->
-<!--<div class="modal-body row">-->
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--<button class="btn btn-success" ng-click="ok()">确定</button>-->
-<!--<button class="btn btn-success" ng-click="cancel()">取消</button>-->
-<!--</div>-->
-<!--</script>-->
-<!--<script type="text/ng-template" id="blindChosen.html">-->
-<!--<div class="modal-header">-->
-<!--<h3 class="modal-title">绑定优惠券-->
-<!--<span class="close-btn"><button type="button" class="close" ng-click="cancel()"><span-->
-<!--aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></span>-->
-<!--</h3>-->
-<!--</div>-->
-<!--<div class="modal-body row">-->
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--<button class="btn btn-success" ng-click="ok()">确定</button>-->
-<!--<button class="btn btn-success" ng-click="cancel()">取消</button>-->
-<!--</div>-->
-<!--</script>-->
+<!--Loading模态框-->
+<div class="modal fade" id="loadingDialog" tabindex="-1" role="dialog" data-backdrop="false"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    LOADING...
+                </h4>
+            </div>
+            <div class="modal-body loadingCover">
+                <p>正在加载...</p>
+                <img src="image/loading.gif">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="lib/jquery2.2.4/jquery.min.js"></script>
@@ -510,17 +316,22 @@
 
 <script src="lib/angular1.5.7/angular.min.js"></script>
 <script src="lib/angular1.5.7/angular-sanitize.min.js"></script>
+<script src="js/conf.js" type="text/javascript"></script>
 
-<!--<script src="lib/zj/lala.js"></script>-->
 <script src="http://cdn.bootcss.com/angular-ui-bootstrap/0.11.2/ui-bootstrap-tpls.js"></script>
-<!--<script src="http://cdn.bootcss.com/angular-ui-bootstrap/2.3.0/ui-bootstrap-tpls.js"></script>-->
 
 <script src="lib/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="lib/asDatepicker/js/jquery-asDatepicker.js"></script>
-<script src="lib/zj/angular-locale_zh-cn.js"></script>
 
 <script src="js/ctrl/voucherBindingCtrl.js" type="text/javascript"></script>
 <script src="js/service/voucherBindingService.js" type="text/javascript"></script>
+
+<!--
+<script src="js/util.js" type="text/javascript"></script>
+-->
+<script src="lib/zj/tm.pagination.js"></script>
+
+
 </body>
 
 </html>
