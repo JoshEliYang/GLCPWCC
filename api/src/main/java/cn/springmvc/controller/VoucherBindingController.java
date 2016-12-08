@@ -24,11 +24,11 @@ import cn.springmvc.service.VoucherBuildingService;
 @Scope("prototype")
 @Controller
 @RequestMapping("/voucherBinding")
-public class VoucherController {
+public class VoucherBindingController {
 
 	@Autowired
 	public VoucherBuildingService voucherBuildingService;
-	Logger logger = Logger.getLogger(VoucherController.class);
+	Logger logger = Logger.getLogger(VoucherBindingController.class);
 
 	@ResponseBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
@@ -37,11 +37,14 @@ public class VoucherController {
 		// Map<String, String> result = null;
 
 		List<UserParamModel> result;
+		
+		String count;
 
 		try {
 			result = voucherBuildingService.getUser(vmodel, model);
+			count = voucherBuildingService.getUserCount(vmodel, model);
 			logger.error("tags--" + result);
-			return HttpUtils.generateResponse("0", "success", result);
+			return HttpUtils.generateResponseFour("0", "success", result,count);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("error");

@@ -1,44 +1,51 @@
 package cn.springmvc.model;
 
-import java.util.List;
-
 public class VoucherModel {
 
-	List<FilterModel> filter;
-	
-	List<OrderModel> order;
+	int offset;
 
-	public List<FilterModel> getFilter() {
+	int count;
+
+	FilterModel filter;
+
+	OrderModel order;
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public FilterModel getFilter() {
 		return filter;
 	}
 
-	public void setFilter(List<FilterModel> filter) {
+	public void setFilter(FilterModel filter) {
 		this.filter = filter;
 	}
 
-	public List<OrderModel> getOrder() {
+	public OrderModel getOrder() {
 		return order;
 	}
 
-	public void setOrder(List<OrderModel> order) {
+	public void setOrder(OrderModel order) {
 		this.order = order;
 	}
 
 	@Override
 	public String toString() {
-		return "VoucherModel [filter=" + filter + ", order=" + order + "]";
+		return "VoucherModel [offset=" + offset + ", count=" + count
+				+ ", filter=" + filter + ", order=" + order + "]";
 	}
 
-	public VoucherModel() {
-		super();
-	}
-
-	public VoucherModel(List<FilterModel> filter, List<OrderModel> order) {
-		super();
-		this.filter = filter;
-		this.order = order;
-	}
-
-	
-	
 }

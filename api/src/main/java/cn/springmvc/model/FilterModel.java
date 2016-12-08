@@ -2,29 +2,29 @@ package cn.springmvc.model;
 
 public class FilterModel {
 
-	int sex;
+	String sex;
 	
 	String phone;
 	
 	String idCard;
 	
-	int ageST;
+	int ageST=-1;
 	
-	int ageED;
+	int ageED=-1;
 	
 	String amountST;
 	
 	String amountED;
 	
-	int orderST;
+	String orderST;
 	
-	int orderED;
+	String orderED;
 
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
@@ -76,19 +76,19 @@ public class FilterModel {
 		this.amountED = amountED;
 	}
 
-	public int getOrderST() {
+	public String getOrderST() {
 		return orderST;
 	}
 
-	public void setOrderST(int orderST) {
+	public void setOrderST(String orderST) {
 		this.orderST = orderST;
 	}
 
-	public int getOrderED() {
+	public String getOrderED() {
 		return orderED;
 	}
 
-	public void setOrderED(int orderED) {
+	public void setOrderED(String orderED) {
 		this.orderED = orderED;
 	}
 
@@ -104,9 +104,9 @@ public class FilterModel {
 		super();
 	}
 
-	public FilterModel(int sex, String phone, String idCard, int ageST,
-			int ageED, String amountST, String amountED, int orderST,
-			int orderED) {
+	public FilterModel(String sex, String phone, String idCard, int ageST,
+			int ageED, String amountST, String amountED, String orderST,
+			String orderED) {
 		super();
 		this.sex = sex;
 		this.phone = phone;
@@ -118,6 +118,8 @@ public class FilterModel {
 		this.orderST = orderST;
 		this.orderED = orderED;
 	}
+
+	
 	
 	
 	
