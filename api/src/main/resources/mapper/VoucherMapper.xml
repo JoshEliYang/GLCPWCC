@@ -87,11 +87,6 @@
 	</select>
 
 
-
-
-
-
-
 	<select id="getUserCount" resultType="String">
 		SELECT count(*)
 		FROM

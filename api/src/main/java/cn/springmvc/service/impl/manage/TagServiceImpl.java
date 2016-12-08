@@ -100,7 +100,7 @@ public class TagServiceImpl implements TagService {
 			String name = tags.get(i).get("name");
 			String tagId = tags.get(i).get("id");
 			String regex = ".*" + queryDat + ".*";
-			if (!name.matches(regex)) {
+			if (!name.matches(regex) && !tagId.matches(regex)) {
 				tags.remove(i);
 			}
 		}

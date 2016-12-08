@@ -15,7 +15,7 @@
 		SELECT *
 		FROM qrcode
 		WHERE
-		basicId=#{0}
+		basicId=#{0} or sceneid=#{0}
 		and name like #{1}
 	</select>
 
