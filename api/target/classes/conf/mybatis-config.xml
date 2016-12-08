@@ -39,6 +39,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 		<typeAlias alias="TagList" type="cn.springmvc.model.TagList" />
 
+		<typeAlias alias="UserParamModel" type="cn.springmvc.model.UserParamModel" />
+
+		<typeAlias alias="OrderModel" type="cn.springmvc.model.OrderModel" />
+		<typeAlias alias="FilterModel" type="cn.springmvc.model.FilterModel" />
+
 	</typeAliases>
 
 	<!-- 映射map -->

@@ -10,5 +10,7 @@ import cn.springmvc.model.VoucherModel;
 public interface VoucherBuildingService {
 
 	List<UserParamModel> getUser(VoucherModel vmodel, BasicModel model);
+
+	public String getUserCount(VoucherModel vmodel, BasicModel model);
 	
 }
