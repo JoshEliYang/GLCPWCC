@@ -22,10 +22,10 @@ import cn.springmvc.service.wechat.WechartService;
 @Service
 public class TagServiceImpl implements TagService {
 	@Autowired
-	
 	private BasicDao basicDao;
-	
+	@Autowired
 	public WechartService service;
+
 	Logger logger = Logger.getLogger(TagServiceImpl.class);
 
 	public Map<String, String> createTag(String jsonStr, BasicModel model) throws Exception {
@@ -100,7 +100,7 @@ public class TagServiceImpl implements TagService {
 			String name = tags.get(i).get("name");
 			String tagId = tags.get(i).get("id");
 			String regex = ".*" + queryDat + ".*";
-			if (!name.matches(regex)) {
+			if (!name.matches(regex) && !tagId.matches(regex)) {
 				tags.remove(i);
 			}
 		}
@@ -169,17 +169,16 @@ public class TagServiceImpl implements TagService {
 
 	}
 
-
 	public String addTag(cn.springmvc.model.TagList tl) {
 		// TODO Auto-generated method stub
-		
+
 		return String.valueOf(basicDao.addTag(tl));
 	}
-	
+
 	public String deleteTag(cn.springmvc.model.TagList tl) {
 		// TODO Auto-generated method stub
-		
+
 		return String.valueOf(basicDao.deleteTag(tl));
 	}
-	
+
 }
