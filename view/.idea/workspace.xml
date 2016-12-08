@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cef5695a-538a-40a2-8c3d-c1f7838831c6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/report/SubscribeReportController.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/controller/report/SubscribeReportController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/SubCounter/SubscribeCountResponse.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/model/SubCounter/SubscribeCountResponse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/manage/TagServiceImpl.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/impl/manage/TagServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/manage/TagService.java" afterPath="$PROJECT_DIR$/../api/src/main/java/cn/springmvc/service/manage/TagService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/userSubscribeInfo.css" afterPath="$PROJECT_DIR$/css/userSubscribeInfo.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/conf.js" afterPath="$PROJECT_DIR$/js/conf.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/service/userSubscribeService.js" afterPath="$PROJECT_DIR$/js/service/userSubscribeService.js" />
     </list>
     <ignored path="view.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,17 +50,17 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
+            <state relative-caret-position="19">
               <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userSubscribeCtrl.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="userSubscribeCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
+            <state relative-caret-position="133">
               <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
               <folding />
             </state>
@@ -73,12 +70,21 @@
       <file leaf-file-name="userSubscribeService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/service/userSubscribeService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1634">
-              <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1479187505507" expanded="true" signature="2635:2647" ph="..." />
-                <marker date="1479187505507" expanded="true" signature="2760:2772" ph="..." />
+                <marker date="1481179991734" expanded="true" signature="5854:5866" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="conf.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/conf.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="590">
+              <caret line="80" column="38" selection-start-line="80" selection-start-column="38" selection-end-line="80" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,14 +117,14 @@
         <option value="$PROJECT_DIR$/js/ctrl/qrcodeCtrl.js" />
         <option value="$PROJECT_DIR$/js/service/tagService.js" />
         <option value="$PROJECT_DIR$/js/ctrl/tagCtrl.js" />
-        <option value="$PROJECT_DIR$/js/conf.js" />
         <option value="$PROJECT_DIR$/js/service/buttonService.js" />
         <option value="$PROJECT_DIR$/js/service/adminService.js" />
-        <option value="$PROJECT_DIR$/js/service/userSubscribeService.js" />
         <option value="$PROJECT_DIR$/css/ConfigStyle.css" />
         <option value="$PROJECT_DIR$/userSubscribeInfo.html" />
         <option value="$PROJECT_DIR$/css/userSubscribeInfo.css" />
         <option value="$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js" />
+        <option value="$PROJECT_DIR$/js/service/userSubscribeService.js" />
+        <option value="$PROJECT_DIR$/js/conf.js" />
       </list>
     </option>
   </component>
@@ -160,6 +166,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -258,11 +265,10 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../GreenlandBackendHome" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -366,17 +372,18 @@
       <workItem from="1479778649102" duration="2480000" />
       <workItem from="1479875578815" duration="621000" />
       <workItem from="1479949785948" duration="1238000" />
+      <workItem from="1481179712928" duration="970000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139208000" />
+    <option name="totallyTimeSpent" value="140178000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-908" width="1456" height="886" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22496474" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22496474" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -436,8 +443,7 @@
         <state relative-caret-position="741">
           <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
           <folding>
-            <marker date="1479187505507" expanded="true" signature="2635:2647" ph="..." />
-            <marker date="1479187505507" expanded="true" signature="2760:2772" ph="..." />
+            <marker date="1481179991734" expanded="true" signature="5854:5866" ph="..." />
           </folding>
         </state>
       </provider>
@@ -482,8 +488,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1479187505507" expanded="true" signature="2635:2647" ph="..." />
-            <marker date="1479187505507" expanded="true" signature="2760:2772" ph="..." />
+            <marker date="1481179991734" expanded="true" signature="5854:5866" ph="..." />
           </folding>
         </state>
       </provider>
@@ -719,30 +724,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
-          <caret line="75" column="81" selection-start-line="75" selection-start-column="81" selection-end-line="75" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/userSubscribeInfo.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/service/userSubscribeService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1634">
-          <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding>
-            <marker date="1479187505507" expanded="true" signature="2635:2647" ph="..." />
-            <marker date="1479187505507" expanded="true" signature="2760:2772" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -759,14 +745,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/service/adminService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="457">
@@ -774,10 +752,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/ctrl/userSubscribeCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
+        <state relative-caret-position="133">
           <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/service/userSubscribeService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1481179991734" expanded="true" signature="5854:5866" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="590">
+          <caret line="80" column="38" selection-start-line="80" selection-start-column="38" selection-end-line="80" selection-end-column="38" />
           <folding />
         </state>
       </provider>
