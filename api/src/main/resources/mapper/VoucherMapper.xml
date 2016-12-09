@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.springmvc.daoLvdi.VoucherDao">
+
+	<select id="getVoucher" resultType="VoucheModel">
+		SELECT 
+			PROMOTION_NAME AS 'promotionName',
+			CASHVOUCHE_VALUE AS 'voucherValue',
+			SATISFY_LIMIT AS 'satisfyLimit',
+			COUNT(*) AS 'number',
+			EFFECT_START_TIME AS 'startTime',
+			EFFECT_END_TIME AS 'endTime'
+		FROM e_customer_cashvouche
+		WHERE CUSTOMER_ID != ''
+		GROUP BY CASHVOUCHE_VALUE,SATISFY_LIMIT
+	</select>
+</mapper>
