@@ -12,7 +12,8 @@
 			SATISFY_LIMIT AS 'satisfyLimit',
 			COUNT(*) AS 'number',
 			EFFECT_START_TIME AS 'startTime',
-			EFFECT_END_TIME AS 'endTime'
+			EFFECT_END_TIME AS 'endTime',
+			PROMOTION_CASHVOUCHE_ID AS 'promotionId'
 		FROM
 			e_customer_cashvouche
 		WHERE

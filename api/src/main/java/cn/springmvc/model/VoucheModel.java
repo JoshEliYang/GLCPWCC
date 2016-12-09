@@ -7,7 +7,14 @@ public class VoucheModel {
 	String number;
 	String startTime;
 	String endTime;
+	String promotionId;
 	
+	public String getPromotionId() {
+		return promotionId;
+	}
+	public void setPromotionId(String promotionId) {
+		this.promotionId = promotionId;
+	}
 	public String getPromotionName() {
 		return promotionName;
 	}
