@@ -6,15 +6,23 @@
 <mapper namespace="cn.springmvc.daoLvdi.VoucherDao">
 
 	<select id="getVoucher" resultType="VoucheModel">
-		SELECT 
+		SELECT
 			PROMOTION_NAME AS 'promotionName',
 			CASHVOUCHE_VALUE AS 'voucherValue',
 			SATISFY_LIMIT AS 'satisfyLimit',
 			COUNT(*) AS 'number',
 			EFFECT_START_TIME AS 'startTime',
 			EFFECT_END_TIME AS 'endTime'
-		FROM e_customer_cashvouche
-		WHERE CUSTOMER_ID != ''
-		GROUP BY CASHVOUCHE_VALUE,SATISFY_LIMIT
+		FROM
+			e_customer_cashvouche
+		WHERE
+			CUSTOMER_ID = ''
+		AND 
+			CASHVOUCHE_CODE != ''
+		AND 
+			EFFECT_END_TIME > NOW()
+		GROUP BY
+			CASHVOUCHE_VALUE,
+			SATISFY_LIMIT
 	</select>
 </mapper>
