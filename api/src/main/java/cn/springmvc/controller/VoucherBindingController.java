@@ -72,4 +72,26 @@ public class VoucherBindingController {
 
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/binding", method = RequestMethod.POST)
+	public Map<String, Object> bindingAllUser(@RequestBody VoucherModel vmodel, HttpServletRequest request) {
+		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
+		// Map<String, String> result = null;
+
+		// List<UserParamModel> result;
+
+		String count;
+
+		try {
+			count = voucherBuildingService.getBindingCount(vmodel, model);
+			// count = voucherBuildingService.getUserCount(vmodel, model);
+			// logger.error("tags--" + result);
+			return HttpUtils.generateResponseFour("0", "success", null, count);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("error");
+			return HttpUtils.generateResponse("1", "failed", null);
+		}
+	}
+
 }
