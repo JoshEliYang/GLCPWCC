@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cef5695a-538a-40a2-8c3d-c1f7838831c6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/conf.js" afterPath="$PROJECT_DIR$/js/conf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/service/userSubscribeService.js" afterPath="$PROJECT_DIR$/js/service/userSubscribeService.js" />
-    </list>
+    <list default="true" id="cef5695a-538a-40a2-8c3d-c1f7838831c6" name="Default" comment="" />
     <ignored path="view.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -82,8 +78,8 @@
       <file leaf-file-name="conf.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/conf.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="590">
-              <caret line="80" column="38" selection-start-line="80" selection-start-column="38" selection-end-line="80" selection-end-column="38" />
+            <state relative-caret-position="609">
+              <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -372,16 +368,16 @@
       <workItem from="1479778649102" duration="2480000" />
       <workItem from="1479875578815" duration="621000" />
       <workItem from="1479949785948" duration="1238000" />
-      <workItem from="1481179712928" duration="970000" />
+      <workItem from="1481179712928" duration="2166000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140178000" />
+    <option name="totallyTimeSpent" value="141374000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-908" width="1456" height="886" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-908" width="1456" height="886" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22496474" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -780,8 +776,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/conf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
-          <caret line="80" column="38" selection-start-line="80" selection-start-column="38" selection-end-line="80" selection-end-column="38" />
+        <state relative-caret-position="609">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
           <folding />
         </state>
       </provider>
