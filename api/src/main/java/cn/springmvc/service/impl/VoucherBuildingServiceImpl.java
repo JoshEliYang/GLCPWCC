@@ -37,4 +37,13 @@ public class VoucherBuildingServiceImpl implements VoucherBuildingService {
 		return voucherDao.getUserCount(vmodel.getFilter());
 	}
 
+
+	public String getBindingCount(VoucherModel vmodel, BasicModel model) {
+		// TODO Auto-generated method stub
+		List<UserParamModel> list = voucherDao.getBindingCount(vmodel.getFilter());
+		
+		
+		return null;
+	}
+
 }

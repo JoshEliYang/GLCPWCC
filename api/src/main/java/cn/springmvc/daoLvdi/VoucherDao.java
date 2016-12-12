@@ -20,4 +20,7 @@ public interface VoucherDao {
 
 	public String getUserCount(@Param("filter") FilterModel filter);
 
+	public List<UserParamModel> getBindingCount(@Param("filter") FilterModel filter);
+
+
 }
