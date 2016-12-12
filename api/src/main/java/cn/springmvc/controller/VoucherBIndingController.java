@@ -20,18 +20,15 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.UserParamModel;
 import cn.springmvc.model.VoucherModel;
 import cn.springmvc.service.VoucherBuildingService;
-import cn.springmvc.service.VoucherService;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/voucher")
-public class VoucherBindingController {
-	@Autowired
-	private VoucherBuildingService voucherBuildingService;
-	@Autowired
-	private VoucherService voucherSevice;
+@RequestMapping("/voucherBinding")
+public class VoucherBIndingController {
 
-	Logger logger = Logger.getLogger(VoucherBindingController.class);
+	@Autowired
+	public VoucherBuildingService voucherBuildingService;
+	Logger logger = Logger.getLogger(VoucherBIndingController.class);
 
 	@ResponseBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
@@ -41,35 +38,14 @@ public class VoucherBindingController {
 
 		List<UserParamModel> result;
 
-		String count;
-
 		try {
 			result = voucherBuildingService.getUser(vmodel, model);
-			count = voucherBuildingService.getUserCount(vmodel, model);
 			logger.error("tags--" + result);
-			return HttpUtils.generateResponseFour("0", "success", result, count);
+			return HttpUtils.generateResponse("0", "success", result);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("error");
 			return HttpUtils.generateResponse("1", "failed", null);
 		}
 	}
-
-	/**
-	 * 剩余优惠券查询
-	 * 
-	 * @author summ
-	 */
-	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET)
-	public Map<String, Object> getAll() {
-		try {
-			return HttpUtils.generateResponse("0", "get vouche success", voucherSevice.getVouvher());
-		} catch (Exception e) {
-			// TODO: handle exception
-			return HttpUtils.generateResponse("1", "get vouvher failed", "0");
-		}
-
-	}
-
 }
