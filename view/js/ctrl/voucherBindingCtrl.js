@@ -7,238 +7,157 @@
     $("#end_time").asDatepicker();
 
 
-angular.module("voucher", ['ui.bootstrap']).controller('voucherCtrl', function ($scope, $modal, $log) {
-
+angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination']).controller('voucherCtrl', function ($scope,voucherBinding) {
     $scope.begin_time = null;
     $scope.end_time = null;
-
-    $scope.dateactivitydisplay = function () {
-        $scope.today = function () { //创建一个方法
-            $scope.bt = new Date(); //定义一个属性来接收当天日期
-        };
-        $scope.today(); // 定义一个属性来接收当天日期
-        $scope.clear = function () {  //当运行clear的时候将dt置为空
-            $scope.bt = null;
-        };
-        $scope.activity_begin = function ($event) { //创建open方法 。 下面默认行为并将opened 设为true
-            $scope.end_time = null;
-            $event.preventDefault();
-            //$event.stopPropagation();
-            $scope.activibegin_open = true;
-            $scope.maxDate = new Date();
-            //var timestamp = Date.parse($scope.begin_time);
-            //timestamp = timestamp / 1000;
-            //var aa = new Date(new Date().toLocaleDateString()).getTime()
-            //aa = aa/1000 +  60 * 60 * 24;
-            //if( aa < timestamp){
-            //    $scope.begin_time =  new Date(new Date()-5*24*60*60*1000);;
-            //}
-        };
-        $scope.activity_end = function ($event) {
-            if ($scope.begin_time != null && $scope.begin_time != undefined && $scope.begin_time != "") {
-                $scope.minDate = new Date(($scope.begin_time / 1000 + 86400 * 30) * 1000);
-                if ($scope.minDate >= new Date()) {
-                    $scope.minDate = new Date();
-                }
-                $event.preventDefault();
-                //$event.stopPropagation();
-                $scope.activiend_open = true;
-            }
-            else {
-                alert("请填写开始时间！");
-            }
-        };
-        //该属性放在页面中，控制时间
-        //date-disabled = "disabled(date,mode)"
-        $scope.disabled = function (date, mode) {
-            if (date.getDay() === 1)
-                return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6))
-        };
-        $scope.toggleMin = function () {
-            $scope.minDate = $scope.minDate ? null : new Date(); //3元表达式，没啥好说的
-        };
-        $scope.toggleMin();
-        $scope.dateOptions = {
-            formatYear: 'yy',
-            startingDay: 1
-        };
-        $scope.formats = ['yyyy-MM-dd', 'yyy/MM/dd', 'yyyy.MM.dd', 'shortDate']; ///日期显示格式
-        $scope.format = $scope.formats[0];  // 将formats的第0项设为默认显示格式
-    };
-    $scope.dateactivitydisplay();
-
-    Date.prototype.Format = function (fmt) {
-        var o = {
-            "M+": this.getMonth() + 1,
-            "d+": this.getDate(),
-            "h+": this.getHours(),
-            "m+": this.getMinutes(),
-            "s+": this.getSeconds(),
-            "q+": Math.floor((this.getMonth() + 3) / 3),
-            "S": this.getMilliseconds()
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    };
+    $scope.wechatAccount = JSON.parse(sessionStorage.getItem('basic')).id;
+    $scope.token = JSON.parse(sessionStorage.getItem('token'));
+    $scope.orderBy = 'totalAmount';
+    $scope.sort = 'desc';
+    $scope.offset = 0;
+    $scope.count = 100;
 
 
     $scope.openFilter = function () {
         $('#filterDialog').modal('show');
-//        $scope.items = ['html5', 'jq', 'FE-演示平台'];
-//        var modalInstance = $modal.open({
-//            templateUrl: 'usersFilter.html',
-//            controller: 'usersFilterCtrl',
-//            resolve: {
-//                items: function () {
-//                    return $scope.items;
-//                }
-//            }
-//        });
-//        modalInstance.opened.then(function () {
-//            console.log('modal is opened');
-//        });
-//        modalInstance.result.then(function (result) {
-//            console.log(result);
-//        }, function (reason) {
-//            console.log(reason);
-//            $log.info('Modal dismissed at: ' + new Date());
-//        });
 
+    };
+
+/*
+    if($scope.choseSex == false){
+        $scope.filterSex = null;
+    }
+    if($scope.choseTel == false){
+        $scope.filterTel = null;
+    }
+    if($scope.choseId == false){
+        $scope.filterIdCard = null;
+    }
+    if($scope.choseAge == false){
+        $scope.filterAgeMin = null;
+        $scope.filterAgeMan = null;
+    }
+    if($scope.choseAmount == false){
+        $scope.filterCostMin = null;
+        $scope.filterCostMax = null;
+    }
+    if($scope.choseTime == false){
+        $scope.begin_time = null;
+        $scope.end_time = null;
+    }
+*/
+
+
+
+    $scope.choseOrder = function(order){
+        $scope.orderBy = order;
+    };
+
+    $scope.choseSort = function(sort){
+        $scope.sort = sort;
+    };
+
+
+
+    $scope.paginationConf = {
+        currentPage: 1,
+        totalItems:0,
+        itemsPerPage: 100,
+        pagesLength: 15,
+        perPageOptions: [ 50, 100, 150,200],
+        onChange: function(){
+            $scope.skipTemp = ($scope.paginationConf.currentPage -1)*100;
+            $scope.filterConfirm2();
+        }
     };
 
 
     $scope.filterConfirm=function(){
-        var begin_time=$('#begin_time').asDatepicker('getDate', 'yyyy-mm-dd');
-        var end_time=$('#end_time').asDatepicker('getDate', 'yyyy-mm-dd');
-        alert(begin_time+"-"+end_time);
+        $("#loadingDialog").modal('show');
+        var begin_time = $('#begin_time').asDatepicker('getDate', 'yyyy-mm-dd');
+        var end_time = $('#end_time').asDatepicker('getDate', 'yyyy-mm-dd');
+
+        var param = {};
+        param.filter = {};
+        param.order = {};
+        param.count = $scope.paginationConf.itemsPerPage;
+        param.offset = 0;
+        if($scope.choseSex == true){
+            param.filter.sex = $scope.filterSex;
+        }
+        if($scope.choseTel == true){
+            param.filter.phone = $scope.filterTel;
+        }
+        if($scope.choseId == true){
+            param.filter.idCard = $scope.filterIdCard;
+        }
+        if($scope.choseAge == true){
+            param.filter.ageST = $scope.filterAgeMin;
+            param.filter.ageED = $scope.filterAgeMan;
+        }
+        if($scope.choseAmount == true){
+            param.filter.amountST = $scope.filterCostMin;
+            param.filter.amountED = $scope.filterCostMax;
+        }
+        if($scope.choseTime == true){
+            param.filter.orderST = begin_time[0];
+            param.filter.orderED = end_time[0];
+        }
+        param.order.orderBy = $scope.orderBy;
+        param.order.sort = $scope.sort;
+        //console.log(param);
+        voucherBinding.getUserFilter($scope.token,$scope.wechatAccount,param).success(function(data){
+            $scope.items = data.data;
+            $scope.paginationConf.totalItems = data.count;
+            $("#loadingDialog").modal('hide');
+            $('#filterDialog').modal('hide');
+        })
     };
 
-    $scope.openVoucher = function () {
-        $scope.items = ['html5', 'jq', 'FE-演示平台'];
-        var modalInstance = $modal.open({
-            templateUrl: 'createVoucher.html',
-            controller: 'createVoucherCtrl',
-            resolve: {
-                items: function () {
-                    return $scope.items;
-                }
-            }
-        });
-        modalInstance.opened.then(function () {
-            console.log('modal is opened');
-        });
-        modalInstance.result.then(function (result) {
-            console.log(result);
-        }, function (reason) {
-            console.log(reason);
-            $log.info('Modal dismissed at: ' + new Date());
-        });
+    $scope.filterConfirm();
+
+    $scope.filterConfirm2=function(){
+        $("#loadingDialog").modal('show');
+        var begin_time = $('#begin_time').asDatepicker('getDate', 'yyyy-mm-dd');
+        var end_time = $('#end_time').asDatepicker('getDate', 'yyyy-mm-dd');
+
+        var param = {};
+        param.filter = {};
+        param.order = {};
+        param.count = $scope.paginationConf.itemsPerPage;
+        param.offset = $scope.skipTemp;
+        if($scope.choseSex == true){
+            param.filter.sex = $scope.filterSex;
+        }
+        if($scope.choseTel == true){
+            param.filter.phone = $scope.filterTel;
+        }
+        if($scope.choseId == true){
+            param.filter.idCard = $scope.filterIdCard;
+        }
+        if($scope.choseAge == true){
+            param.filter.ageST = $scope.filterAgeMin;
+            param.filter.ageED = $scope.filterAgeMan;
+        }
+        if($scope.choseAmount == true){
+            param.filter.amountST = $scope.filterCostMin;
+            param.filter.amountED = $scope.filterCostMax;
+        }
+        if($scope.choseTime == true){
+            param.filter.orderST = begin_time[0];
+            param.filter.orderED = end_time[0];
+        }
+        param.order.orderBy = $scope.orderBy;
+        param.order.sort = $scope.sort;
+        voucherBinding.getUserFilter($scope.token,$scope.wechatAccount,param).success(function(data){
+            $scope.items = data.data;
+            $("#loadingDialog").modal('hide');
+            $('#filterDialog').modal('hide');
+        })
     };
-
-
-    $scope.blindAll = function () {
-        $scope.items = ['html5', 'jq', 'FE-演示平台'];
-        var modalInstance = $modal.open({
-            templateUrl: 'blindAll.html',
-            controller: 'blindAllCtrl',
-            resolve: {
-                items: function () {
-                    return $scope.items;
-                }
-            }
-        });
-        modalInstance.opened.then(function () {
-            console.log('modal is opened');
-        });
-        modalInstance.result.then(function (result) {
-            console.log(result);
-        }, function (reason) {
-            console.log(reason);
-            $log.info('Modal dismissed at: ' + new Date());
-        });
-    };
-
-
-    $scope.blindChosen = function () {
-        $scope.items = ['html5', 'jq', 'FE-演示平台'];
-        var modalInstance = $modal.open({
-            templateUrl: 'blindChosen.html',
-            controller: 'blindChosenCtrl',
-            resolve: {
-                items: function () {
-                    return $scope.items;
-                }
-            }
-        });
-        modalInstance.opened.then(function () {
-            console.log('modal is opened');
-        });
-        modalInstance.result.then(function (result) {
-            console.log(result);
-        }, function (reason) {
-            console.log(reason);
-            $log.info('Modal dismissed at: ' + new Date());
-        });
-    };
-
 
 });
 
-angular.module('voucher').controller('usersFilterCtrl', function ($scope, $modalInstance, items) { //依赖于modalInstance
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    }
-});
-
-angular.module('voucher').controller('createVoucherCtrl', function ($scope, $modalInstance, items) { //依赖于modalInstance
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    }
-});
-
-
-angular.module('voucher').controller('blindAllCtrl', function ($scope, $modalInstance, items) { //依赖于modalInstance
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    }
-});
-
-
-angular.module('voucher').controller('blindChosenCtrl', function ($scope, $modalInstance, items) { //依赖于modalInstance
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    }
-});
 
 
 /*

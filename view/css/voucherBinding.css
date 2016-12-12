@@ -1,33 +1,49 @@
 
 
-
-.timeBlock{
+table *{text-align: center;}
+.padding0 .choseBlock{
     position: relative;
 }
 
-.timeBlock span{
+.padding0 .choseBlock span{
     margin-top: 5px;
     display: block;
     width: 100%;
     text-align: center;
 }
 
-#begin_time{
+.padding0 .minChose{
     position: absolute;
     width: 45%;
     left: 0;
     top:0;
-    border-radius: 5px;
+    border-radius: 5px !important;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
 
-#end_time{
+.padding0 .maxChose{
     position: absolute;
     width: 45%;
     right: 0;
     top:0;
-    border-radius: 5px;
+    border-radius: 5px !important;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+}
+.margintop10{margin-top: 10px !important;}
+
+.lineheight34{line-height:34px;}
+
+.overflowh{overflow:hidden;}
+
+.rank *{
+    font-size: 14px;
+    color:#333;
+    font-weight: bold !important;
+}
+
+.disabled{
+    color:rgb(235, 235, 228);
+    cursor: not-allowed;
 }

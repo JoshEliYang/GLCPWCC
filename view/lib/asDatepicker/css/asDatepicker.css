@@ -203,9 +203,9 @@
     z-index: 9999;
 }
 
-.calendar-input {
+/*.calendar-input {
     border: 1px solid green;
-}
+}*/
 
 .calendar-icon {
     background-color: gray;
@@ -213,9 +213,11 @@
     display: none;
 }
 
+/*
 .calendar_active .calendar-input {
     border: 1px solid red;
 }
+*/
 
 .calendar_active .calendar-icon {
     border: 1px solid red;
