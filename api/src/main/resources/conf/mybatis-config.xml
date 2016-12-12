@@ -38,6 +38,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 
 		<typeAlias alias="TagList" type="cn.springmvc.model.TagList" />
+		
+		<typeAlias alias="VoucheModel" type="cn.springmvc.model.VoucheModel" />
 
 		<typeAlias alias="UserParamModel" type="cn.springmvc.model.UserParamModel" />
 

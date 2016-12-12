@@ -42,6 +42,7 @@ public class WechartServiceImpl implements WechartService {
 
 	public String getAccessTokenByServer(BasicModel basicModel) throws Exception {
 		String response = RequestUtil.doGet(basicModel.getTokenServer());
+		logger.error("ATS response: >>> " + response);
 		Map<String, Object> result = (Map<String, Object>) JSON.parse(response);
 		return (String) result.get("access_token");
 	}

@@ -36,47 +36,43 @@
 	<select id="queryByDay" parameterType="SubscribeDBQuery"
 		resultType="SubscribeCount">
 		SELECT
+		*
+		FROM
+		(
+		SELECT
 		*, CONCAT(
 		`year`,
 		'-',
+
 		IF (
 		`month` <![CDATA[<]]>
 		10,
-		CONCAT('0',
-		`month`),
+		CONCAT('0', `month`),
 		`month`
 		),
 		'-',
+
 		IF (
 		`day` <![CDATA[<]]>
 		10,
 		CONCAT('0', `day`),
 		`day`
 		)
-		) AS
-		`date`
+		) AS `date`
 		FROM
 		subscribe_count
 		WHERE
 		tagId =
 		#{tagId}
-		AND basicId =
-		#{basicId}
-		AND `year` <![CDATA[>=]]>
-		#{startYear}
-		AND `month` <![CDATA[>=]]>
-		#{startMonth}
-		AND `day`
-		<![CDATA[>=]]>
-		#{startDay}
-		AND `year` <![CDATA[<=]]>
-		#{endYear}
-		AND
-		`month` <![CDATA[<=]]>
-		#{endMonth}
-		AND `day` <![CDATA[<=]]>
-		#{endDay}
-		ORDER BY `date`
+		AND basicId = #{basicId}
+		ORDER BY
+		`date`
+		) a
+		WHERE
+		a.`date` <![CDATA[>=]]>
+		#{startDate}
+		AND a.`date` <![CDATA[<=]]>
+		#{endDate}
 	</select>
 
 	<select id="queryAllByDay" parameterType="SubscribeDBQuery"
@@ -117,21 +113,13 @@
 		FROM
 		subscribe_count
 		WHERE
-		basicId = #{basicId}
-		AND `year` <![CDATA[>=]]>
-		#{startYear}
-		AND `month` <![CDATA[>=]]>
-		#{startMonth}
-		AND `day` <![CDATA[>=]]>
-		#{startDay}
-		AND `year`
-		<![CDATA[<=]]>
-		#{endYear}
-		AND `month` <![CDATA[<=]]>
-		#{endMonth}
-		AND `day` <![CDATA[<=]]>
-		#{endDay}
+		basicId = #{tagId}
 		) a
+		WHERE
+		a.date <![CDATA[>=]]>
+		#{startDate}
+		AND a.date <![CDATA[<=]]>
+		#{endDate}
 		GROUP BY
 		a.date
 		ORDER BY

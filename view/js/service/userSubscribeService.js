@@ -22,7 +22,7 @@ $.ajax({
 
         totilItens = data.data.tags;
     }
-})
+});
 
 
 $.ajax({

@@ -1,6 +1,5 @@
 package cn.springmvc.model.SubCounter;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +19,8 @@ public class SubscribeDBQuery {
 	int endMonth;
 	int startDay;
 	int endDay;
+	String startDate;
+	String endDate;
 	int tagId;
 	int basicId;
 
@@ -44,6 +45,9 @@ public class SubscribeDBQuery {
 		this.endMonth = endCal.get(Calendar.MONTH) + 1;
 		this.endDay = endCal.get(Calendar.DAY_OF_MONTH);
 
+		this.startDate = startDate;
+		this.endDate = endDate;
+
 		this.tagId = tagId;
 		this.basicId = basic.getId();
 	}
@@ -51,8 +55,8 @@ public class SubscribeDBQuery {
 	@Override
 	public String toString() {
 		return "SubscribeDBQuery [startYear=" + startYear + ", endYear=" + endYear + ", startMonth=" + startMonth
-				+ ", endMonth=" + endMonth + ", startDay=" + startDay + ", endDay=" + endDay + ", tagId=" + tagId
-				+ ", basicId=" + basicId + "]";
+				+ ", endMonth=" + endMonth + ", startDay=" + startDay + ", endDay=" + endDay + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", tagId=" + tagId + ", basicId=" + basicId + "]";
 	}
 
 	public int getStartYear() {
@@ -101,6 +105,22 @@ public class SubscribeDBQuery {
 
 	public void setEndDay(int endDay) {
 		this.endDay = endDay;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	public int getTagId() {
