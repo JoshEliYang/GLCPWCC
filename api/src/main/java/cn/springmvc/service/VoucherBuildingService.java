@@ -6,13 +6,12 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.UserParamModel;
 import cn.springmvc.model.VoucherModel;
 
-
 public interface VoucherBuildingService {
 
-	List<UserParamModel> getUser(VoucherModel vmodel, BasicModel model);
+	public List<UserParamModel> getUser(VoucherModel vmodel) throws Exception;
 
-	public String getUserCount(VoucherModel vmodel, BasicModel model);
+	public String getUserCount(VoucherModel vmodel);
 
-	String getBindingCount(VoucherModel vmodel, BasicModel model);
-	
+	public String getBindingCount(VoucherModel vmodel, BasicModel model);
+
 }

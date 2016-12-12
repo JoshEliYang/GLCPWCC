@@ -3,22 +3,22 @@ package cn.springmvc.model;
 public class FilterModel {
 
 	String sex;
-	
+
 	String phone;
-	
+
 	String idCard;
-	
-	int ageST=-1;
-	
-	int ageED=-1;
-	
-	String amountST;
-	
-	String amountED;
-	
-	String orderST;
-	
-	String orderED;
+
+	int ageST = -1;
+
+	int ageED = -1;
+
+	int amountST = -1;
+
+	int amountED = -1;
+
+	int orderST = -1;
+
+	int orderED = -1;
 
 	public String getSex() {
 		return sex;
@@ -60,53 +60,51 @@ public class FilterModel {
 		this.ageED = ageED;
 	}
 
-	public String getAmountST() {
+	public int getAmountST() {
 		return amountST;
 	}
 
-	public void setAmountST(String amountST) {
+	public void setAmountST(int amountST) {
 		this.amountST = amountST;
 	}
 
-	public String getAmountED() {
+	public int getAmountED() {
 		return amountED;
 	}
 
-	public void setAmountED(String amountED) {
+	public void setAmountED(int amountED) {
 		this.amountED = amountED;
 	}
 
-	public String getOrderST() {
+	public int getOrderST() {
 		return orderST;
 	}
 
-	public void setOrderST(String orderST) {
+	public void setOrderST(int orderST) {
 		this.orderST = orderST;
 	}
 
-	public String getOrderED() {
+	public int getOrderED() {
 		return orderED;
 	}
 
-	public void setOrderED(String orderED) {
+	public void setOrderED(int orderED) {
 		this.orderED = orderED;
 	}
 
 	@Override
 	public String toString() {
-		return "FilterModel [sex=" + sex + ", phone=" + phone + ", idCard="
-				+ idCard + ", ageST=" + ageST + ", ageED=" + ageED
-				+ ", amountST=" + amountST + ", amountED=" + amountED
-				+ ", orderST=" + orderST + ", orderED=" + orderED + "]";
+		return "FilterModel [sex=" + sex + ", phone=" + phone + ", idCard=" + idCard + ", ageST=" + ageST + ", ageED="
+				+ ageED + ", amountST=" + amountST + ", amountED=" + amountED + ", orderST=" + orderST + ", orderED="
+				+ orderED + "]";
 	}
 
 	public FilterModel() {
 		super();
 	}
 
-	public FilterModel(String sex, String phone, String idCard, int ageST,
-			int ageED, String amountST, String amountED, String orderST,
-			String orderED) {
+	public FilterModel(String sex, String phone, String idCard, int ageST, int ageED, int amountST, int amountED,
+			int orderST, int orderED) {
 		super();
 		this.sex = sex;
 		this.phone = phone;
@@ -119,8 +117,4 @@ public class FilterModel {
 		this.orderED = orderED;
 	}
 
-	
-	
-	
-	
 }

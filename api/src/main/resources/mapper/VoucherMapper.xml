@@ -56,14 +56,14 @@
 			AND CUSTOMER_IDCARD_NO = #{filter.idCard}
 		</if>
 
-		<if test="filter.amountST != null">
+		<if test="filter.amountST != -1">
 			AND total_amount <![CDATA[>=]]>
 			#{filter.amountST}
 		</if>
 
-		<if test="filter.amountED != null">
+		<if test="filter.amountED != -1">
 			AND total_amount <![CDATA[<=]]>
-			#{filter.amountST}
+			#{filter.amountED}
 		</if>
 
 		<if test="filter.ageST != -1">
@@ -76,12 +76,12 @@
 			#{filter.ageED}
 		</if>
 
-		<if test="filter.orderST != null">
+		<if test="filter.orderST != -1">
 			AND recent_order <![CDATA[>=]]>
 			#{filter.orderST}
 		</if>
 
-		<if test="filter.orderED != null">
+		<if test="filter.orderED != -1">
 			AND recent_order <![CDATA[<=]]>
 			#{filter.orderED}
 		</if>
@@ -122,14 +122,14 @@
 			AND CUSTOMER_IDCARD_NO = #{filter.idCard}
 		</if>
 
-		<if test="filter.amountST != null">
+		<if test="filter.amountST != -1">
 			AND total_amount <![CDATA[>=]]>
 			#{filter.amountST}
 		</if>
 
-		<if test="filter.amountED != null">
+		<if test="filter.amountED != -1">
 			AND total_amount <![CDATA[<=]]>
-			#{filter.amountST}
+			#{filter.amountED}
 		</if>
 
 		<if test="filter.ageST != -1">
@@ -142,12 +142,12 @@
 			#{filter.ageED}
 		</if>
 
-		<if test="filter.orderST != null">
+		<if test="filter.orderST != -1">
 			AND recent_order <![CDATA[>=]]>
 			#{filter.orderST}
 		</if>
 
-		<if test="filter.orderED != null">
+		<if test="filter.orderED != -1">
 			AND recent_order <![CDATA[<=]]>
 			#{filter.orderED}
 		</if>
@@ -231,14 +231,14 @@
 			AND CUSTOMER_IDCARD_NO = #{filter.idCard}
 		</if>
 
-		<if test="filter.amountST != null">
+		<if test="filter.amountST != -1">
 			AND total_amount <![CDATA[>=]]>
 			#{filter.amountST}
 		</if>
 
-		<if test="filter.amountED != null">
+		<if test="filter.amountED != -1">
 			AND total_amount <![CDATA[<=]]>
-			#{filter.amountST}
+			#{filter.amountED}
 		</if>
 
 		<if test="filter.ageST != -1">
@@ -251,12 +251,12 @@
 			#{filter.ageED}
 		</if>
 
-		<if test="filter.orderST != null">
+		<if test="filter.orderST != -1">
 			AND recent_order <![CDATA[>=]]>
 			#{filter.orderST}
 		</if>
 
-		<if test="filter.orderED != null">
+		<if test="filter.orderED != -1">
 			AND recent_order <![CDATA[<=]]>
 			#{filter.orderED}
 		</if>

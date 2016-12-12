@@ -22,22 +22,16 @@ public class VoucherBuildingServiceImpl implements VoucherBuildingService {
 	@Autowired
 	private VoucherDao voucherDao;
 
-	public List<UserParamModel> getUser(VoucherModel vmodel, BasicModel model) {
-
+	public List<UserParamModel> getUser(VoucherModel vmodel) throws Exception {
 		return voucherDao.getUser(vmodel.getFilter(), vmodel.getOrder(), vmodel.getOffset(), vmodel.getCount());
 	}
 
-	public String getUserCount(VoucherModel vmodel, BasicModel model) {
-		// TODO Auto-generated method stub
+	public String getUserCount(VoucherModel vmodel) {
 		return voucherDao.getUserCount(vmodel.getFilter());
 	}
 
-
 	public String getBindingCount(VoucherModel vmodel, BasicModel model) {
-		// TODO Auto-generated method stub
 		List<UserParamModel> list = voucherDao.getBindingCount(vmodel.getFilter());
-		
-		
 		return null;
 	}
 

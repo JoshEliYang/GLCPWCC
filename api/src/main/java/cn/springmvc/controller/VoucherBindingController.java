@@ -36,16 +36,11 @@ public class VoucherBindingController {
 	@ResponseBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Map<String, Object> create(@RequestBody VoucherModel vmodel, HttpServletRequest request) {
-		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
-		// Map<String, String> result = null;
-
 		List<UserParamModel> result;
-
 		String count;
-
 		try {
-			result = voucherBuildingService.getUser(vmodel, model);
-			count = voucherBuildingService.getUserCount(vmodel, model);
+			result = voucherBuildingService.getUser(vmodel);
+			count = voucherBuildingService.getUserCount(vmodel);
 			logger.error("tags--" + result);
 			return HttpUtils.generateResponseFour("0", "success", result, count);
 		} catch (Exception e) {
@@ -66,7 +61,6 @@ public class VoucherBindingController {
 		try {
 			return HttpUtils.generateResponse("0", "get vouche success", voucherSevice.getVouvher());
 		} catch (Exception e) {
-			// TODO: handle exception
 			return HttpUtils.generateResponse("1", "get vouvher failed", "0");
 		}
 
