@@ -10,21 +10,85 @@
 
     <link href="lib/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 
+    <link href="css/ConfigStyle.css" rel="stylesheet">
     <link href="css/userSubscribeInfo.css" rel="stylesheet">
 </head>
 <body>
-
-
 <div class="row roundContainer">
     <div class="col-sm-8 diagram">
-        <canvas id="diagram1"></canvas>
+        <canvas id="diagram1" onmousemove="canvasMouseMove(this,event)" onmouseleave="canvasMouseOut(this)"></canvas>
     </div>
 
     <div class="col-sm-4 control">
         <h4>每日用户关注折线图</h4>
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+            <tr>
+                <th align="center">分组名称</th>
+                <th width="50" align="center">关注</th>
+                <!--<th width="50" align="center">取关</th>-->
+            </tr>
+            </thead>
+            <tbody id="diagram1Setting">
+            </tbody>
+        </table>
+    </div>
+    <div class="configBtn">
+        <button class="btn btn-success"  id="show">
+            <span class="glyphicon glyphicon-cog"></span>
+            配置
+        </button>
     </div>
 </div>
 
+
+
+<div class="modal fade" id="ConfigModal" tabindex="-1" role="dialog" data-backdrop="false"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="closeModal"><span
+                        >&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                    配置
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="overflow: scroll;height: 400px">
+                    <table id="tabke1" class="table table-bordered table-hover table-condensed bg-white-only">
+                        <thead>
+                        <tr>
+                            <th >选择
+                            </th>
+                            <th>标签ID</th>
+                            <th>标签名</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        <tr>
+                            <td>dsf</td>
+                            <td>dsf</td>
+                            <td>dsf</td>
+                            <td>dsf</td>
+                            <td>dsf</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          <!--  <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success">
+                    确定
+                </button>
+            </div>-->
+        </div>
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
 
 <script src="lib/jquery2.2.4/jquery.min.js"></script>
 <script src="lib/bootstrap3.3.6/js/bootstrap.min.js"></script>

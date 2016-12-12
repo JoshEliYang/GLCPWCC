@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/aop
+	  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+	<!-- 引入jdbc配置文件 -->
+	<context:property-placeholder
+		location="classpath:conf/jdbc.properties,classpath:conf/mongo.properties" />
+
+	<!-- 扫描文件（自动将servicec层注入） -->
+	<context:component-scan base-package="cn.springmvc.service" />
+
+	<aop:aspectj-autoproxy />
+
+
+	<bean id="mongoConfig" class="com.springmvc.utils.mongodb.model.MongoConfig">
+		<property name="SERVER_ADDR" value="${mongo_addr}" />
+		<property name="SERVER_PORT" value="${mongo_port}" />
+		<property name="USER_NAME" value="${mongo_user}" />
+		<property name="DB_NAME" value="${mongo_db}" />
+		<property name="DB_PWD" value="${mongo_pwd}" />
+	</bean>
+
+	<bean id="logFactory" class="com.springmvc.utils.mongodb.log.LogFactory">
+		<property name="mongoConfig" ref="mongoConfig" />
+	</bean>
+
+	<bean id="serviceAspect" class="cn.springmvc.aspect.ServiceAspect">
+		<property name="logFactory" ref="logFactory" />
+	</bean>
+
+	<bean id="operateMapper"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:conf/operate.properties</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

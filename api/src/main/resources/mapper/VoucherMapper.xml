@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.springmvc.daoLvdi.VoucherDao">
+
+	<select id="getUser" resultType="UserParamModel">
+		SELECT *
+		FROM
+		(
+		SELECT
+		`a`.`CUSTOMER_ID` AS `customerId`,
+		`a`.`CUSTOMER_TOKEN` AS `openId`,
+		`a`.`CUSTOMER_NICKNAME` AS
+		`nickName`,
+		ifnull(
+		`a`.`CUSTOMER_REALNAME`,
+		`a`.`CUSTOMER_PARAM9`
+		) AS
+		`realName`,
+		`a`.`CUSTOMER_SEX` AS `gender`,
+		`a`.CUSTOMER_PHONE AS
+		`iphone`,
+		`a`.`CUSTOMER_PARAM10` AS `idCard`,
+		(
+		date_format(now(), '%Y')
+		- substr(`a`.`CUSTOMER_PARAM10`, 7, 4)
+		) AS `age`,
+		`v_order`.`total_amount` AS `totalAmount`,
+		`v_order`.`num_of_orders` AS
+		`orders`,
+		`v_order`.recent_order as `recentOrder`
+		FROM
+		`v_order_view`
+		`v_order`
+		LEFT JOIN `e_customer_info` `a` ON (
+		(
+		`a`.`CUSTOMER_ID` =
+		CONVERT (
+		`v_order`.`CUSTOMER_ID` USING utf8mb4
+		)
+		)
+		)
+
+		where 1=1
+		<if test="filter.sex != null">
+			AND CUSTOMER_SEX = #{filter.sex}
+		</if>
+
+		<if test="filter.phone != null">
+			AND CUSTOMER_PHONE = #{filter.phone}
+		</if>
+
+		<if test="filter.idCard != null">
+			AND CUSTOMER_IDCARD_NO = #{filter.idCard}
+		</if>
+
+		<if test="filter.amountST != -1">
+			AND total_amount <![CDATA[>=]]>
+			#{filter.amountST}
+		</if>
+
+		<if test="filter.amountED != -1">
+			AND total_amount <![CDATA[<=]]>
+			#{filter.amountED}
+		</if>
+
+		<if test="filter.ageST != -1">
+			AND (date_format(now(), '%Y') - substr(`a`.`CUSTOMER_PARAM10`, 7, 4)) <![CDATA[>=]]>
+			#{filter.ageST}
+		</if>
+
+		<if test="filter.ageED != -1">
+			AND (date_format(now(), '%Y') - substr(`a`.`CUSTOMER_PARAM10`, 7, 4)) <![CDATA[<=]]>
+			#{filter.ageED}
+		</if>
+
+		<if test="filter.orderST != -1">
+			AND recent_order <![CDATA[>=]]>
+			#{filter.orderST}
+		</if>
+
+		<if test="filter.orderED != -1">
+			AND recent_order <![CDATA[<=]]>
+			#{filter.orderED}
+		</if>
+
+		LIMIT #{count} OFFSET #{offset}
+		) tableA
+
+		ORDER BY
+		tableA.${OrderModel.orderBy} ${OrderModel.sort}
+
+	</select>
+
+
+	<select id="getUserCount" resultType="String">
+		SELECT count(*)
+		FROM
+		`v_order_view` `v_order`
+		LEFT JOIN `e_customer_info`
+		`a` ON (
+		(
+		`a`.`CUSTOMER_ID` = CONVERT (
+		`v_order`.`CUSTOMER_ID` USING
+		utf8mb4
+		)
+		)
+		)
+
+		where 1=1
+		<if test="filter.sex != null">
+			AND CUSTOMER_SEX = #{filter.sex}
+		</if>
+
+		<if test="filter.phone != null">
+			AND CUSTOMER_PHONE = #{filter.phone}
+		</if>
+
+		<if test="filter.idCard != null">
+			AND CUSTOMER_IDCARD_NO = #{filter.idCard}
+		</if>
+
+		<if test="filter.amountST != -1">
+			AND total_amount <![CDATA[>=]]>
+			#{filter.amountST}
+		</if>
+
+		<if test="filter.amountED != -1">
+			AND total_amount <![CDATA[<=]]>
+			#{filter.amountED}
+		</if>
+
+		<if test="filter.ageST != -1">
+			AND (date_format(now(), '%Y') - substr(`a`.`CUSTOMER_PARAM10`, 7, 4)) <![CDATA[>=]]>
+			#{filter.ageST}
+		</if>
+
+		<if test="filter.ageED != -1">
+			AND (date_format(now(), '%Y') - substr(`a`.`CUSTOMER_PARAM10`, 7, 4)) <![CDATA[<=]]>
+			#{filter.ageED}
+		</if>
+
+		<if test="filter.orderST != -1">
+			AND recent_order <![CDATA[>=]]>
+			#{filter.orderST}
+		</if>
+
+		<if test="filter.orderED != -1">
+			AND recent_order <![CDATA[<=]]>
+			#{filter.orderED}
+		</if>
+
+
+
+	</select>
+
+
+
+	<select id="getVoucher" resultType="VoucheModel">
+		SELECT
+		PROMOTION_NAME AS
+		'promotionName',
+		CASHVOUCHE_VALUE AS 'voucherValue',
+		SATISFY_LIMIT AS
+		'satisfyLimit',
+		COUNT(*) AS 'number',
+		EFFECT_START_TIME AS 'startTime',
+		EFFECT_END_TIME AS 'endTime',
+		PROMOTION_CASHVOUCHE_ID AS 'promotionId'
+		FROM
+		e_customer_cashvouche
+		WHERE
+		CUSTOMER_ID = ''
+		AND
+		CASHVOUCHE_CODE != ''
+		AND
+		EFFECT_END_TIME > NOW()
+		GROUP BY
+		CASHVOUCHE_VALUE,
+		SATISFY_LIMIT
+	</select>
+
+
+
+	<select id="getBindingCount" resultType="UserParamModel">
+
+		SELECT
+		`a`.`CUSTOMER_ID` AS `customerId`,
+		`a`.`CUSTOMER_TOKEN` AS
+		`openId`,
+		`a`.`CUSTOMER_NICKNAME` AS `nickName`,
+		ifnull(
+		`a`.`CUSTOMER_REALNAME`,
+		`a`.`CUSTOMER_PARAM9`
+		) AS `realName`,
+		`a`.`CUSTOMER_SEX` AS `gender`,
+		`a`.CUSTOMER_PHONE AS `iphone`,
+		`a`.`CUSTOMER_PARAM10` AS `idCard`,
+		(
+		date_format(now(), '%Y') -
+		substr(`a`.`CUSTOMER_PARAM10`, 7, 4)
+		) AS `age`,
+		`v_order`.`total_amount` AS `totalAmount`,
+		`v_order`.`num_of_orders` AS
+		`orders`,
+		`v_order`.recent_order as `recentOrder`
+		FROM
+		`v_order_view`
+		`v_order`
+		LEFT JOIN `e_customer_info` `a` ON (
+		(
+		`a`.`CUSTOMER_ID` =
+		CONVERT (
+		`v_order`.`CUSTOMER_ID` USING utf8mb4
+		)
+		)
+		)
+
+		where 1=1
+		<if test="filter.sex != null">
+			AND CUSTOMER_SEX = #{filter.sex}
+		</if>
+
+		<if test="filter.phone != null">
+			AND CUSTOMER_PHONE = #{filter.phone}
+		</if>
+
+		<if test="filter.idCard != null">
+			AND CUSTOMER_IDCARD_NO = #{filter.idCard}
+		</if>
+
+		<if test="filter.amountST != -1">
+			AND total_amount <![CDATA[>=]]>
+			#{filter.amountST}
+		</if>
+
+		<if test="filter.amountED != -1">
+			AND total_amount <![CDATA[<=]]>
+			#{filter.amountED}
+		</if>
+
+		<if test="filter.ageST != -1">
+			AND (date_format(now(), '%Y') - substr(`a`.`CUSTOMER_PARAM10`, 7, 4)) <![CDATA[>=]]>
+			#{filter.ageST}
+		</if>
+
+		<if test="filter.ageED != -1">
+			AND (date_format(now(), '%Y') - substr(`a`.`CUSTOMER_PARAM10`, 7, 4)) <![CDATA[<=]]>
+			#{filter.ageED}
+		</if>
+
+		<if test="filter.orderST != -1">
+			AND recent_order <![CDATA[>=]]>
+			#{filter.orderST}
+		</if>
+
+		<if test="filter.orderED != -1">
+			AND recent_order <![CDATA[<=]]>
+			#{filter.orderED}
+		</if>
+
+
+
+	</select>
+
+
+</mapper>

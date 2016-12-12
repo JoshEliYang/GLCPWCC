@@ -1,5 +1,6 @@
 
 .roundContainer {
+    position: relative;
     border: 1px solid #AAA;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -18,7 +19,7 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 
-    height: 300px;
+    height: 500px;
     background: #FFF;
     padding: 0;
 }
@@ -30,8 +31,33 @@
 
 .control {
     text-align: center;
+    height: 500px;
+    overflow-y: auto;
 }
 
 .control > h4 {
     font-weight: bold;
+}
+
+.boll {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.configBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+}
+
+.configBtn:hover {
+    cursor: pointer;
+}
+
+.btn-success {
+    padding: 5px;
 }

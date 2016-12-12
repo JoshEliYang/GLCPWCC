@@ -1,8 +1,11 @@
 package cn.springmvc.service.manage;
 
+import java.util.List;
 import java.util.Map;
 
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.TagList;
+import cn.springmvc.service.impl.manage.TagServiceImpl.TagDat;
 
 public interface TagService {
 
@@ -13,6 +16,15 @@ public interface TagService {
 	public Map<String, String> update(String jsonStr, BasicModel model) throws Exception;
 
 	public Map<String, String> getAll(BasicModel model) throws Exception;
+	
+	/**
+	 * get all tags
+	 * 
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TagDat> getTags(BasicModel model) throws Exception;
 
 	/**
 	 * query all tags and do filter
@@ -28,4 +40,8 @@ public interface TagService {
 	public Map<String, String> getUserByTag(String jsonStr, BasicModel model) throws Exception;
 
 	public Map<String, String> createTagAndQrcode(String jsonStr, BasicModel model) throws Exception;
+
+	public String addTag(TagList tl);
+	
+	public String deleteTag(TagList tl);
 }

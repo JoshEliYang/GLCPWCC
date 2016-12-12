@@ -49,6 +49,7 @@ public class MqSender {
 				if (null != connection)
 					connection.close();
 			} catch (Throwable ignore) {
+				ignore.printStackTrace();
 			}
 		}
 	}

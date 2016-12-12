@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.TagList;
 import cn.springmvc.service.manage.TagService;
 
 @Scope("prototype")
@@ -159,6 +160,42 @@ public class TagController {
 			return HttpUtils.generateResponse("1", "fail", null);
 			// TODO: handle exception
 		}
+	}
+	
+	
+	/*
+	 * 增加taglist
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addTag", method = RequestMethod.POST)
+	public Map<String, Object> addTag(@RequestBody TagList tl) {
+		String tagAount;
+		try {
+			tagAount = service.addTag(tl);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpUtils.generateResponse("1", "请求失败", null);
+		}
+
+		return HttpUtils.generateResponse("0", "查询成功",tagAount);
+	}
+	
+	
+	/*
+	 * 增加taglist
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteTag", method = RequestMethod.POST)
+	public Map<String, Object> deleteTag(@RequestBody TagList tl) {
+		String tagAount;
+		try {
+			tagAount = service.deleteTag(tl);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpUtils.generateResponse("1", "请求失败", null);
+		}
+
+		return HttpUtils.generateResponse("0", "查询成功",tagAount);
 	}
 
 }

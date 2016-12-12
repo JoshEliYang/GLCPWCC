@@ -5235,7 +5235,7 @@ var $AnimateProvider = ['$provide', function($provide) {
        *   execution, the addClass operation will only be handled after the next digest and it will not trigger an
        *   animation if element already contains the CSS class or if the class is removed at a later step.
        *   Note that class-based animations are treated differently compared to structural animations
-       *   (like enter, move and leave) since the CSS classes may be added/removed at different points
+       *   (like enter, move and leave) since the CSS classes may be added/removed at different lines
        *   depending if CSS or JavaScript animations are used.
        *
        * @param {DOMElement} element the element which the CSS classes will be applied to
@@ -5259,7 +5259,7 @@ var $AnimateProvider = ['$provide', function($provide) {
        *   execution, the removeClass operation will only be handled after the next digest and it will not trigger an
        *   animation if element does not contain the CSS class or if the class is added at a later step.
        *   Note that class-based animations are treated differently compared to structural animations
-       *   (like enter, move and leave) since the CSS classes may be added/removed at different points
+       *   (like enter, move and leave) since the CSS classes may be added/removed at different lines
        *   depending if CSS or JavaScript animations are used.
        *
        * @param {DOMElement} element the element which the CSS classes will be applied to
@@ -5283,7 +5283,7 @@ var $AnimateProvider = ['$provide', function($provide) {
        *    triggers an animation surrounding the class addition/removal. Much like `$animate.addClass` and
        *    `$animate.removeClass`, `setClass` will only evaluate the classes being added/removed once a digest has
        *    passed. Note that class-based animations are treated differently compared to structural animations
-       *    (like enter, move and leave) since the CSS classes may be added/removed at different points
+       *    (like enter, move and leave) since the CSS classes may be added/removed at different lines
        *    depending if CSS or JavaScript animations are used.
        *
        * @param {DOMElement} element the element which the CSS classes will be applied to

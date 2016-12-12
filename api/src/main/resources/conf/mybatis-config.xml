@@ -36,6 +36,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="SubscribeSetting"
 			type="cn.springmvc.model.SubCounter.SubscribeSetting" />
 
+
+		<typeAlias alias="TagList" type="cn.springmvc.model.TagList" />
+		
+		<typeAlias alias="VoucheModel" type="cn.springmvc.model.VoucheModel" />
+
+		<typeAlias alias="UserParamModel" type="cn.springmvc.model.UserParamModel" />
+
+		<typeAlias alias="OrderModel" type="cn.springmvc.model.OrderModel" />
+		<typeAlias alias="FilterModel" type="cn.springmvc.model.FilterModel" />
+
 	</typeAliases>
 
 	<!-- 映射map -->

@@ -1,6 +1,10 @@
 package cn.springmvc.service.impl.manage;
 
 import java.util.HashMap;
+
+import cn.springmvc.dao.BasicDao;
+import cn.springmvc.model.TagList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +22,10 @@ import cn.springmvc.service.wechat.WechartService;
 @Service
 public class TagServiceImpl implements TagService {
 	@Autowired
+	private BasicDao basicDao;
+	@Autowired
 	public WechartService service;
+
 	Logger logger = Logger.getLogger(TagServiceImpl.class);
 
 	public Map<String, String> createTag(String jsonStr, BasicModel model) throws Exception {
@@ -59,7 +66,22 @@ public class TagServiceImpl implements TagService {
 	}
 
 	/**
-	 * quer all tags and do filter
+	 * get all tags
+	 * 
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TagDat> getTags(BasicModel model) throws Exception {
+		String accessToken = service.getAccessToken(model);
+		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + accessToken;
+		String response = RequestUtil.doGet(url);
+		TagList tags = JSON.parseObject(response, TagList.class);
+		return tags.getTags();
+	}
+
+	/**
+	 * query all tags and do filter
 	 * 
 	 * @author johnson
 	 */
@@ -76,8 +98,9 @@ public class TagServiceImpl implements TagService {
 
 		for (int i = tags.size() - 1; i >= 0; i--) {
 			String name = tags.get(i).get("name");
+			String tagId = String.valueOf(tags.get(i).get("id"));
 			String regex = ".*" + queryDat + ".*";
-			if (!name.matches(regex)) {
+			if (!name.matches(regex) && !tagId.matches(regex)) {
 				tags.remove(i);
 			}
 		}
@@ -145,4 +168,17 @@ public class TagServiceImpl implements TagService {
 		}
 
 	}
+
+	public String addTag(cn.springmvc.model.TagList tl) {
+		// TODO Auto-generated method stub
+
+		return String.valueOf(basicDao.addTag(tl));
+	}
+
+	public String deleteTag(cn.springmvc.model.TagList tl) {
+		// TODO Auto-generated method stub
+
+		return String.valueOf(basicDao.deleteTag(tl));
+	}
+
 }
