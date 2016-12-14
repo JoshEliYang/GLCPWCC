@@ -162,7 +162,8 @@
 		SELECT
 		PROMOTION_NAME AS
 		'promotionName',
-		CASHVOUCHE_VALUE AS 'voucherValue',
+		CASHVOUCHE_VALUE AS 
+		'voucherValue',
 		SATISFY_LIMIT AS
 		'satisfyLimit',
 		COUNT(*) AS 'number',
@@ -181,7 +182,21 @@
 		CASHVOUCHE_VALUE,
 		SATISFY_LIMIT
 	</select>
-
+	
+	<select id="getVoucherCode" resultType = "String">
+		SELECT	
+		CASHVOUCHE_CODE
+		FROM	
+		e_customer_cashvouche
+		WHERE
+			PROMOTION_CASHVOUCHE_ID IN
+			<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		AND
+			CUSTOMER_ID = ''
+		LIMIT #{voucherNum}
+	</select>
 
 
 	<select id="getBindingCount" resultType="UserParamModel">
