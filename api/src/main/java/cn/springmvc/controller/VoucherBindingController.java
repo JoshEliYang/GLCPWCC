@@ -18,6 +18,7 @@ import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.UserParamModel;
+import cn.springmvc.model.VoucheModel;
 import cn.springmvc.model.VoucherModel;
 import cn.springmvc.service.VoucherBuildingService;
 import cn.springmvc.service.VoucherService;
@@ -52,7 +53,7 @@ public class VoucherBindingController {
 
 	/**
 	 * 剩余优惠券查询
-	 * 
+	 * @return
 	 * @author summ
 	 */
 	@ResponseBody
@@ -65,7 +66,26 @@ public class VoucherBindingController {
 		}
 
 	}
+	
+	/**
+	 * 测试获得卡券code
+	 * @return
+	 * @author summ
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST)
+	public Map<String, Object> getVoucherCode(@RequestBody VoucheModel voucheModel) {
+		System.out.println(voucheModel.getPromotionIdList());
+		System.out.println(voucheModel.getVoucherNum());
+		try {
+			return HttpUtils.generateResponse("0", "get vouche success", voucherSevice.getVoucherCode(voucheModel.getPromotionIdList(),
+					voucheModel.getVoucherNum()));
+		} catch (Exception e) {
+			return HttpUtils.generateResponse("1", "get vouvher failed", "0");
+		}
 
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/binding", method = RequestMethod.POST)
 	public Map<String, Object> bindingAllUser(@RequestBody VoucherModel vmodel, HttpServletRequest request) {

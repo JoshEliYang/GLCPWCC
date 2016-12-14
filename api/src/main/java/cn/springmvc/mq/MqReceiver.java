@@ -11,12 +11,14 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.log4j.Logger;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.ElseIf;
 import com.alibaba.fastjson.JSON;
 
 import cn.springmvc.model.TaskRequest;
 import cn.springmvc.mq.model.TemplateParameter;
 import cn.springmvc.mq.task.TemplateMessageTask;
 import cn.springmvc.mq.task.TicketExpiredTask;
+import cn.springmvc.mq.task.VoucheBindingTask;
 
 /**
  * 
@@ -70,6 +72,12 @@ public class MqReceiver implements Runnable {
 						Thread TicketExpiredThread = new Thread(
 								new TicketExpiredTask(task.getTaskTimeStamp(), task.getAdmin(), taskParameter));
 						TicketExpiredThread.start();
+					} else if ("VoucherBindingMessage".equals(task.getMethod())) {
+						TemplateParameter taskParameter = JSON.parseObject(task.getParameter(),
+								TemplateParameter.class);
+						Thread VoucherBindingThread = new Thread(
+								new VoucheBindingTask(task.getAdmin(), taskParameter, task.getTaskTimeStamp()));
+						VoucherBindingThread.start();
 					}
 				}
 			}

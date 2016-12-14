@@ -1,5 +1,8 @@
 package cn.springmvc.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VoucheModel {
 	String promotionName;
 	String voucherValue;
@@ -8,7 +11,21 @@ public class VoucheModel {
 	String startTime;
 	String endTime;
 	String promotionId;
+	int voucherNum;
+	List<String> promotionIdList;
 	
+	public List<String> getPromotionIdList() {
+		return promotionIdList;
+	}
+	public void setPromotionIdList(List<String> promotionIdList) {
+		this.promotionIdList = promotionIdList;
+	}
+	public int getVoucherNum() {
+		return voucherNum;
+	}
+	public void setVoucherNum(int voucherNum) {
+		this.voucherNum = voucherNum;
+	}
 	public String getPromotionId() {
 		return promotionId;
 	}
