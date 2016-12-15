@@ -16,39 +16,59 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
     $scope.sort = 'desc';
     $scope.offset = 0;
     $scope.count = 100;
-
+    $scope.userNum = 0;
+    $scope.voucherNum = 0;
 
     $scope.openFilter = function () {
         $('#filterDialog').modal('show');
+        $scope.choseSex = false;
+        $scope.choseTel = false;
+        $scope.choseId = false;
+        $scope.choseAge = false;
+        $scope.choseAmount = false;
+        $scope.choseTime = false;
 
     };
 
+    $scope.openVoucher = function(){
+        $("#voucherDialog").modal('show');
+    };
+    $scope.openBind = function(str){
+        $("#bindDialog").modal('show');
+        if(str){
+            $scope.choseArea = str;
+        }
+    };
+
+
 /*
-    if($scope.choseSex == false){
-        $scope.filterSex = null;
-    }
-    if($scope.choseTel == false){
-        $scope.filterTel = null;
-    }
-    if($scope.choseId == false){
-        $scope.filterIdCard = null;
-    }
-    if($scope.choseAge == false){
-        $scope.filterAgeMin = null;
-        $scope.filterAgeMan = null;
-    }
-    if($scope.choseAmount == false){
-        $scope.filterCostMin = null;
-        $scope.filterCostMax = null;
-    }
-    if($scope.choseTime == false){
-        $scope.begin_time = null;
-        $scope.end_time = null;
-    }
+    $scope.display = function(){
+        if($scope.choseSex == false){
+            $scope.filterSex = null;
+        }
+        if($scope.choseTel == false){
+            $scope.filterTel = null;
+        }
+        if($scope.choseId == false){
+            $scope.filterIdCard = null;
+        }
+        if($scope.choseAge == false){
+            $scope.filterAgeMin = null;
+            $scope.filterAgeMan = null;
+        }
+        if($scope.choseAmount == false){
+            $scope.filterCostMin = null;
+            $scope.filterCostMax = null;
+        }
+        if($scope.choseTime == false){
+            $scope.begin_time = null;
+            $scope.end_time = null;
+        }
+    };
+
+    $scope.display();
+
 */
-
-
-
     $scope.choseOrder = function(order){
         $scope.orderBy = order;
     };
@@ -105,12 +125,13 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
         }
         param.order.orderBy = $scope.orderBy;
         param.order.sort = $scope.sort;
-        //console.log(param);
         voucherBinding.getUserFilter($scope.token,$scope.wechatAccount,param).success(function(data){
             $scope.items = data.data;
             $scope.paginationConf.totalItems = data.count;
             $("#loadingDialog").modal('hide');
             $('#filterDialog').modal('hide');
+        }).error(function(data){
+            console.log(data.msg);
         })
     };
 
@@ -153,12 +174,10 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
             $scope.items = data.data;
             $("#loadingDialog").modal('hide');
             $('#filterDialog').modal('hide');
+        }).error(function(data){
+            console.log(data.msg);
         })
     };
 
 });
 
-
-
-/*
- app.controller("filterCon",function($scope){*/

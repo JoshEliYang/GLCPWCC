@@ -5,6 +5,22 @@ table *{text-align: center;}
     position: relative;
 }
 
+.padding0 {
+    padding: 0
+}
+
+.modal-body > div {
+    margin: 10px;
+    padding: 10px;
+    background: #ebebeb;
+    border: 2px solid #a6a6a6
+}
+
+.rankOrder {
+    margin-top: 50px
+}
+
+
 .padding0 .choseBlock span{
     margin-top: 5px;
     display: block;
@@ -41,9 +57,4 @@ table *{text-align: center;}
     font-size: 14px;
     color:#333;
     font-weight: bold !important;
-}
-
-.disabled{
-    color:rgb(235, 235, 228);
-    cursor: not-allowed;
 }
