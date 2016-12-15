@@ -21,8 +21,8 @@ public class VoucheBindingTask implements Runnable {
 	User admin;
 	BindingMessageModel message;
 	String taskTimestamp;
-	
-	public VoucheBindingTask(User admin, BindingMessageModel message, String taskTimestamp){
+
+	public VoucheBindingTask(User admin, BindingMessageModel message, String taskTimestamp) {
 		this.admin = admin;
 		this.message = message;
 		this.taskTimestamp = taskTimestamp;
@@ -33,16 +33,16 @@ public class VoucheBindingTask implements Runnable {
 			sendMessage("绑定优惠券", 0, 10, true);
 			List<String> voucherCodeList = message.getVoucherList();
 			List<UserParamModel> userList = message.getUserList();
-			
+
 			Map<String, Object> jsonStr = new HashMap<String, Object>();
-			List<Map<String, String>> bind = new ArrayList<Map<String,String>>();
-			
-			for(int i =0; i < voucherCodeList.size(); i++){
+			List<Map<String, String>> bind = new ArrayList<Map<String, String>>();
+
+			for (int i = 0; i < voucherCodeList.size(); i++) {
 				Map<String, String> aa = new HashMap<String, String>();
 				aa.put("customer_id", userList.get(i).getCustomerId());
 				aa.put("customer_cashvouche_id", voucherCodeList.get(i));
 				bind.add(aa);
-				if(bind.size()==100){
+				if (bind.size() == 100) {
 					jsonStr.put("method", "bind");
 					jsonStr.put("binding", bind);
 					this.doPost(jsonStr);
@@ -51,7 +51,7 @@ public class VoucheBindingTask implements Runnable {
 					sendMessage("正在绑定", i, voucherCodeList.size(), true);
 				}
 			}
-			if(bind.isEmpty()==false){
+			if (bind.isEmpty() == false) {
 				jsonStr.put("method", "bind");
 				jsonStr.put("binding", bind);
 				this.doPost(jsonStr);
@@ -59,21 +59,20 @@ public class VoucheBindingTask implements Runnable {
 				jsonStr.clear();
 				sendMessage("绑定成功", voucherCodeList.size(), voucherCodeList.size(), true);
 			}
-			
-			
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public Map<String, Object> genarateJson(int times, int rest){
+
+	public Map<String, Object> genarateJson(int times, int rest) {
 		List<String> voucherCodeList = message.getVoucherList();
 		List<UserParamModel> userList = message.getUserList();
-		
+
 		Map<String, Object> jsonStr = new HashMap<String, Object>();
-		List<Map<String, String>> bind = new ArrayList<Map<String,String>>();
-		for(int i = 100*times; i < 100*(times + 1); i++){
+		List<Map<String, String>> bind = new ArrayList<Map<String, String>>();
+		for (int i = 100 * times; i < 100 * (times + 1); i++) {
 			Map<String, String> aa = new HashMap<String, String>();
 			aa.put("customer_id", userList.get(i).getCustomerId());
 			aa.put("customer_cashvouche_id", voucherCodeList.get(i));
@@ -83,14 +82,15 @@ public class VoucheBindingTask implements Runnable {
 		return jsonStr;
 	}
 
-	public String doPost(Map<String, Object> json) throws ClientProtocolException, IOException{
-		return RequestUtil.doPost("http://app.rongzer.com/g.manage/LvdiCustomsVoucheBinding/CustomsVoucheBinding.htm", JSON.toJSONString(json));
+	public String doPost(Map<String, Object> json) throws ClientProtocolException, IOException {
+		return RequestUtil.doPost("http://app.rongzer.com/g.manage/LvdiCustomsVoucheBinding/CustomsVoucheBinding.htm",
+				JSON.toJSONString(json));
 	}
-	
+
 	private void sendMessage(String message, int progress, int max, boolean isRunning) {
-		// TODO Auto-generated method stub
-		TaskResponse taskMessage = new TaskResponse(admin.getId(), taskTimestamp, "", message, isRunning, progress, max);
+		TaskResponse taskMessage = new TaskResponse(admin.getId(), taskTimestamp, "", message, isRunning, progress,
+				max);
 		ProgressSocket.broadcast(taskMessage);
 	}
-	
+
 }
