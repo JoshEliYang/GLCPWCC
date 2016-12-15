@@ -105,41 +105,48 @@ public class VoucherBindingController {
 			HttpServletRequest request) {
 		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
 		User adminName = (User) request.getAttribute("admin");
-		String count = "0";
-
-		List<UserParamModel> customerIdUser;
-
-		// 根据customer获取用户
-		List<String> customerIdList = new ArrayList<String>();
-
-		customerIdList.add("a1065526cd8f4aaf9bbc78c5740a926d");
-		customerIdList.add("54b8c760633e4df7852f2bfb0ae5bd64");
-
-		customerIdUser = voucherBuildingService
-				.getCustomerIdByUser(customerIdList);
-
-		// 获取总的用户
-		List<UserParamModel> userList = new ArrayList<UserParamModel>();
-		try {
-			userList = voucherBuildingService.getUser(vmodel);
-			count = voucherBuildingService.getUserCount(vmodel);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		List<String> promotionIdList = new ArrayList<String>();
-		promotionIdList.add("2c90808158dc7b520158f17b156500e5");
-		promotionIdList.add("2c90808158f67abf0158f77c92720006");
-
-		List<String> vouList = voucherSevice.getVoucherCode(promotionIdList,
-				Integer.parseInt(count));
-
-		// 拼接taskr中parameter
+		
+		List<String> user = vmodel.getUsers();
+		
 		BindingMessageModel bmm = new BindingMessageModel();
-		bmm.setBasicModel(model);
-		bmm.setUserList(userList);
-		bmm.setVoucherList(vouList);
+		
+		if(user != null && user.size() > 0){
+			
+			List<UserParamModel> customerIdUser;
+			customerIdUser = voucherBuildingService
+					.getCustomerIdByUser(vmodel.getUsers());
+			
+			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(),
+					vmodel.getCustomerCount());
+			bmm.setBasicModel(model);
+			bmm.setUserList(customerIdUser);
+			bmm.setVoucherList(vouList);
+			bmm.setTemplateId("8Umia-WustHVtjQ3qSz9dN0toMEYYj8bKndQGPsQCeI");
+			
+		}else{
+			// 获取总的用户
+			String count = "0";
+			List<UserParamModel> userList = new ArrayList<UserParamModel>();
+			try {
+				userList = voucherBuildingService.getUser(vmodel);
+				count = voucherBuildingService.getUserCount(vmodel);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(),
+					Integer.parseInt(count));
+			
+			bmm.setBasicModel(model);
+			bmm.setUserList(userList);
+			bmm.setVoucherList(vouList);
+			bmm.setTemplateId("8Umia-WustHVtjQ3qSz9dN0toMEYYj8bKndQGPsQCeI");
+			
+		}
+		
+		
+		
 
 		// Map<String, String> result = null;
 
