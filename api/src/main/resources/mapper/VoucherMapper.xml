@@ -76,12 +76,12 @@
 			#{filter.ageED}
 		</if>
 
-		<if test="filter.orderST != -1">
+		<if test="filter.orderST != null">
 			AND recent_order <![CDATA[>=]]>
 			#{filter.orderST}
 		</if>
 
-		<if test="filter.orderED != -1">
+		<if test="filter.orderED != null">
 			AND recent_order <![CDATA[<=]]>
 			#{filter.orderED}
 		</if>
@@ -142,12 +142,12 @@
 			#{filter.ageED}
 		</if>
 
-		<if test="filter.orderST != -1">
+		<if test="filter.orderST != null">
 			AND recent_order <![CDATA[>=]]>
 			#{filter.orderST}
 		</if>
 
-		<if test="filter.orderED != -1">
+		<if test="filter.orderED != null">
 			AND recent_order <![CDATA[<=]]>
 			#{filter.orderED}
 		</if>
@@ -162,14 +162,16 @@
 		SELECT
 		PROMOTION_NAME AS
 		'promotionName',
-		CASHVOUCHE_VALUE AS 
+		CASHVOUCHE_VALUE AS
 		'voucherValue',
 		SATISFY_LIMIT AS
 		'satisfyLimit',
 		COUNT(*) AS 'number',
-		EFFECT_START_TIME AS 'startTime',
+		EFFECT_START_TIME
+		AS 'startTime',
 		EFFECT_END_TIME AS 'endTime',
-		PROMOTION_CASHVOUCHE_ID AS 'promotionId'
+		PROMOTION_CASHVOUCHE_ID AS
+		'promotionId'
 		FROM
 		e_customer_cashvouche
 		WHERE
@@ -182,19 +184,20 @@
 		CASHVOUCHE_VALUE,
 		SATISFY_LIMIT
 	</select>
-	
-	<select id="getVoucherCode" resultType = "String">
-		SELECT	
+
+	<select id="getVoucherCode" resultType="String">
+		SELECT
 		CASHVOUCHE_CODE
-		FROM	
+		FROM
 		e_customer_cashvouche
 		WHERE
-			PROMOTION_CASHVOUCHE_ID IN
-			<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-				#{item}
-			</foreach>
+		PROMOTION_CASHVOUCHE_ID IN
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
 		AND
-			CUSTOMER_ID = ''
+		CUSTOMER_ID = ''
 		LIMIT #{voucherNum}
 	</select>
 
@@ -266,18 +269,58 @@
 			#{filter.ageED}
 		</if>
 
-		<if test="filter.orderST != -1">
+		<if test="filter.orderST != null">
 			AND recent_order <![CDATA[>=]]>
 			#{filter.orderST}
 		</if>
 
-		<if test="filter.orderED != -1">
+		<if test="filter.orderED != null">
 			AND recent_order <![CDATA[<=]]>
 			#{filter.orderED}
 		</if>
 
 
 
+	</select>
+
+
+	<select id="getCustomerIdByUser" resultType="UserParamModel">
+	
+		SELECT
+		`a`.`CUSTOMER_ID` AS `customerId`,
+		`a`.`CUSTOMER_TOKEN` AS
+		`openId`,
+		`a`.`CUSTOMER_NICKNAME` AS `nickName`,
+		ifnull(
+		`a`.`CUSTOMER_REALNAME`,
+		`a`.`CUSTOMER_PARAM9`
+		) AS `realName`,
+		`a`.`CUSTOMER_SEX` AS `gender`,
+		`a`.CUSTOMER_PHONE AS `iphone`,
+		`a`.`CUSTOMER_PARAM10` AS `idCard`,
+		(
+		date_format(now(), '%Y') -
+		substr(`a`.`CUSTOMER_PARAM10`, 7, 4)
+		) AS `age`,
+		`v_order`.`total_amount` AS `totalAmount`,
+		`v_order`.`num_of_orders` AS
+		`orders`,
+		`v_order`.recent_order as `recentOrder`
+		FROM
+		`v_order_view`
+		`v_order`
+		LEFT JOIN `e_customer_info` `a` ON (
+		(
+		`a`.`CUSTOMER_ID` =
+		CONVERT (
+		`v_order`.`CUSTOMER_ID` USING utf8mb4
+		)
+		)
+		)
+
+		where a.CUSTOMER_ID = #{0}
+
+	
 	</select>
 
 

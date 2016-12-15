@@ -1,5 +1,6 @@
 package cn.springmvc.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class VoucherBuildingServiceImpl implements VoucherBuildingService {
 	private VoucherDao voucherDao;
 
 	public List<UserParamModel> getUser(VoucherModel vmodel) throws Exception {
-		return voucherDao.getUser(vmodel.getFilter(), vmodel.getOrder(), vmodel.getOffset(), vmodel.getCount());
+		return voucherDao.getUser(vmodel.getFilter(), vmodel.getOrder(),
+				vmodel.getOffset(), vmodel.getCount());
 	}
 
 	public String getUserCount(VoucherModel vmodel) {
@@ -31,8 +33,23 @@ public class VoucherBuildingServiceImpl implements VoucherBuildingService {
 	}
 
 	public String getBindingCount(VoucherModel vmodel, BasicModel model) {
-		List<UserParamModel> list = voucherDao.getBindingCount(vmodel.getFilter());
+		List<UserParamModel> list = voucherDao.getBindingCount(vmodel
+				.getFilter());
 		return null;
+	}
+
+	public List<UserParamModel> getCustomerIdByUser(List<String> customerIdList) {
+
+		List<UserParamModel> userparamModl = new ArrayList<UserParamModel>();
+
+		for (int i = 0; i < customerIdList.size(); i++) {
+
+			UserParamModel upm = voucherDao.getCustomerIdByUser(customerIdList
+					.get(i));
+			userparamModl.add(upm);
+		}
+
+		return userparamModl;
 	}
 
 }

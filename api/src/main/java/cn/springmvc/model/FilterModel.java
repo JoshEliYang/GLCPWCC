@@ -16,9 +16,9 @@ public class FilterModel {
 
 	int amountED = -1;
 
-	int orderST = -1;
+	String orderST = null;
 
-	int orderED = -1;
+	String orderED = null;
 
 	public String getSex() {
 		return sex;
@@ -76,35 +76,37 @@ public class FilterModel {
 		this.amountED = amountED;
 	}
 
-	public int getOrderST() {
+	public String getOrderST() {
 		return orderST;
 	}
 
-	public void setOrderST(int orderST) {
+	public void setOrderST(String orderST) {
 		this.orderST = orderST;
 	}
 
-	public int getOrderED() {
+	public String getOrderED() {
 		return orderED;
 	}
 
-	public void setOrderED(int orderED) {
+	public void setOrderED(String orderED) {
 		this.orderED = orderED;
 	}
 
 	@Override
 	public String toString() {
-		return "FilterModel [sex=" + sex + ", phone=" + phone + ", idCard=" + idCard + ", ageST=" + ageST + ", ageED="
-				+ ageED + ", amountST=" + amountST + ", amountED=" + amountED + ", orderST=" + orderST + ", orderED="
-				+ orderED + "]";
+		return "FilterModel [sex=" + sex + ", phone=" + phone + ", idCard="
+				+ idCard + ", ageST=" + ageST + ", ageED=" + ageED
+				+ ", amountST=" + amountST + ", amountED=" + amountED
+				+ ", orderST=" + orderST + ", orderED=" + orderED + "]";
 	}
 
 	public FilterModel() {
 		super();
 	}
 
-	public FilterModel(String sex, String phone, String idCard, int ageST, int ageED, int amountST, int amountED,
-			int orderST, int orderED) {
+	public FilterModel(String sex, String phone, String idCard, int ageST,
+			int ageED, int amountST, int amountED, String orderST,
+			String orderED) {
 		super();
 		this.sex = sex;
 		this.phone = phone;
