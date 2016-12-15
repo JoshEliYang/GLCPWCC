@@ -24,6 +24,7 @@ import cn.springmvc.model.UserParamModel;
 import cn.springmvc.model.VoucheModel;
 import cn.springmvc.model.VoucherModel;
 import cn.springmvc.model.voucher.BindingMessageModel;
+import cn.springmvc.mq.MqSender;
 import cn.springmvc.service.VoucherBuildingService;
 import cn.springmvc.service.VoucherService;
 
@@ -147,29 +148,23 @@ public class VoucherBindingController {
 		}
 		
 		
+		String parameter = String.valueOf(bmm);
+		
 		TaskRequest taskrequest = new TaskRequest();
 		taskrequest.setMethod("VoucherBindingMessage");
 		taskrequest.setAdmin(adminInfo);
 		taskrequest.setTaskTimeStamp("");
+		taskrequest.setParameter(parameter);
 		
+		//MqSender
 		
+		MqSender mqSender = new MqSender();
+		mqSender.sender(taskrequest);
 
 		// Map<String, String> result = null;
 
 		// List<UserParamModel> result;
-
-		try {
-			// count = voucherBuildingService.getBindingCount(vmodel, model);
-			// count = voucherBuildingService.getUserCount(vmodel, model);
-			// logger.error("tags--" + result);
-			// return HttpUtils.generateResponseFour("0", "success", null,
-			// count);
-			return null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("error");
-			return HttpUtils.generateResponse("1", "failed", null);
-		}
+		return HttpUtils.generateResponse("1", "Success", null);
 	}
 
 }
