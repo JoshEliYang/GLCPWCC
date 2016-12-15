@@ -45,6 +45,7 @@ public class TicketExpiredTask implements Runnable {
 			this.pushToUser(words, message.getBasicModel(), message.getTemplateId());
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("error occurred in TicketExpiredTask >>>>> " + e.getMessage());
 		}
 	}
 
