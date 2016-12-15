@@ -8,6 +8,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
 
@@ -19,6 +20,8 @@ import cn.springmvc.model.TaskRequest;
  *
  */
 public class MqSender {
+
+	static Logger logger = Logger.getLogger(MqSender.class);
 
 	public static void sender(TaskRequest task) {
 		ConnectionFactory connectionFactory;
@@ -44,6 +47,7 @@ public class MqSender {
 			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("error occurred in mq sender >>> " + e.getMessage());
 		} finally {
 			try {
 				if (null != connection)
