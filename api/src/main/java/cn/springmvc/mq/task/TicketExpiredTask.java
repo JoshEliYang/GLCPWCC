@@ -38,14 +38,22 @@ public class TicketExpiredTask implements Runnable {
 	}
 
 	public void run() {
+		sendMessage("拉取推送列表", 0, 10, true);
+		ArrayList<ThreeKeywordsMesg> words = null;
 		try {
-			sendMessage("拉取推送列表", 0, 10, true);
-			ArrayList<ThreeKeywordsMesg> words = this.getExcel(message.getFilePath());
-			sendMessage("开始推送消息", 0, words.size(), true);
+			words = this.getExcel(message.getFilePath());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(
+					"error occurred when reading excel in TicketExpiredTask >>> " + e.getMessage() + e.getStackTrace());
+		}
+		sendMessage("开始推送消息", 0, words.size(), true);
+		try {
 			this.pushToUser(words, message.getBasicModel(), message.getTemplateId());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("error occurred in TicketExpiredTask >>>>> " + e.getMessage());
+			logger.error("error occurred when pushing message in TicketExpiredTask >>>>> " + e.getMessage()
+					+ e.getStackTrace());
 		}
 	}
 
