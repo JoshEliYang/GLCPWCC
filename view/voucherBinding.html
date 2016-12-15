@@ -250,7 +250,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">绑定优惠券
+                <h4 class="modal-title">绑定选定优惠券<strong>(已选优惠券数量 >= 用户数)</strong>
                 </h4>
             </div>
             <div class="modal-body">
@@ -298,7 +298,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-success" ng-click="bindConfirm()">
+                <button type="button" class="none btn btn-success" ng-click="bindselectConfirm()"  ng-class="{true: 'shownone', false: 'none'}[chosenVoucherNum >= chosenUserNum]">
                     确定
                 </button>
             </div>
@@ -312,7 +312,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">绑定优惠券
+                <h4 class="modal-title">绑定全部优惠券<strong>( 已选优惠券数量 >=  用户数)</strong>
                 </h4>
             </div>
             <div class="modal-body">
@@ -360,7 +360,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-success" ng-click="bindConfirm()">
+                <button   type="button" class="none btn btn-success" ng-click="bindConfirm()" ng-class="{true: 'shownone', false: 'none'}[showornoshow]">
                     确定
                 </button>
             </div>

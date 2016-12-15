@@ -164,7 +164,14 @@ public class VoucherBindingController {
 		// Map<String, String> result = null;
 
 		// List<UserParamModel> result;
-		return HttpUtils.generateResponse("1", "Success", null);
+		
+		if(user != null && user.size() > 0){
+			return HttpUtils.generateResponse("1", "部分Success", null);
+		}else{
+			return HttpUtils.generateResponse("1", "全部Success", null);
+		}
+		
+		
 	}
 
 }

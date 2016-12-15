@@ -17,6 +17,14 @@ angular.module('voucherBindingService', [])
                 })
             },
 
+            blingVoucher:function(token,wechatAccount,data) {
+                return $http({
+                    method:'POST',
+                    url:bindVoucher + '?token=' + token + '&wechatAccount=' +wechatAccount,
+                    data:data
+                })
+            },
+
             bindChosenVoucher:function(token,wechatAccount,data){
                 return $http({
                     method:'POST',
