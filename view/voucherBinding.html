@@ -22,13 +22,10 @@
             筛选
         </button>
         <div style="float: right">
-            <button type="button" class="btn btn-success" ng-click="openVoucher()">
-                生成优惠券
-            </button>
-            <button type="button" class="btn btn-success" ng-click="openBind()">
+            <button type="button" class="btn btn-success" ng-click="openBindChosen()">
                 绑定选中
             </button>
-            <button type="button" class="btn btn-success" ng-click="openBind('all')">
+            <button type="button" class="btn btn-success" ng-click="openBindAll()">
                 绑定全部
             </button>
         </div>
@@ -52,12 +49,9 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in items">
-                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;">
-                        <input type="checkbox"/>
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;" ng-click="checked($index)">
+                        <input type="checkbox" ng-checked="item.checked"/>
                     </td>
-                    <!--<td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                        {{$index + 1}}
-                    </td>-->
                     <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                         {{item.nickName}}
                     </td>
@@ -249,29 +243,8 @@
         </div>
     </div>
 </div>
-<!--生成优惠券模态框-->
-<div class="modal fade" id="voucherDialog" tabindex="-1" role="dialog" data-backdrop="false">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">生成优惠券
-                </h4>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-success" ng-click="voucherConfirm()">
-                    确定
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--绑定优惠券模态框-->
-<div class="modal fade" id="bindDialog" tabindex="-1" role="dialog" data-backdrop="false">
+<!--绑定选定优惠券模态框-->
+<div class="modal fade" id="bindChosenDialog" tabindex="-1" role="dialog" data-backdrop="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -282,8 +255,8 @@
             </div>
             <div class="modal-body">
                 <div style="overflow: hidden;">
-                    <div style="float: left;">已选用户:<span>{{userNum}}</span>人</div>
-                    <div style="float: right;">已选优惠券:{{voucherNum}}张</div>
+                    <div style="float: left;">已选用户:<span>{{chosenUserNum}}</span>人</div>
+                    <div style="float: right;">已选优惠券:{{chosenVoucherNum}}张</div>
                 </div>
                 <div style="max-height: 500px;margin-top:10px;">
                     <table style="table-layout: fixed" width="100%"
@@ -299,44 +272,91 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr >
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;">
-                                <input type="checkbox"/>
+                        <tr ng-repeat="voucher in vouchers">
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;"  ng-click="voucherChecked($index)">
+                                <input type="checkbox"  ng-checked="voucher.checked"/>
                             </td>
                             <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                                item.nickName}}
+                                {{voucher.promotionName}}
                             </td>
                             <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                                item.realName}}
+                                {{voucher.voucherValue}}
                             </td>
                             <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                                item.gender == 'D00401')?"男":"女"}}
+                                {{voucher.satisfyLimit}}
                             </td>
                             <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                                em.age}}
+                                {{voucher.number}}
                             </td>
                             <td  class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
-                                item.totalAmount}}
+                                {{voucher.endTime}}
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <!--<div>
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 lineheight34">优惠券：</label>
-                            <div class=" col-sm-8 padding0">
-                                <select class="form-control">
-                                    <option value="D00401">10元优惠券</option>
-                                    <option value="D00402">20元优惠券</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                    <p class="text-danger">剩余{{lastAmount}}张，数量不足</p>
-                </div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" ng-click="bindConfirm()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--绑定全部优惠券模态框-->
+<div class="modal fade" id="bindAllDialog" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">绑定优惠券
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="overflow: hidden;">
+                    <div style="float: left;">已选用户:<span>{{allUserNum}}</span>人</div>
+                    <div style="float: right;">已选优惠券:{{chosenVoucherNum}}张</div>
+                </div>
+                <div style="max-height: 500px;margin-top:10px;">
+                    <table style="table-layout: fixed" width="100%"
+                           class="table table-bordered table-hover table-condensed table-striped bg-white-only">
+                        <thead>
+                        <tr>
+                            <th style="width: 5%;overflow: hidden;"></th>
+                            <th style="width: 30%;overflow: hidden;">优惠券名称</th>
+                            <th style="width: 10%;overflow: hidden;">金额</th>
+                            <th style="width: 15%;overflow: hidden;">门槛</th>
+                            <th style="width: 10%;overflow: hidden;">数量</th>
+                            <th style="width: 30%;overflow: hidden;">到期时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="voucher in vouchers">
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;"  ng-click="voucherChecked($index)">
+                                <input type="checkbox"  ng-checked="voucher.checked"/>
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                {{voucher.promotionName}}
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                {{voucher.voucherValue}}
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                {{voucher.satisfyLimit}}
+                            </td>
+                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                {{voucher.number}}
+                            </td>
+                            <td  class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                                {{voucher.endTime}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
