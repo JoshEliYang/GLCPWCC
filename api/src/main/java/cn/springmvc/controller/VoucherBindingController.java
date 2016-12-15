@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.TaskRequest;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserParamModel;
 import cn.springmvc.model.VoucheModel;
@@ -104,7 +105,7 @@ public class VoucherBindingController {
 	public Map<String, Object> bindingAllUser(@RequestBody VoucherModel vmodel,
 			HttpServletRequest request) {
 		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
-		User adminName = (User) request.getAttribute("admin");
+		User adminInfo = (User) request.getAttribute("admin");
 		
 		List<String> user = vmodel.getUsers();
 		
@@ -145,6 +146,11 @@ public class VoucherBindingController {
 			
 		}
 		
+		
+		TaskRequest taskrequest = new TaskRequest();
+		taskrequest.setMethod("VoucherBindingMessage");
+		taskrequest.setAdmin(adminInfo);
+		taskrequest.setTaskTimeStamp("");
 		
 		
 
