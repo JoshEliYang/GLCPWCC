@@ -8,6 +8,21 @@ angular.module('voucherBindingService', [])
                     url: usersFilter + '?token=' + token + '&wechatAccount=' +wechatAccount,
                     data:data
                 });
+            },
+
+            getRestVoucher:function(token,wechatAccount){
+                return $http({
+                    method:'GET',
+                    url:restVoucher + '?token=' + token + '&wechatAccount=' +wechatAccount
+                })
+            },
+
+            bindChosenVoucher:function(token,wechatAccount,data){
+                return $http({
+                    method:'POST',
+                    url:bindChosen + '?token=' + token + '&wechatAccount=' +wechatAccount,
+                    data:data
+                })
             }
 
         }
