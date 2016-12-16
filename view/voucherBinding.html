@@ -35,7 +35,10 @@
                    class="table table-bordered table-hover table-condensed table-striped bg-white-only">
                 <thead>
                 <tr style="width: 900px">
-                    <th style="width: 40px;overflow: hidden;"></th>
+                    <th style="width: 40px;overflow: hidden;" ng-click="doCheckAll()">
+                        <input type="checkbox"
+                               ng-checked="checkAllParam"/>
+                    </th>
                     <th style="width: 100px;overflow: hidden;">昵称</th>
                     <th style="width: 80px;overflow: hidden;">真名</th>
                     <th style="width: 40px;overflow: hidden;">性别</th>
@@ -48,8 +51,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in items">
-                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;" ng-click="checked($index)">
+                <tr ng-repeat="item in items" ng-click="checked($index)">
+                    <td class="v-middle"
+                        style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;">
                         <input type="checkbox" ng-checked="item.checked"/>
                     </td>
                     <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
@@ -64,7 +68,7 @@
                     <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                         {{item.age}}
                     </td>
-                    <td  class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                    <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                         {{item.totalAmount}}
                     </td>
                     <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
@@ -88,7 +92,8 @@
 </div>
 
 <!--筛选模态框-->
-<div class="modal fade" id="filterDialog" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="myModalLabel">
+<div class="modal fade" id="filterDialog" tabindex="-1" role="dialog" data-backdrop="false"
+     aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,13 +105,14 @@
             <div class="modal-body row">
                 <div class="filterType col-sm-8">
                     <div class="form-group overflowh">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseSex">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10"
+                               ng-model="choseSex">
 
                         <div class="col-sm-11 padding0">
                             <label for="sex" class="col-sm-3 control-label padding0 lineheight34">性别</label>
 
                             <div class="col-sm-9 padding0">
-                                <select class="form-control" id="sex" ng-model="filterSex" ng-disabled="!(choseSex)" >
+                                <select class="form-control" id="sex" ng-model="filterSex" ng-disabled="!(choseSex)">
                                     <option value="D00401">男</option>
                                     <option value="D00402">女</option>
                                 </select>
@@ -114,74 +120,87 @@
                         </div>
                     </div>
                     <div class="form-group overflowh">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseTel">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10"
+                               ng-model="choseTel">
 
                         <div class="col-sm-11 padding0">
-                            <label for="tel" class="col-sm-3 padding0 control-label lineheight34" >电话</label>
+                            <label for="tel" class="col-sm-3 padding0 control-label lineheight34">电话</label>
 
                             <div class="col-sm-9 padding0">
-                                <input type="text" class="form-control" id="tel" ng-model="filterTel" ng-disabled="!(choseTel)">
+                                <input type="text" class="form-control" id="tel" ng-model="filterTel"
+                                       ng-disabled="!(choseTel)">
                             </div>
                         </div>
                     </div>
                     <div class="form-group overflowh">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseId">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10"
+                               ng-model="choseId">
 
                         <div class="col-sm-11 padding0">
                             <label for="idNum" class="col-sm-3 padding0 control-label lineheight34">身份证</label>
 
                             <div class="col-sm-9 padding0">
-                                <input type="text" class="form-control" id="idNum" ng-model="filterIdCard" ng-disabled="!(choseId)">
+                                <input type="text" class="form-control" id="idNum" ng-model="filterIdCard"
+                                       ng-disabled="!(choseId)">
                             </div>
                         </div>
                     </div>
                     <div class="form-group overflowh">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseAge">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10"
+                               ng-model="choseAge">
 
                         <div class="col-sm-11 padding0">
                             <label class="col-sm-3 control-label  padding0 lineheight34">年龄段</label>
 
                             <div class="input-group col-sm-9  padding0 choseBlock">
                                 <div>
-                                    <input type="number" class="form-control minChose" id="ageMin" ng-model="filterAgeMin" ng-disabled="!(choseAge)">
+                                    <input type="number" class="form-control minChose" id="ageMin"
+                                           ng-model="filterAgeMin" ng-disabled="!(choseAge)">
                                 </div>
                                 <span>~</span>
                                 <div>
-                                    <input type="number" class="form-control maxChose" id="ageMax" ng-model="filterAgeMax" ng-disabled="!(choseAge)">
+                                    <input type="number" class="form-control maxChose" id="ageMax"
+                                           ng-model="filterAgeMax" ng-disabled="!(choseAge)">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group overflowh">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseAmount">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10"
+                               ng-model="choseAmount">
 
                         <div class="col-sm-11 padding0">
                             <label class="col-sm-3 control-label  padding0 lineheight34">总金额</label>
 
                             <div class="input-group col-sm-9  padding0 choseBlock">
                                 <div>
-                                    <input type="number" class="form-control minChose" id="costMin" ng-model="filterCostMin" ng-disabled="!(choseAmount)">
+                                    <input type="number" class="form-control minChose" id="costMin"
+                                           ng-model="filterCostMin" ng-disabled="!(choseAmount)">
                                 </div>
                                 <span>~</span>
                                 <div>
-                                    <input type="number" class="form-control maxChose" id="costMax" ng-model="filterCostMax" ng-disabled="!(choseAmount)">
+                                    <input type="number" class="form-control maxChose" id="costMax"
+                                           ng-model="filterCostMax" ng-disabled="!(choseAmount)">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group  overflowh">
-                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10" ng-model="choseTime">
+                        <input type="checkbox" name="filterType" class="col-sm-1 padding0 margintop10"
+                               ng-model="choseTime">
 
                         <div class="col-sm-11 padding0">
                             <label class="col-sm-3 padding0 control-label lineheight34">最近下单时间</label>
 
                             <div class="input-group col-sm-9 padding0 choseBlock">
                                 <div>
-                                    <input placeholder="开始时间" type="text" class="form-control minChose" id="begin_time" ng-model="begin_time" ng-disabled="!(choseTime)"/>
+                                    <input placeholder="开始时间" type="text" class="form-control minChose" id="begin_time"
+                                           ng-model="begin_time" ng-disabled="!(choseTime)"/>
                                 </div>
                                 <span>~</span>
                                 <div>
-                                    <input placeholder="结束时间" type="text" class="form-control maxChose" id="end_time" ng-model="end_time" ng-disabled="!(choseTime)"/>
+                                    <input placeholder="结束时间" type="text" class="form-control maxChose" id="end_time"
+                                           ng-model="end_time" ng-disabled="!(choseTime)"/>
                                 </div>
                             </div>
                         </div>
@@ -273,22 +292,29 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="voucher in vouchers">
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;"  ng-click="voucherChecked($index)">
-                                <input type="checkbox"  ng-checked="voucher.checked"/>
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;"
+                                ng-click="voucherChecked($index)">
+                                <input type="checkbox" ng-checked="voucher.checked"/>
                             </td>
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.promotionName}}
                             </td>
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.voucherValue}}
                             </td>
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.satisfyLimit}}
                             </td>
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.number}}
                             </td>
-                            <td  class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.endTime}}
                             </td>
                         </tr>
@@ -298,7 +324,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="none btn btn-success" ng-click="bindselectConfirm()"  ng-class="{true: 'shownone', false: 'none'}[chosenVoucherNum >= chosenUserNum]">
+                <button type="button" class="none btn btn-success" ng-click="bindselectConfirm()"
+                        ng-class="{true: 'shownone', false: 'none'}[chosenVoucherNum >= chosenUserNum]">
                     确定
                 </button>
             </div>
@@ -312,7 +339,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">绑定全部优惠券<strong>( 已选优惠券数量 >=  用户数)</strong>
+                <h4 class="modal-title">绑定全部优惠券<strong>( 已选优惠券数量 >= 用户数)</strong>
                 </h4>
             </div>
             <div class="modal-body">
@@ -335,22 +362,29 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="voucher in vouchers">
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;"  ng-click="voucherChecked($index)">
-                                <input type="checkbox"  ng-checked="voucher.checked"/>
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;"
+                                ng-click="voucherChecked($index)">
+                                <input type="checkbox" ng-checked="voucher.checked"/>
                             </td>
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.promotionName}}
                             </td>
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.voucherValue}}
                             </td>
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.satisfyLimit}}
                             </td>
-                            <td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.number}}
                             </td>
-                            <td  class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
+                            <td class="v-middle"
+                                style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis">
                                 {{voucher.endTime}}
                             </td>
                         </tr>
@@ -360,7 +394,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button   type="button" class="none btn btn-success" ng-click="bindConfirm()" ng-class="{true: 'shownone', false: 'none'}[showornoshow]">
+                <button type="button" class="none btn btn-success" ng-click="bindConfirm()"
+                        ng-class="{true: 'shownone', false: 'none'}[showornoshow]">
                     确定
                 </button>
             </div>
