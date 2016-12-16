@@ -80,4 +80,6 @@ var addItem = "http://120.26.54.131:8080/GLCPWCC/tag/addTag";
 
 var deleteItem = "http://120.26.54.131:8080/GLCPWCC/tag/deleteTag";
 
-var usersFilter = "http://localhost:8080/GLCPWCC/voucherBinding/user";
+var usersFilter = "http://localhost:8080/GLCPWCC/voucher/user";
+var restVoucher = "http://localhost:8080/GLCPWCC/voucher";
+var bindChosen = "http://localhost:8080/GLCPWCC/voucherBinding/binding";

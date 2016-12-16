@@ -84,6 +84,7 @@ public class MqReceiver implements Runnable {
 			}
 		} catch (JMSException e) {
 			e.printStackTrace();
+			logger.error("error occurred in mq receiver");
 		} finally {
 			try {
 				if (null != connection)

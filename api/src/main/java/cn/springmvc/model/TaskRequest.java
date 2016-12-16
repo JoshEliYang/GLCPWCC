@@ -6,8 +6,8 @@ package cn.springmvc.model;
  *
  */
 public class TaskRequest {
-	String method;
-	String taskTimeStamp;
+	String method; //VoucherBindingMessage
+	String taskTimeStamp; //""
 	User admin;
 	/**
 	 * need to convert parameter object to string

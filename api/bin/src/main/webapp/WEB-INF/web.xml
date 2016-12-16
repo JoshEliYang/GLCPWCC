@@ -163,15 +163,10 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>WechatAccountFilter</filter-name>
-		<url-pattern>/voucherBinding/*</url-pattern>
+		<url-pattern>/voucher/*</url-pattern>
 	</filter-mapping>
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 77cf545f0ea19b44b150d677b26ed9816aad7930
 
 
 	<filter>
@@ -229,7 +224,7 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>AccessFilter</filter-name>
-		<url-pattern>/voucherBinding/*</url-pattern>
+		<url-pattern>/voucher/*</url-pattern>
 	</filter-mapping>
 
 </web-app>

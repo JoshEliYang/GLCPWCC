@@ -14,4 +14,7 @@ public interface VoucherBuildingService {
 
 	public String getBindingCount(VoucherModel vmodel, BasicModel model);
 
+	public List<UserParamModel> getCustomerIdByUser(List<String> customerIdList) ;
+
+
 }
