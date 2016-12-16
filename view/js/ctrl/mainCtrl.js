@@ -160,10 +160,11 @@ if (!window.WebSocket) {
 
 var socket = new WebSocket(socketUrl);
 socket.onopen = function () {
-
+    console.log("socket opened");
 };
 
 socket.onmessage = function (msg) {
+    console.log("socket receive message: " + msg);
     var indata = JSON.parse(msg.data);
     var i = 0;
     for (; i < jobList.length; i++) {
@@ -178,6 +179,7 @@ socket.onmessage = function (msg) {
     }
 };
 socket.onerror = function (err) {
+    console.log("socket error: " + err);
     $.alert({
         theme: "material",
         title: "错误",
@@ -188,6 +190,7 @@ socket.onerror = function (err) {
 };
 
 socket.onclose = function () {
+    console.log("socket closed");
     $.alert({
         theme: "material",
         title: "错误",

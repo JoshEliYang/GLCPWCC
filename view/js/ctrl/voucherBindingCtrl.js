@@ -3,11 +3,11 @@
  */
 
 
-    $("#begin_time").asDatepicker();
-    $("#end_time").asDatepicker();
+$("#begin_time").asDatepicker();
+$("#end_time").asDatepicker();
 
 
-angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination']).controller('voucherCtrl', function ($scope,voucherBinding) {
+angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.pagination']).controller('voucherCtrl', function ($scope, voucherBinding) {
     $scope.begin_time = null;
     $scope.end_time = null;
     $scope.wechatAccount = JSON.parse(sessionStorage.getItem('basic')).id;
@@ -29,58 +29,57 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
         $scope.choseAmount = false;
         $scope.choseTime = false;
     };
-/*
-    $scope.display = function(){
-        if($scope.choseSex == false){
-            $scope.filterSex = null;
-        }
-        if($scope.choseTel == false){
-            $scope.filterTel = null;
-        }
-        if($scope.choseId == false){
-            $scope.filterIdCard = null;
-        }
-        if($scope.choseAge == false){
-            $scope.filterAgeMin = null;
-            $scope.filterAgeMan = null;
-        }
-        if($scope.choseAmount == false){
-            $scope.filterCostMin = null;
-            $scope.filterCostMax = null;
-        }
-        if($scope.choseTime == false){
-            $scope.begin_time = null;
-            $scope.end_time = null;
-        }
-    };
+    /*
+     $scope.display = function(){
+     if($scope.choseSex == false){
+     $scope.filterSex = null;
+     }
+     if($scope.choseTel == false){
+     $scope.filterTel = null;
+     }
+     if($scope.choseId == false){
+     $scope.filterIdCard = null;
+     }
+     if($scope.choseAge == false){
+     $scope.filterAgeMin = null;
+     $scope.filterAgeMan = null;
+     }
+     if($scope.choseAmount == false){
+     $scope.filterCostMin = null;
+     $scope.filterCostMax = null;
+     }
+     if($scope.choseTime == false){
+     $scope.begin_time = null;
+     $scope.end_time = null;
+     }
+     };
 
-    $scope.display();
+     $scope.display();
 
-*/
-    $scope.choseOrder = function(order){
+     */
+    $scope.choseOrder = function (order) {
         $scope.orderBy = order;
     };
 
-    $scope.choseSort = function(sort){
+    $scope.choseSort = function (sort) {
         $scope.sort = sort;
     };
 
 
-
     $scope.paginationConf = {
         currentPage: 1,
-        totalItems:0,
+        totalItems: 0,
         itemsPerPage: 100,
         pagesLength: 15,
-        perPageOptions: [ 50, 100, 150,200],
-        onChange: function(){
-            $scope.skipTemp = ($scope.paginationConf.currentPage -1)*100;
+        perPageOptions: [50, 100, 150, 200],
+        onChange: function () {
+            $scope.skipTemp = ($scope.paginationConf.currentPage - 1) * 100;
             $scope.filterConfirm2();
         }
     };
 
 
-    $scope.filterConfirm=function(){
+    $scope.filterConfirm = function () {
         debugger;
         $("#loadingDialog").modal('show');
         var begin_time = $('#begin_time').asDatepicker('getDate', 'yyyy-mm-dd');
@@ -91,41 +90,41 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
         $scope.param.order = {};
         $scope.param.count = $scope.paginationConf.itemsPerPage;
         $scope.param.offset = 0;
-        if($scope.choseSex == true){
+        if ($scope.choseSex == true) {
             $scope.param.filter.sex = $scope.filterSex;
         }
-        if($scope.choseTel == true){
+        if ($scope.choseTel == true) {
             $scope.param.filter.phone = $scope.filterTel;
         }
-        if($scope.choseId == true){
+        if ($scope.choseId == true) {
             $scope.param.filter.idCard = $scope.filterIdCard;
         }
-        if($scope.choseAge == true){
+        if ($scope.choseAge == true) {
             $scope.param.filter.ageST = $scope.filterAgeMin;
             $scope.param.filter.ageED = $scope.filterAgeMax;
         }
-        if($scope.choseAmount == true){
+        if ($scope.choseAmount == true) {
             $scope.param.filter.amountST = $scope.filterCostMin;
             $scope.param.filter.amountED = $scope.filterCostMax;
         }
-        if($scope.choseTime == true){
+        if ($scope.choseTime == true) {
             $scope.param.filter.orderST = begin_time[0];
             $scope.param.filter.orderED = end_time[0];
         }
         $scope.param.order.orderBy = $scope.orderBy;
         $scope.param.order.sort = $scope.sort;
-        voucherBinding.getUserFilter($scope.token,$scope.wechatAccount,$scope.param).success(function(data){
+        voucherBinding.getUserFilter($scope.token, $scope.wechatAccount, $scope.param).success(function (data) {
             $scope.items = data.data;
             $scope.paginationConf.totalItems = data.count;
             $scope.allUserNum = data.count;
-        }).error(function(data){
+        }).error(function (data) {
             console.log(data.msg);
         })
     };
 
     $scope.filterConfirm();
 
-    $scope.filterConfirm2=function(){
+    $scope.filterConfirm2 = function () {
         $("#loadingDialog").modal('show');
         var begin_time = $('#begin_time').asDatepicker('getDate', 'yyyy-mm-dd');
         var end_time = $('#end_time').asDatepicker('getDate', 'yyyy-mm-dd');
@@ -135,72 +134,76 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
         param.order = {};
         param.count = $scope.paginationConf.itemsPerPage;
         param.offset = $scope.skipTemp;
-        if($scope.choseSex == true){
+        if ($scope.choseSex == true) {
             param.filter.sex = $scope.filterSex;
         }
-        if($scope.choseTel == true){
+        if ($scope.choseTel == true) {
             param.filter.phone = $scope.filterTel;
         }
-        if($scope.choseId == true){
+        if ($scope.choseId == true) {
             param.filter.idCard = $scope.filterIdCard;
         }
-        if($scope.choseAge == true){
+        if ($scope.choseAge == true) {
             param.filter.ageST = $scope.filterAgeMin;
             param.filter.ageED = $scope.filterAgeMan;
         }
-        if($scope.choseAmount == true){
+        if ($scope.choseAmount == true) {
             param.filter.amountST = $scope.filterCostMin;
             param.filter.amountED = $scope.filterCostMax;
         }
-        if($scope.choseTime == true){
+        if ($scope.choseTime == true) {
             param.filter.orderST = begin_time[0];
             param.filter.orderED = end_time[0];
         }
         param.order.orderBy = $scope.orderBy;
         param.order.sort = $scope.sort;
-        voucherBinding.getUserFilter($scope.token,$scope.wechatAccount,param).success(function(data){
+        voucherBinding.getUserFilter($scope.token, $scope.wechatAccount, param).success(function (data) {
             $scope.items = data.data;
             $("#loadingDialog").modal('hide');
             $('#filterDialog').modal('hide');
-        }).error(function(data){
+        }).error(function (data) {
             console.log(data.msg);
         })
     };
 
-    $scope.checked = function(index){
-        if($scope.items[index].checked!=undefined){
-            $scope.items[index].checked=!$scope.items[index].checked;
-        }else{
-            $scope.items[index].checked=true;
+    $scope.checked = function (index) {
+        if ($scope.items[index].checked != undefined) {
+            $scope.items[index].checked = !$scope.items[index].checked;
+        } else {
+            $scope.items[index].checked = true;
         }
     };
-    $scope.restVoucher = function(){
+    $scope.restVoucher = function () {
         $("#loadingDialog").modal('show');
-        voucherBinding.getRestVoucher($scope.token,$scope.wechatAccount).success(function(data){
+        voucherBinding.getRestVoucher($scope.token, $scope.wechatAccount).success(function (data) {
             $scope.vouchers = data.data;
             $("#loadingDialog").modal('hide');
-        }).error(function(data){
+        }).error(function (data) {
             console.log(data.msg);
         })
     };
-    $scope.openBindChosen = function(){
+    $scope.openBindChosen = function () {
         $scope.chosenUserNum = 0;
         $scope.chosenVoucherNum = 0;
-        for(var i in $scope.items){
-            if($scope.items[i].checked == true)
+        for (var i in $scope.items) {
+            if ($scope.items[i].checked == true)
                 $scope.chosenUserNum++;
         }
         $scope.restVoucher();
         $("#bindChosenDialog").modal('show');
     };
-    $scope.voucherChecked = function(index){
-        if($scope.vouchers[index].checked!=undefined){
-            if($scope.vouchers[index].checked == true){$scope.chosenVoucherNum -= parseInt($scope.vouchers[index].number);}
-            else{$scope.chosenVoucherNum += parseInt($scope.vouchers[index].number);}
-            $scope.vouchers[index].checked=!$scope.vouchers[index].checked;
-        }else{
+    $scope.voucherChecked = function (index) {
+        if ($scope.vouchers[index].checked != undefined) {
+            if ($scope.vouchers[index].checked == true) {
+                $scope.chosenVoucherNum -= parseInt($scope.vouchers[index].number);
+            }
+            else {
+                $scope.chosenVoucherNum += parseInt($scope.vouchers[index].number);
+            }
+            $scope.vouchers[index].checked = !$scope.vouchers[index].checked;
+        } else {
             $scope.chosenVoucherNum += parseInt($scope.vouchers[index].number);
-            $scope.vouchers[index].checked=true;
+            $scope.vouchers[index].checked = true;
         }
 
 
@@ -209,14 +212,14 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
 
 
     };
-    $scope.openBindAll = function(){
+    $scope.openBindAll = function () {
         $scope.chosenVoucherNum = 0;
         $scope.restVoucher();
         $("#bindAllDialog").modal("show");
     };
 
 
-    $scope.bindConfirm = function() {
+    $scope.bindConfirm = function () {
         debugger;
         $("#loadingDialog").modal('show');
         $scope.param.count = 1000000;
@@ -235,10 +238,11 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
             $("#bindAllDialog").modal("hide");
         }).error(function (data) {
             console.log(data.msg);
-        })
-    }
+        });
+        window.parent.job('open');
+    };
 
-    $scope.bindselectConfirm = function(){
+    $scope.bindselectConfirm = function () {
         $("#loadingDialog").modal('show');
         $scope.param.promotionIds = [];
         $scope.param.users = [];
@@ -250,9 +254,9 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
             }
         }
 
-        for(var i in $scope.items){
-            if($scope.items[i].checked == true)
-            $scope.param.users[i] = $scope.items[i].customerId;
+        for (var i in $scope.items) {
+            if ($scope.items[i].checked == true)
+                $scope.param.users[i] = $scope.items[i].customerId;
         }
         var dataItems = $scope.param;
         voucherBinding.blingVoucher($scope.token, $scope.wechatAccount, dataItems).success(function (data) {
@@ -261,10 +265,10 @@ angular.module("voucher", ['ui.bootstrap','voucherBindingService','tm.pagination
             $("#loadingDialog").modal('hide');
         }).error(function (data) {
             console.log(data.msg);
-        })
+        });
+        window.parent.job('open');
 
-
-    }
+    };
 
 });
 

@@ -68,7 +68,8 @@ var MessageExcelUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload/SendTemp
 var TemplateMessageButtonsUrl = "http://120.26.54.131:8080/GLCPWCC/message/templates";
 var TicketExpiredUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload/TicketExpiredMessage";
 
-var socketUrl = "ws://120.26.54.131:8080/GLCPWCC/progress";
+var socketUrl = "ws://localhost:8080/GLCPWCC/progress";
+// var socketUrl = "ws://120.26.54.131:8080/GLCPWCC/progress";
 
 var getMenuUrl = "http://120.26.54.131:8080/GLCPWCC/wechatMenu";
 

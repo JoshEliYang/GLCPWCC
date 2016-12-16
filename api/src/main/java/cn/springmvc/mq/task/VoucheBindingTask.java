@@ -57,7 +57,7 @@ public class VoucheBindingTask implements Runnable {
 				this.doPost(jsonStr);
 				bind.clear();
 				jsonStr.clear();
-				sendMessage("绑定成功", voucherCodeList.size(), voucherCodeList.size(), true);
+				sendMessage("绑定成功", voucherCodeList.size(), voucherCodeList.size(), false);
 			}
 
 		} catch (Exception e) {
@@ -88,8 +88,8 @@ public class VoucheBindingTask implements Runnable {
 	}
 
 	private void sendMessage(String message, int progress, int max, boolean isRunning) {
-		TaskResponse taskMessage = new TaskResponse(admin.getId(), taskTimestamp, "", message, isRunning, progress,
-				max);
+		TaskResponse taskMessage = new TaskResponse(admin.getId(), taskTimestamp, "优惠券绑定任务", message, isRunning,
+				progress, max);
 		ProgressSocket.broadcast(taskMessage);
 	}
 
