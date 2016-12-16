@@ -80,7 +80,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
 
 
     $scope.filterConfirm = function () {
-        debugger;
         $("#loadingDialog").modal('show');
         var begin_time = $('#begin_time').asDatepicker('getDate', 'yyyy-mm-dd');
         var end_time = $('#end_time').asDatepicker('getDate', 'yyyy-mm-dd');
@@ -172,7 +171,31 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         } else {
             $scope.items[index].checked = true;
         }
+        var num = selectCheck();
+        if (num == $scope.items.length) {
+            $scope.checkAllParam = true;
+        } else {
+            $scope.checkAllParam = false;
+        }
     };
+
+    var selectCheck = function () {
+        var num = 0;
+        for (var i = 0; i < $scope.items.length; i++) {
+            if ($scope.items.checked)
+                num++;
+        }
+        return num;
+    };
+
+    $scope.checkAllParam = false;
+    $scope.doCheckAll = function () {
+        $scope.checkAllParam = !$scope.checkAllParam;
+        for (var i = 0; i < $scope.items.length; i++) {
+            $scope.items[i].checked = $scope.checkAllParam;
+        }
+    };
+
     $scope.restVoucher = function () {
         $("#loadingDialog").modal('show');
         voucherBinding.getRestVoucher($scope.token, $scope.wechatAccount).success(function (data) {
@@ -220,7 +243,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
 
 
     $scope.bindConfirm = function () {
-        debugger;
         $("#loadingDialog").modal('show');
         $scope.param.count = 1000000;
         $scope.param.promotionIds = [];
@@ -233,7 +255,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         var dataItems = $scope.param;
 
         voucherBinding.blingVoucher($scope.token, $scope.wechatAccount, dataItems).success(function (data) {
-            debugger;
             $("#loadingDialog").modal('hide');
             $("#bindAllDialog").modal("hide");
         }).error(function (data) {
@@ -260,7 +281,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         }
         var dataItems = $scope.param;
         voucherBinding.blingVoucher($scope.token, $scope.wechatAccount, dataItems).success(function (data) {
-            debugger;
             $("#bindChosenDialog").modal("hide");
             $("#loadingDialog").modal('hide');
         }).error(function (data) {
