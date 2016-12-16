@@ -80,7 +80,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
 
 
     $scope.filterConfirm = function () {
-        debugger;
         $("#loadingDialog").modal('show');
         var begin_time = $('#begin_time').asDatepicker('getDate', 'yyyy-mm-dd');
         var end_time = $('#end_time').asDatepicker('getDate', 'yyyy-mm-dd');
@@ -220,7 +219,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
 
 
     $scope.bindConfirm = function () {
-        debugger;
         $("#loadingDialog").modal('show');
         $scope.param.count = 1000000;
         $scope.param.promotionIds = [];
@@ -233,7 +231,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         var dataItems = $scope.param;
 
         voucherBinding.blingVoucher($scope.token, $scope.wechatAccount, dataItems).success(function (data) {
-            debugger;
             $("#loadingDialog").modal('hide');
             $("#bindAllDialog").modal("hide");
         }).error(function (data) {
@@ -260,7 +257,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         }
         var dataItems = $scope.param;
         voucherBinding.blingVoucher($scope.token, $scope.wechatAccount, dataItems).success(function (data) {
-            debugger;
             $("#bindChosenDialog").modal("hide");
             $("#loadingDialog").modal('hide');
         }).error(function (data) {
