@@ -31,6 +31,10 @@ public class TicketExpiredTask implements Runnable {
 
 	Logger logger = Logger.getLogger(TemplateMessageTask.class);
 
+	public TicketExpiredTask(){
+		super();
+	}
+	
 	public TicketExpiredTask(String taskTimestamp, User admin, TemplateParameter message) {
 		this.admin = admin;
 		this.message = message;

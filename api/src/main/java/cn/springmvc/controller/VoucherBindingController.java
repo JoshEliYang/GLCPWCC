@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
@@ -41,16 +42,14 @@ public class VoucherBindingController {
 
 	@ResponseBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public Map<String, Object> create(@RequestBody VoucherModel vmodel,
-			HttpServletRequest request) {
+	public Map<String, Object> create(@RequestBody VoucherModel vmodel, HttpServletRequest request) {
 		List<UserParamModel> result;
 		String count;
 		try {
 			result = voucherBuildingService.getUser(vmodel);
 			count = voucherBuildingService.getUserCount(vmodel);
 			logger.error("tags--" + result);
-			return HttpUtils
-					.generateResponseFour("0", "success", result, count);
+			return HttpUtils.generateResponseFour("0", "success", result, count);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("error");
@@ -68,8 +67,7 @@ public class VoucherBindingController {
 	@RequestMapping(method = RequestMethod.GET)
 	public Map<String, Object> getAll() {
 		try {
-			return HttpUtils.generateResponse("0", "get vouche success",
-					voucherSevice.getVouvher());
+			return HttpUtils.generateResponse("0", "get vouche success", voucherSevice.getVouvher());
 		} catch (Exception e) {
 			return HttpUtils.generateResponse("1", "get vouvher failed", "0");
 		}
@@ -84,17 +82,12 @@ public class VoucherBindingController {
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	public Map<String, Object> getVoucherCode(
-			@RequestBody VoucheModel voucheModel) {
+	public Map<String, Object> getVoucherCode(@RequestBody VoucheModel voucheModel) {
 		System.out.println(voucheModel.getPromotionIdList());
 		System.out.println(voucheModel.getVoucherNum());
 		try {
-			return HttpUtils.generateResponse(
-					"0",
-					"get vouche success",
-					voucherSevice.getVoucherCode(
-							voucheModel.getPromotionIdList(),
-							voucheModel.getVoucherNum()));
+			return HttpUtils.generateResponse("0", "get vouche success",
+					voucherSevice.getVoucherCode(voucheModel.getPromotionIdList(), voucheModel.getVoucherNum()));
 		} catch (Exception e) {
 			return HttpUtils.generateResponse("1", "get vouvher failed", "0");
 		}
@@ -103,29 +96,26 @@ public class VoucherBindingController {
 
 	@ResponseBody
 	@RequestMapping(value = "/bindingall", method = RequestMethod.POST)
-	public Map<String, Object> bindingAllUser(@RequestBody VoucherModel vmodel,
-			HttpServletRequest request) {
+	public Map<String, Object> bindingAllUser(@RequestBody VoucherModel vmodel, HttpServletRequest request) {
 		BasicModel model = (BasicModel) request.getAttribute("BasicModel");
 		User adminInfo = (User) request.getAttribute("admin");
-		
+
 		List<String> user = vmodel.getUsers();
-		
+
 		BindingMessageModel bmm = new BindingMessageModel();
-		
-		if(user != null && user.size() > 0){
-			
+
+		if (user != null && user.size() > 0) {
+
 			List<UserParamModel> customerIdUser;
-			customerIdUser = voucherBuildingService
-					.getCustomerIdByUser(vmodel.getUsers());
-			
-			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(),
-					vmodel.getCustomerCount());
+			customerIdUser = voucherBuildingService.getCustomerIdByUser(vmodel.getUsers());
+
+			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(), vmodel.getCustomerCount());
 			bmm.setBasicModel(model);
 			bmm.setUserList(customerIdUser);
 			bmm.setVoucherList(vouList);
 			bmm.setTemplateId("8Umia-WustHVtjQ3qSz9dN0toMEYYj8bKndQGPsQCeI");
-			
-		}else{
+
+		} else {
 			// 获取总的用户
 			String count = "0";
 			List<UserParamModel> userList = new ArrayList<UserParamModel>();
@@ -137,39 +127,36 @@ public class VoucherBindingController {
 				e1.printStackTrace();
 			}
 
-			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(),
-					Integer.parseInt(count));
-			
+			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(), Integer.parseInt(count));
+
 			bmm.setBasicModel(model);
 			bmm.setUserList(userList);
 			bmm.setVoucherList(vouList);
 			bmm.setTemplateId("8Umia-WustHVtjQ3qSz9dN0toMEYYj8bKndQGPsQCeI");
-			
+
 		}
-		
-		
-		String parameter = String.valueOf(bmm);
-		
+
+		String parameter = JSON.toJSONString(bmm);
+
 		TaskRequest taskrequest = new TaskRequest();
 		taskrequest.setMethod("VoucherBindingMessage");
 		taskrequest.setAdmin(adminInfo);
-		taskrequest.setTaskTimeStamp("");
+		taskrequest.setTaskTimeStamp(vmodel.getTimestamp());
 		taskrequest.setParameter(parameter);
-		
-		//MqSender
-		
-		MqSender mqSender = new MqSender();
-		mqSender.sender(taskrequest);
+
+		// MqSender
+		MqSender.sender(taskrequest);
 
 		// Map<String, String> result = null;
 
 		// List<UserParamModel> result;
-		if(user != null && user.size() > 0){
+
+		if (user != null && user.size() > 0) {
 			return HttpUtils.generateResponse("1", "部分Success", null);
-		}else{
+		} else {
 			return HttpUtils.generateResponse("1", "全部Success", null);
 		}
-		
+
 	}
 
 }

@@ -58,3 +58,9 @@ table *{text-align: center;}
     color:#333;
     font-weight: bold !important;
 }
+.none{
+    display: none;
+}
+.shownone{
+    display: show;
+}
