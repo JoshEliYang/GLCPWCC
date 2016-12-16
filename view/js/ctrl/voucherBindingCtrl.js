@@ -171,7 +171,31 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         } else {
             $scope.items[index].checked = true;
         }
+        var num = selectCheck();
+        if (num == $scope.items.length) {
+            $scope.checkAllParam = true;
+        } else {
+            $scope.checkAllParam = false;
+        }
     };
+
+    var selectCheck = function () {
+        var num = 0;
+        for (var i = 0; i < $scope.items.length; i++) {
+            if ($scope.items.checked)
+                num++;
+        }
+        return num;
+    };
+
+    $scope.checkAllParam = false;
+    $scope.doCheckAll = function () {
+        $scope.checkAllParam = !$scope.checkAllParam;
+        for (var i = 0; i < $scope.items.length; i++) {
+            $scope.items[i].checked = $scope.checkAllParam;
+        }
+    };
+
     $scope.restVoucher = function () {
         $("#loadingDialog").modal('show');
         voucherBinding.getRestVoucher($scope.token, $scope.wechatAccount).success(function (data) {
