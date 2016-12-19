@@ -1,7 +1,11 @@
 package cn.springmvc.mq.task;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +36,9 @@ public class VoucheBindingTask implements Runnable {
 		this.taskTimestamp = taskTimestamp;
 	}
 
+	String successFolder = null;
+	String failedFolder = null;
+
 	public void run() {
 		try {
 			TicketExpiredTask msgPush = new TicketExpiredTask();
@@ -47,20 +54,26 @@ public class VoucheBindingTask implements Runnable {
 			Map<String, Object> jsonStr = new HashMap<String, Object>();
 			List<Map<String, String>> bind = new ArrayList<Map<String, String>>();
 
+			List<String> status = new ArrayList<String>();
+
 			for (int i = 0; i < voucherCodeList.size(); i++) {
 				ThreeKeywordsMesg treKM = new ThreeKeywordsMesg();
 				treKM.setOpenid(message.getUserList().get(i).getOpenId());
-				treKM.setFirst("您有优惠券即将到期");
-				treKM.setKeyword1("优惠券到期提醒");
-				treKM.setKeyword2("券码:" + voucherCodeList.get(i));
-				treKM.setKeyword3("近期到期");
-				treKM.setRemark("感谢您的支持");
-				treKM.setUrl("http://g-super.glcp.com.cn/gapp/hy/coupons/index.htm");
+				treKM.setFirst(message.getVoucherConfig().getFirst());
+				treKM.setKeyword1(message.getVoucherConfig().getKeyword1());
+				// treKM.setKeyword2(keyword2 + voucherCodeList.get(i));
+				treKM.setKeyword2(message.getVoucherConfig().getKeyword2());
+				treKM.setKeyword3(message.getVoucherConfig().getKeyword3());
+				treKM.setRemark(message.getVoucherConfig().getRemark());
+				treKM.setUrl(message.getVoucherConfig().getUrl());
 				words.add(treKM);
 				Map<String, String> aa = new HashMap<String, String>();
 				aa.put("CUSTOMER_ID", userList.get(i).getCustomerId());
 				aa.put("CUSTOMER_CASHVOUCHE_ID", voucherCodeList.get(i));
 				bind.add(aa);
+
+				status.add(userList.get(i).toString());
+
 				if (bind.size() == 100) {
 					jsonStr.put("method", "bind");
 					jsonStr.put("binding", bind);
@@ -72,15 +85,18 @@ public class VoucheBindingTask implements Runnable {
 					String resCode = resData.get("data").get("code");
 					switch (Integer.parseInt(resCode)) {
 					case 0:
-						msgPush.pushToUser(words, message.getBasicModel(), message.getTemplateId());
 						words.clear();
 						sendMessage("正在绑定", i, voucherCodeList.size(), true);
+						msgPush.pushToUser(words, message.getBasicModel(), message.getTemplateId());
+						writeSuccess(status);
 						break;
 					default:
 						sendMessage(resMsg, i, voucherCodeList.size(), true);
+						writeFailed(status);
 					}
 					bind.clear();
 					jsonStr.clear();
+					status.clear();
 				}
 			}
 			if (bind.isEmpty() == false) {
@@ -94,8 +110,8 @@ public class VoucheBindingTask implements Runnable {
 				String resCode = resData.get("data").get("code");
 				switch (Integer.parseInt(resCode)) {
 				case 0:
-					msgPush.pushToUser(words, message.getBasicModel(), message.getTemplateId());
 					sendMessage("正在绑定", voucherCodeList.size(), voucherCodeList.size(), false);
+					msgPush.pushToUser(words, message.getBasicModel(), message.getTemplateId());
 					break;
 				default:
 					sendMessage(resMsg, voucherCodeList.size(), voucherCodeList.size(), false);
@@ -127,6 +143,77 @@ public class VoucheBindingTask implements Runnable {
 		TaskResponse taskMessage = new TaskResponse(admin.getId(), taskTimestamp, "优惠券绑定任务", message, isRunning,
 				progress, max);
 		ProgressSocket.broadcast(taskMessage);
+	}
+
+	void writeSuccess(List<String> lines) {
+		if (successFolder == null) {
+			return;
+		}
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dfTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String now = df.format(new Date());
+		String nowTime = dfTime.format(new Date());
+
+		String cache;
+
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(new File(successFolder + "bindingVoucherSuccess" + now + ".txt"), true);
+			for (int i = 0; i < lines.size(); i++) {
+				cache = nowTime + ": " + lines.get(i) + "\r\n";
+				fos.write(cache.getBytes());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("write file error in VoucheBindingTask >>> " + e.getMessage());
+		} finally {
+			if (fos != null)
+				try {
+					fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					logger.error("close file error in VoucheBindingTask >>> " + e.getMessage());
+				}
+		}
+	}
+
+	void writeFailed(List<String> lines) {
+		if (failedFolder == null) {
+			return;
+		}
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dfTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String now = df.format(new Date());
+		String nowTime = dfTime.format(new Date());
+
+		String cache;
+
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(new File(failedFolder + "/bindingVoucherFail" + now + ".txt"), true);
+			for (int i = 0; i < lines.size(); i++) {
+				cache = nowTime + ": " + lines.get(i) + "\r\n";
+				fos.write(cache.getBytes());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("write file error in VoucheBindingTask >>> " + e.getMessage());
+		} finally {
+			if (fos != null)
+				try {
+					fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					logger.error("close file error in VoucheBindingTask >>> " + e.getMessage());
+				}
+		}
+	}
+
+	public static void main(String args[]) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String now = df.format(new Date());
+		String relativelyPath = System.getProperty("user.dir") + "/bindingVoucherFail" + now + ".txt";
+		System.out.println(relativelyPath);
 	}
 
 }

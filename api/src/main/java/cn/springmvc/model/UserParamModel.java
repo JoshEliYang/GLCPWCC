@@ -117,8 +117,7 @@ public class UserParamModel {
 		return "UserParamModel [customerId=" + customerId + ", openId="
 				+ openId + ", nickName=" + nickName + ", realName=" + realName
 				+ ", gender=" + gender + ", iphone=" + iphone + ", idCard="
-				+ idCard + ", age=" + age + ", totalAmount=" + totalAmount
-				+ ", orders=" + orders + ", recentOrder=" + recentOrder + "]";
+				+ idCard + ", age=" + age +  "]";
 	}
 
 	public UserParamModel() {

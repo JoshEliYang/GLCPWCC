@@ -15,24 +15,26 @@ public class BindingMessageModel {
 	String templateId;
 	List<UserParamModel> userList;
 	List<String> voucherList;
+	VoucherMessageModel voucherConfig;
 
 	public BindingMessageModel() {
 		super();
 	}
 
 	public BindingMessageModel(BasicModel basicModel, String templateId, List<UserParamModel> userList,
-			List<String> voucherList) {
+			List<String> voucherList, VoucherMessageModel voucherConfig) {
 		super();
 		this.basicModel = basicModel;
 		this.templateId = templateId;
 		this.userList = userList;
 		this.voucherList = voucherList;
+		this.voucherConfig = voucherConfig;
 	}
 
 	@Override
 	public String toString() {
 		return "BindingMessageModel [basicModel=" + basicModel + ", templateId=" + templateId + ", userList=" + userList
-				+ ", voucherList=" + voucherList + "]";
+				+ ", voucherList=" + voucherList + ", voucherConfig=" + voucherConfig + "]";
 	}
 
 	public BasicModel getBasicModel() {
@@ -65,6 +67,14 @@ public class BindingMessageModel {
 
 	public void setVoucherList(List<String> voucherList) {
 		this.voucherList = voucherList;
+	}
+
+	public VoucherMessageModel getVoucherConfig() {
+		return voucherConfig;
+	}
+
+	public void setVoucherConfig(VoucherMessageModel voucherConfig) {
+		this.voucherConfig = voucherConfig;
 	}
 
 }

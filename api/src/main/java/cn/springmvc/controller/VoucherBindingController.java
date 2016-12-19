@@ -25,6 +25,7 @@ import cn.springmvc.model.UserParamModel;
 import cn.springmvc.model.VoucheModel;
 import cn.springmvc.model.VoucherModel;
 import cn.springmvc.model.voucher.BindingMessageModel;
+import cn.springmvc.model.voucher.VoucherMessageModel;
 import cn.springmvc.mq.MqSender;
 import cn.springmvc.service.VoucherBuildingService;
 import cn.springmvc.service.VoucherService;
@@ -104,10 +105,21 @@ public class VoucherBindingController {
 
 		BindingMessageModel bmm = new BindingMessageModel();
 
+		VoucherMessageModel voucherConfig = null;
+		try {
+			voucherConfig = voucherBuildingService.getVoucherConfig();
+			bmm.setVoucherConfig(voucherConfig);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("error occurred when get voucherMessageModel configuration in VoucherBindingController >>> "
+					+ e.getMessage() + e.getStackTrace().toString());
+		}
+
 		if (user != null && user.size() > 0) {
 
 			List<UserParamModel> customerIdUser;
-			customerIdUser = voucherBuildingService.getCustomerIdByUser(vmodel.getUsers());
+			customerIdUser = voucherBuildingService.getCustomerIdByUser(vmodel.getUsers(), vmodel.getTimestamp(),
+					adminInfo);
 
 			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(), vmodel.getCustomerCount());
 			bmm.setBasicModel(model);
@@ -123,8 +135,9 @@ public class VoucherBindingController {
 				userList = voucherBuildingService.getUser(vmodel);
 				count = voucherBuildingService.getUserCount(vmodel);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				logger.error("error occurred when get user list in VoucherBindingController >>> " + e1.getMessage()
+						+ e1.getStackTrace().toString());
 			}
 
 			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(), Integer.parseInt(count));
@@ -132,8 +145,10 @@ public class VoucherBindingController {
 			bmm.setBasicModel(model);
 			bmm.setUserList(userList);
 			bmm.setVoucherList(vouList);
-			bmm.setTemplateId("8Umia-WustHVtjQ3qSz9dN0toMEYYj8bKndQGPsQCeI");
-
+			if (voucherConfig == null)
+				bmm.setTemplateId("8Umia-WustHVtjQ3qSz9dN0toMEYYj8bKndQGPsQCeI");
+			else
+				bmm.setTemplateId(voucherConfig.getTemplate());
 		}
 
 		String parameter = JSON.toJSONString(bmm);
@@ -147,16 +162,48 @@ public class VoucherBindingController {
 		// MqSender
 		MqSender.sender(taskrequest);
 
-		// Map<String, String> result = null;
-
-		// List<UserParamModel> result;
-
 		if (user != null && user.size() > 0) {
 			return HttpUtils.generateResponse("1", "部分Success", null);
 		} else {
 			return HttpUtils.generateResponse("1", "全部Success", null);
 		}
 
+	}
+
+	/**
+	 * get configuration of voucher message
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/voucherConfig", method = RequestMethod.GET)
+	public Map<String, Object> getVoucherMessageConfig() {
+		VoucherMessageModel voucherConfig = null;
+		try {
+			voucherConfig = voucherBuildingService.getVoucherConfig();
+			return HttpUtils.generateResponse("0", "success", voucherConfig);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpUtils.generateResponse("-1", "服务器内部错误", null);
+		}
+	}
+
+	/**
+	 * set configuration of voucher message
+	 * 
+	 * @param voucherConfig
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/voucherConfig", method = RequestMethod.POST)
+	public Map<String, Object> setVoucherMessageConfig(@RequestBody VoucherMessageModel voucherConfig) {
+		try {
+			voucherBuildingService.setVoucherConfig(voucherConfig);
+			return HttpUtils.generateResponse("0", "success", null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpUtils.generateResponse("-1", "服务器内部错误", null);
+		}
 	}
 
 }

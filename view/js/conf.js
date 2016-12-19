@@ -85,3 +85,4 @@ var usersFilter = "http://120.26.54.131:8080/GLCPWCC/voucher/user";
 var restVoucher = "http://120.26.54.131:8080/GLCPWCC/voucher";
 var bindChosen = "http://120.26.54.131:8080/GLCPWCC/voucherBinding/binding";
 var bindVoucher = "http://120.26.54.131:8080/GLCPWCC/voucher/bindingall";
+var voucherConfig = "http://120.26.54.131:8080/GLCPWCC/voucher/voucherConfig";
