@@ -11,6 +11,7 @@ import cn.springmvc.model.WechatUser;
  *
  */
 public interface UserService {
+
 	// 获得所有用户分组
 	public Map<String, String> getAll(BasicModel basicModel) throws Exception;
 
