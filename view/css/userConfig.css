@@ -1,0 +1,30 @@
+
+.content{
+    margin:50px;
+}
+
+.table{
+    table-layout:fixed;
+    border:2px solid #999
+}
+.table-bordered>tbody>tr>td,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>td,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>thead>tr>th {
+    border: 1px solid #999;
+    vertical-align: middle;
+}
+th{
+    text-align: center;
+    background: #dadada;
+}
+
+td {
+    text-align: center;
+}
+
+select{
+    padding:5px 50px;
+}

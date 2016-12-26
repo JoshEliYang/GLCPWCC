@@ -173,17 +173,19 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
             $scope.items[index].checked = true;
         }
     };
+/*
     $scope.checkAll = function(){
         if($scope.all == true){
             for (var i in $scope.items) {
-                $scope.items[i].checked == true
+                $scope.items[i].checked = true;
             }
         }else{
             for (var i in $scope.items) {
-                $scope.items[i].checked == false;
+                $scope.items[i].checked = false;
             }
         }
     };
+*/
     $scope.restVoucher = function () {
         $("#loadingDialog").modal('show');
         voucherBinding.getRestVoucher($scope.token, $scope.wechatAccount).success(function (data) {
