@@ -7,6 +7,7 @@ import cn.springmvc.model.LevelRight;
 import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
+import cn.springmvc.model.admin.UserMapping;
 
 /**
  * 
@@ -14,6 +15,13 @@ import cn.springmvc.model.UserLevel;
  *
  */
 public interface AdminDao {
+
+	public void addMissing(List<UserMapping> mappings) throws Exception;
+
+	public void userClearn(List<UserMapping> delMappings) throws Exception;
+
+	public List<UserMapping> getAllUserMapping() throws Exception;
+
 	/**
 	 * get all users
 	 * 

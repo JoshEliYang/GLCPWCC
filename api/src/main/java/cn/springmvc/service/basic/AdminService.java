@@ -7,6 +7,9 @@ import cn.springmvc.model.LevelRight;
 import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
+import cn.springmvc.model.admin.Admin;
+import cn.springmvc.model.admin.OOSAdmin;
+import cn.springmvc.model.admin.UserMapping;
 
 /**
  * 
@@ -14,6 +17,24 @@ import cn.springmvc.model.UserLevel;
  *
  */
 public interface AdminService {
+	
+	
+	public Admin verify(String token)throws Exception;
+	
+	public List<Admin> getAll()throws Exception;
+	
+	public List<OOSAdmin> getAllOosAdmins()throws Exception;
+	
+	public List<UserMapping> getAllUserMapping()throws Exception;
+	
+
+	
+	
+	
+	
+	
+	/********************** Following methods are all abandoned (do not use these again !) *************************/
+	
 	/**
 	 * get all users
 	 * 

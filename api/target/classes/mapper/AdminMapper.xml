@@ -4,6 +4,37 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.springmvc.dao.AdminDao">
+
+	<insert id="addMissing" parameterType="UserMapping">
+		INSERT INTO
+		userMapping(adminId)VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.adminId})
+		</foreach>
+	</insert>
+	
+	<delete id="userClearn" parameterType="UserMapping">
+		DELETE FROM userMapping
+		WHERE id in 
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item.id}
+		</foreach>
+	</delete>
+
+	<select id="getAllUserMapping" resultType="UserMapping">
+		SELECT
+		a.*,
+		b.levelName as levelName
+		FROM
+		userMapping a,
+		userLevel b
+		WHERE
+		a.userLevel = b.id
+	</select>
+
+
 	<select id="getAllUsers" resultType="User">
 		SELECT
 		a.id,

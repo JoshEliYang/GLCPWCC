@@ -21,6 +21,9 @@
         <button type="button" class="btn btn-success" ng-click="openFilter()">
             筛选
         </button>
+        <button class="btn btn-success" ng-click="openConfig()">
+            推送消息配置
+        </button>
         <div style="float: right">
             <button type="button" class="btn btn-success" ng-click="openBindChosen()">
                 绑定选中
@@ -403,6 +406,49 @@
     </div>
 </div>
 
+<!-- 修改优惠券推送消息模态框 -->
+<div class="modal fade" id="configDialog" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">
+                    配置推送消息内容
+                </h4>
+            </div>
+            <div class="modal-body">
+                <label for="firstData">标题</label>
+                <input id="firstData" type="text" class="form-control" placeholder="标题"
+                       ng-model="voucherConfigData.first">
+                <label for="keyword1">关键字1</label>
+                <input id="keyword1" type="text" class="form-control" placeholder="关键字1"
+                       ng-model="voucherConfigData.keyword1">
+                <label for="keyword2">关键字2</label>
+                <input id="keyword2" type="text" class="form-control" placeholder="关键字2"
+                       ng-model="voucherConfigData.keyword2">
+                <label for="keyword3">关键字3</label>
+                <input id="keyword3" type="text" class="form-control" placeholder="关键字3"
+                       ng-model="voucherConfigData.keyword3">
+                <label for="remark">备注</label>
+                <input id="remark" type="text" class="form-control" placeholder="备注"
+                       ng-model="voucherConfigData.remark">
+                <label for="url">URL</label>
+                <input id="url" type="text" class="form-control" placeholder="URL"
+                       ng-model="voucherConfigData.url">
+                <label for="template">模板ID</label>
+                <input id="template" type="text" class="form-control" placeholder="模板ID"
+                       ng-model="voucherConfigData.template">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" ng-click="setConfig()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--Loading模态框-->
 <div class="modal fade" id="loadingDialog" tabindex="-1" role="dialog" data-backdrop="false"
