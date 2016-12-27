@@ -386,4 +386,10 @@ public class AdminServiceImpl implements AdminService {
 		dao.removeAdminLevel(id);
 	}
 
+	public void changeAdmins(Admin am) throws Exception {
+		// TODO Auto-generated method stub
+		dao.changeAdmins(am);
+		
+	}
+
 }

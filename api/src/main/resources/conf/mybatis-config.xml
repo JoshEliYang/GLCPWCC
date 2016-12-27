@@ -48,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 		<typeAlias alias="OrderModel" type="cn.springmvc.model.OrderModel" />
 		<typeAlias alias="FilterModel" type="cn.springmvc.model.FilterModel" />
+		<typeAlias alias="Admin" type="cn.springmvc.model.admin.Admin" />
 
 	</typeAliases>
 

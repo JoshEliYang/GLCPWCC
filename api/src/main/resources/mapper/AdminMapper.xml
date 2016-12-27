@@ -179,4 +179,7 @@
 		removeLevel(#{1})
 	</delete>
 
+	<update id="changeAdmins" parameterType="Admin">
+		UPDATE userMapping set userLevel = #{userLevel} where adminId =#{id}
+	</update>
 </mapper>

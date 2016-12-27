@@ -7,6 +7,7 @@ import cn.springmvc.model.LevelRight;
 import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
+import cn.springmvc.model.admin.Admin;
 import cn.springmvc.model.admin.UserMapping;
 
 /**
@@ -165,4 +166,6 @@ public interface AdminDao {
 	 * @throws Exception
 	 */
 	public void removeAdminLevel(int id) throws Exception;
+
+	public void changeAdmins(Admin am) throws Exception;
 }
