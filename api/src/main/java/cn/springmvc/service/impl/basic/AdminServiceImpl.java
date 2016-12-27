@@ -17,7 +17,10 @@ import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 import cn.springmvc.model.admin.Admin;
+import cn.springmvc.model.admin.AdminInfo;
 import cn.springmvc.model.admin.OOSAdmin;
+import cn.springmvc.model.admin.OOSAdminData;
+import cn.springmvc.model.admin.OOSAdminResponseInfo;
 import cn.springmvc.model.admin.OOSResponse;
 import cn.springmvc.model.admin.UserMapping;
 import cn.springmvc.service.basic.AdminService;
@@ -33,9 +36,36 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDao dao;
 
-	public Admin verify(String token) throws Exception {
+	public AdminInfo verify(String token) throws Exception {
+		List<OOSAdmin> oosAdminList = getAllOosAdmins();
+		List<UserMapping> mappings = getAllUserMapping();
 
-		return null;
+		userClearn(oosAdminList, mappings);
+		addMissing(oosAdminList, mappings);
+
+		String url = "http://120.26.54.131:8080/utilservice/admin/" + token;
+		String response = RequestUtil.doGet(url);
+		OOSAdminResponseInfo oosResponse = JSON.parseObject(response, OOSAdminResponseInfo.class);
+		OOSAdminData oosAdmin = oosResponse.getData();
+
+		if (oosAdmin.isExist()) {
+			UserMapping mapping = dao.getMapping(oosAdmin.getId());
+			AdminInfo adminInfo = new AdminInfo();
+			adminInfo.setExist(true);
+			adminInfo.setOosId(oosAdmin.getId());
+			adminInfo.setName(oosAdmin.getName());
+			adminInfo.setRealName(oosAdmin.getRealName());
+			adminInfo.setId(mapping.getId());
+			adminInfo.setUserLevel(mapping.getUserLevel());
+			adminInfo.setLevelName(mapping.getLevelName());
+			return adminInfo;
+		} else {
+			return new AdminInfo() {
+				{
+					setExist(false);
+				}
+			};
+		}
 	}
 
 	/**
@@ -72,7 +102,6 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return admins;
 	}
-	
 
 	/**
 	 * get all user from OOS
@@ -154,11 +183,14 @@ public class AdminServiceImpl implements AdminService {
 			dao.userClearn(delMappings);
 	}
 
-	/**
-	 * 
-	 * Following methods are all abandoned (do not use these again !)
-	 * 
-	 */
+	
+	
+	
+	
+	
+	
+	
+	/********************************* Following methods are all abandoned (do not use these again !) *************************************/
 
 	/**
 	 * get all users

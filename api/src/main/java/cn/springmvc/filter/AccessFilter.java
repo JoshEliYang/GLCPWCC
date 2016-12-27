@@ -17,9 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import cn.springmvc.model.User;
-import cn.springmvc.model.UserAccess;
+import cn.springmvc.model.admin.AdminInfo;
 import cn.springmvc.service.basic.AdminService;
-import cn.springmvc.service.basic.LoginService;
 
 /**
  * Servlet Filter implementation class AccessFilter
@@ -27,7 +26,6 @@ import cn.springmvc.service.basic.LoginService;
 @Component
 public class AccessFilter implements Filter {
 	private AdminService adminService;
-	private LoginService loginService;
 
 	Logger logger = Logger.getLogger(AccessFilter.class);
 
@@ -54,31 +52,29 @@ public class AccessFilter implements Filter {
 
 		String token = request.getParameter("token");
 
-		UserAccess userAccess = null;
+		AdminInfo adminInfo = null;
 		try {
-			loginService.clearExpiredAccessDat();
-
-			userAccess = loginService.tokenCheck(token);
-			logger.error("get user access success >>>> " + userAccess);
+			adminInfo = adminService.verify(token);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("exception occured when getting user access ! >>>> " + e.getMessage());
+			logger.error("get admin info error by token >>>> " + e.getMessage());
 		}
 
-		if (userAccess == null) {
+		if (adminInfo == null || adminInfo.isExist() == false) {
 			String outJson = "{\"code\":\"101\",\"msg\":\"尚未登录\"}";
 			httpResponse.getOutputStream().write(outJson.getBytes("UTF-8"));
 			return;
 		}
 
-		try {
-			User admin = adminService.getUserById(userAccess.getUserId());
-			request.setAttribute("admin", admin);
-			logger.error("get admin info success by token >>>> " + admin);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("get admin info failed by token >>>> " + e.getMessage());
-		}
+		User admin = new User();
+		admin.setId(adminInfo.getId());
+		admin.setUsername(adminInfo.getName());
+		admin.setRealname(adminInfo.getRealName());
+		admin.setUserLevel(adminInfo.getUserLevel());
+		admin.setLevelName(adminInfo.getLevelName());
+
+		request.setAttribute("admin", admin);
+		logger.error("get admin info success by token >>>> " + admin);
 
 		chain.doFilter(request, response);
 	}
@@ -90,7 +86,6 @@ public class AccessFilter implements Filter {
 		ServletContext context = fConfig.getServletContext();
 		ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
 		adminService = ctx.getBean(AdminService.class);
-		loginService = ctx.getBean(LoginService.class);
 	}
 
 }

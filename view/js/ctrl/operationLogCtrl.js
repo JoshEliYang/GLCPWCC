@@ -13,7 +13,7 @@ angular.module('operation', ['ui.bootstrap','operationLogService','tm.pagination
     $scope.basicId = "1";
     //$scope.adminId = JSON.parse(sessionStorage.getItem('admin'));
     $scope.basicAll = JSON.parse(sessionStorage.getItem('basic'));
-    $scope.token = JSON.parse(sessionStorage.getItem('token'));
+    $scope.token = sessionStorage.getItem('token');
     $scope.url = exloreLog + '?token=' + $scope.token;
 
     operationLog.getDebug($scope.token).success(function(date){

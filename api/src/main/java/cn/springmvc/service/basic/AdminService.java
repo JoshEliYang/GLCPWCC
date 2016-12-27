@@ -8,6 +8,7 @@ import cn.springmvc.model.Right;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
 import cn.springmvc.model.admin.Admin;
+import cn.springmvc.model.admin.AdminInfo;
 import cn.springmvc.model.admin.OOSAdmin;
 import cn.springmvc.model.admin.UserMapping;
 
@@ -19,7 +20,7 @@ import cn.springmvc.model.admin.UserMapping;
 public interface AdminService {
 	
 	
-	public Admin verify(String token)throws Exception;
+	public AdminInfo verify(String token)throws Exception;
 	
 	public List<Admin> getAll()throws Exception;
 	
