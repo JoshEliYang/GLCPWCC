@@ -8,7 +8,6 @@ var getBasic = function () {
 };
 
 
-
 var settingList;
 
 var totilItens;
@@ -79,34 +78,34 @@ var showError = function (msg) {
     });
 };
 
-$("#show").click(function(){
+$("#show").click(function () {
     var tds = "";
-    for(var i in totilItens){
-        totilItens[i].checked  = false;
+    for (var i in totilItens) {
+        totilItens[i].checked = false;
     }
 
-    for(var i = 0;i<settingList.length;i++){
-        for(var j = 0 ;j<totilItens.length;j++){
-            if(settingList[i].tagId == totilItens[j].id){
+    for (var i = 0; i < settingList.length; i++) {
+        for (var j = 0; j < totilItens.length; j++) {
+            if (settingList[i].tagId == totilItens[j].id) {
                 totilItens[j].checked = true;
             }
         }
     }
 
     //totilItens = data.data.tags;
-    for(var i in totilItens){
-        if(totilItens[i].checked == true){
-            tds += '<tr >'+'<td >'+
-                    /*'<input type="checkbox" totilItens[i].checked >' +'</td>'+'<td>'+*/
-                '<input type="checkbox" checked="'+totilItens[i].checked+'" onchange="detail('+totilItens[i].id+')">' +'</td>'+'<td>'+
-                totilItens[i].id +'</td>'+'<td>'+
-                totilItens[i].name +'</td>'+ '</tr>';
-        }else{
-            tds += '<tr onclick="detail('+totilItens[i].id+')">'+'<td>'+
-                    /*'<input type="checkbox" totilItens[i].checked >' +'</td>'+'<td>'+*/
-                '<input type="checkbox" >' +'</td>'+'<td>'+
-                totilItens[i].id +'</td>'+'<td>'+
-                totilItens[i].name +'</td>'+ '</tr>';
+    for (var i in totilItens) {
+        if (totilItens[i].checked == true) {
+            tds += '<tr >' + '<td >' +
+                /*'<input type="checkbox" totilItens[i].checked >' +'</td>'+'<td>'+*/
+                '<input type="checkbox" checked="' + totilItens[i].checked + '" onchange="detail(' + totilItens[i].id + ')">' + '</td>' + '<td>' +
+                totilItens[i].id + '</td>' + '<td>' +
+                totilItens[i].name + '</td>' + '</tr>';
+        } else {
+            tds += '<tr onclick="detail(' + totilItens[i].id + ')">' + '<td>' +
+                /*'<input type="checkbox" totilItens[i].checked >' +'</td>'+'<td>'+*/
+                '<input type="checkbox" >' + '</td>' + '<td>' +
+                totilItens[i].id + '</td>' + '<td>' +
+                totilItens[i].name + '</td>' + '</tr>';
         }
         //totilItens[i].checked = "checked";
 
@@ -117,17 +116,17 @@ $("#show").click(function(){
 })
 
 
-var detail = function(id){
+var detail = function (id) {
 
-    for(var i in totilItens){
-        if(totilItens[i].id ==id){
-            if(totilItens[i].checked ==true){
+    for (var i in totilItens) {
+        if (totilItens[i].id == id) {
+            if (totilItens[i].checked == true) {
                 totilItens[i].checked = false;
 
                 deleteItems(totilItens[i].id)
-            }else if(totilItens[i].checked ==false){
-                totilItens[i].checked ==true
-                addItems(totilItens[i].id,totilItens[i].name)
+            } else if (totilItens[i].checked == false) {
+                totilItens[i].checked == true
+                addItems(totilItens[i].id, totilItens[i].name)
             }
         }
     }
@@ -141,37 +140,36 @@ var detail = function(id){
  * @returns {*}
  */
 
-function getRGB(){
-    var rand = Math.floor(Math.random( ) * 0xFFFFFF).toString(16);
-    return "#"+rand;
+function getRGB() {
+    var rand = Math.floor(Math.random() * 0xFFFFFF).toString(16);
+    return "#" + rand;
 }
 
 
-
-function addItems(tagId,name){
-var temp ={
-    "tagId":tagId,
-    "tagname":name,
-    "color":getRGB(),
-    "uncolor":getRGB(),
-    "basicId":JSON.parse(sessionStorage.getItem('basic')).id
-};
+function addItems(tagId, name) {
+    var temp = {
+        "tagId": tagId,
+        "tagname": name,
+        "color": getRGB(),
+        "uncolor": getRGB(),
+        "basicId": JSON.parse(sessionStorage.getItem('basic')).id
+    };
     //$('#loadingDialog').modal('show');
     $.ajax({
         type: "POST",
         url: addItem + '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data:JSON.stringify(temp),
+        data: JSON.stringify(temp),
         success: function (data) {
         }
     })
 
 }
 
-function deleteItems(tagId){
-    var temp ={
-        "tagId":tagId,
+function deleteItems(tagId) {
+    var temp = {
+        "tagId": tagId
     };
     //$('#loadingDialog').modal('show');
     $.ajax({
@@ -179,13 +177,12 @@ function deleteItems(tagId){
         url: deleteItem + '?token=' + getCookie("token") + '&wechatAccount=' + JSON.parse(sessionStorage.getItem('basic')).id,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data:JSON.stringify(temp),
+        data: JSON.stringify(temp),
         success: function (data) {
         }
     })
 
 }
-
 
 
 function getMax(dat) {
@@ -218,10 +215,9 @@ function setDiagram(settingList, elementId) {
     }
 
 
-
 }
 
-$("#closeModal").click(function(){
+$("#closeModal").click(function () {
     $('#ConfigModal').modal('hide');
 
 
@@ -234,7 +230,7 @@ $("#closeModal").click(function(){
 
             totilItens = data.data.tags;
         }
-    })
+    });
 
 
     $.ajax({
@@ -280,11 +276,4 @@ $("#closeModal").click(function(){
         }
     });
 
-
-
-
-
-
-
-
-})
+});

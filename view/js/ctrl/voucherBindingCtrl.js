@@ -80,7 +80,6 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
 
 
     $scope.filterConfirm = function () {
-        debugger;
         $("#loadingDialog").modal('show');
         var begin_time = $('#begin_time').asDatepicker('getDate', 'yyyy-mm-dd');
         var end_time = $('#end_time').asDatepicker('getDate', 'yyyy-mm-dd');
@@ -172,20 +171,32 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         } else {
             $scope.items[index].checked = true;
         }
-    };
-/*
-    $scope.checkAll = function(){
-        if($scope.all == true){
-            for (var i in $scope.items) {
-                $scope.items[i].checked = true;
-            }
-        }else{
-            for (var i in $scope.items) {
-                $scope.items[i].checked = false;
-            }
+        var num = selectCheck();
+        if (num == $scope.items.length) {
+            $scope.checkAllParam = true;
+        } else {
+            $scope.checkAllParam = false;
         }
     };
-*/
+
+    var selectCheck = function () {
+        var num = 0;
+        for (var i = 0; i < $scope.items.length; i++) {
+            if ($scope.items.checked)
+                num++;
+        }
+        return num;
+    };
+
+
+    $scope.checkAllParam = false;
+    $scope.doCheckAll = function () {
+        $scope.checkAllParam = !$scope.checkAllParam;
+        for (var i = 0; i < $scope.items.length; i++) {
+            $scope.items[i].checked = $scope.checkAllParam;
+        }
+    };
+
     $scope.restVoucher = function () {
         $("#loadingDialog").modal('show');
         voucherBinding.getRestVoucher($scope.token, $scope.wechatAccount).success(function (data) {
@@ -233,20 +244,20 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
 
 
     $scope.bindConfirm = function () {
-        debugger;
         $("#loadingDialog").modal('show');
         $scope.param.count = 1000000;
         $scope.param.promotionIds = [];
         $scope.param.users = [];
+        var promCount = 0;
         for (var i = 0; i < $scope.vouchers.length; i++) {
             if ($scope.vouchers[i].checked == true) {
-                $scope.param.promotionIds[i] = $scope.vouchers[i].promotionId;
+                $scope.param.promotionIds[promCount] = $scope.vouchers[i].promotionId;
+                promCount++;
             }
         }
         var dataItems = $scope.param;
-
+        // debugger;
         voucherBinding.blingVoucher($scope.token, $scope.wechatAccount, dataItems).success(function (data) {
-            debugger;
             $("#loadingDialog").modal('hide');
             $("#bindAllDialog").modal("hide");
         }).error(function (data) {
@@ -261,19 +272,24 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         $scope.param.users = [];
         $scope.param.count = 1000000;
         $scope.param.customerCount = $scope.chosenUserNum;
+        var promCount = 0;
         for (var i = 0; i < $scope.vouchers.length; i++) {
             if ($scope.vouchers[i].checked == true) {
-                $scope.param.promotionIds[i] = $scope.vouchers[i].promotionId;
+                $scope.param.promotionIds[promCount] = $scope.vouchers[i].promotionId;
+                promCount++;
             }
         }
 
+        var userCount = 0;
         for (var i in $scope.items) {
-            if ($scope.items[i].checked == true)
-                $scope.param.users[i] = $scope.items[i].customerId;
+            if ($scope.items[i].checked == true) {
+                $scope.param.users[userCount] = $scope.items[i].customerId;
+                userCount++;
+            }
         }
         var dataItems = $scope.param;
+        // debugger;
         voucherBinding.blingVoucher($scope.token, $scope.wechatAccount, dataItems).success(function (data) {
-            debugger;
             $("#bindChosenDialog").modal("hide");
             $("#loadingDialog").modal('hide');
         }).error(function (data) {
@@ -283,5 +299,31 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
 
     };
 
+
+    $scope.openConfig = function () {
+        $('#configDialog').modal("show");
+        voucherBinding.getVoucherConfig($scope.token, $scope.wechatAccount).success(function (data) {
+            if (data.code != 0) {
+                alert(data.msg);
+                return;
+            }
+            $scope.voucherConfigData = data.data;
+            console.log(JSON.stringify(data.data))
+        }).error(function () {
+            console.log(data.msg);
+        });
+    };
+
+    $scope.setConfig = function () {
+        voucherBinding.setVoucherConfig($scope.token, $scope.wechatAccount, $scope.voucherConfigData).success(function (data) {
+            if (data.code != 0) {
+                alert(data.msg);
+                return;
+            }
+            $('#configDialog').modal("hide");
+        }).error(function () {
+            console.log(data.msg);
+        });
+    };
 });
 

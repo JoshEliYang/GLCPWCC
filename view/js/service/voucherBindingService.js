@@ -32,6 +32,21 @@ angular.module('voucherBindingService', [])
                     url: bindChosen + '?token=' + token + '&wechatAccount=' + wechatAccount,
                     data: data
                 })
+            },
+
+            getVoucherConfig: function (token, wechatAccount) {
+                return $http({
+                    method: 'GET',
+                    url: voucherConfig + '?token=' + token + '&wechatAccount=' + wechatAccount
+                });
+            },
+
+            setVoucherConfig: function (token, wechatAccount, data) {
+                return $http({
+                    method: 'POST',
+                    url: voucherConfig + '?token=' + token + '&wechatAccount=' + wechatAccount,
+                    data: data
+                });
             }
 
         }

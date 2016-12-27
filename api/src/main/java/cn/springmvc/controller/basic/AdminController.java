@@ -22,6 +22,7 @@ import cn.springmvc.model.AdminLevel;
 import cn.springmvc.model.LevelRight;
 import cn.springmvc.model.User;
 import cn.springmvc.model.UserLevel;
+import cn.springmvc.model.admin.Admin;
 import cn.springmvc.service.basic.AdminService;
 
 /**
@@ -37,6 +38,38 @@ public class AdminController {
 	private AdminService service;
 
 	Logger logger = Logger.getLogger(AdminController.class);
+
+	@ResponseBody
+	@RequestMapping(value = "/admins", method = RequestMethod.GET)
+	public Map<String, Object> getAllAdmin() {
+		List<Admin> admins = null;
+		try {
+			admins = service.getAll();
+			return HttpUtils.generateResponse("0", "success", admins);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpUtils.generateResponse("-1", "服务器内部错误", null);
+		}
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/changeAdmins", method = RequestMethod.POST)
+	public Map<String, Object> changeAdmins(@RequestBody Admin am) {
+		//List<PriceTagPacks> param1 = null;
+		
+		try {
+			service.changeAdmins(am);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpUtils.generateResponse("1", "请求失败", null);
+		}
+
+		return HttpUtils.generateResponse("0", "修改成功",null);
+	}
+	
+
+	/***************** Following methods are abandoned (never use these again! ) *************************/
 
 	/**
 	 * get all admin users
