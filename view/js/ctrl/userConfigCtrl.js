@@ -9,7 +9,7 @@ app.controller('userConfigCtrl',function($scope,$http,UserServiceGlobal,Paginati
 
     $scope.wechatAccount = 1;
     $scope.token =1482732703364;
-
+    $scope.level= [];
 
     var getUserCallback = function (data) {
         PaginationServiceGlobal.doPagination(data, pageMax, function (pageGroup, totalCount) {
@@ -38,5 +38,17 @@ app.controller('userConfigCtrl',function($scope,$http,UserServiceGlobal,Paginati
 
     UserServiceGlobal.getAllUser($http, getUserCallback,$scope.token,$scope.wechatAccount);
 
+    var updateUser = function(){
+        UserServiceGlobal.getAllUser($http, getUserCallback,$scope.token,$scope.wechatAccount);
+    };
 
+
+    $scope.changeUserLevel = function(id,level){
+        console.log(level);
+        var aa = {};
+        aa.id = id;
+        aa.userLevel = level;
+ //       UserServiceGlobal.changeLevel($http,aa,$scope.token,$scope.wechatAccount,UserServiceGlobal.getAllUser($http, getUserCallback,$scope.token,$scope.wechatAccount));
+        UserServiceGlobal.changeLevel($http,aa,$scope.token,$scope.wechatAccount,updateUser);
+    };
 });

@@ -5,7 +5,7 @@
 app.service('UserServiceGlobal',function(){
 
     /**
-     * get admin list
+     * get user list
      *
      * @param $http
      * @param callback
@@ -20,14 +20,24 @@ app.service('UserServiceGlobal',function(){
         }).success(function (data) {
             if (data.code != 0) {
                 showError(data.msg);
-                return;
             }
-
             callback(data.data);
-            $('#loadingDialog').modal('hide');
         }).error(function () {
             showError('请求失败<br>请检查您的网络！');
         });
     };
+
+    this.changeLevel = function($http,data,token,wechatAccount,callback){
+        $http({
+            method:"POST",
+            url:changeLevelUrl + '?token=' + token + "&wechatAccount=" + wechatAccount,
+            'Content-Type':'application/json',
+            data:data
+        }).success(function(){
+            callback();
+        }).error(function(){
+            showError('请求失败<br>请检查您的网络！');
+        })
+    }
 
 });
