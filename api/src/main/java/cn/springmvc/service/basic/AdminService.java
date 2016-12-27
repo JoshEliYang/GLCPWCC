@@ -176,4 +176,6 @@ public interface AdminService {
 	 * @throws Exception
 	 */
 	public void removeAdminLevel(int id) throws Exception;
+
+	public void changeAdmins(Admin am) throws Exception;
 }

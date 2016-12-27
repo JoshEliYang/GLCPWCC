@@ -53,7 +53,20 @@ public class AdminController {
 	}
 	
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/changeAdmins", method = RequestMethod.POST)
+	public Map<String, Object> changeAdmins(@RequestBody Admin am) {
+		//List<PriceTagPacks> param1 = null;
+		
+		try {
+			service.changeAdmins(am);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return HttpUtils.generateResponse("1", "请求失败", null);
+		}
+
+		return HttpUtils.generateResponse("0", "修改成功",null);
+	}
 	
 
 	/***************** Following methods are abandoned (never use these again! ) *************************/
