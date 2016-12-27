@@ -37,11 +37,16 @@
             <table style="table-layout: fixed" width="100%"
                    class="table table-bordered table-hover table-condensed table-striped bg-white-only">
                 <thead>
+
+                <!--<tr style="width: 900px" ng-click="checkAll()">-->
+                    <!--<th style="width: 40px;overflow: hidden;"> &lt;!&ndash;<input type="checkbox" ng-model="all"/>&ndash;&gt;<input type="checkbox"/></th>-->
+
                 <tr style="width: 900px">
                     <th style="width: 40px;overflow: hidden;" ng-click="doCheckAll()">
                         <input type="checkbox"
                                ng-checked="checkAllParam"/>
                     </th>
+
                     <th style="width: 100px;overflow: hidden;">昵称</th>
                     <th style="width: 80px;overflow: hidden;">真名</th>
                     <th style="width: 40px;overflow: hidden;">性别</th>
@@ -54,6 +59,10 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                <!--<tr ng-repeat="item in items">-->
+                    <!--<td class="v-middle" style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;" ng-click="checked($index)">-->
+                        <!--&lt;!&ndash;<input type="checkbox" ng-checked="item.checked" ng-model="all"/>&ndash;&gt;-->
                 <tr ng-repeat="item in items" ng-click="checked($index)">
                     <td class="v-middle"
                         style="overflow: hidden; white-space: nowrap;  text-overflow: ellipsis;text-align: center;">

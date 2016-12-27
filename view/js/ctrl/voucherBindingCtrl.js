@@ -188,6 +188,7 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
         return num;
     };
 
+
     $scope.checkAllParam = false;
     $scope.doCheckAll = function () {
         $scope.checkAllParam = !$scope.checkAllParam;

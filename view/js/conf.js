@@ -84,4 +84,8 @@ var usersFilter = "http://localhost:8080/GLCPWCC/voucher/user";
 var restVoucher = "http://localhost:8080/GLCPWCC/voucher";
 var bindChosen = "http://localhost:8080/GLCPWCC/voucherBinding/binding";
 var bindVoucher = "http://localhost:8080/GLCPWCC/voucher/bindingall";
-var voucherConfig = "http://localhost:8080/GLCPWCC/voucher/voucherConfig";
+
+var getUserUrl = "http://localhost:8080/GLCPWCC/admin/admins";
+var changeLevelUrl = "http://localhost:8080/GLCPWCC/admin/changeAdmins";
+
+var voucherConfig = "http://120.26.54.131:8080/GLCPWCC/voucher/voucherConfig";
