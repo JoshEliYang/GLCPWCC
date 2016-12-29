@@ -51,4 +51,42 @@ app.controller('userConfigCtrl', function ($scope, $http, UserServiceGlobal, Pag
         //       UserServiceGlobal.changeLevel($http,aa,$scope.token,$scope.wechatAccount,UserServiceGlobal.getAllUser($http, getUserCallback,$scope.token,$scope.wechatAccount));
         UserServiceGlobal.changeLevel($http, aa, $scope.token, $scope.wechatAccount, updateUser);
     };
+
+    $scope.openPage = function (index) {
+        PaginationServiceGlobal.getPage({
+            "pageNow": $scope.pageNow,
+            "pageGroup": $scope.pageGroup
+        }, index, function (pageNow, pageGroup, showList) {
+            $scope.pageNow = pageNow;
+            $scope.pageGroup = pageGroup;
+            $scope.userList = showList;
+        });
+    };
+
+    $scope.getPrevious = function () {
+        if ($scope.pageNow != 0) {
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow - 1, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.userList = showList;
+            });
+        }
+    };
+
+    $scope.getNext = function () {
+        if ($scope.pageNow < $scope.pageGroup.length - 1) {
+            PaginationServiceGlobal.getPage({
+                "pageNow": $scope.pageNow,
+                "pageGroup": $scope.pageGroup
+            }, $scope.pageNow + 1, function (pageNow, pageGroup, showList) {
+                $scope.pageNow = pageNow;
+                $scope.pageGroup = pageGroup;
+                $scope.userList = showList;
+            });
+        }
+    };
+
 });

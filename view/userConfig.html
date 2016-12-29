@@ -42,6 +42,26 @@
     </table>
 
 
+    <nav class="paginationNav">
+        <ul class="pagination">
+            <li>
+                <a href="#head" aria-label="Previous" ng-click="getPrevious()">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li ng-repeat="item in pageGroup" ng-class="item.css">
+                <a href="#head" ng-click="openPage($index)"
+                   ng-bind="$index+1"></a>
+            </li>
+            <li>
+                <a href="#head" aria-label="Next" ng-click="getNext()">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+        <p>共{{pageGroup.length}}页 {{totalCount}}条记录</p>
+    </nav>
+
 </div>
 
 <script src="lib/jquery2.2.4/jquery.min.js"></script>
