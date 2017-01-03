@@ -1,4 +1,4 @@
-package cn.springmvc.service.impl;
+package cn.springmvc.service.impl.function;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cn.springmvc.daoMaster.VoucherCodeDao;
 import cn.springmvc.model.VoucheModel;
-import cn.springmvc.service.VoucherService;
+import cn.springmvc.service.function.VoucherService;
 
 @Service
 public class VoucherServiceImpl implements VoucherService {

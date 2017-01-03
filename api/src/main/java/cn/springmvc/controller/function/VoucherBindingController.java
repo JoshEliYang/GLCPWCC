@@ -1,4 +1,4 @@
-package cn.springmvc.controller;
+package cn.springmvc.controller.function;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +27,8 @@ import cn.springmvc.model.VoucherModel;
 import cn.springmvc.model.voucher.BindingMessageModel;
 import cn.springmvc.model.voucher.VoucherMessageModel;
 import cn.springmvc.mq.MqSender;
-import cn.springmvc.service.VoucherBuildingService;
-import cn.springmvc.service.VoucherService;
+import cn.springmvc.service.function.VoucherBuildingService;
+import cn.springmvc.service.function.VoucherService;
 
 @Scope("prototype")
 @Controller
