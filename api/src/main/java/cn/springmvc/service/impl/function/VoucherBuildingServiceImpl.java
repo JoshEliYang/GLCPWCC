@@ -1,4 +1,4 @@
-package cn.springmvc.service.impl;
+package cn.springmvc.service.impl.function;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import cn.springmvc.model.User;
 import cn.springmvc.model.UserParamModel;
 import cn.springmvc.model.VoucherModel;
 import cn.springmvc.model.voucher.VoucherMessageModel;
-import cn.springmvc.service.VoucherBuildingService;
+import cn.springmvc.service.function.VoucherBuildingService;
 import cn.springmvc.websocket.ProgressSocket;
 
 /**

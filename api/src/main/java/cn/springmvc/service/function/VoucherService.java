@@ -1,4 +1,4 @@
-package cn.springmvc.service;
+package cn.springmvc.service.function;
 
 import java.util.ArrayList;
 import java.util.List;
