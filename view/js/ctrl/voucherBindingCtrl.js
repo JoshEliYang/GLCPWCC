@@ -11,7 +11,7 @@ angular.module("voucher", ['ui.bootstrap', 'voucherBindingService', 'tm.paginati
     $scope.begin_time = null;
     $scope.end_time = null;
     $scope.wechatAccount = JSON.parse(sessionStorage.getItem('basic')).id;
-    $scope.token = JSON.parse(sessionStorage.getItem('token'));
+    $scope.token = sessionStorage.getItem('token');
     $scope.orderBy = 'totalAmount';
     $scope.sort = 'desc';
     $scope.offset = 0;

@@ -10,8 +10,22 @@ $(function () {
 var app = angular.module('wechatApp', ['ngSanitize']);
 
 app.controller('wechatCtrl', function ($scope, $http, AdminServiceGlobal, ButtonServiceGlobal, BasicServiceGlobal) {
-    AdminServiceGlobal.getAdmin($http, function callback(data) {
-        $scope.realname = data.realname;
+    var token = getParameter('ticket');
+    setCookie('token', token);
+    sessionStorage.setItem('token', token);
+
+    // AdminServiceGlobal.getAdmin($http, function callback(data) {
+    //     $scope.realname = data.realname;
+    // });
+
+    SSO.verify(function (userData) {
+        $scope.realname = userData.realName;
+        var admin = {
+            "realname": userData.realName,
+            "username": userData.name
+        };
+        sessionStorage.setItem("admin", JSON.stringify(admin));
+        $scope.$apply();
     });
 
     ButtonServiceGlobal.getButtonGroup($http, ButtonServiceGlobal.getButtons, function (buttonsList, selectId) {

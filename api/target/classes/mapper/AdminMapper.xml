@@ -5,6 +5,17 @@
 
 <mapper namespace="cn.springmvc.dao.AdminDao">
 
+	<select id="getMapping" parameterType="Integer" resultType="UserMapping">
+		SELECT
+		a.*, b.levelName
+		FROM
+		userMapping a,
+		userLevel b
+		WHERE
+		a.userLevel = b.id
+		AND a.adminId = #{0}
+	</select>
+
 	<insert id="addMissing" parameterType="UserMapping">
 		INSERT INTO
 		userMapping(adminId)VALUES
@@ -13,10 +24,10 @@
 			(#{item.adminId})
 		</foreach>
 	</insert>
-	
+
 	<delete id="userClearn" parameterType="UserMapping">
 		DELETE FROM userMapping
-		WHERE id in 
+		WHERE id in
 		<foreach collection="list" item="item" index="index"
 			separator="," open="(" close=")">
 			#{item.id}
@@ -26,7 +37,8 @@
 	<select id="getAllUserMapping" resultType="UserMapping">
 		SELECT
 		a.*,
-		b.levelName as levelName
+		b.levelName
+		as levelName
 		FROM
 		userMapping a,
 		userLevel b

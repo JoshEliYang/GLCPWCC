@@ -68,7 +68,6 @@ var MessageExcelUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload/SendTemp
 var TemplateMessageButtonsUrl = "http://120.26.54.131:8080/GLCPWCC/message/templates";
 var TicketExpiredUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload/TicketExpiredMessage";
 
-// var socketUrl = "ws://localhost:8080/GLCPWCC/progress";
 var socketUrl = "ws://120.26.54.131:8080/GLCPWCC/progress";
 
 var getMenuUrl = "http://120.26.54.131:8080/GLCPWCC/wechatMenu";
@@ -81,12 +80,12 @@ var addItem = "http://120.26.54.131:8080/GLCPWCC/tag/addTag";
 
 var deleteItem = "http://120.26.54.131:8080/GLCPWCC/tag/deleteTag";
 
-var usersFilter = "http://localhost:8080/GLCPWCC/voucher/user";
-var restVoucher = "http://localhost:8080/GLCPWCC/voucher";
-var bindChosen = "http://localhost:8080/GLCPWCC/voucherBinding/binding";
-var bindVoucher = "http://localhost:8080/GLCPWCC/voucher/bindingall";
+var usersFilter = "http://120.26.54.131:8080/GLCPWCC/voucher/user";
+var restVoucher = "http://120.26.54.131:8080/GLCPWCC/voucher";
+var bindChosen = "http://120.26.54.131:8080/GLCPWCC/voucherBinding/binding";
+var bindVoucher = "http://120.26.54.131:8080/GLCPWCC/voucher/bindingall";
 
-var getUserUrl = "http://localhost:8080/GLCPWCC/admin/admins";
-var changeLevelUrl = "http://localhost:8080/GLCPWCC/admin/changeAdmins";
+var getUserUrl = "http://120.26.54.131:8080/GLCPWCC/admin/admins";
+var changeLevelUrl = "http://120.26.54.131:8080/GLCPWCC/admin/changeAdmins";
 
 var voucherConfig = "http://120.26.54.131:8080/GLCPWCC/voucher/voucherConfig";

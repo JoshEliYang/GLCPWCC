@@ -17,6 +17,8 @@ import cn.springmvc.model.admin.UserMapping;
  */
 public interface AdminDao {
 
+	public UserMapping getMapping(int adminId) throws Exception;
+
 	public void addMissing(List<UserMapping> mappings) throws Exception;
 
 	public void userClearn(List<UserMapping> delMappings) throws Exception;
