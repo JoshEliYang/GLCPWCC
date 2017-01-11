@@ -1,10 +1,7 @@
 package cn.springmvc.service.impl.manage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
-import cn.springmvc.dao.BasicDao;
-import cn.springmvc.model.TagList;
-
 import java.util.List;
 import java.util.Map;
 
@@ -12,12 +9,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
-import com.springmvc.utils.RequestUtil;
-
+import cn.springmvc.dao.BasicDao;
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.TagDat;
 import cn.springmvc.service.manage.TagService;
 import cn.springmvc.service.wechat.WechartService;
+
+import com.alibaba.fastjson.JSON;
+import com.springmvc.utils.RequestUtil;
 
 @Service
 public class TagServiceImpl implements TagService {
@@ -28,26 +27,32 @@ public class TagServiceImpl implements TagService {
 
 	Logger logger = Logger.getLogger(TagServiceImpl.class);
 
-	public Map<String, String> createTag(String jsonStr, BasicModel model) throws Exception {
+	public Map<String, String> createTag(String jsonStr, BasicModel model)
+			throws Exception {
 		String accessToken = service.getAccessToken(model);
-		String url = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token=" + accessToken;
+		String url = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token="
+				+ accessToken;
 		String response = RequestUtil.doPost(url, jsonStr);
 		Map<String, String> res = (Map<String, String>) JSON.parse(response);
 		return res;
 	}
 
-	public Map<String, String> delete(String jsonStr, BasicModel model) throws Exception {
+	public Map<String, String> delete(String jsonStr, BasicModel model)
+			throws Exception {
 		String accessToken = service.getAccessToken(model);
-		String url = "https://api.weixin.qq.com/cgi-bin/tags/delete?access_token=" + accessToken;
+		String url = "https://api.weixin.qq.com/cgi-bin/tags/delete?access_token="
+				+ accessToken;
 		String response = RequestUtil.doPost(url, jsonStr);
 		Map<String, String> res = (Map<String, String>) JSON.parse(response);
 		return res;
 	}
 
-	public Map<String, String> update(String jsonStr, BasicModel model) throws Exception {
+	public Map<String, String> update(String jsonStr, BasicModel model)
+			throws Exception {
 		String accessToken = service.getAccessToken(model);
 		logger.error("accessToken--" + accessToken);
-		String url = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token=" + accessToken;
+		String url = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token="
+				+ accessToken;
 		String response = RequestUtil.doPost(url, jsonStr);
 		logger.error("json response--" + response);
 		Map<String, String> res = (Map<String, String>) JSON.parse(response);
@@ -57,7 +62,8 @@ public class TagServiceImpl implements TagService {
 	public Map<String, String> getAll(BasicModel model) throws Exception {
 		String accessToken = service.getAccessToken(model);
 		logger.error("accessToken--" + accessToken);
-		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + accessToken;
+		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token="
+				+ accessToken;
 		logger.error("url--" + url);
 		String response = RequestUtil.doGet(url);
 		logger.error("response--" + response);
@@ -74,10 +80,28 @@ public class TagServiceImpl implements TagService {
 	 */
 	public List<TagDat> getTags(BasicModel model) throws Exception {
 		String accessToken = service.getAccessToken(model);
-		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + accessToken;
+		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token="
+				+ accessToken;
 		String response = RequestUtil.doGet(url);
-		TagList tags = JSON.parseObject(response, TagList.class);
-		return tags.getTags();
+
+		@SuppressWarnings("unchecked")
+		Map<String, List<Map<String, Object>>> res = (Map<String, List<Map<String, Object>>>) JSON
+				.parse(response);
+		List<Map<String, Object>> tags = res.get("tags");
+
+		List<TagDat> tagDataList = new ArrayList<TagDat>();
+		for (int i = 0; i < tags.size(); i++) {
+			Map<String, Object> tag = tags.get(i);
+
+			TagDat datItem = new TagDat();
+			datItem.setId((Integer) tag.get("id"));
+			datItem.setName((String) tag.get("name"));
+			datItem.setCount((Integer) tag.get("count"));
+
+			tagDataList.add(datItem);
+		}
+
+		return tagDataList;
 	}
 
 	/**
@@ -88,12 +112,14 @@ public class TagServiceImpl implements TagService {
 	public String getAll(BasicModel model, String queryDat) throws Exception {
 		String accessToken = service.getAccessToken(model);
 		logger.error("accessToken--" + accessToken);
-		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + accessToken;
+		String url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token="
+				+ accessToken;
 		String response = RequestUtil.doGet(url);
 
 		System.out.println(response);
 
-		Map<String, List<Map<String, String>>> res = (Map<String, List<Map<String, String>>>) JSON.parse(response);
+		Map<String, List<Map<String, String>>> res = (Map<String, List<Map<String, String>>>) JSON
+				.parse(response);
 		List<Map<String, String>> tags = res.get("tags");
 
 		for (int i = tags.size() - 1; i >= 0; i--) {
@@ -110,51 +136,54 @@ public class TagServiceImpl implements TagService {
 		return JSON.toJSONString(result);
 	}
 
-	public Map<String, String> getUserByTag(String jsonStr, BasicModel model) throws Exception {
+	public Map<String, String> getUserByTag(String jsonStr, BasicModel model)
+			throws Exception {
 		String accessToken = service.getAccessToken(model);
-		String url = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token" + accessToken;
+		String url = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token"
+				+ accessToken;
 		String response = RequestUtil.doPost(url, jsonStr);
 		Map<String, String> res = (Map<String, String>) JSON.parse(response);
 		return res;
 	}
 
-	public Map<String, String> createTagAndQrcode(String jsonStr, BasicModel model) throws Exception {
+	public Map<String, String> createTagAndQrcode(String jsonStr,
+			BasicModel model) throws Exception {
 		TagService tagService = null;
 		Map<String, String> res = tagService.createTag(jsonStr, model);
 
 		return null;
 	}
 
-	public class TagDat {
-		int id;
-		String name;
-		int count;
-
-		public int getId() {
-			return id;
-		}
-
-		public void setId(int id) {
-			this.id = id;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public int getCount() {
-			return count;
-		}
-
-		public void setCount(int count) {
-			this.count = count;
-		}
-
-	}
+	// public class TagDat {
+	// int id;
+	// String name;
+	// int count;
+	//
+	// public int getId() {
+	// return id;
+	// }
+	//
+	// public void setId(int id) {
+	// this.id = id;
+	// }
+	//
+	// public String getName() {
+	// return name;
+	// }
+	//
+	// public void setName(String name) {
+	// this.name = name;
+	// }
+	//
+	// public int getCount() {
+	// return count;
+	// }
+	//
+	// public void setCount(int count) {
+	// this.count = count;
+	// }
+	//
+	// }
 
 	public class TagList {
 		List<TagDat> tags;

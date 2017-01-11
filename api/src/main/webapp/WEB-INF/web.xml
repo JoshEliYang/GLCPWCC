@@ -165,6 +165,10 @@
 		<filter-name>WechatAccountFilter</filter-name>
 		<url-pattern>/voucher/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WechatAccountFilter</filter-name>
+		<url-pattern>/subscribers/*</url-pattern>
+	</filter-mapping>
 
 
 

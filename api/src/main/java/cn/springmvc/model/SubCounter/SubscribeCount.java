@@ -18,6 +18,7 @@ public class SubscribeCount {
 	int day;
 	int week;
 	int tagId;
+	String tagName;
 	int subscribe = 0;
 	int unsubscribe = 0;
 	int basicId;
@@ -120,11 +121,21 @@ public class SubscribeCount {
 		this.date = date;
 	}
 
+	public String getTagName() {
+		return tagName;
+	}
+
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+
 	@Override
 	public String toString() {
-		return "SubscribeCount [id=" + id + ", year=" + year + ", month=" + month + ", day=" + day + ", week=" + week
-				+ ", tagId=" + tagId + ", subscribe=" + subscribe + ", unsubscribe=" + unsubscribe + ", basicId="
-				+ basicId + ", date=" + date + "]";
+		return "SubscribeCount [id=" + id + ", year=" + year + ", month="
+				+ month + ", day=" + day + ", week=" + week + ", tagId="
+				+ tagId + ", tagName=" + tagName + ", subscribe=" + subscribe
+				+ ", unsubscribe=" + unsubscribe + ", basicId=" + basicId
+				+ ", date=" + date + "]";
 	}
 
 }

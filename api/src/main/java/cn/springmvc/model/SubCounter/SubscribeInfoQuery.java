@@ -10,6 +10,15 @@ import java.util.Arrays;
 public class SubscribeInfoQuery {
 	String startDate;
 	String endDate;
+	int tagId;
+
+	public int getTagId() {
+		return tagId;
+	}
+
+	public void setTagId(int tagId) {
+		this.tagId = tagId;
+	}
 
 	/**
 	 * -1:means those users aren't belong to any group
@@ -23,9 +32,12 @@ public class SubscribeInfoQuery {
 	 */
 	int dateType;
 
+
+
 	@Override
 	public String toString() {
-		return "SubscribeInfoQuery [startDate=" + startDate + ", endDate=" + endDate + ", tagList="
+		return "SubscribeInfoQuery [startDate=" + startDate + ", endDate="
+				+ endDate + ", tagId=" + tagId + ", tagList="
 				+ Arrays.toString(tagList) + ", dateType=" + dateType + "]";
 	}
 

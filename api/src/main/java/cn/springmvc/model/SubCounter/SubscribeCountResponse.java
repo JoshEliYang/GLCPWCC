@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import cn.springmvc.service.impl.manage.TagServiceImpl.TagDat;
-
+//import cn.springmvc.service.impl.manage.TagServiceImpl.TagDat;
+import cn.springmvc.model.TagDat;
 /**
  * 
  * @author johnson

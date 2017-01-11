@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.springmvc.dao.SubscribeTableDao">
+	<select id="query" parameterType="SubscribeCountQuery"  resultType="SubscribeCount">		
+		SELECT 
+    	*
+		FROM
+	    (SELECT 
+	        *,
+            CONCAT(`year`, '-', CASE
+                WHEN `month` <![CDATA[<]]> 10 THEN CONCAT('0', `month`)
+                ELSE `month`
+            END, '-', CASE
+                WHEN `day` <![CDATA[<]]> 10 THEN CONCAT('0', `day`)
+                ELSE `day`
+            END) AS `date`
+	    FROM
+        subscribe_count) tableA
+		WHERE 
+		`date` <![CDATA[>=]]> #{startDate}
+		AND `date` <![CDATA[<=]]> #{endDate}
+				
+	</select>
+
+
+
+	<select id="queryDay"  resultType="SubscribeCount">		
+		SELECT 
+    	*
+		FROM
+	    (SELECT 
+	        *,
+            CONCAT(`year`, '-', CASE
+                WHEN `month` <![CDATA[<]]> 10 THEN CONCAT('0', `month`)
+                ELSE `month`
+            END, '-', CASE
+                WHEN `day` <![CDATA[<]]> 10 THEN CONCAT('0', `day`)
+                ELSE `day`
+            END) AS `date`
+	    FROM
+        subscribe_count) tableA
+		WHERE
+		`date` = #{0}
+				
+	</select>
+
+
+
+</mapper>

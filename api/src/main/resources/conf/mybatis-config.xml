@@ -36,6 +36,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			type="cn.springmvc.model.SubCounter.SubscribeDBQuery" />
 		<typeAlias alias="SubscribeSetting"
 			type="cn.springmvc.model.SubCounter.SubscribeSetting" />
+		<typeAlias alias="SubscribeCountQuery"
+			type="cn.springmvc.model.SubCounter.SubscribeCountQuery" />	
 
 
 		<typeAlias alias="TagList" type="cn.springmvc.model.TagList" />

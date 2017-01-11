@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.TagDat;
 import cn.springmvc.model.TagList;
-import cn.springmvc.service.impl.manage.TagServiceImpl.TagDat;
 
 public interface TagService {
 
