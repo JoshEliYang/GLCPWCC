@@ -74,7 +74,7 @@ var getMenuUrl = "http://120.26.54.131:8080/GLCPWCC/wechatMenu";
 
 // subscribe info
 var getSubscribeInfoByDay = "http://120.26.54.131:8080/GLCPWCC/subscribe_report";
-var getSubscribeCount = "http://localhost:8080/GLCPWCC/subscribers";
+var getSubscribeCount = "http://120.26.54.131:8080/GLCPWCC/subscribers";
 
 var addItem = "http://120.26.54.131:8080/GLCPWCC/tag/addTag";
 

@@ -108,9 +108,9 @@ public class SubscribeReportController {
 			 * set all tags
 			 */
 			result.setTags(tagService.getTags(basicModel));
-			return HttpUtils.generateResponse("3", "用户关注统计信息查询失败", null);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return HttpUtils.generateResponse("3", "用户关注统计信息查询失败", null);
 		}
 		return HttpUtils.generateResponse("0", "用户关注统计信息查询成功", result);
 	}

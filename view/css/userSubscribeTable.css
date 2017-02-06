@@ -1,35 +1,50 @@
-.head,.tablePanel{
-    margin:20px;
+.head, .tablePanel {
+    margin: 20px;
 }
-.table{width:100%;}
-.spanbox,.calendar-inputWrap{
-    display:inline-block;
+
+.tablePanel {
+    height: 700px;
+    overflow: scroll;
+}
+
+.table {
+    width: 100%;
+}
+
+.spanbox, .calendar-inputWrap {
+    display: inline-block;
     line-height: 34px;
 }
-.inputbox{
-    margin:0 10px;
+
+.inputbox {
+    margin: 0 10px;
 }
-.buttonbox{
-    float:right;
+
+.buttonbox {
+    float: right;
 }
-.buttonlink{
-    display:inline-block;
-    width:100%;
-    color:#fff;
+
+.buttonlink {
+    display: inline-block;
+    width: 100%;
+    color: #fff;
 }
-.buttonlink:hover{
+
+.buttonlink:hover {
     text-decoration: none;
-    color:#fff;
+    color: #fff;
 }
-.maxChose,.minChose{
-    width:150px;
-    height:34px;
+
+.maxChose, .minChose {
+    width: 150px;
+    height: 34px;
     border-radius: 8px;
-    border:1px solid #999;
+    border: 1px solid #999;
     padding-left: 15px;
 }
-td,th{
+
+td, th {
     text-align: center;
     min-width: 95px;
-    width:95px;
+    width: 95px;
 }
