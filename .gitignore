@@ -1,1 +1,4 @@
 /target/
+api/.classpath
+view/.idea
+*.class
