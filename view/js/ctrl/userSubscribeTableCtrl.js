@@ -25,9 +25,9 @@ Date.prototype.format = function (format) {
 
 function getDate(strDate) {
     var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
-            function (a) {
-                return parseInt(a, 10) - 1;
-            }).match(/\d+/g) + ')');
+        function (a) {
+            return parseInt(a, 10) - 1;
+        }).match(/\d+/g) + ')');
     return date;
 }
 
@@ -100,7 +100,11 @@ angular.module("subscribe", ['ui.bootstrap', 'userSubscribeTableService', 'tm.pa
         })
     };
 
-    $scope.url = "http://home.g-super.net:8080/GLCPWCC/subscribers/" + $scope.startDate + "/" + $scope.endDate + "?wechatAccount=1";
+    $scope.export = function () {
+        $scope.getDates();
+        var url = "http://home.g-super.net:8080/GLCPWCC/subscribers/" + $scope.startDate + "/" + $scope.endDate + "?wechatAccount=1&timestamp=" + new Date().getTime();
+        window.location.href = url;
+    };
 
     $scope.search();
 });
