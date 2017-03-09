@@ -7,7 +7,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,13 +18,17 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springmvc.utils.HttpUtils;
+
 import cn.springmvc.model.BasicModel;
+import cn.springmvc.model.TaskRequest;
+import cn.springmvc.model.User;
+import cn.springmvc.service.mq.ProducerService;
 import cn.springmvc.service.wechat.WechartService;
 
 /**
@@ -36,7 +43,31 @@ public class TestController {
 	@Autowired
 	public WechartService service;
 
+	@Resource(name = "taskQueueDestination")
+	private Destination testQueueDestination;
+
+	@Autowired
+	private ProducerService producerService;
+
 	Logger logger = Logger.getLogger(TestController.class);
+
+	@ResponseBody
+	@RequestMapping(value = "/mq", method = RequestMethod.GET)
+	public Map<String, Object> mqtest() {
+		producerService.send(new TaskRequest() {
+			{
+				this.setMethod("test method");
+				this.setTaskTimeStamp(String.valueOf(System.currentTimeMillis()));
+				this.setAdmin(new User() {
+					{
+						this.setRealname("test user");
+					}
+				});
+				this.setParameter("parameters");
+			}
+		});
+		return HttpUtils.generateResponse("0", "test success", null);
+	}
 
 	/**
 	 * token test
@@ -91,7 +122,7 @@ public class TestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			inputStream.close();
 		} catch (IOException e) {
@@ -136,7 +167,7 @@ public class TestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			inputStream.close();
 		} catch (IOException e) {

@@ -53,8 +53,6 @@
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
 
-	<bean id="InitListener" class="cn.springmvc.interceptor.InitListener" />
-
 	<!-- 引入 mongo.properties -->
 	<context:property-placeholder location="classpath:conf/mongo.properties" />
 
