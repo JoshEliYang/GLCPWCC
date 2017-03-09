@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.User;
+import cn.springmvc.model.templateMesg.TemplateParameter;
 import cn.springmvc.model.templateMesg.ThreeKeywordsMesg;
-import cn.springmvc.mq.model.TemplateParameter;
 
 public interface TicketExpiredSendService {
 

@@ -16,8 +16,8 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.TaskResponse;
 import cn.springmvc.model.User;
 import cn.springmvc.model.templateMesg.TemplateMessageData;
+import cn.springmvc.model.templateMesg.TemplateParameter;
 import cn.springmvc.model.templateMesg.ThreeKeywordsMesg;
-import cn.springmvc.mq.model.TemplateParameter;
 import cn.springmvc.service.impl.wechat.WechartServiceImpl;
 import cn.springmvc.service.mq.task.TicketExpiredSendService;
 import cn.springmvc.service.wechat.WechartService;
@@ -32,8 +32,6 @@ public class TicketExpiredSendServiceImpl implements TicketExpiredSendService {
 
 	Logger logger = Logger.getLogger(TicketExpiredSendService.class);
 
-	
-	
 	public void setAdmin(User admin) {
 		this.admin = admin;
 	}
@@ -104,7 +102,7 @@ public class TicketExpiredSendServiceImpl implements TicketExpiredSendService {
 					this.setTemplate_id(templateId);
 					this.setTouser(words.get(i).getOpenid());
 					this.setUrl(words.get(i).getUrl());
-					Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
+					this.data = new HashMap<String, Map<String, String>>();
 					data.put("first", new HashMap<String, String>() {
 						private static final long serialVersionUID = 1L;
 						{

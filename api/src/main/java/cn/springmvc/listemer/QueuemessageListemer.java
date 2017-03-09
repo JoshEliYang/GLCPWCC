@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 
 import cn.springmvc.model.TaskRequest;
+import cn.springmvc.model.templateMesg.TemplateParameter;
 import cn.springmvc.model.voucher.BindingMessageModel;
-import cn.springmvc.mq.model.TemplateParameter;
-import cn.springmvc.mq.task.VoucheBindingTask;
 import cn.springmvc.service.mq.task.CouponMessageSendService;
 import cn.springmvc.service.mq.task.TicketExpiredSendService;
+import cn.springmvc.service.mq.task.VoucheBindingService;
 
 public class QueuemessageListemer implements MessageListener {
 
@@ -22,6 +22,8 @@ public class QueuemessageListemer implements MessageListener {
 	private CouponMessageSendService couponMessage;
 	@Autowired
 	private TicketExpiredSendService ticketExpiredMessage;
+	@Autowired
+	private VoucheBindingService voucheBindingService;
 
 	public void onMessage(Message message) {
 		TextMessage tm = (TextMessage) message;
@@ -38,9 +40,11 @@ public class QueuemessageListemer implements MessageListener {
 				ticketExpiredMessage.send(task.getTaskTimeStamp(), task.getAdmin(), taskParameter);
 			} else if ("VoucherBindingMessage".equals(task.getMethod())) {
 				BindingMessageModel taskParameter = JSON.parseObject(task.getParameter(), BindingMessageModel.class);
-				Thread VoucherBindingThread = new Thread(
-						new VoucheBindingTask(task.getAdmin(), taskParameter, task.getTaskTimeStamp()));
-				VoucherBindingThread.start();
+				voucheBindingService.send(task.getAdmin(), taskParameter, task.getTaskTimeStamp());
+				// Thread VoucherBindingThread = new Thread(
+				// new VoucheBindingTask(task.getAdmin(), taskParameter,
+				// task.getTaskTimeStamp()));
+				// VoucherBindingThread.start();
 			}
 
 		} catch (JMSException e) {

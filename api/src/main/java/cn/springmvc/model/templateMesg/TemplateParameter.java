@@ -1,16 +1,22 @@
-package cn.springmvc.mq.model;
+package cn.springmvc.model.templateMesg;
 
 import cn.springmvc.model.BasicModel;
 
-/**
- * 
- * @author johnson
- *
- */
 public class TemplateParameter {
 	String filePath;
 	BasicModel basicModel;
 	String templateId;
+
+	public TemplateParameter() {
+		super();
+	}
+
+	public TemplateParameter(String filePath, BasicModel basicModel, String templateId) {
+		super();
+		this.filePath = filePath;
+		this.basicModel = basicModel;
+		this.templateId = templateId;
+	}
 
 	public String getFilePath() {
 		return filePath;
@@ -36,15 +42,10 @@ public class TemplateParameter {
 		this.templateId = templateId;
 	}
 
-	public TemplateParameter() {
-		super();
-	}
-
-	public TemplateParameter(String filePath, BasicModel basicModel, String templateId) {
-		super();
-		this.filePath = filePath;
-		this.basicModel = basicModel;
-		this.templateId = templateId;
+	@Override
+	public String toString() {
+		return "TemplateParameter [filePath=" + filePath + ", basicModel=" + basicModel + ", templateId=" + templateId
+				+ "]";
 	}
 
 }

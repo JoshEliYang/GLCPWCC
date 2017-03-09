@@ -28,7 +28,7 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.TaskRequest;
 import cn.springmvc.model.User;
 import cn.springmvc.model.templateMesg.TemplateMessage;
-import cn.springmvc.mq.model.TemplateParameter;
+import cn.springmvc.model.templateMesg.TemplateParameter;
 import cn.springmvc.service.function.TemplateMessageService;
 import cn.springmvc.service.mq.ProducerService;
 
@@ -75,7 +75,7 @@ public class TemplateMessageController {
 				Matcher matcher = pattern.matcher(file.getOriginalFilename());
 				if (matcher.find()) {
 					// 文件保存路径
-					// filePath = "F:/testFile/" + System.currentTimeMillis() +
+					// filePath = "G:/test/" + System.currentTimeMillis() +
 					// matcher.group(0);
 					filePath = "/opt/data/source/uploaded/" + System.currentTimeMillis() + matcher.group(0);
 				} else {

@@ -1,9 +1,9 @@
 var deploy = "120.26.54.131:8080";
 var localTest = "localhost:8080";
 
-var prefixUrl = "http://" + localTest + "/GLCPWCC";
+var prefixUrl = "http://" + deploy + "/GLCPWCC";
 
-var socketUrl = "ws://" + localTest + "/GLCPWCC/progress";
+var socketUrl = "ws://" + deploy + "/GLCPWCC/progress";
 
 //////////////////////////////// http //////////////////////////////////////
 var loginUrl = prefixUrl + "/login/login";

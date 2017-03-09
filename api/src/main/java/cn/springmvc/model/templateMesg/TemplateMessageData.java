@@ -3,10 +3,10 @@ package cn.springmvc.model.templateMesg;
 import java.util.Map;
 
 public class TemplateMessageData {
-	String touser = "OPENID";
+	String touser;
 	String template_id;
 	String url;
-	Map<String, Map<String, String>> data;
+	protected Map<String, Map<String, String>> data;
 
 	public String getTouser() {
 		return touser;

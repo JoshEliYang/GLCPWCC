@@ -17,7 +17,7 @@ import cn.springmvc.model.TaskResponse;
 import cn.springmvc.model.User;
 import cn.springmvc.model.templateMesg.Coupon;
 import cn.springmvc.model.templateMesg.TemplateMessageData;
-import cn.springmvc.mq.model.TemplateParameter;
+import cn.springmvc.model.templateMesg.TemplateParameter;
 import cn.springmvc.service.impl.wechat.WechartServiceImpl;
 import cn.springmvc.service.mq.task.CouponMessageSendService;
 import cn.springmvc.service.wechat.WechartService;
@@ -86,7 +86,7 @@ public class CouponMessageSendServiceImpl implements CouponMessageSendService {
 					this.setTemplate_id(templateId);
 					this.setTouser(coupons.get(i).getOpenid());
 					this.setUrl(coupons.get(i).getUrl());
-					Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
+					this.data = new HashMap<String, Map<String, String>>();
 					data.put("first", new HashMap<String, String>() {
 						private static final long serialVersionUID = 1L;
 						{
