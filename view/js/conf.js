@@ -1,91 +1,96 @@
+var deploy = "120.26.54.131:8080";
+var localTest = "localhost:8080";
+
+var prefixUrl = "http://" + localTest + "/GLCPWCC";
+
+var socketUrl = "ws://" + localTest + "/GLCPWCC/progress";
+
 //////////////////////////////// http //////////////////////////////////////
-var loginUrl = "http://120.26.54.131:8080/GLCPWCC/login/login";
+var loginUrl = prefixUrl + "/login/login";
 
-var basicUrl = "http://120.26.54.131:8080/GLCPWCC/basic/inusing";
-var basicUrlAll = "http://120.26.54.131:8080/GLCPWCC/basic/all";
-var basicSetUsingUrl = "http://120.26.54.131:8080/GLCPWCC/basic/setUsing";
-var basicSetDefaultUrl = "http://120.26.54.131:8080/GLCPWCC/basic/setDefault";
-var basicInsertUrl = "http://120.26.54.131:8080/GLCPWCC/basic/insert";
-var basicEditUrl = "http://120.26.54.131:8080/GLCPWCC/basic/edit";
-var basicDeleteUrl = "http://120.26.54.131:8080/GLCPWCC/basic/delete/";
-var selectTokenServerUrl = "http://120.26.54.131:8080/GLCPWCC/basic/setTokenServer";
+var basicUrl = prefixUrl + "/basic/inusing";
+var basicUrlAll = prefixUrl + "/basic/all";
+var basicSetUsingUrl = prefixUrl + "/basic/setUsing";
+var basicSetDefaultUrl = prefixUrl + "/basic/setDefault";
+var basicInsertUrl = prefixUrl + "/basic/insert";
+var basicEditUrl = prefixUrl + "/basic/edit";
+var basicDeleteUrl = prefixUrl + "/basic/delete/";
+var selectTokenServerUrl = prefixUrl + "/basic/setTokenServer";
 
-var userInfoUrl = "http://120.26.54.131:8080/GLCPWCC/admin/info";
-var userUrlAll = "http://120.26.54.131:8080/GLCPWCC/admin/all";
-var userLevelsUrlAll = "http://120.26.54.131:8080/GLCPWCC/admin/allLevels";
-var userInsertUrl = "http://120.26.54.131:8080/GLCPWCC/admin/insert";
-var userEditUrl = "http://120.26.54.131:8080/GLCPWCC/admin/edit";
-var userDeleteUrl = "http://120.26.54.131:8080/GLCPWCC/admin/delete/";
-var resetPasswdUrl = "http://120.26.54.131:8080/GLCPWCC/admin/resetPasswd";
-var levelRightUrl = "http://120.26.54.131:8080/GLCPWCC/admin/levelRight";
-var addAdminLevelUrl = "http://120.26.54.131:8080/GLCPWCC/admin/addLevel";
-var adminLevelEditUrl = "http://120.26.54.131:8080/GLCPWCC/admin/userLevel";
+var userInfoUrl = prefixUrl + "/admin/info";
+var userUrlAll = prefixUrl + "/admin/all";
+var userLevelsUrlAll = prefixUrl + "/admin/allLevels";
+var userInsertUrl = prefixUrl + "/admin/insert";
+var userEditUrl = prefixUrl + "/admin/edit";
+var userDeleteUrl = prefixUrl + "/admin/delete/";
+var resetPasswdUrl = prefixUrl + "/admin/resetPasswd";
+var levelRightUrl = prefixUrl + "/admin/levelRight";
+var addAdminLevelUrl = prefixUrl + "/admin/addLevel";
+var adminLevelEditUrl = prefixUrl + "/admin/userLevel";
 
-var buttonGroupUrl = "http://120.26.54.131:8080/GLCPWCC/button/group";
-var buttonsUrl = "http://120.26.54.131:8080/GLCPWCC/button/button/";
+var buttonGroupUrl = prefixUrl + "/button/group";
+var buttonsUrl = prefixUrl + "/button/button/";
 
-var msgTypeUrl = "http://120.26.54.131:8080/GLCPWCC/msgtype/all";
-var keyWordsUrl = "http://120.26.54.131:8080/GLCPWCC/keywords/all";
-var keyWordsInsertUrl = "http://120.26.54.131:8080/GLCPWCC/keywords/insert";
-var keyWordsSetInUsing = "http://120.26.54.131:8080/GLCPWCC/keywords/setInUsing";
-var keyWordsEdit = "http://120.26.54.131:8080/GLCPWCC/keywords/keywordEdit";
-var deleteKeyWordsUrl = "http://120.26.54.131:8080/GLCPWCC/keywords/";
-var subscribeReplyUrl = "http://120.26.54.131:8080/GLCPWCC/keywords/subscribe";
-var insertSubscribeUrl = "http://120.26.54.131:8080/GLCPWCC/keywords/subscribe";
-var setSubscribeInUsingUrl = "http://120.26.54.131:8080/GLCPWCC/keywords/subscribe/setInUsing";
+var msgTypeUrl = prefixUrl + "/msgtype/all";
+var keyWordsUrl = prefixUrl + "/keywords/all";
+var keyWordsInsertUrl = prefixUrl + "/keywords/insert";
+var keyWordsSetInUsing = prefixUrl + "/keywords/setInUsing";
+var keyWordsEdit = prefixUrl + "/keywords/keywordEdit";
+var deleteKeyWordsUrl = prefixUrl + "/keywords/";
+var subscribeReplyUrl = prefixUrl + "/keywords/subscribe";
+var insertSubscribeUrl = prefixUrl + "/keywords/subscribe";
+var setSubscribeInUsingUrl = prefixUrl + "/keywords/subscribe/setInUsing";
 
-var tagGetUrl = "http://120.26.54.131:8080/GLCPWCC/tag/get";
-var tagGetUserUrl = "http://120.26.54.131:8080/GLCPWCC/tag/getUser";
-var tagCreateUrl = "http://120.26.54.131:8080/GLCPWCC/tag/create";
-var tagDeleteUrl = "http://120.26.54.131:8080/GLCPWCC/tag/delete";
-var tagUpdateUrl = "http://120.26.54.131:8080/GLCPWCC/tag/update";
-var tagCreateWithQr = "http://120.26.54.131:8080/GLCPWCC/tag/tagAndQrcode";
+var tagGetUrl = prefixUrl + "/tag/get";
+var tagGetUserUrl = prefixUrl + "/tag/getUser";
+var tagCreateUrl = prefixUrl + "/tag/create";
+var tagDeleteUrl = prefixUrl + "/tag/delete";
+var tagUpdateUrl = prefixUrl + "/tag/update";
+var tagCreateWithQr = prefixUrl + "/tag/tagAndQrcode";
 
-var qrcodeGetUrl = "http://120.26.54.131:8080/GLCPWCC/Qrcode/select";
-var qrcodeCreateUrl = "http://120.26.54.131:8080/GLCPWCC/Qrcode/create";
-var getResourceListUrl = "http://120.26.54.131:8080/GLCPWCC/resource/";
-var getImageUrl = "http://120.26.54.131:8080/GLCPWCC/test/wechatimage";
+var qrcodeGetUrl = prefixUrl + "/Qrcode/select";
+var qrcodeCreateUrl = prefixUrl + "/Qrcode/create";
+var getResourceListUrl = prefixUrl + "/resource/";
+var getImageUrl = prefixUrl + "/test/wechatimage";
 
 //operationLog
-var queryOperationLog = "http://120.26.54.131:8080/GLCPWCC/log/operate";
-var exloreLog = "http://120.26.54.131:8080/GLCPWCC/log/operate/export";
-var clearLog = "http://120.26.54.131:8080/GLCPWCC/log/operate";
+var queryOperationLog = prefixUrl + "/log/operate";
+var exloreLog = prefixUrl + "/log/operate/export";
+var clearLog = prefixUrl + "/log/operate";
 //errorLog
-var queryErrorLog = "http://120.26.54.131:8080/GLCPWCC/log/error";
-var clearErrorLog = "http://120.26.54.131:8080/GLCPWCC/log/error";
-var exloreErrorLog = "http://120.26.54.131:8080/GLCPWCC/log/error/export";
+var queryErrorLog = prefixUrl + "/log/error";
+var clearErrorLog = prefixUrl + "/log/error";
+var exloreErrorLog = prefixUrl + "/log/error/export";
 //debugLog
-var queryDebugLog = "http://120.26.54.131:8080/GLCPWCC/log/debug";
-var clearDebugLog = "http://120.26.54.131:8080/GLCPWCC/log/debug";
-var exploreDebugLog = "http://120.26.54.131:8080/GLCPWCC/log/debug/export";
-var tureDebugLog = "http://120.26.54.131:8080/GLCPWCC/log/setDebug/true";
-var falseDebugLog = "http://120.26.54.131:8080/GLCPWCC/log/setDebug/false";
+var queryDebugLog = prefixUrl + "/log/debug";
+var clearDebugLog = prefixUrl + "/log/debug";
+var exploreDebugLog = prefixUrl + "/log/debug/export";
+var tureDebugLog = prefixUrl + "/log/setDebug/true";
+var falseDebugLog = prefixUrl + "/log/setDebug/false";
 //ifDebug
-var getDebug = "http://120.26.54.131:8080/GLCPWCC/log/DebugMode";
+var getDebug = prefixUrl + "/log/DebugMode";
 
 
-var MessageExcelUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload/SendTemplateMessage";
-var TemplateMessageButtonsUrl = "http://120.26.54.131:8080/GLCPWCC/message/templates";
-var TicketExpiredUrl = "http://120.26.54.131:8080/GLCPWCC/message/upload/TicketExpiredMessage";
+var MessageExcelUrl = prefixUrl + "/message/upload/SendTemplateMessage";
+var TemplateMessageButtonsUrl = prefixUrl + "/message/templates";
+var TicketExpiredUrl = prefixUrl + "/message/upload/TicketExpiredMessage";
 
-var socketUrl = "ws://120.26.54.131:8080/GLCPWCC/progress";
-
-var getMenuUrl = "http://120.26.54.131:8080/GLCPWCC/wechatMenu";
+var getMenuUrl = prefixUrl + "/wechatMenu";
 
 // subscribe info
-var getSubscribeInfoByDay = "http://120.26.54.131:8080/GLCPWCC/subscribe_report";
-var getSubscribeCount = "http://120.26.54.131:8080/GLCPWCC/subscribers";
+var getSubscribeInfoByDay = prefixUrl + "/subscribe_report";
+var getSubscribeCount = prefixUrl + "/subscribers";
 
-var addItem = "http://120.26.54.131:8080/GLCPWCC/tag/addTag";
+var addItem = prefixUrl + "/tag/addTag";
 
-var deleteItem = "http://120.26.54.131:8080/GLCPWCC/tag/deleteTag";
+var deleteItem = prefixUrl + "/tag/deleteTag";
 
-var usersFilter = "http://120.26.54.131:8080/GLCPWCC/voucher/user";
-var restVoucher = "http://120.26.54.131:8080/GLCPWCC/voucher";
-var bindChosen = "http://120.26.54.131:8080/GLCPWCC/voucherBinding/binding";
-var bindVoucher = "http://120.26.54.131:8080/GLCPWCC/voucher/bindingall";
+var usersFilter = prefixUrl + "/voucher/user";
+var restVoucher = prefixUrl + "/voucher";
+var bindChosen = prefixUrl + "/voucherBinding/binding";
+var bindVoucher = prefixUrl + "/voucher/bindingall";
 
-var getUserUrl = "http://120.26.54.131:8080/GLCPWCC/admin/admins";
-var changeLevelUrl = "http://120.26.54.131:8080/GLCPWCC/admin/changeAdmins";
+var getUserUrl = prefixUrl + "/admin/admins";
+var changeLevelUrl = prefixUrl + "/admin/changeAdmins";
 
-var voucherConfig = "http://120.26.54.131:8080/GLCPWCC/voucher/voucherConfig";
+var voucherConfig = prefixUrl + "/voucher/voucherConfig";
