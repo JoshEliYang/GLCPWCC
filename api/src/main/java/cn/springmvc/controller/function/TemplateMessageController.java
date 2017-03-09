@@ -28,9 +28,9 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.TaskRequest;
 import cn.springmvc.model.User;
 import cn.springmvc.model.templateMesg.TemplateMessage;
-import cn.springmvc.mq.MqSender;
 import cn.springmvc.mq.model.TemplateParameter;
 import cn.springmvc.service.function.TemplateMessageService;
+import cn.springmvc.service.mq.ProducerService;
 
 /**
  * 
@@ -43,6 +43,9 @@ import cn.springmvc.service.function.TemplateMessageService;
 public class TemplateMessageController {
 	@Autowired
 	private TemplateMessageService templateService;
+
+	@Autowired
+	private ProducerService mqProducer;
 
 	Logger logger = Logger.getLogger(TemplateMessageController.class);
 
@@ -100,7 +103,8 @@ public class TemplateMessageController {
 
 		TemplateParameter templateTask = new TemplateParameter(filePath, basicModel, templateId);
 		TaskRequest task = new TaskRequest(methodName, taskTimestamp, admin, JSON.toJSONString(templateTask));
-		MqSender.sender(task);
+		// MqSender.sender(task);
+		mqProducer.send(task);
 	}
 
 	/**

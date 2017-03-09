@@ -26,9 +26,9 @@ import cn.springmvc.model.VoucheModel;
 import cn.springmvc.model.VoucherModel;
 import cn.springmvc.model.voucher.BindingMessageModel;
 import cn.springmvc.model.voucher.VoucherMessageModel;
-import cn.springmvc.mq.MqSender;
 import cn.springmvc.service.function.VoucherBuildingService;
 import cn.springmvc.service.function.VoucherService;
+import cn.springmvc.service.mq.ProducerService;
 
 @Scope("prototype")
 @Controller
@@ -38,6 +38,9 @@ public class VoucherBindingController {
 	private VoucherBuildingService voucherBuildingService;
 	@Autowired
 	private VoucherService voucherSevice;
+
+	@Autowired
+	private ProducerService mqProducer;
 
 	Logger logger = Logger.getLogger(VoucherBindingController.class);
 
@@ -160,7 +163,8 @@ public class VoucherBindingController {
 		taskrequest.setParameter(parameter);
 
 		// MqSender
-		MqSender.sender(taskrequest);
+		// MqSender.sender(taskrequest);
+		mqProducer.send(taskrequest);
 
 		if (user != null && user.size() > 0) {
 			return HttpUtils.generateResponse("1", "部分Success", null);
