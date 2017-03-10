@@ -33,6 +33,7 @@ import cn.springmvc.service.function.TemplateMessageService;
 import cn.springmvc.service.mq.ProducerService;
 
 /**
+ * 推送模板消息
  * 
  * @author johnson
  *

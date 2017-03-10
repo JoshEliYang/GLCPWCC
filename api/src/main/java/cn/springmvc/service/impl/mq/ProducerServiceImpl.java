@@ -14,12 +14,21 @@ import com.alibaba.fastjson.JSON;
 import cn.springmvc.model.TaskRequest;
 import cn.springmvc.service.mq.ProducerService;
 
+/**
+ * 将消息发送至消息队列
+ * 
+ * @author johnson
+ *
+ */
 @Service
 public class ProducerServiceImpl implements ProducerService {
 
 	@Resource(name = "jmsTemplate")
 	private JmsTemplate jsmTemplate;
 
+	/**
+	 * 目前仅用于测试
+	 */
 	public void sendMessage(final String mesg) {
 		System.out.println("send mesg: " + mesg);
 		jsmTemplate.send(new MessageCreator() {
@@ -29,6 +38,9 @@ public class ProducerServiceImpl implements ProducerService {
 		});
 	}
 
+	/**
+	 * 发送TaskRequest
+	 */
 	public void send(final TaskRequest task) {
 		jsmTemplate.send(new MessageCreator() {
 			public Message createMessage(Session arg0) throws JMSException {

@@ -23,6 +23,14 @@ import cn.springmvc.service.mq.task.CouponMessageSendService;
 import cn.springmvc.service.wechat.WechartService;
 import cn.springmvc.websocket.ProgressSocket;
 
+/**
+ * 处理兑换券模板消息
+ * 
+ * 已废弃
+ * 
+ * @author johnson
+ *
+ */
 @Service
 public class CouponMessageSendServiceImpl implements CouponMessageSendService {
 

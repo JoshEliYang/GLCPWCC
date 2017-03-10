@@ -23,6 +23,12 @@ import cn.springmvc.service.mq.task.TicketExpiredSendService;
 import cn.springmvc.service.wechat.WechartService;
 import cn.springmvc.websocket.ProgressSocket;
 
+/**
+ * 服务券到期提醒模板消息
+ * 
+ * @author johnson
+ *
+ */
 @Service
 public class TicketExpiredSendServiceImpl implements TicketExpiredSendService {
 

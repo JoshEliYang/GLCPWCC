@@ -30,6 +30,12 @@ import cn.springmvc.service.mq.task.TicketExpiredSendService;
 import cn.springmvc.service.mq.task.VoucheBindingService;
 import cn.springmvc.websocket.ProgressSocket;
 
+/**
+ * 绑定优惠券服务
+ * 
+ * @author johnson
+ *
+ */
 @Service
 public class VoucheBindingServiceImpl implements VoucheBindingService {
 	User admin;
@@ -160,6 +166,11 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 		ProgressSocket.broadcast(taskMessage);
 	}
 
+	/**
+	 * 输出成功日志
+	 * 
+	 * @param lines
+	 */
 	void writeSuccess(List<String> lines) {
 		if (successFolder == null) {
 			return;
@@ -192,6 +203,11 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 		}
 	}
 
+	/**
+	 * 输出失败日志
+	 * 
+	 * @param lines
+	 */
 	void writeFailed(List<String> lines) {
 		if (failedFolder == null) {
 			return;

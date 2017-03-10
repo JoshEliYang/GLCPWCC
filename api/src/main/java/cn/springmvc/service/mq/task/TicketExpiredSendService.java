@@ -7,6 +7,12 @@ import cn.springmvc.model.User;
 import cn.springmvc.model.templateMesg.TemplateParameter;
 import cn.springmvc.model.templateMesg.ThreeKeywordsMesg;
 
+/**
+ * 服务券到期提醒模板消息
+ * 
+ * @author johnson
+ *
+ */
 public interface TicketExpiredSendService {
 
 	public void setAdmin(User admin);
