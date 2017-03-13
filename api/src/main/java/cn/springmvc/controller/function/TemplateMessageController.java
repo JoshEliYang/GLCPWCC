@@ -105,7 +105,7 @@ public class TemplateMessageController {
 		TemplateParameter templateTask = new TemplateParameter(filePath, basicModel, templateId);
 		TaskRequest task = new TaskRequest(methodName, taskTimestamp, admin, JSON.toJSONString(templateTask));
 		// MqSender.sender(task);
-		mqProducer.send(task);
+		mqProducer.sendToQueue(task);
 	}
 
 	/**

@@ -26,8 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
-import cn.springmvc.model.TaskRequest;
-import cn.springmvc.model.User;
+import cn.springmvc.model.TaskResponse;
 import cn.springmvc.service.mq.ProducerService;
 import cn.springmvc.service.wechat.WechartService;
 
@@ -51,19 +50,23 @@ public class TestController {
 
 	Logger logger = Logger.getLogger(TestController.class);
 
+	/**
+	 * just use to test message queue
+	 * 
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/mq", method = RequestMethod.GET)
 	public Map<String, Object> mqtest() {
-		producerService.send(new TaskRequest() {
+		producerService.sendToBroadcast(new TaskResponse() {
 			{
-				this.setMethod("test method");
-				this.setTaskTimeStamp(String.valueOf(System.currentTimeMillis()));
-				this.setAdmin(new User() {
-					{
-						this.setRealname("test user");
-					}
-				});
-				this.setParameter("parameters");
+				this.setAdminId(2);
+				this.setProgress(50);
+				this.setMax(100);
+				this.setRunning(true);
+				this.setTask("test task");
+				this.setMessage("still testing");
+				this.setTaskTimestamp("xxxxx");
 			}
 		});
 		return HttpUtils.generateResponse("0", "test success", null);

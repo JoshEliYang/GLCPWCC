@@ -14,7 +14,7 @@
 
 
 	<amq:connectionFactory id="amqConnectionFactory"
-		brokerURL="tcp://localhost:61616" userName="admin" password="admin" />
+		brokerURL="tcp://120.26.54.131:61616" userName="mquser" password="zNkzL*6p" />
 
 	<!-- 配置JMS连接工长 -->
 	<bean id="connectionFactory"
@@ -23,6 +23,8 @@
 		<property name="sessionCacheSize" value="100" />
 	</bean>
 
+
+
 	<!-- 定义消息队列（Queue） -->
 	<bean id="taskQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
 		<!-- 设置消息队列的名字 -->
@@ -30,7 +32,6 @@
 			<value>task_queue</value>
 		</constructor-arg>
 	</bean>
-
 	<!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 -->
 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
@@ -39,10 +40,8 @@
 		<!-- true是topic，false是queue，默认是false，此处显示写出false -->
 		<property name="pubSubDomain" value="false" />
 	</bean>
-
 	<!-- 配置消息队列监听者（Queue） -->
-	<bean id="queueMessageListener" class="cn.springmvc.listemer.QueuemessageListemer" />
-
+	<bean id="queueMessageListener" class="cn.springmvc.listener.QueueMessageListener" />
 	<!-- 显示注入消息监听容器（Queue），配置连接工厂，监听的目标是demoQueueDestination，监听器是上面定义的监听器 -->
 	<bean id="queueListenerContainer"
 		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
@@ -50,6 +49,36 @@
 		<property name="destination" ref="taskQueueDestination" />
 		<property name="messageListener" ref="queueMessageListener" />
 	</bean>
+
+
+
+
+	<!-- 定义消息队列（Topic） -->
+	<bean id="progressTopicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+		<!-- 设置消息队列的名字 -->
+		<constructor-arg>
+			<value>progress_topic</value>
+		</constructor-arg>
+	</bean>
+	<!-- 配置JMS模板（Topic），Spring提供的JMS工具类，它发送、接收消息。 -->
+	<bean id="topicTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="progressTopicDestination" />
+		<property name="receiveTimeout" value="10000" />
+		<!-- true是topic，false是queue，默认是false -->
+		<property name="pubSubDomain" value="true" />
+	</bean>
+	<!-- 配置消息队列监听者（Topic） -->
+	<bean id="topicMessageListener" class="cn.springmvc.listener.TopicMessageListener" />
+	<!-- 显示注入消息监听容器（Topic），配置连接工厂，监听的目标是demoQueueDestination，监听器是上面定义的监听器 -->
+	<bean id="topicListenerContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="progressTopicDestination" />
+		<property name="messageListener" ref="topicMessageListener" />
+	</bean>
+	
+	
 
 	<bean id="voucheBindingResult" class="cn.springmvc.model.templateMesg.VoucheBindingResult">
 		<property name="successFolder" value="${GLCPWCC.root}/WEB-INF/logs"></property>

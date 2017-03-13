@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -19,9 +20,9 @@ import cn.springmvc.model.templateMesg.TemplateMessageData;
 import cn.springmvc.model.templateMesg.TemplateParameter;
 import cn.springmvc.model.templateMesg.ThreeKeywordsMesg;
 import cn.springmvc.service.impl.wechat.WechartServiceImpl;
+import cn.springmvc.service.mq.ProducerService;
 import cn.springmvc.service.mq.task.TicketExpiredSendService;
 import cn.springmvc.service.wechat.WechartService;
-import cn.springmvc.websocket.ProgressSocket;
 
 /**
  * 服务券到期提醒模板消息
@@ -35,6 +36,9 @@ public class TicketExpiredSendServiceImpl implements TicketExpiredSendService {
 	User admin;
 	TemplateParameter message;
 	String taskTimestamp;
+
+	@Autowired
+	private ProducerService mqProducer;
 
 	Logger logger = Logger.getLogger(TicketExpiredSendService.class);
 
@@ -168,6 +172,6 @@ public class TicketExpiredSendServiceImpl implements TicketExpiredSendService {
 	private void sendMessage(String message, int progress, int max, boolean isRunning) {
 		TaskResponse taskMessage = new TaskResponse(admin.getId(), taskTimestamp, "消息推送任务", message, isRunning,
 				progress, max);
-		ProgressSocket.broadcast(taskMessage);
+		mqProducer.sendToBroadcast(taskMessage);
 	}
 }

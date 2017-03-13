@@ -1,9 +1,12 @@
+
 var deploy = "120.26.54.131:8080";
+var deploy_balance="120.26.54.131:80";  // Nginx负载均衡端口
+
 var localTest = "localhost:8080";
 
-var prefixUrl = "http://" + deploy + "/GLCPWCC";
-
-var socketUrl = "ws://" + deploy + "/GLCPWCC/progress";
+var prefixUrl = "http://" + deploy_balance + "/GLCPWCC";    //后端接口前缀
+var prefixUrl_upload="http://" + deploy + "/GLCPWCC";   //文件上传前缀
+var socketUrl = "ws://" + deploy + "/GLCPWCC/progress"; //WebSocket地址
 
 //////////////////////////////// http //////////////////////////////////////
 var loginUrl = prefixUrl + "/login/login";
@@ -71,9 +74,9 @@ var falseDebugLog = prefixUrl + "/log/setDebug/false";
 var getDebug = prefixUrl + "/log/DebugMode";
 
 
-var MessageExcelUrl = prefixUrl + "/message/upload/SendTemplateMessage";
+var MessageExcelUrl = prefixUrl_upload + "/message/upload/SendTemplateMessage";
 var TemplateMessageButtonsUrl = prefixUrl + "/message/templates";
-var TicketExpiredUrl = prefixUrl + "/message/upload/TicketExpiredMessage";
+var TicketExpiredUrl = prefixUrl_upload + "/message/upload/TicketExpiredMessage";
 
 var getMenuUrl = prefixUrl + "/wechatMenu";
 
