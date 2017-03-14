@@ -164,7 +164,7 @@ public class VoucherBindingController {
 
 		// MqSender
 		// MqSender.sender(taskrequest);
-		mqProducer.send(taskrequest);
+		mqProducer.sendToQueue(taskrequest);
 
 		if (user != null && user.size() > 0) {
 			return HttpUtils.generateResponse("1", "部分Success", null);

@@ -1,4 +1,4 @@
-package cn.springmvc.listemer;
+package cn.springmvc.listener;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -25,7 +25,7 @@ import cn.springmvc.service.mq.task.VoucheBindingService;
  * @author johnson
  *
  */
-public class QueuemessageListemer implements MessageListener {
+public class QueueMessageListener implements MessageListener {
 
 	/* 兑换券消息  --已废弃 */
 	@Autowired
@@ -40,7 +40,7 @@ public class QueuemessageListemer implements MessageListener {
 	@Autowired
 	private CustomerService customerService;
 	
-	Logger logger=Logger.getLogger(QueuemessageListemer.class);
+	Logger logger=Logger.getLogger(QueueMessageListener.class);
 
 	public void onMessage(Message message) {
 		TextMessage tm = (TextMessage) message;

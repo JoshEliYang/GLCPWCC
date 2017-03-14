@@ -134,12 +134,15 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 				case 0:
 					sendMessage("正在绑定", voucherCodeList.size(), voucherCodeList.size(), false);
 					msgPush.pushToUser(words, message.getBasicModel(), message.getTemplateId());
+					writeSuccess(status);
 					break;
 				default:
 					sendMessage(resMsg, voucherCodeList.size(), voucherCodeList.size(), false);
+					writeFailed(status);
 				}
 				bind.clear();
 				jsonStr.clear();
+				status.clear();
 			}
 
 		} catch (Exception e) {
@@ -184,7 +187,7 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 
 		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream(new File(successFolder + "bindingVoucherSuccess" + now + ".txt"), true);
+			fos = new FileOutputStream(new File(successFolder + "/bindingVoucherSuccess" + now + ".txt"), true);
 			for (int i = 0; i < lines.size(); i++) {
 				cache = nowTime + ": " + lines.get(i) + "\r\n";
 				fos.write(cache.getBytes());

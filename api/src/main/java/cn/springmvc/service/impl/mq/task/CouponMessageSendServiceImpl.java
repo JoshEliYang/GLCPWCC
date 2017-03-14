@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -19,9 +20,9 @@ import cn.springmvc.model.templateMesg.Coupon;
 import cn.springmvc.model.templateMesg.TemplateMessageData;
 import cn.springmvc.model.templateMesg.TemplateParameter;
 import cn.springmvc.service.impl.wechat.WechartServiceImpl;
+import cn.springmvc.service.mq.ProducerService;
 import cn.springmvc.service.mq.task.CouponMessageSendService;
 import cn.springmvc.service.wechat.WechartService;
-import cn.springmvc.websocket.ProgressSocket;
 
 /**
  * 处理兑换券模板消息
@@ -37,6 +38,9 @@ public class CouponMessageSendServiceImpl implements CouponMessageSendService {
 	User admin;
 	TemplateParameter message;
 	String taskTimestamp;
+	
+	@Autowired
+	private ProducerService mqProducer;
 
 	Logger logger = Logger.getLogger(CouponMessageSendServiceImpl.class);
 
@@ -161,7 +165,7 @@ public class CouponMessageSendServiceImpl implements CouponMessageSendService {
 	private void sendMessage(String message, int progress, int max, boolean isRunning) {
 		TaskResponse taskMessage = new TaskResponse(admin.getId(), taskTimestamp, "消息推送任务", message, isRunning,
 				progress, max);
-		ProgressSocket.broadcast(taskMessage);
+		mqProducer.sendToBroadcast(taskMessage);
 	}
 
 }
