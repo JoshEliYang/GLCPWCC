@@ -14,8 +14,14 @@ public class Customer {
 	String unionid;
 	String reamark;
 	int groupid;
-	int[] tagid_list;
+	String tagid_list;
 	
+	public String getTagid_list() {
+		return tagid_list;
+	}
+	public void setTagid_list(String tagid_list) {
+		this.tagid_list = tagid_list;
+	}
 	public String getOpenid() {
 		return openid;
 	}
@@ -93,11 +99,5 @@ public class Customer {
 	}
 	public void setGroupid(int groupid) {
 		this.groupid = groupid;
-	}
-	public int[] getTagid_list() {
-		return tagid_list;
-	}
-	public void setTagid_list(int[] tagid_list) {
-		this.tagid_list = tagid_list;
 	}
 }

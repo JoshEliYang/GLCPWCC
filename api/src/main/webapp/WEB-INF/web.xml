@@ -170,7 +170,10 @@
 		<filter-name>WechatAccountFilter</filter-name>
 		<url-pattern>/subscribers/*</url-pattern>
 	</filter-mapping>
-
+	<filter-mapping>
+		<filter-name>WechatAccountFilter</filter-name>
+		<url-pattern>/customer/*</url-pattern>
+	</filter-mapping>
 
 
 
@@ -230,6 +233,10 @@
 	<filter-mapping>
 		<filter-name>AccessFilter</filter-name>
 		<url-pattern>/voucher/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AccessFilter</filter-name>
+		<url-pattern>/customer/*</url-pattern>
 	</filter-mapping>
 
 </web-app>
