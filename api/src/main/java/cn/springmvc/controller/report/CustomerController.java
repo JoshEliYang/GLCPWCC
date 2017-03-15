@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.springmvc.utils.HttpUtils;
 
+import cn.springmvc.dao.CustomerDao;
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.TaskRequest;
 import cn.springmvc.model.User;
@@ -32,15 +33,18 @@ public class CustomerController {
 	private CustomerService customerService;
 	@Autowired
 	private ProducerService mqProducer;
+	@Autowired
+	private CustomerDao customerDao;
 	
 	Logger logger = Logger.getLogger(CustomerController.class);
 	
 	@ResponseBody
 	@RequestMapping(value = "/select", method = RequestMethod.POST)
-	public Map<String, Object> select(@RequestBody Map<String, String> jsonCode, HttpServletRequest request){
+	public Map<String, Object> select(HttpServletRequest request){
 		User adminInfo = (User) request.getAttribute("admin");
 		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
-		String timeStamp = (String) request.getAttribute("taskTimestamp");
+//		String timeStamp = (String) request.getAttribute("taskTimestamp");
+		String timeStamp = "9546218795463";
 		try {
 			List<Map<String, String>> user_info_list = new ArrayList<Map<String,String>>();
 			
@@ -51,7 +55,7 @@ public class CustomerController {
 			taskRequest.setTaskTimeStamp(timeStamp);
 			taskRequest.setParameter(parameter);
 			
-			mqProducer.send(taskRequest);
+			mqProducer.sendToQueue(taskRequest);
 			
 			return HttpUtils.generateResponse("0", "success", user_info_list);
 		} catch (Exception e) {

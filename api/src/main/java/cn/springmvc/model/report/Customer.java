@@ -1,38 +1,33 @@
 package cn.springmvc.model.report;
 
 public class Customer {
-	String openid;
 	int subscribe;
+	String openid;
 	String nickname;
 	int sex;
+	String language;
 	String city;
 	String province;
 	String country;
 	String headimgurl;
 	long subscribe_time;
-	long unsubscribe_time;
 	String unionid;
-	String reamark;
+	String remark;
 	int groupid;
 	String tagid_list;
+	long unsubscribe_time;
 	
-	public String getTagid_list() {
-		return tagid_list;
+	public int getSubscribe() {
+		return subscribe;
 	}
-	public void setTagid_list(String tagid_list) {
-		this.tagid_list = tagid_list;
+	public void setSubscribe(int subscribe) {
+		this.subscribe = subscribe;
 	}
 	public String getOpenid() {
 		return openid;
 	}
 	public void setOpenid(String openid) {
 		this.openid = openid;
-	}
-	public int getSubscribe() {
-		return subscribe;
-	}
-	public void setSubscribe(int subscribe) {
-		this.subscribe = subscribe;
 	}
 	public String getNickname() {
 		return nickname;
@@ -45,6 +40,12 @@ public class Customer {
 	}
 	public void setSex(int sex) {
 		this.sex = sex;
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	public String getCity() {
 		return city;
@@ -76,23 +77,17 @@ public class Customer {
 	public void setSubscribe_time(long subscribe_time) {
 		this.subscribe_time = subscribe_time;
 	}
-	public long getUnsubscribe_time() {
-		return unsubscribe_time;
-	}
-	public void setUnsubscribe_time(long unsubscribe_time) {
-		this.unsubscribe_time = unsubscribe_time;
-	}
 	public String getUnionid() {
 		return unionid;
 	}
 	public void setUnionid(String unionid) {
 		this.unionid = unionid;
 	}
-	public String getReamark() {
-		return reamark;
+	public String getRemark() {
+		return remark;
 	}
-	public void setReamark(String reamark) {
-		this.reamark = reamark;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	public int getGroupid() {
 		return groupid;
@@ -100,4 +95,17 @@ public class Customer {
 	public void setGroupid(int groupid) {
 		this.groupid = groupid;
 	}
+	public String getTagid_list() {
+		return tagid_list;
+	}
+	public void setTagid_list(String tagid_list) {
+		this.tagid_list = tagid_list;
+	}
+	public long getUnsubscribe_time() {
+		return unsubscribe_time;
+	}
+	public void setUnsubscribe_time(long unsubscribe_time) {
+		this.unsubscribe_time = unsubscribe_time;
+	}
+	
 }

@@ -44,6 +44,7 @@ public class QueueMessageListener implements MessageListener {
 
 	public void onMessage(Message message) {
 		TextMessage tm = (TextMessage) message;
+		logger.error(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + tm);
 		try {
 			TaskRequest task = JSON.parseObject(tm.getText(), TaskRequest.class);
 
@@ -62,6 +63,7 @@ public class QueueMessageListener implements MessageListener {
 			} else if ("CustomerRefreshMessage".equals(task.getMethod())) {
 				/* 刷新微信关注用户任务 */
 				BasicModel basicModel = JSON.parseObject(task.getParameter(), BasicModel.class);
+				logger.error(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + basicModel);
 				customerService.send(task.getAdmin(), basicModel, task.getTaskTimeStamp());
 			}
 

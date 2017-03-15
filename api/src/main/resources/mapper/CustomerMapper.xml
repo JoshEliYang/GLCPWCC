@@ -13,22 +13,20 @@
 	<update id="update" parameterType="Customer">
 		UPDATE customer
 		SET 
-		'subscribe'=#{subscribe},
-		'nickname'=#{nickname},
-		'sex'=#{sex},
-		'language'=#{language},
-		'city'=#{city},
-		'province'=#{province},
-		'country'=#{country},
-		'headimgurl'=#{headimgurl},
-		'subscribe_time'=#{subscribe_time},
-		'unsubscribe_time'=#{unsubscribe_time},
-		'unionid'=#{unionid},
-		'remark'=#{remark},
-		'groupid'=#{groupid},
-		'tagid_list'=#{tagid_list}
+		`subscribe`=#{subscribe},
+		`nickname`=#{nickname},
+		`sex`=#{sex},
+		`language`=#{language},
+		`city`=#{city},
+		`province`=#{province},
+		`country`=#{country},
+		`headimgurl`=#{headimgurl},
+		`subscribe_time`=#{subscribe_time},
+		`unionid`=#{unionid},
+		`remark`=#{remark},
+		`groupid`=#{groupid}
 		WHERE
-		'openid'=#{openid}
+		`openid`=#{openid}
 	</update>
 	
 	<insert id="insert" parameterType="Customer">
@@ -47,7 +45,7 @@
 		#{subscribe_time},
 		#{unsubscribe_time},
 		#{unionid},
-		#{reamark},
+		#{remark},
 		#{groupid},
 		#{tagid_list}
 		)
