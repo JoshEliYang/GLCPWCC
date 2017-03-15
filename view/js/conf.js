@@ -4,9 +4,9 @@ var deploy_balance="120.26.54.131:80";  // Nginx负载均衡端口
 
 var localTest = "localhost:8080";
 
-var prefixUrl = "http://" + deploy_balance + "/GLCPWCC";    //后端接口前缀
-var prefixUrl_upload="http://" + deploy + "/GLCPWCC";   //文件上传前缀
-var socketUrl = "ws://" + deploy + "/GLCPWCC/progress"; //WebSocket地址
+var prefixUrl = "http://" + localTest + "/GLCPWCC";    //后端接口前缀
+var prefixUrl_upload="http://" + localTest + "/GLCPWCC";   //文件上传前缀
+var socketUrl = "ws://" + localTest + "/GLCPWCC/progress"; //WebSocket地址
 
 //////////////////////////////// http //////////////////////////////////////
 var loginUrl = prefixUrl + "/login/login";

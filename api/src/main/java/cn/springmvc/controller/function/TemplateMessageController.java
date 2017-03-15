@@ -99,13 +99,11 @@ public class TemplateMessageController {
 			return;
 		}
 
-		// response.setContentType("application/jsonp");
-		response.getOutputStream().print("{\"code\":\"0\",\"data\":\"" + filePath + "\"}");
-
 		TemplateParameter templateTask = new TemplateParameter(filePath, basicModel, templateId);
 		TaskRequest task = new TaskRequest(methodName, taskTimestamp, admin, JSON.toJSONString(templateTask));
-		// MqSender.sender(task);
 		mqProducer.sendToQueue(task);
+
+		response.getOutputStream().print("{\"code\":\"0\",\"data\":\"" + filePath + "\"}");
 	}
 
 	/**

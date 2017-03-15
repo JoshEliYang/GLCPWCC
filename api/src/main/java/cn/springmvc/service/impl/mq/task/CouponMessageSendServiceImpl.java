@@ -38,7 +38,7 @@ public class CouponMessageSendServiceImpl implements CouponMessageSendService {
 	User admin;
 	TemplateParameter message;
 	String taskTimestamp;
-	
+
 	@Autowired
 	private ProducerService mqProducer;
 
@@ -51,7 +51,7 @@ public class CouponMessageSendServiceImpl implements CouponMessageSendService {
 
 		try {
 			sendMessage("拉取推送列表", 0, 10, true);
-			ArrayList<Coupon> couponList = this.getCoupon(message.getFilePath());
+			ArrayList<Coupon> couponList = message.getFourWordsList();
 			sendMessage("开始推送消息", 0, couponList.size(), true);
 			this.pushToUser(couponList, message.getBasicModel(), message.getTemplateId());
 		} catch (Exception e) {
@@ -66,7 +66,7 @@ public class CouponMessageSendServiceImpl implements CouponMessageSendService {
 	 * @return
 	 * @throws Exception
 	 */
-	public ArrayList<Coupon> getCoupon(String fileName) throws Exception {
+	public static ArrayList<Coupon> getCoupon(String fileName) throws Exception {
 		ExcelUtil excelUtil = ExcelUtil.getInstance();
 		ArrayList<Coupon> coupons = excelUtil.readExcel(fileName, Coupon.class, Coupon.getFields());
 

@@ -62,7 +62,7 @@ public class TicketExpiredSendServiceImpl implements TicketExpiredSendService {
 		sendMessage("拉取推送列表", 0, 10, true);
 		ArrayList<ThreeKeywordsMesg> words = null;
 		try {
-			words = this.getExcel(message.getFilePath());
+			words = (ArrayList<ThreeKeywordsMesg>) message.getThreeWordsList();
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(
@@ -85,7 +85,7 @@ public class TicketExpiredSendServiceImpl implements TicketExpiredSendService {
 	 * @return
 	 * @throws Exception
 	 */
-	public ArrayList<ThreeKeywordsMesg> getExcel(String fileName) throws Exception {
+	public static ArrayList<ThreeKeywordsMesg> getExcel(String fileName) throws Exception {
 		ExcelUtil excelUtil = ExcelUtil.getInstance();
 		ArrayList<ThreeKeywordsMesg> words = excelUtil.readExcel(fileName, ThreeKeywordsMesg.class,
 				ThreeKeywordsMesg.getFields());
