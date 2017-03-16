@@ -35,31 +35,29 @@ public class CustomerController {
 	private ProducerService mqProducer;
 	@Autowired
 	private CustomerDao customerDao;
-	
+
 	Logger logger = Logger.getLogger(CustomerController.class);
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/select", method = RequestMethod.POST)
-	public Map<String, Object> select(HttpServletRequest request){
+	public Map<String, Object> select(HttpServletRequest request) {
 		User adminInfo = (User) request.getAttribute("admin");
 		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
-//		String timeStamp = (String) request.getAttribute("taskTimestamp");
-		String timeStamp = "9546218795463";
+		String timeStamp = request.getParameter("timestamp");
 		try {
-			List<Map<String, String>> user_info_list = new ArrayList<Map<String,String>>();
-			
+			List<Map<String, String>> user_info_list = new ArrayList<Map<String, String>>();
+
 			String parameter = JSON.toJSONString(basicModel);
 			TaskRequest taskRequest = new TaskRequest();
 			taskRequest.setMethod("CustomerRefreshMessage");
 			taskRequest.setAdmin(adminInfo);
 			taskRequest.setTaskTimeStamp(timeStamp);
 			taskRequest.setParameter(parameter);
-			
+
 			mqProducer.sendToQueue(taskRequest);
-			
+
 			return HttpUtils.generateResponse("0", "success", user_info_list);
 		} catch (Exception e) {
-			// TODO: handle exception
 			return HttpUtils.generateResponse("1", "failed", null);
 		}
 	}

@@ -2,7 +2,10 @@ package cn.springmvc.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springmvc.utils.ShaUtil;
 import com.springmvc.utils.XMLUtils;
 
+import cn.springmvc.dao.CustomerDao;
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.Keywords;
 import cn.springmvc.model.MsgType;
@@ -28,6 +32,7 @@ import cn.springmvc.model.WechatUser;
 import cn.springmvc.service.basic.BasicService;
 import cn.springmvc.service.function.KeywordsService;
 import cn.springmvc.service.manage.UserService;
+import cn.springmvc.service.mq.task.CustomerService;
 import cn.springmvc.service.wechat.MessageService;
 import cn.springmvc.service.wechat.MsgTypeService;
 import cn.springmvc.service.wechat.SubscribeCountService;
@@ -54,6 +59,11 @@ public class WechartController {
 
 	@Autowired
 	private SubscribeCountService subCountService;
+
+	@Autowired
+	private CustomerService customerService;
+	@Autowired
+	private CustomerDao customerDao;
 
 	Logger logger = Logger.getLogger(WechartController.class);
 
@@ -248,6 +258,17 @@ public class WechartController {
 						subCountService.addSubscribe(-1, basicModel);
 					}
 
+					/**
+					 * 新用户关注，加入customer表。 已存在用户，更新customer表。
+					 */
+					List<String> openIdList = new ArrayList<String>();
+					openIdList.add(openId);
+					Map<String, Object> customersMap = customerService.getUserInfo(basicModel, openIdList);
+					customerService.refreshUserInfo((List<Map<String, Object>>) customersMap.get("user_info_list"));
+
+					/**
+					 * 返回关注自动回复内容
+					 */
 					Keywords keyword = keywordsService.getSubscribe(basicModel);
 					if (keyword.getMsgType() == 1) {
 						// reply text message
@@ -262,10 +283,36 @@ public class WechartController {
 				} else if ("SCAN".equals(model.getEvent())) {
 					// 已关注用户扫码事件
 					logger.error("SCAN OK");
+
+					/**
+					 * 新用户关注，加入customer表。 已存在用户，更新customer表。
+					 */
+					List<String> openIdList = new ArrayList<String>();
+					openIdList.add(openId);
+					Map<String, Object> customersMap = customerService.getUserInfo(basicModel, openIdList);
+					customerService.refreshUserInfo((List<Map<String, Object>>) customersMap.get("user_info_list"));
+
+					/**
+					 * 返回关注自动回复内容
+					 */
+					Keywords keyword = keywordsService.getSubscribe(basicModel);
+					if (keyword.getMsgType() == 1) {
+						// reply text message
+						response.getOutputStream().write(
+								messageService.sendText(keyword.getReply(), openId, basicModel).getBytes("UTF-8"));
+					} else if (keyword.getMsgType() == 6) {
+						// reply news message
+						response.getOutputStream().write(messageService
+								.sendPictureText(keyword.getReply(), openId, basicModel).getBytes("UTF-8"));
+					}
+					return;
+
 				} else if ("unsubscribe".equals(model.getEvent())) {
 					// 取消关注事件
 					WechatUser userInfo = userService.getUserInfo(openId, basicModel);
 					subCountService.addUnsubscribe(userInfo.getTagid_list(), basicModel);
+
+					customerDao.unscribe(openId, System.currentTimeMillis());
 				}
 			}
 

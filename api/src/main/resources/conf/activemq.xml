@@ -13,8 +13,8 @@
         http://activemq.apache.org/schema/core/activemq-core-5.8.0.xsd">
 
 
-	<amq:connectionFactory id="amqConnectionFactory"
-		brokerURL="tcp://localhost:61616" userName="admin" password="admin" />
+	<amq:connectionFactory id="amqConnectionFactory" brokerURL="tcp://120.26.54.131:61616" 
+		userName="mquser" password="zNkzL*6p" />
 
 	<!-- 配置JMS连接工长 -->
 	<bean id="connectionFactory"
@@ -77,8 +77,8 @@
 		<property name="destination" ref="progressTopicDestination" />
 		<property name="messageListener" ref="topicMessageListener" />
 	</bean>
-	
-	
+
+
 
 	<bean id="voucheBindingResult" class="cn.springmvc.model.templateMesg.VoucheBindingResult">
 		<property name="successFolder" value="${GLCPWCC.root}/WEB-INF/logs"></property>

@@ -64,6 +64,7 @@
 		<property name="connectionProperties">
 			<value>clientEncoding=UTF-8</value>
 		</property>
+		<property name="connectionInitSqls" value="set names utf8mb4;"></property>
 	</bean>
 
 	<!-- mybatis文件配置，扫描所有mapper文件 -->

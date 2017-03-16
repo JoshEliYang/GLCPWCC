@@ -7,12 +7,13 @@
 	<select id="select" resultType="Customer">
 		SELECT *
 		FROM customer
-		WHERE openid = #{openid};
+		WHERE openid
+		= #{openid};
 	</select>
-	
+
 	<update id="update" parameterType="Customer">
 		UPDATE customer
-		SET 
+		SET
 		`subscribe`=#{subscribe},
 		`nickname`=#{nickname},
 		`sex`=#{sex},
@@ -28,7 +29,15 @@
 		WHERE
 		`openid`=#{openid}
 	</update>
-	
+
+	<delete id="unscribe">
+		UPDATE customer
+		SET
+		`unsubscribe_time`=#{timestamp}
+		WHERE
+		`openid`=#{openid}
+	</delete>
+
 	<insert id="insert" parameterType="Customer">
 		INSERT INTO customer
 		VALUES
