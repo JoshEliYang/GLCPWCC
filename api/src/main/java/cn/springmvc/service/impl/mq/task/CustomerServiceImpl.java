@@ -101,10 +101,10 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer user_info = new Customer();
 			user_info.setSubscribe((Integer) user_info_list.get(i).get("subscribe"));
 			user_info.setOpenid((String) user_info_list.get(i).get("openid"));
-			user_info.setNickname((String)user_info_list.get(i).get("nickname"));
+			user_info.setNickname((String) user_info_list.get(i).get("nickname"));
 			user_info.setSex((Integer) user_info_list.get(i).get("sex"));
 			user_info.setLanguage((String) user_info_list.get(i).get("language"));
-			user_info.setCity((String)user_info_list.get(i).get("city"));
+			user_info.setCity((String) user_info_list.get(i).get("city"));
 			user_info.setProvince((String) user_info_list.get(i).get("province"));
 			user_info.setCountry((String) user_info_list.get(i).get("country"));
 			user_info.setHeadimgurl((String) user_info_list.get(i).get("headimgurl"));
@@ -114,10 +114,15 @@ public class CustomerServiceImpl implements CustomerService {
 			user_info.setGroupid((Integer) user_info_list.get(i).get("groupid"));
 			// user_info.setTagid_list((String)user_info_list.get(i).get("tagid_list"));
 			Customer result = (Customer) customerDao.select((String) user_info_list.get(i).get("openid"));
-			if (result == null) {
-				customerDao.insert(user_info);
-			} else {
-				customerDao.update(user_info);
+			try {
+				if (result == null) {
+					customerDao.insert(user_info);
+				} else {
+					customerDao.update(user_info);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error("error occurred when insert customer into DB >>>> customer: " + user_info);
 			}
 		}
 	}

@@ -8,9 +8,9 @@ public interface CustomerDao {
 
 	public Customer select(String openid);
 
-	public void update(Customer customer);
+	public void update(Customer customer) throws Exception;
 
-	public void insert(Customer customer);
+	public void insert(Customer customer) throws Exception;
 
 	public void unscribe(@Param("openid") String openId, @Param("timestamp") long timestamp);
 }
