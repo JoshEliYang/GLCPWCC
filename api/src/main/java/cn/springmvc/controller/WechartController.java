@@ -29,6 +29,7 @@ import cn.springmvc.model.Keywords;
 import cn.springmvc.model.MsgType;
 import cn.springmvc.model.WechartModel;
 import cn.springmvc.model.WechatUser;
+import cn.springmvc.model.report.Customer;
 import cn.springmvc.service.basic.BasicService;
 import cn.springmvc.service.function.KeywordsService;
 import cn.springmvc.service.manage.UserService;
@@ -136,12 +137,9 @@ public class WechartController {
 		BasicModel basicModel = null;
 		try {
 			basicModel = basicService.getByUrl(account);
-			logger.error("get basicService success ->>" + basicModel);
 		} catch (Exception e) {
-			logger.error("get basicService failed");
+			logger.error("get wechat account failed");
 		}
-
-		logger.error("xml >>> \n" + inXml);
 
 		WechartModel model = null;
 		String openId = null;
@@ -157,6 +155,8 @@ public class WechartController {
 
 			// 获得用户openID
 			openId = model.getFromUserName();
+
+			logger.error("wechat_request id:" + openId + " msgType:" + model.getMsgType());
 
 			if ("text".equalsIgnoreCase(model.getMsgType())) {
 				// 处理文本消息
@@ -264,7 +264,10 @@ public class WechartController {
 					List<String> openIdList = new ArrayList<String>();
 					openIdList.add(openId);
 					Map<String, Object> customersMap = customerService.getUserInfo(basicModel, openIdList);
-					customerService.refreshUserInfo((List<Map<String, Object>>) customersMap.get("user_info_list"));
+					List<Map<String, Object>> customerList = (List<Map<String, Object>>) customersMap
+							.get("user_info_list");
+					customerService.refreshUserInfo(customerList);
+					logger.error("new customer subscribe by scan qrcode >>> openId: " + openId);
 
 					/**
 					 * 返回关注自动回复内容
@@ -283,14 +286,6 @@ public class WechartController {
 				} else if ("SCAN".equals(model.getEvent())) {
 					// 已关注用户扫码事件
 					logger.error("SCAN OK");
-
-					/**
-					 * 新用户关注，加入customer表。 已存在用户，更新customer表。
-					 */
-					List<String> openIdList = new ArrayList<String>();
-					openIdList.add(openId);
-					Map<String, Object> customersMap = customerService.getUserInfo(basicModel, openIdList);
-					customerService.refreshUserInfo((List<Map<String, Object>>) customersMap.get("user_info_list"));
 
 					/**
 					 * 返回关注自动回复内容
@@ -312,7 +307,9 @@ public class WechartController {
 					WechatUser userInfo = userService.getUserInfo(openId, basicModel);
 					subCountService.addUnsubscribe(userInfo.getTagid_list(), basicModel);
 
-					customerDao.unscribe(openId, System.currentTimeMillis());
+					long timeStamp = Long.parseLong(String.valueOf(System.currentTimeMillis()).substring(0, 10));
+					customerDao.unscribe(openId, timeStamp);
+					logger.error("customer unscribe >>> openId: " + openId);
 				}
 			}
 

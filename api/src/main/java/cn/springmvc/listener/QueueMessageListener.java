@@ -27,7 +27,7 @@ import cn.springmvc.service.mq.task.VoucheBindingService;
  */
 public class QueueMessageListener implements MessageListener {
 
-	/* 兑换券消息  --已废弃 */
+	/* 兑换券消息 --已废弃 */
 	@Autowired
 	private CouponMessageSendService couponMessage;
 	/* 服务券到期消息 */
@@ -39,8 +39,8 @@ public class QueueMessageListener implements MessageListener {
 	/* 刷新微信用户任务 */
 	@Autowired
 	private CustomerService customerService;
-	
-	Logger logger=Logger.getLogger(QueueMessageListener.class);
+
+	Logger logger = Logger.getLogger(QueueMessageListener.class);
 
 	public void onMessage(Message message) {
 		TextMessage tm = (TextMessage) message;
@@ -49,7 +49,7 @@ public class QueueMessageListener implements MessageListener {
 			TaskRequest task = JSON.parseObject(tm.getText(), TaskRequest.class);
 
 			if ("SendTemplateMessage".equals(task.getMethod())) {
-				/* 兑换券消息  --已废弃 */
+				/* 兑换券消息 --已废弃 */
 				TemplateParameter taskParameter = JSON.parseObject(task.getParameter(), TemplateParameter.class);
 				couponMessage.send(task.getTaskTimeStamp(), task.getAdmin(), taskParameter);
 			} else if ("TicketExpiredMessage".equals(task.getMethod())) {
@@ -63,13 +63,17 @@ public class QueueMessageListener implements MessageListener {
 			} else if ("CustomerRefreshMessage".equals(task.getMethod())) {
 				/* 刷新微信关注用户任务 */
 				BasicModel basicModel = JSON.parseObject(task.getParameter(), BasicModel.class);
-				logger.error(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + basicModel);
-				customerService.send(task.getAdmin(), basicModel, task.getTaskTimeStamp());
+				try {
+					customerService.send(task.getAdmin(), basicModel, task.getTaskTimeStamp());
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error("error occurred in MQ listener");
+				}
 			}
 
 		} catch (JMSException e) {
 			e.printStackTrace();
-			logger.error("error occured in QueuemessageListemer >>>> "+e.getMessage());
+			logger.error("error occured in QueuemessageListemer >>>> " + e.getMessage());
 		}
 	}
 

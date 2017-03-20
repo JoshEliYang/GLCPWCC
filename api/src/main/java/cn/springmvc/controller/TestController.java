@@ -7,6 +7,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +30,9 @@ import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.TaskResponse;
+import cn.springmvc.model.report.Customer;
 import cn.springmvc.service.mq.ProducerService;
+import cn.springmvc.service.mq.task.CustomerService;
 import cn.springmvc.service.wechat.WechartService;
 
 /**
@@ -48,7 +53,28 @@ public class TestController {
 	@Autowired
 	private ProducerService producerService;
 
+	@Autowired
+	private CustomerService customerService;
+
 	Logger logger = Logger.getLogger(TestController.class);
+
+	@ResponseBody
+	@RequestMapping(value = "/customer", method = RequestMethod.GET)
+	public String customerTest(HttpServletRequest request) throws Exception {
+		BasicModel basicModel = (BasicModel) request.getAttribute("BasicModel");
+		String openId = "oVR24s7e0AlKzSgJLJdGT4Gbpto4";
+
+		List<String> openIdList = new ArrayList<String>();
+		openIdList.add(openId);
+		Map<String, Object> customersMap = customerService.getUserInfo(basicModel, openIdList);
+		logger.error("getted customers map");
+		List<Map<String, Object>> customerList = (List<Map<String, Object>>) customersMap.get("user_info_list");
+		logger.error("try to refresh customer");
+		customerService.refreshUserInfo(customerList);
+		logger.error("new customer subscribe by scan qrcode>>> ");
+
+		return "success";
+	}
 
 	/**
 	 * just use to test message queue

@@ -7,9 +7,9 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.User;
 
 public interface CustomerService {
-	public void send(User admin,BasicModel basicModel, String taskTimestamp);
-	
+	public void send(User admin, BasicModel basicModel, String taskTimestamp) throws Exception;
+
 	public void refreshUserInfo(List<Map<String, Object>> user_info_list);
-	
-	public Map<String, Object> getUserInfo(BasicModel basicModel,List<String> openid_list) throws Exception;
+
+	public Map<String, Object> getUserInfo(BasicModel basicModel, List<String> openid_list) throws Exception;
 }

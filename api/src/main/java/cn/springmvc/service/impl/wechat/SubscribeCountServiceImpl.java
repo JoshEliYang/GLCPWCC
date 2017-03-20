@@ -59,8 +59,8 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 			 * 
 			 * -255 means total
 			 */
-			setSubscribeRealTimeArray(tagId, basic, Type.Subscribe);
-			setSubscribeRealTimeArray(-255, basic, Type.Subscribe);
+			// setSubscribeRealTimeArray(tagId, basic, Type.Subscribe);
+			// setSubscribeRealTimeArray(-255, basic, Type.Subscribe);
 		}
 	}
 
@@ -94,19 +94,22 @@ public class SubscribeCountServiceImpl implements SubscribeCountService {
 			 * 
 			 * -255 means total
 			 */
-			setSubscribeRealTimeArray(tagId, basic, Type.UnSubscribe);
-			setSubscribeRealTimeArray(-255, basic, Type.UnSubscribe);
+			// setSubscribeRealTimeArray(tagId, basic, Type.UnSubscribe);
+			// setSubscribeRealTimeArray(-255, basic, Type.UnSubscribe);
 		}
 	}
 
 	/**
 	 * storage as real-time info (storage into cache, and keep for 7 days)
 	 * 
+	 * 废弃
+	 * 
 	 * @param tagId
 	 * @param basic
 	 * @param type
 	 * @throws IOException
 	 */
+	@Deprecated
 	private void setSubscribeRealTimeArray(int tagId, BasicModel basic, Type type) throws IOException {
 		String key = SubscribeRealTimeArray.generateKey(basic.getId(), tagId);
 		MemcacheUtil memcacheUtil = MemcacheUtil.getInstance();
