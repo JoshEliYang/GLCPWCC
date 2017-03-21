@@ -52,11 +52,10 @@ public class VoucherBindingController {
 		try {
 			result = voucherBuildingService.getUser(vmodel);
 			count = voucherBuildingService.getUserCount(vmodel);
-			logger.error("tags--" + result);
 			return HttpUtils.generateResponseFour("0", "success", result, count);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("error");
+			logger.error("error occurred in VoucherBindingController get user");
 			return HttpUtils.generateResponse("1", "failed", null);
 		}
 	}
