@@ -20,6 +20,11 @@ import com.springmvc.utils.RequestUtil;
 import cn.springmvc.model.BasicModel;
 import cn.springmvc.service.wechat.WechartService;
 
+/**
+ * 
+ * @author summ
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/resource")

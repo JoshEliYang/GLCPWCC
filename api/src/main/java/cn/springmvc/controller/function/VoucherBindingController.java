@@ -30,6 +30,11 @@ import cn.springmvc.service.function.VoucherBuildingService;
 import cn.springmvc.service.function.VoucherService;
 import cn.springmvc.service.mq.ProducerService;
 
+/**
+ * 
+ * @author summ
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/voucher")
@@ -44,6 +49,12 @@ public class VoucherBindingController {
 
 	Logger logger = Logger.getLogger(VoucherBindingController.class);
 
+	/**
+	 * get user
+	 * @param vmodel
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Map<String, Object> create(@RequestBody VoucherModel vmodel, HttpServletRequest request) {
@@ -64,7 +75,6 @@ public class VoucherBindingController {
 	 * 剩余优惠券查询
 	 * 
 	 * @return
-	 * @author summ
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
@@ -81,7 +91,6 @@ public class VoucherBindingController {
 	 * 测试获得卡券code
 	 * 
 	 * @return
-	 * @author summ
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
@@ -97,6 +106,12 @@ public class VoucherBindingController {
 
 	}
 
+	/**
+	 * bind all user
+	 * @param vmodel
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/bindingall", method = RequestMethod.POST)
 	public Map<String, Object> bindingAllUser(@RequestBody VoucherModel vmodel, HttpServletRequest request) {
@@ -119,10 +134,12 @@ public class VoucherBindingController {
 
 		if (user != null && user.size() > 0) {
 
+			//获取优惠券用户
 			List<UserParamModel> customerIdUser;
 			customerIdUser = voucherBuildingService.getCustomerIdByUser(vmodel.getUsers(), vmodel.getTimestamp(),
 					adminInfo);
 
+			//获取优惠券券码
 			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(), vmodel.getCustomerCount());
 			bmm.setBasicModel(model);
 			bmm.setUserList(customerIdUser);

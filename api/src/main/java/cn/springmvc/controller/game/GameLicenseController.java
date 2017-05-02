@@ -16,6 +16,11 @@ import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.service.game.GameLicenseService;
 
+/**
+ * 
+ * @author summ
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/game")
@@ -25,6 +30,11 @@ public class GameLicenseController {
 	public GameLicenseService gameLicenseService;
 	Logger logger = Logger.getLogger(GameLicenseController.class);
 	
+	/**
+	 * 微信网页授权（目前停用）
+	 * @param jsonCode
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/license", method = RequestMethod.POST)
 	public Map<String, Object> getUserInfo(@RequestBody Map<String, String> jsonCode){

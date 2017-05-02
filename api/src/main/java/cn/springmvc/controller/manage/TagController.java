@@ -20,6 +20,11 @@ import cn.springmvc.model.BasicModel;
 import cn.springmvc.model.TagList;
 import cn.springmvc.service.manage.TagService;
 
+/**
+ * 
+ * @author summ
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/tag")
@@ -29,8 +34,11 @@ public class TagController {
 	public TagService service;
 	Logger logger = Logger.getLogger(TagController.class);
 
-	/*
+	/**
 	 * 创建标签
+	 * @param jsonStr
+	 * @param request
+	 * @return
 	 */
 
 	@ResponseBody
@@ -49,8 +57,11 @@ public class TagController {
 		}
 	}
 
-	/*
+	/**
 	 * 删除标签
+	 * @param jsonStr
+	 * @param request
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -66,8 +77,11 @@ public class TagController {
 		}
 	}
 
-	/*
+	/**
 	 * 更新标签
+	 * @param jsonStr
+	 * @param request
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -85,8 +99,10 @@ public class TagController {
 		}
 	}
 
-	/*
+	/**
 	 * 查询所有标签
+	 * @param request
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -128,8 +144,11 @@ public class TagController {
 		}
 	}
 
-	/*
+	/**
 	 * 获取指定标签下的用户
+	 * @param jsonStr
+	 * @param request
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getUser", method = RequestMethod.POST)
@@ -145,8 +164,11 @@ public class TagController {
 		}
 	}
 
-	/*
+	/**
 	 * 创建标签同时生成二维码
+	 * @param jsonStr
+	 * @param request
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/tagAndQrcode", method = RequestMethod.POST)
@@ -163,8 +185,10 @@ public class TagController {
 	}
 	
 	
-	/*
-	 * 增加taglist
+	/**
+	 * 增加tag list
+	 * @param tl
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/addTag", method = RequestMethod.POST)
@@ -181,8 +205,10 @@ public class TagController {
 	}
 	
 	
-	/*
-	 * 增加taglist
+	/**
+	 * 删除tag list
+	 * @param tl
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/deleteTag", method = RequestMethod.POST)

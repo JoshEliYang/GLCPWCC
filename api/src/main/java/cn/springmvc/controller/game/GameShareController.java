@@ -15,6 +15,11 @@ import com.springmvc.utils.HttpUtils;
 
 import cn.springmvc.service.game.GameShareService;
 
+/**
+ * 
+ * @author summ
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/game")
@@ -24,6 +29,11 @@ public class GameShareController {
 	public GameShareService gameShareService;
 	Logger logger = Logger.getLogger(GameShareController.class);
 	
+	/**
+	 * 游戏分享（停用）
+	 * @param jsonUrl
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/ticket", method = RequestMethod.POST)
 	public Map<String, Object> getTicket(@RequestBody Map<String, String> jsonUrl){

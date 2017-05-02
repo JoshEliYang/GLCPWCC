@@ -22,6 +22,11 @@ import cn.springmvc.model.QrcodeModel;
 import cn.springmvc.service.manage.QrcodeService;
 import cn.springmvc.service.wechat.WechartService;
 
+/**
+ * 
+ * @author summ
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/Qrcode")

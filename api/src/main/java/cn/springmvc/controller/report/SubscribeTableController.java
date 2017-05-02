@@ -33,6 +33,11 @@ import cn.springmvc.service.wechat.SubscribeTableService;
 import com.springmvc.utils.ExcelUtil;
 import com.springmvc.utils.HttpUtils;
 
+/**
+ * 
+ * @author summ
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/subscribers")

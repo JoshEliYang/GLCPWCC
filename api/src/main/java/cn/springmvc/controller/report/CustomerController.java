@@ -25,19 +25,24 @@ import cn.springmvc.model.User;
 import cn.springmvc.service.mq.ProducerService;
 import cn.springmvc.service.mq.task.CustomerService;
 
+/**
+ * 
+ * @author summ
+ *
+ */
 @Scope("prototype")
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 	@Autowired
-	private CustomerService customerService;
-	@Autowired
 	private ProducerService mqProducer;
-	@Autowired
-	private CustomerDao customerDao;
-
 	Logger logger = Logger.getLogger(CustomerController.class);
 
+	/**
+	 * refresh customer from wechat
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/select", method = RequestMethod.POST)
 	public Map<String, Object> select(HttpServletRequest request) {
