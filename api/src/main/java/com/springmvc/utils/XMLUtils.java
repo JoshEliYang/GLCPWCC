@@ -9,7 +9,11 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-
+/**
+ * analysis xml from wechat
+ * @author summ
+ *
+ */
 public class XMLUtils {
 	
 	static Logger log = Logger.getLogger(XMLUtils.class);
