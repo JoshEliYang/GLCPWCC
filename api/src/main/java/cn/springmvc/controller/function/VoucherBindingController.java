@@ -138,7 +138,6 @@ public class VoucherBindingController {
 			List<UserParamModel> customerIdUser;
 			customerIdUser = voucherBuildingService.getCustomerIdByUser(vmodel.getUsers(), vmodel.getTimestamp(),
 					adminInfo);
-
 			//获取优惠券券码
 			List<String> vouList = voucherSevice.getVoucherCode(vmodel.getPromotionIds(), vmodel.getCustomerCount());
 			bmm.setBasicModel(model);
@@ -149,6 +148,7 @@ public class VoucherBindingController {
 		} else {
 			// 获取总的用户
 			String count = "0";
+//			List<UserParamModel> userList = null;
 			List<UserParamModel> userList = new ArrayList<UserParamModel>();
 			try {
 				userList = voucherBuildingService.getUser(vmodel);

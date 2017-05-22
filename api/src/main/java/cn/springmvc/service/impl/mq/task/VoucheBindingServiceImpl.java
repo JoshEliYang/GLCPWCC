@@ -66,7 +66,9 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 			msgPush.setAdmin(admin);
 
 			sendMessage("绑定优惠券", 0, 10, true);
+			logger.error("》》》》》》》》开始绑定优惠券》》》》》》》");
 			List<String> voucherCodeList = message.getVoucherList();
+			logger.error("绑定数量：" + voucherCodeList.size());
 			List<UserParamModel> userList = message.getUserList();
 
 			ArrayList<ThreeKeywordsMesg> words = new ArrayList<ThreeKeywordsMesg>();
@@ -106,7 +108,6 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 					String resCode = resData.get("data").get("code");
 					switch (Integer.parseInt(resCode)) {
 					case 0:
-						words.clear();
 						sendMessage("正在绑定", i, voucherCodeList.size(), true);
 						msgPush.pushToUser(words, message.getBasicModel(), message.getTemplateId());
 						writeSuccess(status);
@@ -115,6 +116,7 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 						sendMessage(resMsg, i, voucherCodeList.size(), true);
 						writeFailed(status);
 					}
+					words.clear();
 					bind.clear();
 					jsonStr.clear();
 					status.clear();
@@ -140,6 +142,7 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 					sendMessage(resMsg, voucherCodeList.size(), voucherCodeList.size(), false);
 					writeFailed(status);
 				}
+				words.clear();
 				bind.clear();
 				jsonStr.clear();
 				status.clear();
@@ -187,7 +190,7 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 
 		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream(new File(successFolder + "/bindingVoucherSuccess" + now + ".txt"), true);
+			fos = new FileOutputStream(new File(successFolder + "/bindingVoucherSuccess" + now + System.currentTimeMillis() + ".txt"), true);
 			for (int i = 0; i < lines.size(); i++) {
 				cache = nowTime + ": " + lines.get(i) + "\r\n";
 				fos.write(cache.getBytes());
@@ -224,7 +227,7 @@ public class VoucheBindingServiceImpl implements VoucheBindingService {
 
 		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream(new File(failedFolder + "/bindingVoucherFail" + now + ".txt"), true);
+			fos = new FileOutputStream(new File(failedFolder + "/bindingVoucherFail" + now + System.currentTimeMillis() + ".txt"), true);
 			for (int i = 0; i < lines.size(); i++) {
 				cache = nowTime + ": " + lines.get(i) + "\r\n";
 				fos.write(cache.getBytes());
